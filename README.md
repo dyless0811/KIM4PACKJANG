@@ -1,5 +1,5 @@
 # kh8semi
-![banner](https://via.placeholder.com/150)
+![banner](https://via.placeholder.com/1500)
 
 # 프로젝트이름
 * 개요 1
