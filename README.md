@@ -1,5 +1,5 @@
 # KH8 Semi Project
-![banner](https://via.placeholder.com/1500)
+![banner](https://via.placeholder.com/500)
 
 # 프로젝트명
 * 개요 1
