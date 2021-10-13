@@ -1,4 +1,4 @@
-# KH8 semiproject
+# KH8 Semi Project
 ![banner](https://via.placeholder.com/1500)
 
 # 프로젝트명
