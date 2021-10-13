@@ -1,7 +1,7 @@
-# 프로젝트이름
+# kh8semi
 ![banner](https://via.placeholder.com/1500)
 
-# 프로젝트이름 이란?
+# 프로젝트명
 * 개요 1
 * 개요 2
 * 개요 3
