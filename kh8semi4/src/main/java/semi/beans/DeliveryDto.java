@@ -3,8 +3,7 @@ package semi.beans;
 public class DeliveryDto {
 	private int no;
 	private int buyNo;
-	private String memberId;
-	private int productNo;
+	private String status;
 	public DeliveryDto() {
 		super();
 		// TODO 자동 생성된 생성자 스텁
@@ -21,16 +20,10 @@ public class DeliveryDto {
 	public void setBuyNo(int buyNo) {
 		this.buyNo = buyNo;
 	}
-	public String getMemberId() {
-		return memberId;
+	public String getStatus() {
+		return status;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	public int getProductNo() {
-		return productNo;
-	}
-	public void setProductNo(int productNo) {
-		this.productNo = productNo;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
