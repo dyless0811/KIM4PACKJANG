@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-10-26T09:00:05.623Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" etag="PqO8VNpFD2N1_9fj7YQd" version="15.5.9" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-10-26T09:08:33.086Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36" etag="qKZnB-CUglXFG3FNbjg8" version="15.5.9" type="github" pages="2">
   <diagram id="Qz2jnDSqbCO0wh81Tfh0" name="페이지-1">
     <mxGraphModel dx="1634" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
       <root>
@@ -389,6 +389,12 @@
         </mxCell>
         <mxCell id="xCG84vQOXP1pj_ETz9sv-3" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px&quot;&gt;피드백&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="205" y="660" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="xCG84vQOXP1pj_ETz9sv-5" value="&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;[마이페이지]=&amp;gt; 정보수정, (비밀번호변경, 주소, 전화번호...등)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;내가 쓴 댓글 관리, 주문내역, 찜(좋아요)상품 목록, 구매내역, 적립금 내역, 등급,&amp;nbsp;&lt;br&gt;&lt;br&gt;탈퇴=&amp;gt; 회원 정보수정에서..페이지 새로 만들필요x.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="2341" y="1705" width="469" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="xCG84vQOXP1pj_ETz9sv-6" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px&quot;&gt;피드백&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="2520" y="1710" width="90" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
