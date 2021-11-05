@@ -1,11 +1,11 @@
 package semi.beans;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class BoardDto {
 	private int no;
 	private String memberId;
-	private String boardType;
+	private int boardTypeNo;
 	private String boardTitle;
 	private String boardContent;
 	private Date boardDate;
@@ -34,12 +34,12 @@ public class BoardDto {
 		this.memberId = memberId;
 	}
 
-	public String getBoardType() {
-		return boardType;
+	public int getBoardTypeNo() {
+		return boardTypeNo;
 	}
 
-	public void setBoardType(String boardType) {
-		this.boardType = boardType;
+	public void setBoardTypeNo(int boardTypeNo) {
+		this.boardTypeNo = boardTypeNo;
 	}
 
 	public String getBoardTitle() {
