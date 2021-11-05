@@ -101,17 +101,17 @@ public class BoardDao {
 		BoardDto boardList;
 		
 		if(rs.next()) {
-			BoardDto boardDto = new BoardDto();
-			boardDto.setNo(rs.getInt("no"));
-			boardDto.setMemberId(rs.getString("member_id"));
-			boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
-			boardDto.setBoardTitle(rs.getString("board_title"));
-			boardDto.setBoardContent(rs.getString("board_content"));
-			boardDto.setBoardDate(rs.getDate("board_date"));
-			boardDto.setBoardHit(rs.getInt("board_hit"));
-			boardDto.setBoardSuperno(rs.getInt("board_superno"));
-			boardDto.setBoardGroupno(rs.getInt("board_group"));
-			boardDto.setBoardDepth(rs.getInt("board_depth"));	
+			boardList = new BoardDto();
+			boardList.setNo(rs.getInt("no"));
+			boardList.setMemberId(rs.getString("member_id"));
+			boardList.setBoardTypeNo(rs.getInt("board_type_no"));
+			boardList.setBoardTitle(rs.getString("board_title"));
+			boardList.setBoardContent(rs.getString("board_content"));
+			boardList.setBoardDate(rs.getDate("board_date"));
+			boardList.setBoardHit(rs.getInt("board_hit"));
+			boardList.setBoardSuperno(rs.getInt("board_superno"));
+			boardList.setBoardGroupno(rs.getInt("board_group"));
+			boardList.setBoardDepth(rs.getInt("board_depth"));	
 		} else {
 			boardList = null;
 		}
@@ -161,8 +161,12 @@ public class BoardDao {
 		String sql = "delete board where board_no = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, boardNo);
-		ps.execute();
+		int result = ps.executeUpdate();
 		
 		con.close();
+		
+		//1 : 삭제 성공
+		//0 : 삭제 실패
+		return result > 0;
 	}
 }
