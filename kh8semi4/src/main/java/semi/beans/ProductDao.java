@@ -12,7 +12,7 @@ public class ProductDao {
 	public void insert(ProductDto productDto) throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql ="insert into product values(product_seq.nextval,?,?,?,?)";
+		String sql ="insert into product values(product_seq.nextval,?,?,?,?,0)";
 		PreparedStatement ps =con.prepareStatement(sql);
 		ps.setInt(1, productDto.getSmallTypeNo());
 		ps.setString(2, productDto.getName());
@@ -29,7 +29,7 @@ public class ProductDao {
 	public boolean update(ProductDto productDto) throws Exception{
 		Connection con= JdbcUtils.connect();
 		
-		String sql="update product set smallTypeNo=? name=? price=? description=? where no=?";
+		String sql="update product set smallTypeNo=?,name=?,price=?,description=? where no=?";
 		
 		PreparedStatement ps =con.prepareStatement(sql);
 		ps.setInt(1, productDto.getSmallTypeNo());
