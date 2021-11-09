@@ -20,7 +20,7 @@
 						auth="Container"
 
 						driverClassName="oracle.jdbc.OracleDriver"
-						url="jdbc:oracle:thin:@121.132.223.55:1521:xe"
+						url="jdbc:oracle:thin:@localhost:xe"
 						username="c##kh"
 						password="kh"
 
