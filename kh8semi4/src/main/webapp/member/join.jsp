@@ -6,7 +6,7 @@
 	
 	<h1>회원가입</h1>
 
-	<form action="join.kj" method="post">
+	<form action="<%=request.getContextPath()%>/member/join.kj" method="post">
 	<table border="0">
 	<tbody>
 		<tr>
