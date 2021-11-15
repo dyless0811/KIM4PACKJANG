@@ -10,7 +10,7 @@ public class BigTypeDao {
 	//추가
 	public void insert(BigTypeDto bigtypeDto) throws Exception{
 		Connection con = JdbcUtils.connect();
-		String sql="insert into values(no_seq.nextval,?)";
+		String sql="insert into bigtype values(bigtype_seq.nextval,?)";
 		
 		PreparedStatement ps =con.prepareStatement(sql);
 		ps.setString(1, bigtypeDto.getName());
@@ -69,7 +69,7 @@ public class BigTypeDao {
 	//단일조회
 	public  BigTypeDto get(int no) throws Exception{
 		Connection con = JdbcUtils.connect();
-		String sql="select * form bigType where no=?";
+		String sql="select * from bigType where no= ? ";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1,no);

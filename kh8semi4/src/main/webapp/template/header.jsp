@@ -33,7 +33,19 @@
             width: 100%;
             height: 100%;
         }
+        .contents > li > ol {
+        	display: none;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+    $(function(){
+	    $(".contents").find("li").click(function(e){
+	        $(this).children("ol").slideToggle();
+	        $(this).children("ol").css("display", "block");
+	   });
+    });
+    </script>
 </head>
 
 <body>
