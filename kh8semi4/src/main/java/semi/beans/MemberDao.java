@@ -111,22 +111,30 @@ public class MemberDao {
 	public boolean edit(MemberDto memberDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 
-		String sql = "update member" + "set" + "pw = ?, " + "email = ?, " + "phone = ?, "
-				+ "birth = to_date(?, 'YYYY-MM-DD'), " + "where" + "id = ? and pw = ?";
-
+		String sql = "update member "
+				+ "set "
+							+ "pw = ?, "
+							+ "address = ?, "
+							+ "phone = ?, "
+							+ "email = ?, "
+							+ "birth = to_date(?, 'YYYY-MM-DD'), "
+							+ "gender = ? "
+				+ "where "
+							+ "id = ?";
+	
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, memberDto.getPw());
-		ps.setString(2, memberDto.getEmail());
+		ps.setString(2, memberDto.getAddress());
 		ps.setString(3, memberDto.getPhone());
-		ps.setString(4, memberDto.getBirth());
-		ps.setString(5, memberDto.getId());
-		ps.setString(6, memberDto.getPw());
+		ps.setString(4, memberDto.getEmail());
+		ps.setString(5, memberDto.getBirth());
+		ps.setString(6, memberDto.getGender());
+		ps.setString(7, memberDto.getId());
 		int result = ps.executeUpdate();
 
 		con.close();
 
 		return result > 0;
-
 	}
 
 	// 비밀번호 변경 메소드
@@ -143,7 +151,5 @@ public class MemberDao {
 		con.close();
 
 		return result > 0;
-
 	}
-
 }
