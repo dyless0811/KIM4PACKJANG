@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@page import="semi.beans.SmallTypeDao"%>
 <%@page import="semi.beans.SmallTypeDto"%>
 <%@page import="java.util.List"%>
@@ -36,7 +37,6 @@
 </head>
 
 <body>
-
     <!-- 가림막 템플릿 시작 -->
     <template>
         <div
