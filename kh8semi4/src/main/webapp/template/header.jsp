@@ -1,7 +1,14 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.List"%>
+<%@page import="semi.beans.BigTypeDao"%>
+<%@page import="semi.beans.BigTypeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String root = request.getContextPath();
+	//타입 리스트 출력을 위한 dao, dto
+	BigTypeDao bigTypeDao = new BigTypeDao();
+	List<BigTypeDto> bigTypeList = bigTypeDao.list();
 %>
 <!DOCTYPE html>
 <html>
@@ -52,64 +59,7 @@
 			</div>
 		</div>
 
-		<div>
-        	<div>
-           		<div>
-                    <ul>
-                      	<li><a href="#BEST"><b>BEST</b></a></li>
-                        <li><a href="#BASIC"><b>BASIC</b></a></li>
-                        <li><a href="#SUIT"><b>SUIT</b></a></li>
-                        <li><a href="#TRAINING"><b>TRAINING</b></a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#OUTER"><b>OUTER</b></a></li>
-						<li><a href="#블레이져">블레이져</a></li>
-                        <li><a href="#코트">코트</a></li>
-                        <li><a href="#패딩">패딩</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#KNIT"><b>KNIT</b></a></li>
-						<li><a href="#니트">니트</a></li>
-						<li><a href="#가디건">가디건</a></li>
-                        <li><a href="#목폴라">목폴라</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#T-SHIRT"><b>T-SHIRT</b></a></li>
-                        <li><a href="#긴팔티">긴팔티</a></li>
-                        <li><a href="#맨투맨">맨투맨</a></li>
-                        <li><a href="#후리스">후리스</a>
-                    </ul>
-                    <ul>
-                        <li><a href="#SHIRT"><b>SHIRT</b></a></li>
-                        <li><a href="#베이직 카라셔츠">베이직 카라셔츠</a></li> 
-                        <li><a href="#반팔">반팔</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#PANTS"><b>PANTS</b></a></li>
-                        <li><a href="#슬랙스">슬랙스</a></li>
-                        <li><a href="#청바지">청바지</a></li>
-                        <li><a href="#반바지">반바지</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#SHOES"><b>SHOES</b></a></li>
-                        <li><a href="#스니커즈">스니커즈</a></li>
-                    	<li><a href="#구두">구두</a></li>
-                    </ul>
-                    <ul>
-                       	<li><a href="#ACCESSORY"><b>ACCESSORY</b></a></li>
-                        <li><a href="#벨트">벨트</a></li>
-                    	<li><a href="#모자">모자</a></li>
-                    </ul>
-                    <ul>
-                       	<li><a href="#COMMUNITY"><b>COMMUNITY</b></a></li>
-                      	<li><a href="#해피고객센터">해피고객센터</a></li>
-                      	<li><a href="#입고지연상품">입고지연상품</a></li>
-                 		<li><a href="#상품구매후기">상품구매후기</a></li>
-                        <li><a href="#공지사항">공지사항</a></li>
-                    </ul>
-                </div>
-            </div>
-		</div>
+		
 
 		<div>
 			<div>
@@ -159,85 +109,29 @@
 	</header>
 	<!-- 헤더 끝 -->	
 	
+			<li>
+            	<a href="#T-SHIRT">T-SHIRT</a>
+                <ul>
+                    <li><a href="#긴팔티">긴팔티</a></li>
+                    <li><a href="#맨투맨">맨투맨</a></li>
+                    <li><a href="#후리스">후리스</a>
+                </ul>
+            </li>
+	
+	
 	
 	<!-- 네비게이션 시작 -->
 	<nav>
 		<ul class="slide-menu">
-        	<li><a href="#BEST">BEST</a></li>
-            <li><a href="#BASIC">BASIC</a></li>
-            <li><a href="#SUIT">SUIT</a></li>
-            <li><a href="#TRAINING">TRAINING</a></li>
-            
- 			<li>
- 				<a href="#OUTER">OUTER</a>
-            	<ul>                       
-				<li><a href="#블레이져">블레이져</a></li>
-                    <li><a href="#코트">코트</a></li>
-                    <li><a href="#패딩">패딩</a></li>
-            	</ul>
-            </li>
-            
-            <li>
-            	<a href="#KNIT">KNIT</a>
-            	<ul>         
-					<li><a href="#니트">니트</a></li>
-					<li><a href="#가디건">가디건</a></li>
-                    <li><a href="#목폴라">목폴라</a></li>
-            	</ul>
-            </li>
-            
-            <li>
-            	<a href="#T-SHIRT">T-SHIRT</a>
-            	<ul>
-                    <li><a href="#긴팔티">긴팔티</a></li>
-                    <li><a href="#맨투맨">맨투맨</a></li>
-                    <li><a href="#후리스">후리스</a>
-            	</ul>
-            </li>
-            
-            <li>
-            	<a href="#T-SHIRT">T-SHIRT</a>
-                <ul>
-                    <li><a href="#긴팔티">긴팔티</a></li>
-                    <li><a href="#맨투맨">맨투맨</a></li>
-                    <li><a href="#후리스">후리스</a>
-                </ul>
-            </li>
-            
-            <li>
-            	<a href="#PANTS">PANTS</a>
-            	<ul>
-                    <li><a href="#슬랙스">슬랙스</a></li>
-                    <li><a href="#청바지">청바지</a></li>
-                    <li><a href="#반바지">반바지</a></li>
-                </ul>
-            </li>
-            
-            <li>
-            	<a href="#SHOES">SHOES</a>
-                <ul>
-                    <li><a href="#스니커즈">스니커즈</a></li>
-                	<li><a href="#구두">구두</a></li>
-                </ul>
-            </li>
-            
-            <li>
-            	<a href="#ACCESSORY">ACCESSORY</a>
-                <ul>
-                    <li><a href="#벨트">벨트</a></li>
-                	<li><a href="#모자">모자</a></li>    	
-                </ul>
-            </li>  
-            
-            <li>
-            	<a href="#COMMUNITY">COMMUNITY</a>
-            	<ul>
-            		<li><a href="#해피고객센터">해피고객센터</a></li>
-                  	<li><a href="#입고지연상품">입고지연상품</a></li>
-             		<li><a href="#상품구매후기">상품구매후기</a></li>
-                    <li><a href="#공지사항">공지사항</a></li>
-                </ul>
-            </li>  
+		<%for(BigTypeDto bigType : bigTypeList){ %>
+			<li>
+				<a href="#"><%=bigType.getName()%>
+					<ul>
+						<li></li>
+					</ul>				
+				</a>
+			</li>
+		<%} %>
 		</ul>
 	</nav>
 	<!-- 네비게이션 끝 -->
