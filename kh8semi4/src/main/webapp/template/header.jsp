@@ -1,4 +1,6 @@
 <%@page import="java.util.Arrays"%>
+<%@page import="semi.beans.SmallTypeDao"%>
+<%@page import="semi.beans.SmallTypeDto"%>
 <%@page import="java.util.List"%>
 <%@page import="semi.beans.BigTypeDao"%>
 <%@page import="semi.beans.BigTypeDto"%>
@@ -59,7 +61,27 @@
 			</div>
 		</div>
 
-		
+
+		<div>
+      <div>
+        <div>
+					<ul class="slide-menu">
+					<%for(BigTypeDto bigType : bigTypeList){ %>
+						<li><a href="#"><%=bigType.getName()%></a></li>
+						<ul>
+						<%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
+						<%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
+						<%for(SmallTypeDto smalltype: smallTypeList){ %>
+						<li>
+						<a href="#"><%=smalltype.getName()%></a>
+						<li>
+						<%} %>
+						</ul>
+					<%} %>
+					</ul>
+        </div>
+      </div>
+		</div>
 
 		<div>
 			<div>
@@ -108,31 +130,26 @@
 		</div>
 	</header>
 	<!-- 헤더 끝 -->	
-	
-			<li>
-            	<a href="#T-SHIRT">T-SHIRT</a>
-                <ul>
-                    <li><a href="#긴팔티">긴팔티</a></li>
-                    <li><a href="#맨투맨">맨투맨</a></li>
-                    <li><a href="#후리스">후리스</a>
-                </ul>
-            </li>
-	
-	
-	
+
+  
 	<!-- 네비게이션 시작 -->
 	<nav>
-		<ul class="slide-menu">
-		<%for(BigTypeDto bigType : bigTypeList){ %>
-			<li>
-				<a href="#"><%=bigType.getName()%></a>
-					<ul>
-						<li></li>
-					</ul>				
-			</li>
-		<%} %>
-		</ul>
-	</nav>
+			<ul class="slide-menu">
+					<%for(BigTypeDto bigType : bigTypeList){ %>
+						<li><a href="#"><%=bigType.getName()%></a>
+						<ul>
+						<%SmallTypeDao smallTypeDao = new SmallTypeDao();%>
+						<%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
+						<%for(SmallTypeDto smalltype: smallTypeList){ %>
+						<li>
+						<a href="#"><%=smalltype.getName()%></a>
+						<li>
+						<%} %>
+						</ul>
+						</li>
+					<%}%>
+			</ul>
+  </nav>
 	<!-- 네비게이션 끝 -->
 	
 	
