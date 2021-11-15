@@ -14,73 +14,66 @@
 	MemberDto memberDto = memberDao.get(id);
 %>
 
+<%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
     
-<form action="edit.kj" method="post">
+<form action="<%=request.getContextPath()%>/member/edit.kj" method="post">
+
+<div class="container-800 container-center">
+	<div class="row center">
+			<h2>회원 정보 수정</h2>
+	</div>
+	<div class="row">
+				<label>아이디</label>
+				<input type="text" name="id" required class="form-input" autocapitalize="off" value="<%=memberDto.getId()%>" readonly>
+	</div>
+	<div class="row">
+				<label>비밀번호</label>
+				<input type="password" name="pw" required class="form-input">
+	</div>	
+	<div class="row">
+				<label>비밀번호 확인</label>
+				<input type="text" value="임시방편 입력x" required class="form-input">
+	</div>	
+	<div class="row">
+				<label>이름</label>
+				<input type="text" name="name" required class="form-input" value="<%=memberDto.getName()%>" readonly>
+	</div>
+	<div class="row">
+				<label>주소</label>
+				<input type="text" name="address" required class="form-input" value="<%=memberDto.getAddress()%>">
+	</div>	
+	<div class="row">
+				<label>휴대전화</label>
+				<input type="tel" name="phone" required class="form-input" value="<%=memberDto.getPhone()%>">
+	</div>
+	<div class="row">
+				<label>이메일</label>
+				<input type="text" name="email" required class="form-input" value="<%=memberDto.getEmail()%>">
+	</div>
+	<div class="row">
+				<label>생년월일</label>
+				<input type="date" name="birth" required class="form-input" value="<%=memberDto.getBirth()%>">
+	</div>
+	<div class="row">
+			<label>성별</label>
+			<select name="gender">
+					<option value="남" selected>남자</option>
+					<option value="여" >여자</option>
+			</select>	
+	</div>			
+	<div class="row">
+			<input type="submit" value="수정" class="form-btn">
+	</div>
+
+	<%if(request.getParameter("error") != null){%>
+	<div class="row center">
+		<h4 class="error">비밀번호가 일치하지 않습니다</h4>
+	</div>
+	<%} %>
 	
-	<table border="0">
-		<tbody>
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input  readonly type="text" name="id" required value="<%=memberDto.getId()%>">
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td>
-					<input type="password" name="pw" required>
-				</td>
-			</tr>
-			<tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td>
-					<input type="password" name="pw" required>
-				</td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td>
-					<input readonly type="text" name="name" required value="<%=memberDto.getName()%>">
-				</td>
-			</tr>
-			<tr>
-				<th>주소</th>
-				<td>
-					<input type="text" name="address" required value="<%=memberDto.getAddress()%>">
-				</td>
-			</tr>
-			<tr>
-				<th>전화번호</th>
-				<td>
-					<input type="tel" name="phone" value="<%=memberDto.getPhone()%>">
-				</td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>
-					<input type="text" name="email" value="<%=memberDto.getEmail()%>">
-				</td>
-			</tr>
-			<tr>
-			<th>생일<th>
-				<td>
-					<input type="date" name="birth" value="<%=memberDto.getBirth()%>">
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2" align="right">
-					<input type="submit" value="수정">
-				</td>
-			</tr>
-		</tbody>
-	</table>
+</div>
 	
 </form>
-    
-    
-    
     
 <jsp:include page="/template/footer.jsp"></jsp:include>
