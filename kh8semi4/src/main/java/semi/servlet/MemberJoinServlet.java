@@ -18,8 +18,6 @@ public class MemberJoinServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			
-		
 		//입력 : MemberDto
 		MemberDto memberDto = new MemberDto();
 		memberDto.setId(req.getParameter("id"));
@@ -28,7 +26,7 @@ public class MemberJoinServlet extends HttpServlet{
 		memberDto.setAdrress(req.getParameter("address"));
 		memberDto.setPhone(req.getParameter("phone"));
 		memberDto.setEmail(req.getParameter("email"));
-		
+		//날짜 변환
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date to = (Date) transFormat.parse(req.getParameter("birth"));
 		memberDto.setBirth(to);
@@ -38,6 +36,7 @@ public class MemberJoinServlet extends HttpServlet{
 		MemberDao memberDao = new MemberDao();
 		memberDao.join(memberDto);
 		
+		//성공시 
 		resp.sendRedirect("join_success.jsp");
 		
 		}
