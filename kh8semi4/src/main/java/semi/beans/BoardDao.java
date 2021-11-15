@@ -94,8 +94,9 @@ public class BoardDao {
 	public BoardDto get(int boardNo) throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "select * from board where board_no = ? order by board_no desc";
+		String sql = "select * from board where no = ? order by no desc";
 		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, boardNo);
 		ResultSet rs = ps.executeQuery();
 		
 		BoardDto boardList;
@@ -104,13 +105,13 @@ public class BoardDao {
 			boardList = new BoardDto();
 			boardList.setNo(rs.getInt("no"));
 			boardList.setMemberId(rs.getString("member_id"));
-			boardList.setBoardTypeNo(rs.getInt("board_type_no"));
+			boardList.setBoardTypeNo(rs.getInt("boardtype_no"));
 			boardList.setBoardTitle(rs.getString("board_title"));
 			boardList.setBoardContent(rs.getString("board_content"));
 			boardList.setBoardDate(rs.getDate("board_date"));
 			boardList.setBoardHit(rs.getInt("board_hit"));
 			boardList.setBoardSuperno(rs.getInt("board_superno"));
-			boardList.setBoardGroupno(rs.getInt("board_group"));
+			boardList.setBoardGroupno(rs.getInt("board_groupno"));
 			boardList.setBoardDepth(rs.getInt("board_depth"));	
 		} else {
 			boardList = null;
@@ -168,5 +169,18 @@ public class BoardDao {
 		//1 : 삭제 성공
 		//0 : 삭제 실패
 		return result > 0;
+	}
+	
+	//조회 확인 메소드
+	public void view(int no, String memberId) throws Exception {
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "update board set board_hit = board_hit+1 where no = ? and member_id != ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, no);
+		ps.setString(2, memberId);
+		ps.execute();
+		
+		con.close();
 	}
 }
