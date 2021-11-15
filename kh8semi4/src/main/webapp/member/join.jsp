@@ -1,66 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-	
 <jsp:include page="/template/header.jsp"></jsp:include>
-	
-	<h1>회원가입</h1>
 
-	<form action="<%=request.getContextPath()%>/member/join.kj" method="post">
-	<table border="0">
-	<tbody>
-		<tr>
-			<th>아이디</th>
-			<td>
-					<input type="text" name="id" required>
-			</td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td>
-					<input type="password" name="pw" required>
-			</td>
-		</tr>
-		<tr>
-			<th>이름</th>
-			<td>
-					<input type="text" name="name" required>
-			</td>
-		</tr>
-		<tr>
-			<th>주소</th>
-			<td>
-					<input type="text" name="address" required>
-			</td>
-		</tr>
-		<tr>
-			<th>전화번호</th>
-			<td>
-					<input type="tel" name="phone" required>
-			</td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td>
-					<input type="text" name="email" required>
-			</td>
-		</tr>
-		<tr>
-			<th>생일</th>
-			<td>
-					<input type="date" name="birth" required>
-			</td>
-		</tr>
+<form action="<%=request.getContextPath()%>/member/join.kj" method="post">
+
+<div class="container-400 container-center">
+			<div class="row">
+				<label>아이디</label>
+				<input type="text" name="id" required class="form-input" autocapitalize="off">
+	</div>
+	<div class="row">
+				<label>비밀번호</label>
+				<input type="password" name="pw" required class="form-input">
+	</div>	
+	<div class="row">
+				<label>이름</label>
+				<input type="text" name="name" required class="form-input">
+	</div>
+	<div class="row">
+				<label>주소</label>
+				<input type="text" name="address" required class="form-input">
+	</div>	
+	<div class="row">
+				<label>휴대전화</label>
+				<input type="tel" name="phone" required class="form-input">
+	</div>
+	<div class="row">
+				<label>이메일</label>
+				<input type="text" name="email" required class="form-input">
+	</div>
+	<div class="row">
+				<label>생년월일</label>
+				<input type="date" name="birth" required class="form-input">
+	</div>
+	<div class="row">
+			<label>성별</label>
+			<select name="gender">
+					<option value="남" selected>남자</option>
+					<option value="여" >여자</option>
+			</select>	
+	</div>			
+	<div class="row">
+			<input type="submit" value="가입" class="form-btn">
+	</div>
+
+</div>
 		
-	</tbody>
-	</table>
-		성별 : 
-		<select name="gender">
-			<option value="남" selected>남자</option>
-			<option value="여" >여자</option>
-		</select>	
-			<input type="submit" value="가입">
-			
-	</form>
+</form>
 	
 <jsp:include page="/template/footer.jsp"></jsp:include>
