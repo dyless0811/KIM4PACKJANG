@@ -10,7 +10,7 @@ public class BigTypeDao {
 	//추가
 	public void insert(BigTypeDto bigtypeDto) throws Exception{
 		Connection con = JdbcUtils.connect();
-		String sql="insert into vlues(no_seq.nextval,?)";
+		String sql="insert into values(no_seq.nextval,?)";
 		
 		PreparedStatement ps =con.prepareStatement(sql);
 		ps.setString(1, bigtypeDto.getName());
