@@ -10,10 +10,11 @@ public class SmallTypeDao {
     //추가
     public void insert(SmallTypeDto smalltypeDto) throws Exception{
         Connection con = JdbcUtils.connect();
-        String sql = "insert into values(no_seq.nextval,?)";
+        String sql = "insert into smalltype values(smalltype_seq.nextval,?, ?)";
         
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, smalltypeDto.getName());
+        ps.setInt(1, smalltypeDto.getBigTypeNo());
+        ps.setString(2, smalltypeDto.getName());
         
         ps.execute();
         

@@ -15,6 +15,7 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 <h2><%=bigTypeList.getName()%>에 소분류 추가</h2>
 <form action="./scategoriinsert.kj" method="get">
+	<input type="hidden" value="<%=bigTypeList.getNo()%>" name="bigTypeNo">
 	소분류 명 : <input type="text" name="name" required><br>
 	<input type="submit" value="추가">
 </form>
