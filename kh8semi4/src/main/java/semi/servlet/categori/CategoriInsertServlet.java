@@ -13,7 +13,7 @@ import semi.beans.BigTypeDto;
 @WebServlet (urlPatterns = "/admin/bcategoriinsert.kj")
 public class CategoriInsertServlet extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			try {
 				//입력
 				BigTypeDto bigTypeDto = new BigTypeDto();

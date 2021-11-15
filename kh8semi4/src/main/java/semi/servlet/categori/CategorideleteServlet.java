@@ -17,7 +17,7 @@ import semi.beans.BigTypeDto;
 @WebServlet (urlPatterns = "/admin/bcategoridelete.kj")
 public class CategorideleteServlet extends HttpServlet{
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//입력
 			int no = Integer.parseInt(req.getParameter("no"));
