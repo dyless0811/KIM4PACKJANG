@@ -17,10 +17,10 @@ public class MemberDao {
 		ps.setString(1, memberDto.getId());
 		ps.setString(2, memberDto.getPw());
 		ps.setString(3, memberDto.getName());
-		ps.setString(4, memberDto.getAdrress());
+		ps.setString(4, memberDto.getAddress());
 		ps.setString(5, memberDto.getPhone());
 		ps.setString(6, memberDto.getEmail());
-		ps.setDate(7, memberDto.getBirth());
+		ps.setString(7, memberDto.getBirth());
 		ps.setString(8, memberDto.getGender());
 		ps.execute();
 		
@@ -56,10 +56,10 @@ public class MemberDao {
 			memberDto.setId(rs.getString("id"));
 			memberDto.setPw(rs.getString("pw"));
 			memberDto.setName(rs.getString("name"));
-			memberDto.setAdrress(rs.getString("adress"));
+			memberDto.setAddress(rs.getString("address"));
 			memberDto.setPhone(rs.getString("phone"));
 			memberDto.setEmail(rs.getString("email"));
-			memberDto.setBirth(rs.getDate("birth"));
+			memberDto.setBirth(rs.getString("birth"));
 			memberDto.setJoin(rs.getDate("join"));
 			memberDto.setPoint(rs.getInt("point"));
 			memberDto.setGrade(rs.getString("grade"));
@@ -89,10 +89,10 @@ public class MemberDao {
 			memberDto.setId(rs.getString("id"));
 			memberDto.setPw(rs.getString("pw"));
 			memberDto.setName(rs.getString("name"));
-			memberDto.setAdrress(rs.getString("adress"));
+			memberDto.setAddress(rs.getString("address"));
 			memberDto.setPhone(rs.getString("phone"));
 			memberDto.setEmail(rs.getString("email"));
-			memberDto.setBirth(rs.getDate("birth"));
+			memberDto.setBirth(rs.getString("birth"));
 			memberDto.setJoin(rs.getDate("join"));
 			memberDto.setPoint(rs.getInt("point"));
 			memberDto.setGrade(rs.getString("grade"));

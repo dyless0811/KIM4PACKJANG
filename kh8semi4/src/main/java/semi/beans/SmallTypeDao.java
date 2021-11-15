@@ -92,4 +92,30 @@ public class SmallTypeDao {
 	   con.close();
 	   return smallTypeDto;
    }
+
+
+
+//단일 조회
+public List<SmallTypeDto> searchSmallType(int no) throws Exception{
+	   Connection con = JdbcUtils.connect();
+	   String sql = "select * from smallType where bigtype_no = ?";
+	   
+	   PreparedStatement ps = con.prepareStatement(sql);
+	   ps.setInt(1, no);
+	   ResultSet rs = ps.executeQuery();
+	   
+	   List<SmallTypeDto> list = new ArrayList<>();
+	   
+	   while(rs.next()) {
+		   SmallTypeDto smallTypeDto = new SmallTypeDto();
+		   smallTypeDto.setNo(rs.getInt("no"));
+		   smallTypeDto.setBigTypeNo(rs.getInt("bigtype_no"));
+		   smallTypeDto.setName(rs.getString("name"));
+		   list.add(smallTypeDto);
+	   }
+	  
+	   
+	   con.close();
+	   return list;
+}
 }
