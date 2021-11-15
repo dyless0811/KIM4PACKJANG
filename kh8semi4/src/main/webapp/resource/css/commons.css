@@ -410,3 +410,8 @@ textarea.vertical {
 .slide-menu li:hover > ul {
     display:block;
 }
+
+/* 오류 메세지는 빨간 글씨로... */
+.error {
+	color:red;
+}
