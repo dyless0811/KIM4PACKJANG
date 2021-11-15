@@ -88,7 +88,7 @@ public class ProductDao {
 	//상품 조회(단일조회)
 	public ProductDto get(int no)throws Exception{
 		Connection con = JdbcUtils.connect();
-		String sql="select * form product where no=?";
+		String sql="select * from product where no=?";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1,no);
