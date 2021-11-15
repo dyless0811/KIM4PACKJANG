@@ -21,7 +21,7 @@ public class SmallTypeDao {
     }
     
     //수정
-    public boolean uadate(SmallTypeDto smallTypeDto) throws Exception{
+    public boolean update(SmallTypeDto smallTypeDto) throws Exception{
     	Connection con = JdbcUtils.connect();
     	String sql = "update smallType set name=? where no=?";
     	PreparedStatement ps = con.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class SmallTypeDao {
    }
    
    //조회
-   public List<BigTypeDto> list() throws Exception{
+   public List<SmallTypeDto> list() throws Exception{
 	   Connection con = JdbcUtils.connect();
 	   String sql = "select * from smallType";
 	   
@@ -59,7 +59,7 @@ public class SmallTypeDao {
 	   List<SmallTypeDto> list = new ArrayList<>();
 	   
 	   while(rs.next()) {
-		   SmallTypeDto smalTypeDto = new SmallTypeDto();
+		   SmallTypeDto smallTypeDto = new SmallTypeDto();
 		   
 		   smallTypeDto.setNo(rs.getInt("no"));
 		   smallTypeDto.setName(rs.getString("name"));
@@ -79,7 +79,7 @@ public class SmallTypeDao {
 	   ps.setInt(1, no);
 	   ResultSet rs = ps.executeQuery();
 	   
-	   SmallTypeDto smallTypeDto;
+	   SmallTypeDto smallTypeDto = new SmallTypeDto();
 	   
 	   if(rs.next()) {
 		   smallTypeDto.setNo(rs.getInt("no"));
