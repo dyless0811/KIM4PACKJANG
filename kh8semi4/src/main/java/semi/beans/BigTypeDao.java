@@ -48,7 +48,7 @@ public class BigTypeDao {
 	//조회
 	public List<BigTypeDto> list() throws Exception{
 		Connection con = JdbcUtils.connect();
-		String sql="select * from bigType";
+		String sql="select * from bigType order by no asc";
 		
 		PreparedStatement ps= con.prepareStatement(sql);
 		
