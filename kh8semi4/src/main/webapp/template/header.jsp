@@ -139,7 +139,7 @@
 
             <ul class="slide-menu">
                 <%for(BigTypeDto bigType : bigTypeList){ %>
-                <li><a href="<%=request.getContextPath()%>/product/<%=%>>.jsp"><%=bigType.getName()%></a>
+                <li><a href="#"><%=bigType.getName()%></a>
                     <ul>
                         <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
                         <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
