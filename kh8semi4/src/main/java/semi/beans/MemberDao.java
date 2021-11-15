@@ -28,7 +28,7 @@ public class MemberDao {
 	}
 
 	// 회원 탈퇴 기능
-	public boolean delete(String id, String pw) throws Exception {
+	public boolean quit(String id, String pw) throws Exception {
 		Connection con = JdbcUtils.connect();
 
 		String sql = "delete member where id = ? and pw = ?";
@@ -144,20 +144,6 @@ public class MemberDao {
 
 		return result > 0;
 
-	}
-
-	// 회원탈퇴 메소드
-	public boolean quit(String id) throws Exception {
-		Connection con = JdbcUtils.connect();
-
-		String sql = "delete member where id = ?";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, id);
-		int result = ps.executeUpdate();
-
-		con.close();
-
-		return result > 0;
 	}
 
 }
