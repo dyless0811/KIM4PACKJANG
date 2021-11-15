@@ -30,7 +30,7 @@
 		<tr>
 			<th>주소</th>
 			<td>
-					<input type="text" name="adress" required>
+					<input type="text" name="address" required>
 			</td>
 		</tr>
 		<tr>
@@ -56,8 +56,8 @@
 	</table>
 		성별 : 
 		<select name="gender">
-			<option value="M" selected>남자</option>
-			<option value="F" >여자</option>
+			<option value="남" selected>남자</option>
+			<option value="여" >여자</option>
 		</select>	
 			<input type="submit" value="가입">
 			

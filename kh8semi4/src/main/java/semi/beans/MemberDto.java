@@ -1,17 +1,16 @@
 package semi.beans;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 public class MemberDto {
 	
 	private String id;
 	private String pw;
 	private String name;
-	private String adrress;
+	private String address;
 	private String phone;
 	private String email;
-	private Date birth;
+	private String birth;
 	private Date join;
 	private int point;
 	private String grade;
@@ -45,12 +44,12 @@ public class MemberDto {
 		this.name = name;
 	}
 
-	public String getAdrress() {
-		return adrress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdrress(String adrress) {
-		this.adrress = adrress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getPhone() {
@@ -69,14 +68,20 @@ public class MemberDto {
 		this.email = email;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
+	
+	public String getMemberBirthDay() {
+		return birth.substring(0, 10);
+	}
+	
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	
+
 	public Date getJoin() {
 		return join;
 	}

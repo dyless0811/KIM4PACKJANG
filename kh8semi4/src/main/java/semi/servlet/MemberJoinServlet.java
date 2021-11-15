@@ -23,13 +23,10 @@ public class MemberJoinServlet extends HttpServlet{
 		memberDto.setId(req.getParameter("id"));
 		memberDto.setPw(req.getParameter("pw"));
 		memberDto.setName(req.getParameter("name"));
-		memberDto.setAdrress(req.getParameter("address"));
+		memberDto.setAddress(req.getParameter("address"));
 		memberDto.setPhone(req.getParameter("phone"));
 		memberDto.setEmail(req.getParameter("email"));
-		//날짜 변환
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date to = (Date) transFormat.parse(req.getParameter("birth"));
-		memberDto.setBirth(to);
+		memberDto.setBirth(req.getParameter("birth"));
 		memberDto.setGender(req.getParameter("gender"));
 		
 		//처리 : MemberDao
