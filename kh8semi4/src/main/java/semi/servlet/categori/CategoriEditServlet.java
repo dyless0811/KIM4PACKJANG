@@ -29,9 +29,9 @@ public class CategoriEditServlet extends HttpServlet{
 
 			//출력
 			if(success) {
-				resp.sendRedirect("");
+				resp.sendRedirect("./categoryedit.jsp");
 			}else {
-				resp.sendRedirect("");
+				resp.sendError(500);
 			}
 			
 			
