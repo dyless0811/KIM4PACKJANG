@@ -125,11 +125,10 @@
 		<ul class="slide-menu">
 		<%for(BigTypeDto bigType : bigTypeList){ %>
 			<li>
-				<a href="#"><%=bigType.getName()%>
+				<a href="#"><%=bigType.getName()%></a>
 					<ul>
 						<li></li>
 					</ul>				
-				</a>
 			</li>
 		<%} %>
 		</ul>
