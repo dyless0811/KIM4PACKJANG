@@ -6,7 +6,7 @@
 	
 	<h1>회원가입</h1>
 
-	<form action="join.?" method="post">
+	<form action="join.kj" method="post">
 	<table border="0">
 	<tbody>
 		<tr>
@@ -59,8 +59,8 @@
 			<option value="M" selected>남자</option>
 			<option value="F" >여자</option>
 		</select>	
+			<input type="submit" value="가입">
+			
 	</form>
 	
 <jsp:include page="/template/footer.jsp"></jsp:include>
-</body>
-</html>

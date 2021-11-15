@@ -1,8 +1,10 @@
 package semi.beans;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class MemberDto {
+	
 	private String id;
 	private String pw;
 	private String name;
@@ -74,7 +76,7 @@ public class MemberDto {
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-
+	
 	public Date getJoin() {
 		return join;
 	}
