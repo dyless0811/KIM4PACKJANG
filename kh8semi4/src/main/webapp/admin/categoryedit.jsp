@@ -38,7 +38,7 @@
 		<tbody>
 			<tr>
 				<td>대분류 명 : <input type="number" name="name"></td>
-				<td>등록버튼</td>
+				<td><input type="submit" value="등록하기"></td>
 			</tr>
 		</tbody>
 	</table>
