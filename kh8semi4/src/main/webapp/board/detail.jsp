@@ -12,7 +12,7 @@
 	BoardDao boardDao = new BoardDao();
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
 
-	Set<Integer> boardViewedNo = (Set<Integer>)session.getAttribute("");
+	Set<Integer> boardViewedNo = (Set<Integer>)session.getAttribute("boardViewedNo");
 	
 	if(boardViewedNo == null) {
 		boardViewedNo = new HashSet<>();
