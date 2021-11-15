@@ -29,7 +29,7 @@
                 	<div>Return/EXCHANGE</div>
                 	<div>[교환 및 반품주소안내]</div>
                 	<div>CJ대한통운 1588-1255</div>
-                	<div>사실 저희는 반품은 안되요</div>
+                	<div>사실 저희는 반품은 안돼요.</div>
             	</div>
         	</div>
 
