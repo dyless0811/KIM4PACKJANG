@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@page import="semi.beans.SmallTypeDao"%>
 <%@page import="semi.beans.SmallTypeDto"%>
 <%@page import="java.util.List"%>
@@ -60,9 +61,10 @@
 			</div>
 		</div>
 
+
 		<div>
-        	<div>
-           		<div>
+      <div>
+        <div>
 					<ul class="slide-menu">
 					<%for(BigTypeDto bigType : bigTypeList){ %>
 						<li><a href="#"><%=bigType.getName()%></a></li>
@@ -77,8 +79,8 @@
 						</ul>
 					<%} %>
 					</ul>
-                </div>
-            </div>
+        </div>
+      </div>
 		</div>
 
 		<div>
@@ -128,17 +130,15 @@
 		</div>
 	</header>
 	<!-- 헤더 끝 -->	
-	
-	
+
+  
 	<!-- 네비게이션 시작 -->
 	<nav>
-
-
 			<ul class="slide-menu">
 					<%for(BigTypeDto bigType : bigTypeList){ %>
 						<li><a href="#"><%=bigType.getName()%></a>
 						<ul>
-						<%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
+						<%SmallTypeDao smallTypeDao = new SmallTypeDao();%>
 						<%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
 						<%for(SmallTypeDto smalltype: smallTypeList){ %>
 						<li>
@@ -147,10 +147,9 @@
 						<%} %>
 						</ul>
 						</li>
-					<%} %>
+					<%}%>
 			</ul>
-
-		</nav>
+  </nav>
 	<!-- 네비게이션 끝 -->
 	
 	
