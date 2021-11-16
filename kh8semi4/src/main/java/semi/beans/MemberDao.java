@@ -46,7 +46,7 @@ public class MemberDao {
 	public List<MemberDto> list() throws Exception {
 		Connection con = JdbcUtils.connect();
 
-		String sql = "select * from member ";
+		String sql = "select * from member order by join desc";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 
@@ -117,7 +117,7 @@ public class MemberDao {
 							+ "address = ?, "
 							+ "phone = ?, "
 							+ "email = ?, "
-							+ "birth = to_date(?, 'YYYY-MM-DD'), "
+							+ "birth = ?, "
 							+ "gender = ? "
 				+ "where "
 							+ "id = ?";
@@ -136,6 +136,39 @@ public class MemberDao {
 
 		return result > 0;
 	}
+	
+	// 개인정보 변경 메소드(관리자용)
+		public boolean adminMemberEdit(MemberDto memberDto) throws Exception {
+			Connection con = JdbcUtils.connect();
+
+			String sql = "update member "
+					+ "set "
+								+ "name = ?, "
+								+ "address = ?, "
+								+ "phone = ?, "
+								+ "email = ?, "
+								+ "birth = ?, "
+								+ "gender = ?, "
+								+ "grade = ? "
+					+ "where "
+								+ "id = ? and pw = ?";
+		
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, memberDto.getName());
+			ps.setString(2, memberDto.getAddress());
+			ps.setString(3, memberDto.getPhone());
+			ps.setString(4, memberDto.getEmail());
+			ps.setString(5, memberDto.getBirth());
+			ps.setString(6, memberDto.getGender());
+			ps.setString(7, memberDto.getGrade());
+			ps.setString(8, memberDto.getId());
+			ps.setString(9, memberDto.getPw());
+			int result = ps.executeUpdate();
+
+			con.close();
+
+			return result > 0;
+		}
 
 	// 비밀번호 변경 메소드
 	public boolean editPassword(String id, String pw, String changePw) throws Exception {
