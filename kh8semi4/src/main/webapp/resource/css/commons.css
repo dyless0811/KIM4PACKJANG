@@ -415,3 +415,9 @@ textarea.vertical {
 .error {
 	color:red;
 }
+
+/*종엽 추가 게시판/리뷰용*/
+.flex-gro{
+    flex-grow: 1;
+    margin : 0.2rem 0.2rem;
+}

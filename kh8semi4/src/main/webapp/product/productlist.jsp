@@ -2,47 +2,109 @@
 <%@page import="java.util.List"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 
-<%--¿‘∑¬ --%>
+<%--ÏûÖÎ†• --%>
 
-<%--√≥∏Æ --%>
+<%--Ï≤òÎ¶¨ --%>
 <% 
 ProductDao productDao =new ProductDao();
 List<ProductDto> list = productDao.list();
+int i = 0;
 %>
 
-<%--√‚∑¬ --%>
+<%--Ï∂úÎ†• --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
-<div class="container-1200 container-center">
-    <div class="row">
-        <table class="table table-border">
-            <thead>
-                <tr>
-                    <th>º“∫–∑˘π¯»£</th>
-                    <th>ªÛ«∞π¯»£</th>
-                    <th>ªÛ«∞∏Ì</th>
-                    <th>∞°∞›</th>
-                    <th>¡∂»∏ºˆ</th>
-                </tr>
-            </thead>
-            <tbody>
-            <%for(ProductDto productDto : list){ %>
-                <tr>
-                    <td><%=productDto.getSmallTypeNo()%></td>
-                    <td><%=productDto.getNo()%></td>
-                    <td><%=productDto.getName()%></td>
-                    <td><%=productDto.getPrice()%></td>
-                    <td><%=productDto.getViews()%></td>
-                    <td>
-                    	<a href="productdetail.jsp?no=<%=productDto.getNo()%>">ªÛºº∫∏±‚</a>
-                        <a href="productedit.jsp?no=<%=productDto.getNo()%>">ºˆ¡§</a>
-                        <a href="delete.kj?no=<%=productDto.getNo()%>">ªË¡¶</a>
-                    </td>
-                </tr>
-            <%} %>
-            </tbody>
-        </table>
+<div class="container-1400 container-center">
+    <div class="row flex-container">
+    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
+    		<div class="row flex-gro">
+	    	<table class="table table-border table-hover">
+		    	<tbody>
+		    		<tr height="400px">
+		    			<td>Ïù¥ÎØ∏ÏßÄÏòÅÏó≠</td>
+		    		</tr>
+		    		<tr>
+		    			<td>ÏÉâÏÉÅ / <%=product.getViews()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getName()%>(ÏÇ¨Ïù¥Ï¶à)</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getPrice()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td>------------</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getDescription()%></td>
+		    		</tr>
+		    	</tbody>
+		    </table>
+    	</div>
+    	<%} %>
+    </div>
+</div>
+<%i = 0; %>
+<div class="container-1400 container-center">
+    <div class="row flex-container">
+    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
+    		<div class="row flex-gro">
+	    	<table class="table table-border table-hover">
+		    	<tbody>
+		    		<tr height="400px">
+		    			<td>Ïù¥ÎØ∏ÏßÄÏòÅÏó≠</td>
+		    		</tr>
+		    		<tr>
+		    			<td>ÏÉâÏÉÅ / <%=product.getViews()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getName()%>(ÏÇ¨Ïù¥Ï¶à)</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getPrice()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td>------------</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getDescription()%></td>
+		    		</tr>
+		    	</tbody>
+		    </table>
+    	</div>
+    	<%} %>
+    </div>
+</div>
+<%i = 0; %>
+<div class="container-1400 container-center">
+    <div class="row flex-container">
+    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
+    		<div class="row flex-gro">
+	    	<table class="table table-border table-hover">
+		    	<tbody>
+		    		<tr height="400px">
+		    			<td>Ïù¥ÎØ∏ÏßÄÏòÅÏó≠</td>
+		    		</tr>
+		    		<tr>
+		    			<td>ÏÉâÏÉÅ / <%=product.getViews()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getName()%>(ÏÇ¨Ïù¥Ï¶à)</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getPrice()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td>------------</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getDescription()%></td>
+		    		</tr>
+		    	</tbody>
+		    </table>
+    	</div>
+    	<%} %>
     </div>
 </div>
 
