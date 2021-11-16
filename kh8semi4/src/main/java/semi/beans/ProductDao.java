@@ -63,7 +63,7 @@ public class ProductDao {
 	public List<ProductDto> list() throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql="select * from product";
+		String sql="select * from product order by no desc";
 		PreparedStatement ps = con.prepareStatement(sql);
 		
 		ResultSet rs = ps.executeQuery();
