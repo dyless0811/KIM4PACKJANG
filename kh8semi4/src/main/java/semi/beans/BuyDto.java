@@ -8,7 +8,7 @@ public class BuyDto {
 	private int productNo;
 	private String type;
 	private Date buyDate;
-	private String stats;
+	private String status;
 	
 	//setter & getter
 	public int getNo() {
@@ -41,17 +41,17 @@ public class BuyDto {
 	public void setBuyDate(Date buyDate) {
 		this.buyDate = buyDate;
 	}
-	public String getStats() {
-		return stats;
+	public String getStatus() {
+		return status;
 	}
-	public void setStats(String stats) {
-		this.stats = stats;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	//toString 
 	@Override
 	public String toString() {
 		return "BuyDto [no=" + no + ", memberId=" + memberId + ", productNo=" + productNo + ", type=" + type
-				+ ", buyDate=" + buyDate + ", stats=" + stats + "]";
+				+ ", buyDate=" + buyDate + ", status=" + status + "]";
 	}
 	//생성자
 	public BuyDto() {
