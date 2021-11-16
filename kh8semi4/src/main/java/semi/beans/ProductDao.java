@@ -142,6 +142,41 @@ public class ProductDao {
 		
 		
 	}
+	//페이징이 가능한 목록
+	public List<ProductDto> listByRownum(int begin,int end)throws Exception{
+		Connection con= JdbcUtils.connect();
+		
+		String sql="select * from("
+				+ "select rownum rn ,TMP.*from( "
+				+ "select * from product order by no desc "
+				+ ")TMP "
+				+ ")where rn between ? and ? ";
+		
+		PreparedStatement ps =con.prepareStatement(sql);
+		ps.setInt(1, begin);
+		ps.setInt(2, end);
+		ResultSet rs = ps.executeQuery();
+		
+
+		List<ProductDto> list = new ArrayList<>();
+		while(rs.next()) {
+			ProductDto productDto = new ProductDto();
+			productDto.setNo(rs.getInt("no"));
+			productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+			productDto.setName(rs.getString("name"));
+			productDto.setPrice(rs.getInt("price"));
+			productDto.setDescription(rs.getString("description"));
+			productDto.setViews(rs.getInt("views"));
+			
+			list.add(productDto);
+		}
+		con.close();
+		
+		return list;
+		
+		
+
+	}
 	
 	
 
