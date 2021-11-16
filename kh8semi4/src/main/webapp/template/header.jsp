@@ -33,7 +33,19 @@
             width: 100%;
             height: 100%;
         }
+        .contents > li > ol {
+        	display: none;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+    $(function(){
+	    $(".contents").find("li").click(function(e){
+	        $(this).children("ol").slideToggle();
+	        $(this).children("ol").css("display", "block");
+	   });
+    });
+    </script>
 </head>
 
 <body>
@@ -124,6 +136,7 @@
                 </div>
 
                 <div class="flex-equal right">
+                	<span>session = [<%=session.getAttribute("loginId")%>]</span>
                     <a href="#마이페이지">마이페이지</a>
                     <a href="#장바구니">장바구니</a>
                     <a href="#검색">검색</a>

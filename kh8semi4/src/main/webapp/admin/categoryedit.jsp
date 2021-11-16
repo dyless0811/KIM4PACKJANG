@@ -1,3 +1,5 @@
+<%@page import="semi.beans.SmallTypeDto"%>
+<%@page import="semi.beans.SmallTypeDao"%>
 <%@page import="semi.beans.BigTypeDto"%>
 <%@page import="java.util.List"%>
 <%@page import="semi.beans.BigTypeDao"%>
@@ -11,33 +13,29 @@
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
-<table>
-	<thead>
-		<tr>
-			<th>대분류번호</th>
-			<th>대분류이름</th>
-			<th>상태</th>
-		</tr>
-	</thead>
-	<tbody>
-		<%for(BigTypeDto bigType : bigTypeList){ %>
-		<tr>
-			<td><%=bigType.getNo()%></td>
-			<td><%=bigType.getName()%></td>
-			<td>
-				<a href="./bcategoriedit.kj?no=<%=bigType.getNo()%>&name="<%=bigType.getName()%>">수정</a>
-				<a href="./bcategoridelete.kj?no=<%=bigType.getNo()%>">삭제</a>
-			</td>
-		</tr>
-		<%} %>
-	</tbody>
-</table>
+	<ol class="contents">
+	<%for(BigTypeDto bigType : bigTypeList){ %>
+        <li>
+            <a href="#" class="toggle"><%=bigType.getName()%></a>
+            <ol>
+            <%
+            	SmallTypeDao small = new SmallTypeDao();
+            	List<SmallTypeDto> smallList = small.searchSmallType(bigType.getNo());
+            	for(SmallTypeDto smallType : smallList){
+            %>
+                <li><a><%=smallType.getName()%></a> / <a href="./scategoridelete.kj?no=<%=smallType.getNo()%>">삭제</a></li>
+            <%} %>
+            	<li><a href="./cgedit.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%>에 소분류 추가</a></li>
+            </ol>
+        </li>
+    <%} %>
+    </ol>
 <br>
 <form action="./bcategoriinsert.kj" method="post">
 	<table>
 		<tbody>
 			<tr>
-				<td>대분류 명 : <input type="number" name="name"></td>
+				<td>대분류 명 : <input type="text" name="name"></td>
 				<td><input type="submit" value="등록하기"></td>
 			</tr>
 		</tbody>

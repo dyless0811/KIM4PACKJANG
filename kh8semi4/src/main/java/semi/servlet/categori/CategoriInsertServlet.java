@@ -13,7 +13,7 @@ import semi.beans.BigTypeDto;
 @WebServlet (urlPatterns = "/admin/bcategoriinsert.kj")
 public class CategoriInsertServlet extends HttpServlet {
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			try {
 				//입력
 				BigTypeDto bigTypeDto = new BigTypeDto();
@@ -23,7 +23,7 @@ public class CategoriInsertServlet extends HttpServlet {
 				BigTypeDao bigTypeDao = new BigTypeDao();
 				bigTypeDao.insert(bigTypeDto);
 				//출력 
-				resp.sendRedirect("./category.jsp");
+				resp.sendRedirect("./categoryedit.jsp");
 				
 				
 				

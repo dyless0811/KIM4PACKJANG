@@ -8,35 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.beans.BigTypeDao;
-import semi.beans.BigTypeDto;
-
-
-@WebServlet (urlPatterns = "/admin/bcategoriedit.kj")
-public class CategoriEditServlet extends HttpServlet{
+import semi.beans.SmallTypeDao;
+@WebServlet (urlPatterns = "/admin/scategoridelete.kj")
+public class sCategoriDeleteServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//입력
-			BigTypeDto bigTypeDto = new BigTypeDto();
-			bigTypeDto.setNo(Integer.parseInt(req.getParameter("no")));
-			bigTypeDto.setName(req.getParameter("name"));
+			int no =Integer.parseInt(req.getParameter("no"));
 			
 			//처리
-			BigTypeDao bigTypeDao = new BigTypeDao();
-			boolean success =bigTypeDao.update(bigTypeDto);
+			SmallTypeDao smalltypeDao = new SmallTypeDao();
+			boolean succees=smalltypeDao.delete(no);
 			
-
 			//출력
-			if(success) {
+			if(succees) {
 				resp.sendRedirect("./categoryedit.jsp");
 			}else {
 				resp.sendError(500);
 			}
-			
-			
-			
-		}catch(Exception e){
+		}catch(Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);
 		}
