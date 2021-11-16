@@ -1,3 +1,5 @@
+<%@page import="java.text.Format"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="semi.beans.MemberDto"%>
 <%@page import="semi.beans.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,6 +15,8 @@
 	MemberDao memberDao = new MemberDao();
 	MemberDto memberDto = memberDao.get(id);
 %>
+
+
 
 <%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -53,7 +57,7 @@
 	</div>
 	<div class="row">
 				<label>생년월일</label>
-				<input type="date" name="birth" required class="form-input" value="<%=memberDto.getBirth()%>">
+				<input type="date" name="birth" class="form-input" value="">
 	</div>
 	<div class="row">
 			<label>성별</label>

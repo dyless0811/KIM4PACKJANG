@@ -117,7 +117,7 @@ public class MemberDao {
 							+ "address = ?, "
 							+ "phone = ?, "
 							+ "email = ?, "
-							+ "birth = ?, "
+							+ "birth = to_date(?, 'YYYY-MM-DD'), "
 							+ "gender = ? "
 				+ "where "
 							+ "id = ?";
@@ -147,7 +147,7 @@ public class MemberDao {
 								+ "address = ?, "
 								+ "phone = ?, "
 								+ "email = ?, "
-								+ "birth = ?, "
+								+ "birth = to_date(?, 'YYYY-MM-DD'), "
 								+ "gender = ?, "
 								+ "grade = ? "
 					+ "where "
