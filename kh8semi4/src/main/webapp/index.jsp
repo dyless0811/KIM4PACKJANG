@@ -10,7 +10,7 @@
 		<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
 		<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
 		<a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
-		
+		<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
 	
 	</div>
 </div>

@@ -72,11 +72,6 @@ public class MemberDto {
 		return birth;
 	}
 	
-	public String getMemberBirthDay() {
-		return birth.substring(0, 10);
-	}
-	
-
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
