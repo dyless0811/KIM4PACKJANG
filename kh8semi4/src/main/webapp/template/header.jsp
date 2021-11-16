@@ -12,6 +12,14 @@
 	BigTypeDao bigTypeDao = new BigTypeDao();
 	List<BigTypeDto> bigTypeList = bigTypeDao.list();
 %>
+
+<%
+	//로그인 상태인지 아닌지 판정하는 코드
+	String id = (String)session.getAttribute("loginId");
+	boolean login = id != null;
+%>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -140,17 +148,22 @@
 
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
-                	<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
-                   	<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
-                    <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
-                    <a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
+                	<%if(login) {%>
+                	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
                     <a href="#장바구니">장바구니</a>
+                    <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
                     <a href="#검색">검색</a>
+                	<%} else {%>
+                	<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
+					<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
+					<a href="#검색">검색</a>
+					<%} %>
                 </div>
+                
+                
             </div>
         </header>
         <!-- 헤더 끝 -->
-
 
         <!-- 네비게이션 시작 -->
         <nav>
