@@ -6,40 +6,46 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class BoardDao {
 	//1. 게시글 등록(새글) 메소드
-	public void insert(BoardDto boardDto) throws Exception{
+	public boolean insert(BoardDto boardDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into board values(?, ?, ?, ?, ?, sysdate, 0, null, ?, 0)";
+		String sql = "insert into board(no, member_id, boardtype_no, board_title, board_content, board_groupno) "
+					+ "values(?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = con.prepareStatement(sql);
-		
 		ps.setInt(1, boardDto.getNo());
 		ps.setString(2, boardDto.getMemberId());
 		ps.setInt(3, boardDto.getBoardTypeNo());
 		ps.setString(4, boardDto.getBoardTitle());
 		ps.setString(5, boardDto.getBoardContent());
-		ps.setInt(6, boardDto.getBoardGroupno());
-			
+		ps.setInt(6, boardDto.getNo());
+		int result = ps.executeUpdate();
+		
 		con.close();
+		
+		return result > 0;
 	}
 	
-	//2. 게시글 등록(답글) 메소드
-	public void insertReply(BoardDto boardDto) throws Exception{
+	//2. 답글 등록 메소드
+	public void insertAnswer(BoardDto boardDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into board values(?, ?, ?, ?, ?, sysdate, 0, ?, ?, ?)";
+		String sql = "insert into board(no, member_id, boardtype_no, board_title, board_content, board_superno, board_groupno, board_depth) "
+					+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = con.prepareStatement(sql);
-		
 		ps.setInt(1, boardDto.getNo());
 		ps.setString(2, boardDto.getMemberId());
 		ps.setInt(3, boardDto.getBoardTypeNo());
+		
 		ps.setString(4, boardDto.getBoardTitle());
 		ps.setString(5, boardDto.getBoardContent());
 		ps.setInt(6, boardDto.getBoardSuperno());
 		ps.setInt(7, boardDto.getBoardGroupno());
 		ps.setInt(8, boardDto.getBoardDepth());
-			
+		ps.execute();
+		
 		con.close();
 	}
 	

@@ -11,7 +11,6 @@
 	int boardNo = Integer.parseInt(request.getParameter("no"));
 	BoardDao boardDao = new BoardDao();
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
-
 	Set<Integer> boardViewedNo = (Set<Integer>)session.getAttribute("boardViewedNo");
 	
 	if(boardViewedNo == null) {
@@ -21,10 +20,9 @@
 	if(boardViewedNo.add(boardNo)) {
 		boardDao.view(boardNo, memberId);
 	}
-	
 	session.setAttribute("boardViewedNo", boardViewedNo);
 	BoardDto boardDto = boardDao.get(boardNo);
-	BoardTypeDto boardTypeDto = boardTypeDao.get(boardNo);
+	BoardTypeDto boardTypeDto = boardTypeDao.get(boardDto.getBoardTypeNo());
 	String boardTypeName = boardTypeDto.getName();
 
 	//보드이미지 추가해야함
@@ -44,7 +42,9 @@
       <div class="row">
         <h3><%=boardDto.getBoardTitle()%></h3>
       </div>
-      <div class="row"><span><%=boardDto.getMemberId()%></span><span><%=boardDto.getBoardHit()%></span></div>
+      <div class="row">
+      	<span><%=boardDto.getMemberId()%></span><span><%=boardDto.getBoardHit()%></span>
+      </div>
       <div class="row">
         <hr />
       </div>
