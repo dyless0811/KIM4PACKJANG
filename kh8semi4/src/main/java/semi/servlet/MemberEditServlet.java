@@ -34,9 +34,9 @@ public class MemberEditServlet extends HttpServlet {
 
 			// 출력
 			if (success) {
-				resp.sendRedirect("edit.jsp");
+				resp.sendRedirect("modify.jsp");
 			} else {
-				resp.sendRedirect("edit.jsp?error");
+				resp.sendRedirect("modify.jsp?error");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
