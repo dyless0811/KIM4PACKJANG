@@ -9,24 +9,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.ProductDao;
-@WebServlet (urlPatterns = "/adasdadasdasdasd")
+@WebServlet (urlPatterns = "/product/delete.kj")
 public class ProductDeleteServlet extends HttpServlet{
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 		//입력
+	
 		int no = Integer.parseInt(req.getParameter("no"));
+		
 		//처리
 		ProductDao productDao =new ProductDao();
 		boolean success =productDao.delete(no);
 		
+		
+		
+	
+		//출력
 		if(success) {
-			resp.sendRedirect("");
+			resp.sendRedirect("productlist.jsp");
 		}else {
-			resp.sendRedirect("");
+			resp.sendError(500);
 		}
 			
-		//출력
 			
 		}catch(Exception e) {
 			e.printStackTrace();

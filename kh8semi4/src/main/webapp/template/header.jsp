@@ -20,9 +20,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIM4PARKJANG</title>
-    <link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/commons.css">
-    <link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/commons.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/layout.css">
     <!-- <link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/test.css">  -->
     <style>
         .logo-wrapper {
@@ -136,8 +136,11 @@
                 </div>
 
                 <div class="flex-equal right">
-                	<span>session = [<%=session.getAttribute("loginId")%>]</span>
-                    <a href="#마이페이지">마이페이지</a>
+                	<span>[<%=session.getAttribute("loginId")%>]님</span>
+                	<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
+                   	<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
+                    <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
+                    <a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
                     <a href="#장바구니">장바구니</a>
                     <a href="#검색">검색</a>
                 </div>

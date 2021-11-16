@@ -31,18 +31,30 @@ List<ProductDto> list = productDao.list();
                 <tr>
                     <td><%=productDto.getSmallTypeNo()%></td>
                     <td><%=productDto.getNo()%></td>
+                    <td><a href="productdetail.jsp?no=<%=productDto.getNo()%>"><%=productDto.getName()%></a></td>
                     <td><%=productDto.getName()%></td>
                     <td><%=productDto.getPrice()%></td>
                     <td><%=productDto.getViews()%></td>
+                    
                     <td>
-                    	<a href="#">상세보기</a>
-                        <a href="productedit.jsp">수정</a>
-                        <a href="#">삭제</a>
+                        <a href="productedit.jsp?no=<%=productDto.getNo()%>">수정</a>
+                        <a href="delete.kj?no=<%=productDto.getNo()%>">삭제</a>
                     </td>
                 </tr>
             <%} %>
             </tbody>
         </table>
+        <!-- 페이지 네이션-->
+        <!-- 검색창 -->
+        <div class="row right">
+        <select name="column" class="form-input form-inline">
+        	<option value="no" selected>상품번호</option>
+        	<option value="SmallTypeNo" selected>소분류번호</option>
+        	<option value="Name" selected>상품명</option>
+        </select>
+        <input type="text" name="keyowrd" placeholder="검색어입력"  required class="form-input form-inline">
+        <input type="submit" value="검색" class="form-btn form-inline">
+        </div>
     </div>
 </div>
 
