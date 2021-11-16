@@ -4,7 +4,12 @@
 
 <div class="container-1400 container-center">
 	<div class="row">
-		<h1>살려주세요</h1>
+		<h1>임시방편</h1>
+		
+		
+		<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
+		<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
+		<a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
 	</div>
 </div>
 
