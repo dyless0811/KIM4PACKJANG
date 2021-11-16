@@ -6,24 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishlistDao {
-
-	public void insert(WishlistDto wishlistDto) throws Exception {
+public class BasketDao {
+	public List<ProductDto> BasketProductMember(String memberId) throws Exception {
 		Connection con = JdbcUtils.connect();
-		
-		String sql = "insert into wishlist values(wishlist_seq.nextval, '?', ?)";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, wishlistDto.getMemberId());
-		ps.setInt(2, wishlistDto.getProductNo());
-		ps.execute();
-		
-		con.close();
-	}
-	
-	//좋아요 목록
-	public List<ProductDto>WishProductMember(String memberId) throws Exception {
-		Connection con = JdbcUtils.connect();
-		String sql = "select product.* from wishlist inner join product on wishlist.product_no = product.no where wishlist.member_id = ?";
+		String sql = "select product.* from basket inner join product on basket.product_no = product.no where basket.member_id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, memberId);
 		ResultSet rs = ps.executeQuery();
@@ -43,5 +29,5 @@ public class WishlistDao {
 		}
 			con.close();
 			return list;
+		}
 	}
-}

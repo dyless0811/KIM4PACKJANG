@@ -1,4 +1,4 @@
-package semi.servlet;
+package semi.servlet.member;
 
 import java.io.File;
 import java.io.IOException;
