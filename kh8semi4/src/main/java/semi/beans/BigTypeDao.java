@@ -10,6 +10,7 @@ public class BigTypeDao {
 	//추가
 	public void insert(BigTypeDto bigtypeDto) throws Exception{
 		Connection con = JdbcUtils.connect();
+
 		String sql="insert into bigtype values(bigtype_seq.nextval,?)";
 		
 		PreparedStatement ps =con.prepareStatement(sql);
@@ -89,5 +90,4 @@ public class BigTypeDao {
 		con.close();
 		return bigTypeDto;
 	}
-
 }

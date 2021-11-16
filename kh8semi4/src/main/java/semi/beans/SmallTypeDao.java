@@ -95,6 +95,7 @@ public class SmallTypeDao {
    }
 
 
+
 //단일 조회
 public List<SmallTypeDto> searchSmallType(int no) throws Exception{
 	   Connection con = JdbcUtils.connect();
