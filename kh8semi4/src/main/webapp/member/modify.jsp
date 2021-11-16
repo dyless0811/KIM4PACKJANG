@@ -83,18 +83,18 @@ MemberDto memberDto = memberDao.get(id);
 		<%
 		}
 		%>
-
+		
 		<script>
        $(function(){
             $(".confirm-link").click(function(e){
                 if(!confirm("정말 탈퇴하시겠습니까?")){
-                    e.preventDefault();
+                   
+                	e.preventDefault();
                 }
             });
         });
     </script>
-
-        <a href="<%=request.getContextPath()%>/member/quit.kh" class="confirm-link">회원 탈퇴</a>
+     <a href="<%=request.getContextPath()%>/member/quit.kj?id=&pw=<%=memberDto.getPw()%>" class="confirm-link">회원 탈퇴</a>
 	</div>
 
 </form>
