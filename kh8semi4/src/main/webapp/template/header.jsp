@@ -150,7 +150,7 @@
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<%if(login) {%>
                 	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
-                    <a href="#장바구니">장바구니</a>
+                    <a href="<%=root%>/myshop/order/basket.jsp">장바구니</a>
                     <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
                     <a href="#검색">검색</a>
                 	<%} else {%>
