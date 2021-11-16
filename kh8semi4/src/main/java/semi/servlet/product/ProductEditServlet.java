@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.ProductDao;
 import semi.beans.ProductDto;
-@WebServlet (urlPatterns = "/#")
+@WebServlet (urlPatterns = "/#asdasdasd")
 public class ProductEditServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
