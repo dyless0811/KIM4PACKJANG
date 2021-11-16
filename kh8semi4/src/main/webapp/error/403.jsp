@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<jsp:include page="/template/header.jsp"></jsp:include>
+
+<div class="container-600 container-center">
+	<div class="row center">
+		<h2>접근 권한이 없습니다</h2>
+	</div>
+	<div class="row">
+		<img src="<%=request.getContextPath()%>/error/403.jpg" width="100%">		
+	</div>
+</div>
+
+<jsp:include page="/template/footer.jsp"></jsp:include></html>

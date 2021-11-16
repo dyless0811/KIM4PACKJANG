@@ -16,7 +16,7 @@
 	<ol class="contents">
 	<%for(BigTypeDto bigType : bigTypeList){ %>
         <li>
-            <a href="#" class="toggle"><%=bigType.getName()%></a>
+            <a href="#" class="toggle"><%=bigType.getName()%></a> / <a href="./bcategoridelete.kj?no=<%=bigType.getNo()%>">삭제</a>
             <ol>
             <%
             	SmallTypeDao small = new SmallTypeDao();
