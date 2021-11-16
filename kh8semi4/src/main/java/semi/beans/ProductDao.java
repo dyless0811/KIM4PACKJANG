@@ -29,7 +29,7 @@ public class ProductDao {
 	public boolean update(ProductDto productDto) throws Exception{
 		Connection con= JdbcUtils.connect();
 		
-		String sql="update product set smallTypeNo=?,name=?,price=?,description=? where no=?";
+		String sql="update product set small_type_no=?,name=?,price=?,description=? where no=?";
 		
 		PreparedStatement ps =con.prepareStatement(sql);
 		ps.setInt(1, productDto.getSmallTypeNo());
