@@ -13,7 +13,7 @@ import semi.beans.MemberDao;
 @WebServlet(urlPatterns = "/member/quit.kh")
 public class MemberQuitSetvlet extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			String id = (String) req.getSession().getAttribute("loginId");
 			String pw = req.getParameter("pw");
