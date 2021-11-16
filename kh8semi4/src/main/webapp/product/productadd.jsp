@@ -34,9 +34,7 @@ String root = request.getContextPath();
 	</div>
 	<div  class="row">
 	상품설명
-	<textarea rows="40" cols="100" name="description" class=form-input>
-	
-	</textarea>
+	<textarea rows="40" cols="100" name="description" class=form-input></textarea>
 	</div>
 
 </div>
