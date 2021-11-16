@@ -3,6 +3,8 @@ package semi.beans;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardTypeDao {
 	public void insert(BoardTypeDto boardTypeDto) throws Exception {
@@ -47,5 +49,25 @@ public class BoardTypeDao {
 		con.close();
 		
 		return boardTypeDto;
+	}
+	
+	public List<BoardTypeDto> list() throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "select * from boardType";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<BoardTypeDto> list = new ArrayList<>();
+		
+		while(rs.next()) {
+			BoardTypeDto boardTypeDto = new BoardTypeDto();
+			boardTypeDto.setNo(rs.getInt("no"));
+			boardTypeDto.setName(rs.getString("name"));
+			
+			list.add(boardTypeDto);
+		}
+		
+		con.close();
+		return list;
 	}
 }
