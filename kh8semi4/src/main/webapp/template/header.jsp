@@ -136,6 +136,7 @@
                 </div>
 
                 <div class="flex-equal right">
+                	<span>session = [<%=session.getAttribute("loginId")%>]</span>
                     <a href="#마이페이지">마이페이지</a>
                     <a href="#장바구니">장바구니</a>
                     <a href="#검색">검색</a>

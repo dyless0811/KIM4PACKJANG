@@ -25,7 +25,7 @@
 	<div class="row center">
 		<h4 class="error">로그인 정보가 일치하지 않습니다</h4>
 	</div>
-	<%} %>	
+	<%}%>	
 		
 </div>	
 

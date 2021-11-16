@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/member/logout.kj")
 public class MemberLogoutServlet extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			// 세션에서의 사용자 로그인 정보를 삭제
 			// = 서블릿에서는 세션을 req.getSession() 형태로 접근
