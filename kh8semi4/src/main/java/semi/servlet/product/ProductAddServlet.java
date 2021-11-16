@@ -19,7 +19,7 @@ public class ProductAddServlet extends HttpServlet{
 		try {
 			//입력
 			ProductDto productDto = new ProductDto();
-			//no는 시퀸스로 view 디폴트 0
+			
 			productDto.setName(req.getParameter("name"));
 			productDto.setSmallTypeNo(Integer.parseInt(req.getParameter("smallTypeNo")));
 			productDto.setPrice(Integer.parseInt(req.getParameter("price")));

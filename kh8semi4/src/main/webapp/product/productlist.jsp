@@ -35,9 +35,9 @@ List<ProductDto> list = productDao.list();
                     <td><%=productDto.getPrice()%></td>
                     <td><%=productDto.getViews()%></td>
                     <td>
-                    	<a href="#">상세보기</a>
-                        <a href="productedit.jsp">수정</a>
-                        <a href="#">삭제</a>
+                    	<a href="productdetail.jsp?no=<%=productDto.getNo()%>">상세보기</a>
+                        <a href="productedit.jsp?no=<%=productDto.getNo()%>">수정</a>
+                        <a href="delete.kj?no=<%=productDto.getNo()%>">삭제</a>
                     </td>
                 </tr>
             <%} %>
