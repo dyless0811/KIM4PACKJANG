@@ -136,7 +136,7 @@
                 </div>
 
                 <div class="flex-equal right">
-                	<span>session = [<%=session.getAttribute("loginId")%>]</span>
+                	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
                    	<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
                     <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>

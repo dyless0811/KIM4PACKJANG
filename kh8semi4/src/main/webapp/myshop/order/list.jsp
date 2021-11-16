@@ -1,12 +1,12 @@
+<%@page import="semi.beans.ProductDto"%>
+<%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.BuyDto"%>
 <%@page import="java.util.List"%>
 <%@page import="semi.beans.BuyDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<jsp:include page="/template/header.jsp"></jsp:include>
-
-    <%-- 입력 --%>
+<%-- 입력 --%>
 <%
 	String id = (String)session.getAttribute("loginId");
 %>
@@ -15,11 +15,18 @@
 <%
 	BuyDao buyDao = new BuyDao();
 	List<BuyDto> buyList = buyDao.BuyProductMember(id);
+	
+	ProductDao productDao =new ProductDao();
+	List<ProductDto> list = productDao.list();
 %>
 
+<jsp:include page="/template/header.jsp"></jsp:include>
+
 <%-- 출력 --%>
-<table border="1" width="500">
-			<thead>		
+<div class="container-1200 container-center">
+	<div class="row">
+			<table class="table table-border">
+						<thead>		
 					<tr>
 							<th>주문일자</th>
 							<th>이미지</th>
@@ -43,7 +50,9 @@
 							</tr>
 			</tbody>
 			<%} %>
-</table>
-
+			
+			</table>
+	</div>
+</div>			
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

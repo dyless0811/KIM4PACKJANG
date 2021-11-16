@@ -5,9 +5,7 @@
 <%@page import="semi.beans.WishlistDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<jsp:include page="/template/header.jsp"></jsp:include>
-    
+ 
 <%-- 입력 --%>
 <%
 	String id = (String)session.getAttribute("loginId");
@@ -23,9 +21,10 @@ ProductDao productDao =new ProductDao();
 List<ProductDto> list = productDao.list();
 %>
 
-
-<%-- 출력 --%>
-<table border="1" width="500">
+<jsp:include page="/template/header.jsp"></jsp:include>
+<div class="container-1200 container-center">
+	<div class="row">
+			<table class="table table-border">
 			<thead>		
 					<tr>
 							<th>이미지</th>
@@ -50,6 +49,8 @@ List<ProductDto> list = productDao.list();
 							</tr>
 			</tbody>
 			<%} %>
-</table>
-    
+	</table>
+	</div>
+</div>
+
 <jsp:include page="/template/footer.jsp"></jsp:include>    
