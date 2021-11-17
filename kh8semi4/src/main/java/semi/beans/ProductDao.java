@@ -276,12 +276,39 @@ public List<ProductDto> listByTreeSort(int begin,int end) throws Exception{
 		return list;
 }
 
-public List<ProductDto> ListByReplyCount() throws Exception {
+
+//리뷰 수를 기준으로 정렬된 목록
+public List<ProductDto> listByReplyCount() throws Exception {
 	
 	Connection con = JdbcUtils.connect();
-	String sql = "select p.*, c.cnt from product p inner join (select r.product_no, count(*) cnt from product p inner join reply r on r.product_no = p.no group by r.product_no order by count(*) desc) c on p.no = c.product_no order by c.cnt desc";
+	String sql = "select p.*, c.cnt "
+				+ "from product p "
+				+ "inner join ("
+					+ "select r.product_no, count(*) cnt "
+					+ "from product p "
+					+ "inner join reply r "
+					+ "on r.product_no = p.no "
+					+ "group by r.product_no "
+					+ "order by count(*) desc) c "
+				+ "on p.no = c.product_no "
+				+ "order by c.cnt desc";
 	PreparedStatement ps = con.prepareStatement(sql);
-	List<ProductDto> list = null;
+	ResultSet rs = ps.executeQuery();
+	
+	List<ProductDto> list = new ArrayList<>();
+	
+	while(rs.next()) {
+		ProductDto productDto = new ProductDto();
+		productDto.setNo(rs.getInt("no"));
+		productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+		productDto.setName(rs.getString("name"));
+		productDto.setPrice(rs.getInt("price"));
+		
+		list.add(productDto);
+	}
+	
+	con.close();
+	
 	return list;
 }
 

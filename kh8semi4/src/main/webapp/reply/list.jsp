@@ -1,3 +1,6 @@
+<%@page import="semi.beans.ReplyListVo"%>
+<%@page import="semi.beans.ProductDto"%>
+<%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.ReplyDto"%>
 <%@page import="semi.beans.ReplyDao"%>
 <%@page import="java.util.List"%>
@@ -28,18 +31,16 @@ int begin = end-(psize-1);
 p=<%=p%> begin=<%=begin %> end=<%=end%>
 
 <% 
-ReplyDao replyDao =new ReplyDao();
-List<ReplyDto> list = replyDao.list();
+ReplyDao replyDao = new ReplyDao();
+List<ReplyListVo> replyVoList = replyDao.listByReplyTime(begin, end);
 int i = 0;
-
-list = replyDao.listByRownum(begin, end); //원하는 구간 목록 
 
 %>
 <%--출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1400 container-center">
     <div class="row flex-container">
-    <%for(int j = 0; j<12; j++){ 
+    <%for(ReplyListVo replyListVo : replyVoList){ 
     	if(i % 4 == 0) {%>
     		</div>
     		<div class="row flex-container">
@@ -51,10 +52,10 @@ list = replyDao.listByRownum(begin, end); //원하는 구간 목록
 		    			<td>이미지영역</td>
 		    		</tr>
 		    		<tr>
-		    			<td>제품정보</td>
+		    			<td><%=replyListVo.getName()%><br><%=replyListVo.getPrice() %></td>
 		    		</tr>
 		    		<tr>
-		    			<td>별점 리뷰개수</td>
+		    			<td><%=replyListVo.getStarpoint() %><br> <%=replyListVo.getReplyCount() %></td>
 		    		</tr>
 		    		<tr>
 		    			<td>이미지, 리뷰들</td>
