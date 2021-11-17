@@ -19,15 +19,13 @@ import semi.beans.BoardImageDto;
 /**
  * Servlet implementation class BoardWriteServlet
  */
-@WebServlet("/board/write.kj")
-public class BoardWriteServlet extends HttpServlet {
+@WebServlet("/board/edit.kj")
+public class BoardEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String savePath = request.getSession().getServletContext().getRealPath("/");
-			System.out.println(savePath);
-			
+			String savePath = "D:/upload/board";
 			int maxSize = 10  * 1024 * 1024;
 			String encoding = "UTF-8";
 			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
@@ -55,8 +53,6 @@ public class BoardWriteServlet extends HttpServlet {
 			}else {
 				boardDao.insert(boardDto);
 			}
-			
-			System.out.println(boardNo+"보드서블릿");
 			
 			BoardImageDto boardImageDto = new BoardImageDto();
 			boardImageDto.setBoardNo(boardNo);
