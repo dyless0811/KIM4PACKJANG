@@ -17,7 +17,6 @@
 		<img src="/kh8semi4/image/mollu.gif">
 		</div>
 	</div>
-	
-	</div>
+</div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

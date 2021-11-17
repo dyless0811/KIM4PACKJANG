@@ -63,7 +63,7 @@
 					<a href="<%=request.getContextPath() %>/myshop/wish_list.jsp">관심상품</a>
 		</div>
 		<div class="row">
-					<a href="">게시물 관리</a>
+					<a href="<%=request.getContextPath() %>/myshop/board/myboard.jsp">게시물 관리</a>
 		</div>
 </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
