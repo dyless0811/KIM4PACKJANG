@@ -1,4 +1,4 @@
-package semi.servlet.board;
+package semi.board.servlet;
 
 import java.io.IOException;
 import java.util.List;
