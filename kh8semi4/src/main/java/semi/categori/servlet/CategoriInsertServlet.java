@@ -1,4 +1,4 @@
-package semi.servlet.categori;
+package semi.categori.servlet;
 
 import java.io.IOException;
 

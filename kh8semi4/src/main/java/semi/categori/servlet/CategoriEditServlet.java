@@ -1,4 +1,4 @@
-package semi.servlet.categori;
+package semi.categori.servlet;
 
 import java.io.IOException;
 
@@ -8,25 +8,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
-
 import semi.beans.BigTypeDao;
 import semi.beans.BigTypeDto;
 
 
-@WebServlet (urlPatterns = "/admin/bcategoridelete.kj")
-public class CategorideleteServlet extends HttpServlet{
+@WebServlet (urlPatterns = "/admin/bcategoriedit.kj")
+public class CategoriEditServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//입력
-			int no = Integer.parseInt(req.getParameter("no"));
-	
-	
+			BigTypeDto bigTypeDto = new BigTypeDto();
+			bigTypeDto.setNo(Integer.parseInt(req.getParameter("no")));
+			bigTypeDto.setName(req.getParameter("name"));
 			
 			//처리
 			BigTypeDao bigTypeDao = new BigTypeDao();
-			boolean success =bigTypeDao.delete(no);
+			boolean success =bigTypeDao.update(bigTypeDto);
 			
 
 			//출력

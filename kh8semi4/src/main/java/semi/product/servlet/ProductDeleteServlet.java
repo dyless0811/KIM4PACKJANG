@@ -1,4 +1,4 @@
-package semi.servlet.categori;
+package semi.product.servlet;
 
 import java.io.IOException;
 
@@ -8,25 +8,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semi.beans.SmallTypeDao;
-@WebServlet (urlPatterns = "/admin/scategoridelete.kj")
-public class sCategoriDeleteServlet extends HttpServlet{
+import semi.beans.ProductDao;
+@WebServlet (urlPatterns = "/product/delete.kj")
+public class ProductDeleteServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			//입력
-			int no =Integer.parseInt(req.getParameter("no"));
+		//입력
+	
+		int no = Integer.parseInt(req.getParameter("no"));
+		
+		//처리
+		ProductDao productDao =new ProductDao();
+		boolean success =productDao.delete(no);
+		
+		
+		
+	
+		//출력
+		if(success) {
+			resp.sendRedirect("productlist.jsp");
+		}else {
+			resp.sendError(500);
+		}
 			
-			//처리
-			SmallTypeDao smalltypeDao = new SmallTypeDao();
-			boolean succees=smalltypeDao.delete(no);
 			
-			//출력
-			if(succees) {
-				resp.sendRedirect("./categoryedit.jsp");
-			}else {
-				resp.sendError(500);
-			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);

@@ -1,4 +1,4 @@
-package semi.servlet.product;
+package semi.product.servlet;
 
 import java.io.IOException;
 
