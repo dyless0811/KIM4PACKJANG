@@ -200,7 +200,7 @@
                             </li>
                             
                             <%} %>
-                            <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
+                            <li><a href="<%=request.getContextPath()%>/board/list.jsp?">COMMUNITY</a>
                 				<ul>
                 					<li>
                 						<a href="#">

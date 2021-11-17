@@ -146,13 +146,45 @@ public class BoardDao {
 			BoardDto boardDto = new BoardDto();
 			boardDto.setNo(rs.getInt("no"));
 			boardDto.setMemberId(rs.getString("member_id"));
-			boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
+			boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
 			boardDto.setBoardTitle(rs.getString("board_title"));
 			boardDto.setBoardContent(rs.getString("board_content"));
 			boardDto.setBoardDate(rs.getDate("board_date"));
 			boardDto.setBoardHit(rs.getInt("board_hit"));
 			boardDto.setBoardSuperno(rs.getInt("board_superno"));
-			boardDto.setBoardGroupno(rs.getInt("board_group"));
+			boardDto.setBoardGroupno(rs.getInt("board_groupno"));
+			boardDto.setBoardDepth(rs.getInt("board_depth"));
+			
+			boardList.add(boardDto);
+		}
+		
+		con.close();
+		
+		return boardList;
+	}
+	
+	//메뉴바에서 링크누르면 해당 no의 게시글을 반환하는 메소두
+	public List<BoardDto> listByLink(int no) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "select * from board where boardtype_no = ? order by no desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, no);
+		ResultSet rs = ps.executeQuery();
+		
+		List<BoardDto> boardList = new ArrayList<>();
+		
+		while(rs.next()) {
+			BoardDto boardDto = new BoardDto();
+			boardDto.setNo(rs.getInt("no"));
+			boardDto.setMemberId(rs.getString("member_id"));
+			boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
+			boardDto.setBoardTitle(rs.getString("board_title"));
+			boardDto.setBoardContent(rs.getString("board_content"));
+			boardDto.setBoardDate(rs.getDate("board_date"));
+			boardDto.setBoardHit(rs.getInt("board_hit"));
+			boardDto.setBoardSuperno(rs.getInt("board_superno"));
+			boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 			boardDto.setBoardDepth(rs.getInt("board_depth"));
 			
 			boardList.add(boardDto);
@@ -220,10 +252,7 @@ public class BoardDao {
 		  return count;
 		  
 	  }
-	public List<BoardDto> searchByRownum(String column, String keyword, int begin, int end) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	//댓글 개수 갱신 기능 
 	public boolean refreshReplyCount(int boardNo) throws Exception{
 		Connection con = JdbcUtils.connect();
@@ -246,9 +275,9 @@ public class BoardDao {
 		 String sql = "select* from ("
 	             + "select rownum rn, TMP.* from ("
 	                 + "select * from board "
-	                 + "connect by prior board_no = board_superno "
+	                 + "connect by prior no = board_superno "
 	                 + "start with board_superno is null "
-	                 + "order siblings by board_groupno desc, board_no asc"
+	                 + "order siblings by board_groupno desc,no asc"
 	             + ")TMP "
 	         + ")where rn between ? and ?";
 		 PreparedStatement ps = con.prepareStatement(sql);
@@ -261,13 +290,13 @@ public class BoardDao {
 				
 				boardDto.setNo(rs.getInt("no"));
 				boardDto.setMemberId(rs.getString("member_id"));
-				boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
+				boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
 				boardDto.setBoardTitle(rs.getString("board_title"));
 				boardDto.setBoardContent(rs.getString("board_content"));
 				boardDto.setBoardDate(rs.getDate("board_date"));
 				boardDto.setBoardHit(rs.getInt("board_hit"));
 				boardDto.setBoardSuperno(rs.getInt("board_superno"));
-				boardDto.setBoardGroupno(rs.getInt("board_group"));
+				boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 				boardDto.setBoardDepth(rs.getInt("board_depth"));
 				
 				
@@ -280,15 +309,15 @@ public class BoardDao {
 	}
 
 	//계층형 목록 /검색
-	public List<BoardDto> searchByTreeSort(int begin,int end,String column, String keyword) throws Exception{
+	public List<BoardDto> searchByTreeSort(String column, String keyword ,int begin,int end) throws Exception{
 		 Connection con = JdbcUtils.connect();
-		 String sql = "select * from ("
-		 		  + "select rownum rn,TMp.*from("
+		 String sql = "select * from ( "
+		 		  + "select rownum rn,TMp.* from( "
 		 		   + "select * from board where instr(#1, ?) > 0 "
-		 		   + "connect by prior board_no = board_superno "
+		 		   + "connect by prior no = board_superno "
 	               + "start with board_superno is null "
-	               + "order siblings by board_groupno desc, board_no asc"
-		 		  + ")TMP"
+	               + "order siblings by board_groupno desc, no asc "
+		 		  + ")TMP "
 		 		+ ")where rn between ? and ?";
 		 sql = sql.replace("#1", column);//
 		 PreparedStatement ps = con.prepareStatement(sql);
@@ -302,13 +331,13 @@ public class BoardDao {
 				
 				boardDto.setNo(rs.getInt("no"));
 				boardDto.setMemberId(rs.getString("member_id"));
-				boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
+				boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
 				boardDto.setBoardTitle(rs.getString("board_title"));
 				boardDto.setBoardContent(rs.getString("board_content"));
 				boardDto.setBoardDate(rs.getDate("board_date"));
 				boardDto.setBoardHit(rs.getInt("board_hit"));
 				boardDto.setBoardSuperno(rs.getInt("board_superno"));
-				boardDto.setBoardGroupno(rs.getInt("board_group"));
+				boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 				boardDto.setBoardDepth(rs.getInt("board_depth"));
 				
 				BoardList.add(boardDto);
