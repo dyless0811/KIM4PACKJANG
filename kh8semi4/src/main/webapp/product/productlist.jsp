@@ -39,7 +39,11 @@ list = productDao.listByRownum(begin, end); //원하는 구간 목록
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1400 container-center">
     <div class="row flex-container">
-    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
+    <%for(ProductDto product : list){ 
+    	if(i % 4 == 0) {%>
+    		</div>
+    		<div class="row flex-container">
+    	<%}%>
     		<div class="row flex-gro">
 	    	<table class="table table-border table-hover">
 		    	<tbody>
@@ -64,69 +68,7 @@ list = productDao.listByRownum(begin, end); //원하는 구간 목록
 		    	</tbody>
 		    </table>
     	</div>
-    	<%} %>
-    </div>
-</div>
-<%i = 0; %>
-<div class="container-1400 container-center">
-    <div class="row flex-container">
-    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
-    		<div class="row flex-gro">
-	    	<table class="table table-border table-hover">
-		    	<tbody>
-		    		<tr height="400px">
-		    			<td>이미지영역</td>
-		    		</tr>
-		    		<tr>
-		    			<td>색상 / <%=product.getViews()%></td>
-		    		</tr>
-		    		<tr>
-		    			<td><%=product.getName()%>(사이즈)</td>
-		    		</tr>
-		    		<tr>
-		    			<td><%=product.getPrice()%></td>
-		    		</tr>
-		    		<tr>
-		    			<td>------------</td>
-		    		</tr>
-		    		<tr>
-		    			<td><%=product.getDescription()%></td>
-		    		</tr>
-		    	</tbody>
-		    </table>
-    	</div>
-    	<%} %>
-    </div>
-</div>
-<%i = 0; %>
-<div class="container-1400 container-center">
-    <div class="row flex-container">
-    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
-    		<div class="row flex-gro">
-	    	<table class="table table-border table-hover">
-		    	<tbody>
-		    		<tr height="400px">
-		    			<td>이미지영역</td>
-		    		</tr>
-		    		<tr>
-		    			<td>색상 / <%=product.getViews()%></td>
-		    		</tr>
-		    		<tr>
-		    			<td><%=product.getName()%>(사이즈)</td>
-		    		</tr>
-		    		<tr>
-		    			<td><%=product.getPrice()%></td>
-		    		</tr>
-		    		<tr>
-		    			<td>------------</td>
-		    		</tr>
-		    		<tr>
-		    			<td><%=product.getDescription()%></td>
-		    		</tr>
-		    	</tbody>
-		    </table>
-    	</div>
-    	<%} %>
+    	<%i++; } %>
     </div>
 </div>
 <%i = 0; %>

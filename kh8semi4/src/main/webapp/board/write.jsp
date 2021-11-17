@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="semi.beans.BoardTypeDao"%>
+<%@page import="semi.beans.BoardTypeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -5,6 +8,9 @@
 
 	boolean isAnswer = boardSuperno != null;
 	String title = isAnswer ? "답글작성" : "게시글 작성";
+
+	BoardTypeDao boardTypeDao = new BoardTypeDao();
+	List<BoardTypeDto> list = boardTypeDao.list();
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -18,7 +24,11 @@
         <input type="hidden" name="boardSuperno" value="<%=boardSuperno%>" />
         <%}%>
         <div>
-        	<input type="text" name="boardTypeNo" value="<%= 1%>">
+          <select name="boardTypeNo">
+          	<%for(BoardTypeDto boardTypeDto : list) {%>
+          	<option value="<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></option>
+          	<%}%>
+		 </select>
         </div>
         <div class="row center">
           제목<br />
