@@ -203,7 +203,7 @@
                             <li><a href="<%=request.getContextPath()%>/board/list.jsp?">COMMUNITY</a>
                 				<ul>
                 					<li>
-                						<a href="#">
+                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
                 							review
                 						</a>
                 					</li>
