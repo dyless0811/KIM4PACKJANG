@@ -34,8 +34,16 @@ package semi.beans;
 			}
 			this.column = req.getParameter("column");
 			this.keyword = req.getParameter("keyword");
+			this.no = req.getParameter("no");
 		}
 		
+		
+		//링크타고 들어올 경우를 처리할 코드들
+		private String no;
+		
+		public String getNo() {
+			return no;
+		}
 		//계산 메소드
 		private int pageSize = 10;
 		private int blockSize = 10;
@@ -62,8 +70,11 @@ package semi.beans;
 			this.finishBlock = this.startBlock + (this.blockSize - 1);
 			
 			//list 계산
-			if(this.isSearch()) {
-				this.list = boardDao.searchByRownum(column, keyword, begin, end);
+			if(this.no != null) {
+				this.list = boardDao.listByLink(Integer.parseInt(this.no));
+			}
+			else if(this.isSearch()) {
+				this.list = boardDao.searchByTreeSort(column, keyword, begin, end);
 			}
 			else {
 				//this.list = boardDao.listByRownum(begin, end);//일반
@@ -156,6 +167,9 @@ package semi.beans;
 		public List<BoardDto> getList() {
 			return list;
 		}
+		
+		
+		
 	}
 
 
