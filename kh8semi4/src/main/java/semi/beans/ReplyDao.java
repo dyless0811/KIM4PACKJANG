@@ -7,7 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReplyDao {
-
+		
+		public ReplyDto get(int no) throws Exception {
+			Connection con = JdbcUtils.connect();
+			String sql = "select * from reply where no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs = ps.executeQuery();
+			
+			ReplyDto replyDto = new ReplyDto();
+			
+			if(rs.next()) {
+				replyDto.setNo(rs.getInt("no"));
+				replyDto.setMemberId(rs.getString("member_id"));
+				replyDto.setProductNo(rs.getInt("product_no"));
+				replyDto.setStarPoint(rs.getInt("starpoint"));
+				replyDto.setContent(rs.getString("content"));
+				replyDto.setTime(rs.getDate("time"));
+			}
+			con.close();
+			
+			return replyDto;
+		}
+		
 		public List<ReplyDto> ProductReplyMember(String memberId) throws Exception{
 			Connection con = JdbcUtils.connect();
 			String sql = "select buy.*,reply.* from reply left outer join buy on reply.product_no = buy.no where reply.member_id = ?";
@@ -212,5 +234,20 @@ public class ReplyDao {
 		con.close();
 		
 		return list;
+	}
+
+	public boolean delete(int replyNo) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "delete reply where no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, replyNo);
+		int result = ps.executeUpdate();
+		
+		con.close();
+		
+		//1 : 삭제 성공
+		//0 : 삭제 실패
+		return result > 0;
 	}
 }
