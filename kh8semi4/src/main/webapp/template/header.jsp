@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BoardTypeDto"%>
+<%@page import="semi.beans.BoardTypeDao"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="semi.beans.SmallTypeDao"%>
 <%@page import="semi.beans.SmallTypeDto"%>
@@ -11,6 +13,9 @@
 	//타입 리스트 출력을 위한 dao, dto
 	BigTypeDao bigTypeDao = new BigTypeDao();
 	List<BigTypeDto> bigTypeList = bigTypeDao.list();
+	
+	BoardTypeDao boardTypeDao = new BoardTypeDao();
+	List<BoardTypeDto> boardTypeList = boardTypeDao.list();
 %>
 
 <%
@@ -36,7 +41,6 @@
         .logo-wrapper {
             width: 130px;
         }
-
         .logo-wrapper>img {
             width: 100%;
             height: 100%;
@@ -89,22 +93,30 @@
             <div>
                 <div>
                     <div>
-                        <ul class="slide-menu">
+                         <ul class="slide-menu">
                             <%for(BigTypeDto bigType : bigTypeList){ %>
                              <%if(bigType.getNo()==31){ %>
-                            <li><a href="<%=request.getContextPath()%>/board/list.jsp"><%=bigType.getName()%></a></li>
+                            <li><a href="<%=request.getContextPath()%>/board/list.jsp"><%=bigType.getName()%></a>
+                             
                             <%}else{ %>
-                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                             
                             <%} %>
                             <ul>
                                 <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
                                 <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
                                 <%for(SmallTypeDto smalltype: smallTypeList){ %>
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/board/list.jsp"><%=smalltype.getName()%></a>
+                     			 <%if(bigType.getNo()==31){ %>
+                                    <a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
+                                 <%}else{ %>   
+                                 	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
+                                 <%} %>
+                                 
                                 <li>
-                                    <%} %>
+                                  <%} %>
                             </ul>
+                            </li>
                             <%} %>
                         </ul>
                     </div>
@@ -172,23 +184,21 @@
         <!-- 네비게이션 시작 -->
         <nav>
 
-
-             <div>
-                <div>
-                    <div>
                         <ul class="slide-menu">
                             <%for(BigTypeDto bigType : bigTypeList){ %>
                              <%if(bigType.getNo()==31){ %>
-                            <li><a href="<%=request.getContextPath()%>/board/list.jsp"><%=bigType.getName()%></a></li>
+                            <li><a href="<%=request.getContextPath()%>/board/list.jsp"><%=bigType.getName()%></a>
+                             
                             <%}else{ %>
-                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                             
                             <%} %>
                             <ul>
                                 <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
                                 <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
                                 <%for(SmallTypeDto smalltype: smallTypeList){ %>
                                 <li>
-                     			<%if(bigType.getNo()==31){ %>
+                     			 <%if(bigType.getNo()==31){ %>
                                     <a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
                                  <%}else{ %>   
                                  	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
@@ -197,13 +207,10 @@
                                 <li>
                                   <%} %>
                             </ul>
-                            
+                            </li>
                             <%} %>
                         </ul>
-                    </div>
-                </div>
-            </div>
-
+            
         </nav>
         <!-- 네비게이션 끝 -->
 
