@@ -13,20 +13,35 @@
 	ReplyDao replyDao = new ReplyDao();
 	List<ReplyDto>list = 	replyDao.ProductReplyMember2(id);
 	List<ProductDto>list2 = replyDao.CanWriteReply(id);
-	
-	
 %>
-
-
 <jsp:include page="/template/header.jsp"></jsp:include>
-
+<!--멀티페이지 스크립트-->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 	$(function(){
-		$(".confirm-link").click(function(e) {
-				
-				 e.preventDefault();
+		$(".page").hide();
+		$(".page").eq(0).show();
 		
+		var p  = 0;
+		
+		$(".a-next").click(function(e) {
+			e.preventDefault();
+			
+			p++;
+			if(p > 2) {
+				p=1;
+			};
+			$(".page").hide();
+			$(".page").eq(p).show();
+		});
+		$(".a-prev").click(function(e) {
+			e.preventDefault();
+			p--;
+			if(p < 2) {
+				p=0;
+			};
+			$(".page").hide();
+			$(".page").eq(p).show();
 		});
 	});
 </script>
@@ -79,19 +94,20 @@
         <ul class="slide-menu">
           <li style="width: 50%">
             
-            <a class="center confirm-link" style="margin: 0 auto; width: auto" href="#">
+            <a class="center a-next" style="margin: 0 auto; width: auto" href="#">
               작성가능한 리뷰(1)
            
             </a>
           </li>
           <li style="width: 50%">
-            <a class="center confirm-link" style="margin: 0 auto; width: auto" href="#">
+            <a class="center a-prev" style="margin: 0 auto; width: auto" href="#">
               작성한 리뷰(11)
             </a>
           </li>
         </ul>
       </div>
-      <div class="row">
+    
+      <div class="row page">
         <table class="table table-border table-hover">
           <thead>
             <tr>
@@ -115,8 +131,9 @@
         </table>
       </div>
       
-      	
-         <div class="row">
+      	<!-- 작성가능한 리뷰 -->
+
+         <div class="row page">
         <table class="table table-border table-hover">
           <thead>
             <tr>
