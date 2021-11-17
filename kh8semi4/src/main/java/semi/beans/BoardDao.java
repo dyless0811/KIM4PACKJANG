@@ -246,9 +246,9 @@ public class BoardDao {
 		 String sql = "select* from ("
 	             + "select rownum rn, TMP.* from ("
 	                 + "select * from board "
-	                 + "connect by prior board_no = board_superno "
+	                 + "connect by prior no = board_superno "
 	                 + "start with board_superno is null "
-	                 + "order siblings by board_groupno desc, board_no asc"
+	                 + "order siblings by board_groupno desc,no asc"
 	             + ")TMP "
 	         + ")where rn between ? and ?";
 		 PreparedStatement ps = con.prepareStatement(sql);
@@ -261,13 +261,13 @@ public class BoardDao {
 				
 				boardDto.setNo(rs.getInt("no"));
 				boardDto.setMemberId(rs.getString("member_id"));
-				boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
+				boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
 				boardDto.setBoardTitle(rs.getString("board_title"));
 				boardDto.setBoardContent(rs.getString("board_content"));
 				boardDto.setBoardDate(rs.getDate("board_date"));
 				boardDto.setBoardHit(rs.getInt("board_hit"));
 				boardDto.setBoardSuperno(rs.getInt("board_superno"));
-				boardDto.setBoardGroupno(rs.getInt("board_group"));
+				boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 				boardDto.setBoardDepth(rs.getInt("board_depth"));
 				
 				
