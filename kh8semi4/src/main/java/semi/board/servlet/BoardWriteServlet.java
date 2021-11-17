@@ -25,7 +25,7 @@ public class BoardWriteServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String savePath = request.getSession().getServletContext().getRealPath("/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resource/image/board");
 			System.out.println(savePath);
 			
 			int maxSize = 10  * 1024 * 1024;
@@ -55,8 +55,6 @@ public class BoardWriteServlet extends HttpServlet {
 			}else {
 				boardDao.insert(boardDto);
 			}
-			
-			System.out.println(boardNo+"보드서블릿");
 			
 			BoardImageDto boardImageDto = new BoardImageDto();
 			boardImageDto.setBoardNo(boardNo);

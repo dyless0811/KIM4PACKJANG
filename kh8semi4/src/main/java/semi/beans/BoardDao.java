@@ -257,6 +257,19 @@ public class BoardDao {
 		  con.close();
 		  return count;
 	  }
+	  public int count(int boardTypeNo)throws Exception {
+		  Connection con = JdbcUtils.connect();
+		  String sql="select count(*) from board where boardtype_no = ?";
+		  PreparedStatement ps = con.prepareStatement(sql);
+		  ps.setInt(1, boardTypeNo);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  
+		  int count=rs.getInt("count(*)");
+//		  int count=rs.getInt(1);
+		  con.close();
+		  return count;
+	  }
 	  
 	  public int count(String column,String keyword) throws Exception{
 		  Connection con = JdbcUtils.connect();
@@ -264,6 +277,22 @@ public class BoardDao {
 		  sql=sql.replace("#1",column);
 		  PreparedStatement ps = con.prepareStatement(sql);
 		  ps.setString(1, keyword);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  
+		  int count=rs.getInt("count(*)");
+//		  int count=rs.getInt(1);
+		  con.close();
+		  return count;
+		  
+	  }
+	  public int count(int boardTypeNo ,String column,String keyword) throws Exception{
+		  Connection con = JdbcUtils.connect();
+		  String sql="select count(*) from board where boardtype_no = ? and instr(#1,?)>0";
+		  sql=sql.replace("#1",column);
+		  PreparedStatement ps = con.prepareStatement(sql);
+		  ps.setInt(1, boardTypeNo);
+		  ps.setString(2, keyword);
 		  ResultSet rs=ps.executeQuery();
 		  rs.next();
 		  
@@ -290,6 +319,9 @@ public class BoardDao {
 		return result>0;
 
 	}
+	
+	
+	
 	//계층형 목록
 	public List<BoardDto> listByTreeSort(int begin,int end) throws Exception{
 		 Connection con = JdbcUtils.connect();
@@ -328,13 +360,53 @@ public class BoardDao {
 			
 			return BoardList;
 	}
+	//계층형 목록
+	public List<BoardDto> listByTreeSort(int boardTypeNo, int begin,int end) throws Exception{
+		Connection con = JdbcUtils.connect();
+		String sql = "select* from ("
+				+ "select rownum rn, TMP.* from ("
+				+ "select * from board "
+				+ "where boardtype_no = ? "
+				+ "connect by prior no = board_superno "
+				+ "start with board_superno is null "
+				+ "order siblings by board_groupno desc,no asc"
+				+ ")TMP "
+				+ ")where rn between ? and ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, boardTypeNo);
+		ps.setInt(2, begin);
+		ps.setInt(3, end);
+		ResultSet rs=ps.executeQuery();
+		List<BoardDto> BoardList = new ArrayList<>();
+		while(rs.next()) {
+			BoardDto boardDto = new BoardDto();
+			
+			boardDto.setNo(rs.getInt("no"));
+			boardDto.setMemberId(rs.getString("member_id"));
+			boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
+			boardDto.setBoardTitle(rs.getString("board_title"));
+			boardDto.setBoardContent(rs.getString("board_content"));
+			boardDto.setBoardDate(rs.getDate("board_date"));
+			boardDto.setBoardHit(rs.getInt("board_hit"));
+			boardDto.setBoardSuperno(rs.getInt("board_superno"));
+			boardDto.setBoardGroupno(rs.getInt("board_groupno"));
+			boardDto.setBoardDepth(rs.getInt("board_depth"));
+			
+			
+			BoardList.add(boardDto);
+		}
+		
+		con.close();
+		
+		return BoardList;
+	}
 
 	//계층형 목록 /검색
-	public List<BoardDto> searchByTreeSort(String column, String keyword ,int begin,int end) throws Exception{
+	public List<BoardDto> searchByTreeSort(int boardTypeNo, String column, String keyword ,int begin,int end) throws Exception{
 		 Connection con = JdbcUtils.connect();
 		 String sql = "select * from ( "
 		 		  + "select rownum rn,TMp.* from( "
-		 		   + "select * from board where instr(#1, ?) > 0 "
+		 		   + "select * from board where boardtype_no = ? and instr(#1, ?) > 0 "
 		 		   + "connect by prior no = board_superno "
 	               + "start with board_superno is null "
 	               + "order siblings by board_groupno desc, no asc "
@@ -342,9 +414,10 @@ public class BoardDao {
 		 		+ ")where rn between ? and ?";
 		 sql = sql.replace("#1", column);//
 		 PreparedStatement ps = con.prepareStatement(sql);
-		 ps.setString(1, keyword);
-		 ps.setInt(2, begin);
-		 ps.setInt(3, end);
+		 ps.setInt(1, boardTypeNo);
+		 ps.setString(2, keyword);
+		 ps.setInt(3, begin);
+		 ps.setInt(4, end);
 		 ResultSet rs=ps.executeQuery();
 		 List<BoardDto> BoardList = new ArrayList<>();
 			while(rs.next()) {
