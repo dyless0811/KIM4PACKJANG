@@ -51,6 +51,27 @@ public class BoardDao {
 		con.close();
 	}
 	
+	//	게시글 수정 메소드
+	public void update(BoardDto boardDto) throws Exception {
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "insert into board(no, member_id, boardtype_no, board_title, board_content, board_superno, board_groupno, board_depth) "
+				+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, boardDto.getNo());
+		ps.setString(2, boardDto.getMemberId());
+		ps.setInt(3, boardDto.getBoardTypeNo());
+		
+		ps.setString(4, boardDto.getBoardTitle());
+		ps.setString(5, boardDto.getBoardContent());
+		ps.setInt(6, boardDto.getBoardSuperno());
+		ps.setInt(7, boardDto.getBoardGroupno());
+		ps.setInt(8, boardDto.getBoardDepth());
+		ps.execute();
+		
+		con.close();
+	}
+	
 	//3. 시퀀스 번호를 미리 확인하는 메소드
 	public int getSeq() throws Exception{
 		Connection con = JdbcUtils.connect();
