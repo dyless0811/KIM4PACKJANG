@@ -183,7 +183,7 @@
                     </ul>
                 </li>
                 <%} %>
-                <li><a href="">COMMUNITY</a>
+                <li><a href="">COMMUNITY</a></li>
             </ul>
 
         </nav>
