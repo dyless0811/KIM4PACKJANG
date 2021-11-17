@@ -152,4 +152,65 @@ public class ReplyDao {
 		return list;
 	
 	}
+	
+	//최근 리뷰 순서로 정렬한 상품목록
+	public List<ReplyListVo> listByReplyTime() throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join reply r on r.product_no = p.no group by p.no, p.small_type_no, p.name, p.price order by recent_reply desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReplyListVo> list = new ArrayList<>();
+		
+		while(rs.next()) {
+			ReplyListVo replyListVo = new ReplyListVo();
+			replyListVo.setProductNo(rs.getInt("product_no"));
+			replyListVo.setSmallTypeNo(rs.getInt("small_type_no"));
+			replyListVo.setName(rs.getString("name"));
+			replyListVo.setPrice(rs.getInt("price"));
+			replyListVo.setRecentReply(rs.getString("recent_reply"));
+			replyListVo.setReplyCount(rs.getInt("reply_count"));
+			replyListVo.setStarpoint(rs.getDouble("starpoint"));
+			
+			
+			list.add(replyListVo);
+		}
+		
+		con.close();
+		
+		return list;
+	}
+	//최근 리뷰 순서로 정렬한 Top N 상품 목록
+	public List<ReplyListVo> listByReplyTime(int begin, int end) throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "select * from ("
+				+ "select rownum rn, TMP.* from ("
+				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join reply r on r.product_no = p.no group by p.no, p.small_type_no, p.name, p.price order by recent_reply desc"
+				+ ")TMP "
+				+ ")where rn between ? and ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, begin);
+		ps.setInt(2, end);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReplyListVo> list = new ArrayList<>();
+		
+		while(rs.next()) {
+			ReplyListVo replyListVo = new ReplyListVo();
+			replyListVo.setProductNo(rs.getInt("product_no"));
+			replyListVo.setSmallTypeNo(rs.getInt("small_type_no"));
+			replyListVo.setName(rs.getString("name"));
+			replyListVo.setPrice(rs.getInt("price"));
+			replyListVo.setRecentReply(rs.getString("recent_reply"));
+			replyListVo.setReplyCount(rs.getInt("reply_count"));
+			replyListVo.setStarpoint(rs.getDouble("starpoint"));
+			
+			
+			list.add(replyListVo);
+		}
+		
+		con.close();
+		
+		return list;
+	}
 }
