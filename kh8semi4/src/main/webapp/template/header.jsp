@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BoardTypeDto"%>
+<%@page import="semi.beans.BoardTypeDao"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="semi.beans.SmallTypeDao"%>
 <%@page import="semi.beans.SmallTypeDto"%>
@@ -11,6 +13,9 @@
 	//타입 리스트 출력을 위한 dao, dto
 	BigTypeDao bigTypeDao = new BigTypeDao();
 	List<BigTypeDto> bigTypeList = bigTypeDao.list();
+	
+	BoardTypeDao boardTypeDao = new BoardTypeDao();
+	List<BoardTypeDto> boardTypeList = boardTypeDao.list();
 %>
 
 <%
@@ -183,7 +188,20 @@
                     </ul>
                 </li>
                 <%} %>
-                <li><a href="">COMMUNITY</a>
+                <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
+                	<ul>
+                		<li>
+                			<a href="#">
+                				review
+                			</a>
+                		</li>
+                		<%for(BoardTypeDto boardTypeDto : boardTypeList) {%>
+                		<li>
+                			<a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></a>
+                		</li>
+                		<%}%>
+                	</ul>
+                </li>
             </ul>
 
         </nav>
