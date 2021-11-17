@@ -39,16 +39,12 @@ list = productDao.listByRownum(begin, end); //원하는 구간 목록
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1400 container-center">
     <div class="row flex-container">
-    <%for(ProductDto product : list){ 
-    	if(i % 4 == 0) {%>
-    		</div>
-    		<div class="row flex-container">
-    	<%}%>
+    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
     		<div class="row flex-gro">
 	    	<table class="table table-border table-hover">
 		    	<tbody>
 		    		<tr height="400px">
-		    			<td>이미지영역</td>
+		    		<td><img src="https://via.placeholder.com/300x350"></td>
 		    		</tr>
 		    		<tr>
 		    			<td>색상 / <%=product.getViews()%></td>
@@ -68,7 +64,7 @@ list = productDao.listByRownum(begin, end); //원하는 구간 목록
 		    	</tbody>
 		    </table>
     	</div>
-    	<%i++; } %>
+    	<%} %>
     </div>
 </div>
 <%i = 0; %>
@@ -79,7 +75,69 @@ list = productDao.listByRownum(begin, end); //원하는 구간 목록
 	    	<table class="table table-border table-hover">
 		    	<tbody>
 		    		<tr height="400px">
-		    			<td>이미지영역</td>
+		    		<td><img src="https://via.placeholder.com/300x350"></td>
+		    		</tr>
+		    		<tr>
+		    			<td>색상 / <%=product.getViews()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getName()%>(사이즈)</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getPrice()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td>------------</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getDescription()%></td>
+		    		</tr>
+		    	</tbody>
+		    </table>
+    	</div>
+    	<%} %>
+    </div>
+</div>
+<%i = 0; %>
+<div class="container-1400 container-center">
+    <div class="row flex-container">
+    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
+    		<div class="row flex-gro">
+	    	<table class="table table-border table-hover">
+		    	<tbody>
+		    		<tr height="400px">
+		    		<td><img src="https://via.placeholder.com/300x350"></td>
+		    		</tr>
+		    		<tr>
+		    			<td>색상 / <%=product.getViews()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getName()%>(사이즈)</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getPrice()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td>------------</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getDescription()%></td>
+		    		</tr>
+		    	</tbody>
+		    </table>
+    	</div>
+    	<%} %>
+    </div>
+</div>
+<%i = 0; %>
+<div class="container-1400 container-center">
+    <div class="row flex-container">
+    <%for(ProductDto product : list){ if(i == 4)break; i++;%>
+    		<div class="row flex-gro">
+	    	<table class="table table-border table-hover">
+		    	<tbody>
+		    		<tr height="400px">
+		    			<td><img src="https://via.placeholder.com/300x350"></td>
 		    		</tr>
 		    		<tr>
 		    			<td>색상 / <%=product.getViews()%></td>
@@ -104,6 +162,9 @@ list = productDao.listByRownum(begin, end); //원하는 구간 목록
 </div>
 
 <!-- 페이지네이션 -->
+<div class="row center">
+[이전] 1 2 3 4 5 6 7 8 9 10 [다음]
+</div>
 
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
