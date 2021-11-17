@@ -69,7 +69,7 @@ public class BoardDao {
 	public List<BoardDto> list() throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "select * from board order by board_no desc";
+		String sql = "select * from board order by no desc";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
@@ -79,13 +79,13 @@ public class BoardDao {
 			BoardDto boardDto = new BoardDto();
 			boardDto.setNo(rs.getInt("no"));
 			boardDto.setMemberId(rs.getString("member_id"));
-			boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
+			boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
 			boardDto.setBoardTitle(rs.getString("board_title"));
 			boardDto.setBoardContent(rs.getString("board_content"));
 			boardDto.setBoardDate(rs.getDate("board_date"));
 			boardDto.setBoardHit(rs.getInt("board_hit"));
 			boardDto.setBoardSuperno(rs.getInt("board_superno"));
-			boardDto.setBoardGroupno(rs.getInt("board_group"));
+			boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 			boardDto.setBoardDepth(rs.getInt("board_depth"));
 			
 			boardList.add(boardDto);
