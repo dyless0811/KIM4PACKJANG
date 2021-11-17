@@ -6,7 +6,7 @@ public class ReplyDto {
 	private int no;
 	private String memberId;
 	private int productNo;
-	private int statPoint;
+	private int starPoint;
 	private String content;
 	private Date time;
 	
@@ -38,12 +38,12 @@ public class ReplyDto {
 		this.productNo = productNo;
 	}
 
-	public int getStatPoint() {
-		return statPoint;
+	public int getStarPoint() {
+		return starPoint;
 	}
 
-	public void setStatPoint(int statPoint) {
-		this.statPoint = statPoint;
+	public void setStarPoint(int starPoint) {
+		this.starPoint = starPoint;
 	}
 
 	public String getContent() {

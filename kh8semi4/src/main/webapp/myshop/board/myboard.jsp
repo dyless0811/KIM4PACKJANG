@@ -1,5 +1,20 @@
+<%@page import="semi.beans.ReplyDto"%>
+<%@page import="java.util.List"%>
+<%@page import="semi.beans.ReplyDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	String id = (String)session.getAttribute("loginId");
+%>    
+
+<%
+	ReplyDao replyDao = new ReplyDao();
+	List<ReplyDto>list = 	replyDao.ProductReplyMember(id);
+
+%>
+
+
 <jsp:include page="/template/header.jsp"></jsp:include>
 
     <div class="container-1400 container-center">
@@ -86,5 +101,3 @@
     </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
-
-
