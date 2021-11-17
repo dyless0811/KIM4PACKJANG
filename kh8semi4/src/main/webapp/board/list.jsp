@@ -1,7 +1,29 @@
+<%@page import="semi.beans.BoardDto"%>
+<%@page import="java.util.List"%>
+<%@page import="semi.beans.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%-- 입력 --%>
+<%-- 입력 : 검색분류(column), 검색어(keyword) --%>
+<%
+	String column = request.getParameter("column");
+	String keyword = request.getParameter("keyword");
+	int boardType = Integer.parseInt(request.getParameter("no"));
+%>
+
+<%-- 처리 --%>
+<%
+	boolean search = column != null && !column.isEmpty() && keyword != null && !keyword.isEmpty();
+	
+	BoardDao boardDao = new BoardDao();
+	List<BoardDto> list = null;
+	if(search){ 
+		//list = boardDao.search(column, keyword);
+	}
+	else{
+		list = boardDao.list();
+	}
+%>
 
 
 <%-- 처리 --%>
@@ -23,10 +45,11 @@
 			<h3>OPEN : 10:00 - 17:00 / LUNCH : 12:30 - 13:30</h3>
 			<br>
 			<br>
-			<button>상품/사이즈 문의</button>
-			<button>지연 상품</button>
-			<button>구매 후기</button>
-			<button>공지사항</button>
+			<a href = "<%=request.getContextPath()%>/board/list.jsp?no=1">공지사항</a>
+			<a href = "<%=request.getContextPath()%>/board/list.jsp?no=2">상품/사이즈 문의</a>
+			<a href = "<%=request.getContextPath()%>/board/list.jsp?no=3">지연 상품</a>
+			<a href = "<%=request.getContextPath()%>/board/list.jsp?no=4">구매 후기</a>
+			
 		</div>
 	</div>
 	
@@ -39,7 +62,7 @@
 		<a href="write.jsp" class="link-btn">글쓰기</a>
 	</div>
 	<div class="row center">
-		<table class="table table-border table-hover">
+		<table class="table table-border">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -50,47 +73,14 @@
 			</thead>
 			
 			<tbody>
+			<%for(BoardDto board : list){ %>
 				<tr>
-					<td>11251</td>
-					<td>[색상&사이즈]문의요</td>
-					<td>아이유</td>
-					<td>15:25:41</td>
+					<td><%=board.getNo()%></td>
+					<td><%=board.getBoardTitle()%></td>
+					<td><%=board.getMemberId() %></td>
+					<td><%=board.getBoardDate() %></td>
 				</tr>
-				
-				<tr>
-					<td>11252</td>
-					<td>[상품 관련]문의드려요^^</td>
-					<td>루비똥</td>
-					<td>14:25:17</td>
-				</tr>
-				
-				<tr>
-					<td>11253</td>
-					<td>[상품 관련]문의에유.</td>
-					<td>정연만세</td>
-					<td>12:35:11</td>
-				</tr>
-				
-				<tr>
-					<td>11254</td>
-					<td>[상품 관련]여기 좀 봐주세요. 문의입니다.</td>
-					<td>장동현</td>
-					<td>16:28:21</td>
-				</tr>
-				
-				<tr>
-					<td>11255</td>
-					<td>[상품 관련]상품 문의.</td>
-					<td>강아지</td>
-					<td>19:25:45</td>
-				</tr>
-				
-				<tr>
-					<td>11256</td>
-					<td>[색상&사이즈]사이즈 문의드려요.</td>
-					<td>시계는와치와치</td>
-					<td>14:25:41</td>
-				</tr>
+			<%} %>
 			</tbody>
 		</table>
 		
