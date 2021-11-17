@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 public class BoardDao {
 	//1. 게시글 등록(새글) 메소드
 	public boolean insert(BoardDto boardDto) throws Exception {
@@ -188,5 +190,132 @@ public class BoardDao {
 		ps.execute();
 		
 		con.close();
+	}
+	//페이징에서 마지막 블록을 구하기 위하여 게시글 개수를 구하는 기능 ( 목록/ 검색 )
+	  public int count()throws Exception {
+		  Connection con = JdbcUtils.connect();
+		  String sql="select count(*) from board";
+		  PreparedStatement ps = con.prepareStatement(sql);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  
+		  int count=rs.getInt("count(*)");
+//		  int count=rs.getInt(1);
+		  con.close();
+		  return count;
+	  }
+	  
+	  public int count(String column,String keyword) throws Exception{
+		  Connection con = JdbcUtils.connect();
+		  String sql="select count(*) from board where instr(#1,?)>0";
+		  sql=sql.replace("#1",column);
+		  PreparedStatement ps = con.prepareStatement(sql);
+		  ps.setString(1, keyword);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  
+		  int count=rs.getInt("count(*)");
+//		  int count=rs.getInt(1);
+		  con.close();
+		  return count;
+		  
+	  }
+	public List<BoardDto> searchByRownum(String column, String keyword, int begin, int end) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	//댓글 개수 갱신 기능 
+	public boolean refreshReplyCount(int boardNo) throws Exception{
+		Connection con = JdbcUtils.connect();
+		String sql="update board "
+				+  "set board_reply=(select count(*) from reply where board_no=?) "
+				+  "where board_no=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, boardNo);
+		ps.setInt(2, boardNo);
+		
+		int result =ps.executeUpdate();
+		con.close();
+		
+		return result>0;
+
+	}
+	//계층형 목록
+	public List<BoardDto> listByTreeSort(int begin,int end) throws Exception{
+		 Connection con = JdbcUtils.connect();
+		 String sql = "select* from ("
+	             + "select rownum rn, TMP.* from ("
+	                 + "select * from board "
+	                 + "connect by prior board_no = board_superno "
+	                 + "start with board_superno is null "
+	                 + "order siblings by board_groupno desc, board_no asc"
+	             + ")TMP "
+	         + ")where rn between ? and ?";
+		 PreparedStatement ps = con.prepareStatement(sql);
+		 ps.setInt(1, begin);
+		 ps.setInt(2, end);
+		 ResultSet rs=ps.executeQuery();
+		 List<BoardDto> BoardList = new ArrayList<>();
+			while(rs.next()) {
+				BoardDto boardDto = new BoardDto();
+				
+				boardDto.setNo(rs.getInt("no"));
+				boardDto.setMemberId(rs.getString("member_id"));
+				boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
+				boardDto.setBoardTitle(rs.getString("board_title"));
+				boardDto.setBoardContent(rs.getString("board_content"));
+				boardDto.setBoardDate(rs.getDate("board_date"));
+				boardDto.setBoardHit(rs.getInt("board_hit"));
+				boardDto.setBoardSuperno(rs.getInt("board_superno"));
+				boardDto.setBoardGroupno(rs.getInt("board_group"));
+				boardDto.setBoardDepth(rs.getInt("board_depth"));
+				
+				
+				BoardList.add(boardDto);
+			}
+			
+			con.close();
+			
+			return BoardList;
+	}
+
+	//계층형 목록 /검색
+	public List<BoardDto> searchByTreeSort(int begin,int end,String column, String keyword) throws Exception{
+		 Connection con = JdbcUtils.connect();
+		 String sql = "select * from ("
+		 		  + "select rownum rn,TMp.*from("
+		 		   + "select * from board where instr(#1, ?) > 0 "
+		 		   + "connect by prior board_no = board_superno "
+	               + "start with board_superno is null "
+	               + "order siblings by board_groupno desc, board_no asc"
+		 		  + ")TMP"
+		 		+ ")where rn between ? and ?";
+		 sql = sql.replace("#1", column);//
+		 PreparedStatement ps = con.prepareStatement(sql);
+		 ps.setString(1, keyword);
+		 ps.setInt(2, begin);
+		 ps.setInt(3, end);
+		 ResultSet rs=ps.executeQuery();
+		 List<BoardDto> BoardList = new ArrayList<>();
+			while(rs.next()) {
+				BoardDto boardDto = new BoardDto();
+				
+				boardDto.setNo(rs.getInt("no"));
+				boardDto.setMemberId(rs.getString("member_id"));
+				boardDto.setBoardTypeNo(rs.getInt("board_type_no"));
+				boardDto.setBoardTitle(rs.getString("board_title"));
+				boardDto.setBoardContent(rs.getString("board_content"));
+				boardDto.setBoardDate(rs.getDate("board_date"));
+				boardDto.setBoardHit(rs.getInt("board_hit"));
+				boardDto.setBoardSuperno(rs.getInt("board_superno"));
+				boardDto.setBoardGroupno(rs.getInt("board_group"));
+				boardDto.setBoardDepth(rs.getInt("board_depth"));
+				
+				BoardList.add(boardDto);
+			}
+			
+			con.close();
+			
+			return BoardList;
 	}
 }
