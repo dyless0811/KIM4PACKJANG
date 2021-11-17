@@ -133,7 +133,7 @@ BoardDto boardDto = new BoardDto();
 			<input type="submit" value="검색" class="form-btn form-inline">
 			</form>
 	</div>
-<
+
 </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
