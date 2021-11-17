@@ -58,7 +58,7 @@ BoardDto boardDto = new BoardDto();
 		 <%for(BoardDto boardDtolist : boardPagenation.getList()) {%>
 		  <tr>
 		  	<td><%=boardDtolist.getNo()%></td>
-		  	<td><a href="#"><%=boardDtolist.getBoardTitle()%></a></td>
+		  	<td><a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDtolist.getNo()%>"><%=boardDtolist.getBoardTitle()%></a></td>
 		  	<td><%=boardDtolist.getMemberId()%></td>
 		  	<td><%=boardDtolist.getBoardDate()%></td>
 		  	<td><%=boardDtolist.getBoardHit()%></td>

@@ -244,8 +244,77 @@ public int count(String column,String keyword) throws Exception{
 	  return count;
 	  
 }
+  
 public List<ProductDto> searchByTreeSort(String column, String keyword, int begin, int end) {
 	// TODO Auto-generated method stub
 	return null;
+}
+  
+//계층형 목록 ( 미완성 )
+public List<ProductDto> listByTreeSort(int begin,int end) throws Exception{
+	 Connection con = JdbcUtils.connect();
+	 String sql = "select* from ("
+           + "select rownum rn, TMP.* from ("
+               + "select * from product "
+               + "connect by prior board_no = board_superno "
+               + "start with board_superno is null "
+               + "order siblings by board_groupno desc, board_no asc"
+           + ")TMP "
+       + ")where rn between ? and ?";
+	 PreparedStatement ps = con.prepareStatement(sql);
+	 ps.setInt(1, begin);
+	 ps.setInt(2, end);
+	 ResultSet rs=ps.executeQuery();
+		List<ProductDto> list = new ArrayList<>();
+		while(rs.next()) {
+			ProductDto productDto = new ProductDto();
+			productDto.setNo(rs.getInt("no"));
+			productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+			productDto.setName(rs.getString("name"));
+			productDto.setPrice(rs.getInt("price"));
+			productDto.setDescription(rs.getString("description"));
+			productDto.setViews(rs.getInt("views"));
+			
+			list.add(productDto);
+		}
+		con.close();
+		
+		return list;
+}
+
+
+//리뷰 수를 기준으로 정렬된 목록
+public List<ProductDto> listByReplyCount() throws Exception {
+	
+	Connection con = JdbcUtils.connect();
+	String sql = "select p.*, c.cnt "
+				+ "from product p "
+				+ "inner join ("
+					+ "select r.product_no, count(*) cnt "
+					+ "from product p "
+					+ "inner join reply r "
+					+ "on r.product_no = p.no "
+					+ "group by r.product_no "
+					+ "order by count(*) desc) c "
+				+ "on p.no = c.product_no "
+				+ "order by c.cnt desc";
+	PreparedStatement ps = con.prepareStatement(sql);
+	ResultSet rs = ps.executeQuery();
+	
+	List<ProductDto> list = new ArrayList<>();
+	
+	while(rs.next()) {
+		ProductDto productDto = new ProductDto();
+		productDto.setNo(rs.getInt("no"));
+		productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+		productDto.setName(rs.getString("name"));
+		productDto.setPrice(rs.getInt("price"));
+		
+		list.add(productDto);
+	}
+	
+	con.close();
+	
+	return list;
 }
 }

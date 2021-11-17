@@ -166,7 +166,7 @@
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<%if(login) {%>
                 	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
-                    <a href="<%=root%>/myshop/order/basket.jsp">장바구니</a>
+                    <a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">장바구니</a>
                     <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
                     <a href="#검색">검색</a>
                 	<%} else {%>
@@ -203,7 +203,7 @@
                             <li><a href="<%=request.getContextPath()%>/board/list.jsp?">COMMUNITY</a>
                 				<ul>
                 					<li>
-                						<a href="#">
+                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
                 							review
                 						</a>
                 					</li>

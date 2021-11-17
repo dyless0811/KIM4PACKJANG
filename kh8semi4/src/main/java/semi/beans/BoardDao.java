@@ -199,7 +199,7 @@ public class BoardDao {
 	public boolean delete(int boardNo) throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "delete board where board_no = ?";
+		String sql = "delete board where no = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, boardNo);
 		int result = ps.executeUpdate();
