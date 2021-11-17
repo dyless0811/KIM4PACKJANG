@@ -24,6 +24,10 @@
 
 <%-- 출력 --%>
 <div class="container-1200 container-center">
+	<div class="row center">
+	<h2>주문조회</h2>
+	</div>
+
 	<div class="row">
 			<table class="table table-border">
 						<thead>		
@@ -44,7 +48,7 @@
 									<td align="center">없어용</td>
 									<td align="center"><%=buyDto.getProductNo() %></td>
 									<td align="center">없음</td>
-									<td align="center">없음</td>
+									<td align="center"></td>
 									<td align="center"><%=buyDto.getStatus() %></td>
 									<td align="center">없음</td>
 							</tr>

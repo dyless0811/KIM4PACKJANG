@@ -4,10 +4,18 @@
 
 <div class="container-1400 container-center">
 	
-	<div class="row center">
-		<img src="/kh8semi4/image/main.JPG">
+	<div class="row flex-container">
+		<div class="flex-gro">
+		<img src="/kh8semi4/image/mollu.gif">
+		</div>
+		<div class="flex-gro">
+		<img src="/kh8semi4/image/mollu.gif">
+		</div>
+		<div class="flex-gro">
+		<img src="/kh8semi4/image/mollu.gif">
+		</div>
 	</div>
-
-</div>
+	
+	</div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

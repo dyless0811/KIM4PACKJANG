@@ -1,4 +1,4 @@
-package semi.servlet;
+package semi.servlet.member;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 
 import semi.beans.MemberDao;
 
-@WebServlet(urlPatterns = "/member/quit.kh")
+@WebServlet(urlPatterns = "/member/quit.kj")
 public class MemberQuitSetvlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,9 +23,8 @@ public class MemberQuitSetvlet extends HttpServlet {
 
 			if (success) {
 				req.getSession().removeAttribute("loginId");
-				req.getSession().removeAttribute("grade");
-
-				resp.sendRedirect("quit_success.jsp");
+				
+				resp.sendRedirect("../index.jsp");
 			} else {
 				resp.sendRedirect("check.jsp?error");
 			}
