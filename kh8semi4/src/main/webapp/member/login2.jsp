@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script>
+	$(function () {
+		$("inp_chk").click(function(e)) {
+			e.preventDefault();
+			
+			var id = document.querySelector("input[name=loginId]");
+			window.localStorage.setItem("saveId",id.value);
+		}
+	});
 
+</script>
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <form action="<%=request.getContextPath()%>/member/login.kj" method="post">
@@ -27,6 +37,9 @@
                 <div class="login_append">
                     <div class="inp_chk"> <!-- 체크시 checked 추가 -->
                     <input type="checkbox" id="keepLogin" class="inp_radio"  name="keepLogin">
+                   
+                   
+                   
                     <label for="keepLogin" class="lab_g">
             <span class="img_top ico_check"></span>
             <span class="txt_lab">로그인 상태 유지</span>
