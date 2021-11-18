@@ -7,7 +7,7 @@ public class BoardImageDao {
 	public void insert(BoardImageDto boardImageDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into board_file values(boardimage_seq.nextval,? ,? ,? ,? ,?)";
+		String sql = "insert into boardimage values(boardimage_seq.nextval,? ,? ,? ,? ,?)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, boardImageDto.getBoardNo());
 		ps.setString(2, boardImageDto.getBoardUploadName());

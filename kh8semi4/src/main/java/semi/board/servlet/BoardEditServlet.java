@@ -1,4 +1,4 @@
-package semi.servlet;
+package semi.board.servlet;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import semi.beans.BoardImageDto;
 /**
  * Servlet implementation class BoardWriteServlet
  */
-@WebServlet("/board/write.kj")
-public class BoardWriteServlet extends HttpServlet {
+@WebServlet("/board/edit.kj")
+public class BoardEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

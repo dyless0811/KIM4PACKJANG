@@ -1,4 +1,4 @@
-package semi.servlet.product;
+package semi.product.servlet;
 
 import java.io.IOException;
 
@@ -12,8 +12,8 @@ import javax.swing.plaf.synth.SynthOptionPaneUI;
 import oracle.jdbc.proxy.annotation.Post;
 import semi.beans.ProductDao;
 import semi.beans.ProductDto;
-@WebServlet  (urlPatterns = "/product/productadd.kj")
-public class ProductAddServlet extends HttpServlet{
+@WebServlet  (urlPatterns = "/product/productadd-backdup.kj")
+public class ProductAddServletBackup2 extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {

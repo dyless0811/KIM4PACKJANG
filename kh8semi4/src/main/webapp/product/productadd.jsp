@@ -3,26 +3,13 @@
 <%
 String root = request.getContextPath();
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIM4PARKJANG</title>
-<link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/reset.css">
-<link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/commons.css">
-<link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/layout.css">
-<!-- <link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/test.css">  -->
-<style>
 
-
-</style>
 <jsp:include page="/template/header.jsp"></jsp:include>
-<body>
-<form action="./productadd.kj" method=post>
-<div>
-<h1>상품등록 페이지</h1>
+
+<form action="./productadd.kj" method=post enctype="multipart/form-data"> 
+	<div>
+	<h1>상품등록 페이지</h1>
+	</div>
 	<div class="row">
 	 상품명 <input type="text"  name="name" required class=form-input>
 	</div>
@@ -36,9 +23,18 @@ String root = request.getContextPath();
 	상품설명
 	<textarea rows="40" cols="100" name="description" class=form-input></textarea>
 	</div>
+	
+	<div class="row">
+	상품이미지
+	<input type="file" name="attach" accept="image/*" class="form-input">
+	</div>
 
-</div>
-<div><input type="submit" value="상품등록"></div>
+	<div class="row">
+	<input type="submit" value="상품등록">
+	</div>
 </form>
-</body>
+
+
+
+
 <jsp:include page="/template/footer.jsp"></jsp:include>

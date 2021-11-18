@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+
 public class ProductDao {
 	
 	//상품 등록
@@ -142,7 +146,175 @@ public class ProductDao {
 		
 		
 	}
-	
-	
+	//페이징이 가능한 목록
+	public List<ProductDto> listByRownum(int begin,int end)throws Exception{
+		Connection con= JdbcUtils.connect();
+		
+		String sql="select * from("
+				+ "select rownum rn ,TMP.*from( "
+				+ "select * from product order by no desc "
+				+ ")TMP "
+				+ ")where rn between ? and ? ";
+		
+		PreparedStatement ps =con.prepareStatement(sql);
+		ps.setInt(1, begin);
+		ps.setInt(2, end);
+		ResultSet rs = ps.executeQuery();
+		
 
+		List<ProductDto> list = new ArrayList<>();
+		while(rs.next()) {
+			ProductDto productDto = new ProductDto();
+			productDto.setNo(rs.getInt("no"));
+			productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+			productDto.setName(rs.getString("name"));
+			productDto.setPrice(rs.getInt("price"));
+			productDto.setDescription(rs.getString("description"));
+			productDto.setViews(rs.getInt("views"));
+			
+			list.add(productDto);
+		}
+		con.close();
+		
+		return list;
+		
+		
+
+	}
+	//검색시 페이징 목록 
+	public  List<ProductDto> searchByRownum(int begin,int end,String column, String keyword) throws Exception{
+	Connection con = JdbcUtils.connect();
+	
+	 String sql = "select * from ("
+	 		  + "select rownum rn,TMp.*from("
+	 		    + "select * from product where instr(#1, ?) > 0 order by no desc"
+	 		  + ")TMP"
+	 		+ ")where rn between ? and ?";
+	 
+	 PreparedStatement ps = con.prepareStatement(sql);
+	 ps.setString(1, keyword);
+	 ps.setInt(2, begin);
+	 ps.setInt(3, end);
+	 
+	 ResultSet rs =  ps.executeQuery();
+	 
+		List<ProductDto> list = new ArrayList<>();
+		while(rs.next()) {
+			ProductDto productDto = new ProductDto();
+			productDto.setNo(rs.getInt("no"));
+			productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+			productDto.setName(rs.getString("name"));
+			productDto.setPrice(rs.getInt("price"));
+			productDto.setDescription(rs.getString("description"));
+			productDto.setViews(rs.getInt("views"));
+			
+			list.add(productDto);
+		}
+		con.close();
+		
+		return list;
+	}
+	
+//페이징에서 마지막 블록을 구하기 위하여 게시글 개수를 구하는 기능 ( 목록/ 검색 )
+public int count()throws Exception {
+	  Connection con = JdbcUtils.connect();
+	  String sql="select count(*) from product";
+	  PreparedStatement ps = con.prepareStatement(sql);
+	  ResultSet rs=ps.executeQuery();
+	  rs.next();
+	  
+	  int count=rs.getInt("count(*)");
+//	  int count=rs.getInt(1);
+	  con.close();
+	  return count;
+}
+
+public int count(String column,String keyword) throws Exception{
+	  Connection con = JdbcUtils.connect();
+	  String sql="select count(*) from product where instr(#1,?)>0";
+	  sql=sql.replace("#1",column);
+	  PreparedStatement ps = con.prepareStatement(sql);
+	  ps.setString(1, keyword);
+	  ResultSet rs=ps.executeQuery();
+	  rs.next();
+	  
+	  int count=rs.getInt("count(*)");
+//	  int count=rs.getInt(1);
+	  con.close();
+	  return count;
+	  
+}
+  
+public List<ProductDto> searchByTreeSort(String column, String keyword, int begin, int end) {
+	// TODO Auto-generated method stub
+	return null;
+}
+  
+//계층형 목록 ( 미완성 )
+public List<ProductDto> listByTreeSort(int begin,int end) throws Exception{
+	 Connection con = JdbcUtils.connect();
+	 String sql = "select* from ("
+           + "select rownum rn, TMP.* from ("
+               + "select * from product "
+               + "connect by prior board_no = board_superno "
+               + "start with board_superno is null "
+               + "order siblings by board_groupno desc, board_no asc"
+           + ")TMP "
+       + ")where rn between ? and ?";
+	 PreparedStatement ps = con.prepareStatement(sql);
+	 ps.setInt(1, begin);
+	 ps.setInt(2, end);
+	 ResultSet rs=ps.executeQuery();
+		List<ProductDto> list = new ArrayList<>();
+		while(rs.next()) {
+			ProductDto productDto = new ProductDto();
+			productDto.setNo(rs.getInt("no"));
+			productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+			productDto.setName(rs.getString("name"));
+			productDto.setPrice(rs.getInt("price"));
+			productDto.setDescription(rs.getString("description"));
+			productDto.setViews(rs.getInt("views"));
+			
+			list.add(productDto);
+		}
+		con.close();
+		
+		return list;
+}
+
+
+//리뷰 수를 기준으로 정렬된 목록
+public List<ProductDto> listByReplyCount() throws Exception {
+	
+	Connection con = JdbcUtils.connect();
+	String sql = "select p.*, c.cnt "
+				+ "from product p "
+				+ "inner join ("
+					+ "select r.product_no, count(*) cnt "
+					+ "from product p "
+					+ "inner join reply r "
+					+ "on r.product_no = p.no "
+					+ "group by r.product_no "
+					+ "order by count(*) desc) c "
+				+ "on p.no = c.product_no "
+				+ "order by c.cnt desc";
+	PreparedStatement ps = con.prepareStatement(sql);
+	ResultSet rs = ps.executeQuery();
+	
+	List<ProductDto> list = new ArrayList<>();
+	
+	while(rs.next()) {
+		ProductDto productDto = new ProductDto();
+		productDto.setNo(rs.getInt("no"));
+		productDto.setSmallTypeNo(rs.getInt("small_type_no"));
+		productDto.setName(rs.getString("name"));
+		productDto.setPrice(rs.getInt("price"));
+		
+		list.add(productDto);
+	}
+	
+	con.close();
+	
+	return list;
+}
 }

@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BoardTypeDto"%>
+<%@page import="semi.beans.BoardTypeDao"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="semi.beans.SmallTypeDao"%>
 <%@page import="semi.beans.SmallTypeDto"%>
@@ -11,7 +13,18 @@
 	//타입 리스트 출력을 위한 dao, dto
 	BigTypeDao bigTypeDao = new BigTypeDao();
 	List<BigTypeDto> bigTypeList = bigTypeDao.list();
+	
+	BoardTypeDao boardTypeDao = new BoardTypeDao();
+	List<BoardTypeDto> boardTypeList = boardTypeDao.list();
 %>
+
+<%
+	//로그인 상태인지 아닌지 판정하는 코드
+	String id = (String)session.getAttribute("loginId");
+	boolean login = id != null;
+%>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -28,7 +41,6 @@
         .logo-wrapper {
             width: 130px;
         }
-
         .logo-wrapper>img {
             width: 100%;
             height: 100%;
@@ -81,19 +93,34 @@
             <div>
                 <div>
                     <div>
-                        <ul class="slide-menu">
+                         <ul class="slide-menu">
                             <%for(BigTypeDto bigType : bigTypeList){ %>
-                            <li><a href="#"><%=bigType.getName()%></a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
                             <ul>
                                 <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
                                 <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
                                 <%for(SmallTypeDto smalltype: smallTypeList){ %>
                                 <li>
-                                    <a href="#"><%=smalltype.getName()%></a>
+                                 	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
                                 <li>
-                                    <%} %>
+                                <%} %>
                             </ul>
+                            </li>
                             <%} %>
+                            <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
+                				<ul>
+                					<li>
+                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
+                							review
+                						</a>
+                					</li>
+                					<%for(BoardTypeDto boardTypeDto : boardTypeList) {%>
+                					<li>
+                						<a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></a>
+                					</li>
+                					<%}%>
+                				</ul>
+                			</li>
                         </ul>
                     </div>
                 </div>
@@ -140,38 +167,58 @@
 
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
-                	<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
-                   	<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
+                	<%if(login) {%>
+                	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
+                    <a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">장바구니</a>
                     <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
-                    <a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
-                    <a href="#장바구니">장바구니</a>
                     <a href="#검색">검색</a>
+                	<%} else {%>
+                	<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
+					<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
+					<a href="#검색">검색</a>
+					<%} %>
                 </div>
+                
+                
             </div>
         </header>
         <!-- 헤더 끝 -->
 
-
         <!-- 네비게이션 시작 -->
         <nav>
 
-
-            <ul class="slide-menu">
-                <%for(BigTypeDto bigType : bigTypeList){ %>
-                <li><a href="#"><%=bigType.getName()%></a>
-                    <ul>
-                        <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
-                        <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
-                        <%for(SmallTypeDto smalltype: smallTypeList){ %>
-                        <li>
-                            <a href="#"><%=smalltype.getName()%></a>
-                        <li>
-                        <%} %>
-                    </ul>
-                </li>
-                <%} %>
-            </ul>
-
+                        <ul class="slide-menu">
+                            <%for(BigTypeDto bigType : bigTypeList){ %>
+                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                             
+                            <ul>
+                                <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
+                                <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
+                                <%for(SmallTypeDto smalltype: smallTypeList){ %>
+                                <li>
+                                 	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
+                                <li>
+                                <%} %>
+                            </ul>
+                            </li>
+                            
+                            <%} %>
+                            <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
+                				<ul>
+                					<li>
+                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
+                							review
+                						</a>
+                					</li>
+                					<%for(BoardTypeDto boardTypeDto : boardTypeList) {%>
+                					<li>
+                						<a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></a>
+                					</li>
+                					<%}%>
+                				</ul>
+                			</li>
+                        </ul>
+            
         </nav>
         <!-- 네비게이션 끝 -->
 

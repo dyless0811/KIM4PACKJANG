@@ -54,7 +54,9 @@
       <div class="row left">
         <br /><br /><br />
         <hr />
-        <a href="#">목록</a>
+        <a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardDto.getBoardTypeNo()%>">목록</a>
+        <a href="<%=request.getContextPath()%>/board/delete.kj?no=<%=boardDto.getNo()%>">삭제</a>
+        <a href="<%=request.getContextPath()%>/board/edit.jsp?no=<%=boardDto.getNo()%>">수정</a>
       </div>
     </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
