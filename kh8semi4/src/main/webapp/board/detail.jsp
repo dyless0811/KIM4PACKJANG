@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BoardImageDto"%>
+<%@page import="semi.beans.BoardImageDao"%>
 <%@page import="semi.beans.BoardTypeDto"%>
 <%@page import="semi.beans.BoardTypeDao"%>
 <%@page import="semi.beans.BoardDto"%>
@@ -11,6 +13,7 @@
 	int boardNo = Integer.parseInt(request.getParameter("no"));
 	BoardDao boardDao = new BoardDao();
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
+	BoardImageDao boardImageDao = new BoardImageDao();
 	Set<Integer> boardViewedNo = (Set<Integer>)session.getAttribute("boardViewedNo");
 	
 	if(boardViewedNo == null) {
@@ -23,6 +26,7 @@
 	session.setAttribute("boardViewedNo", boardViewedNo);
 	BoardDto boardDto = boardDao.get(boardNo);
 	BoardTypeDto boardTypeDto = boardTypeDao.get(boardDto.getBoardTypeNo());
+	BoardImageDto boardImageDto = boardImageDao.getByBoardNo(boardNo);
 	String boardTypeName = boardTypeDto.getName();
 
 	//보드이미지 추가해야함
@@ -48,6 +52,11 @@
       <div class="row">
         <hr />
       </div>
+      	<%if(boardImageDto!=null) {%>
+      <div class="row">
+      	<img src="C:/upload/kh84/board/<%=boardImageDto.getBoardSaveName()%>">
+      </div>
+      <%} %>
       <div class="row">
         <%=boardDto.getBoardContent()%>
       </div>
@@ -57,6 +66,7 @@
         <a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardDto.getBoardTypeNo()%>">목록</a>
         <a href="<%=request.getContextPath()%>/board/delete.kj?no=<%=boardDto.getNo()%>">삭제</a>
         <a href="<%=request.getContextPath()%>/board/edit.jsp?no=<%=boardDto.getNo()%>">수정</a>
+        <a href="<%=request.getContextPath()%>/board/write.jsp?no=<%=boardDto.getBoardTypeNo() %>&boardSuperno=<%=boardDto.getNo()%>" class="link-btn">답글</a>
       </div>
     </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
