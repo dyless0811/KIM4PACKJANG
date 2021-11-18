@@ -12,6 +12,11 @@ int no=1;
 if(request.getParameter("no")!=null){
 no =Integer.parseInt(request.getParameter("no"));
 }
+
+
+String isType = request.getParameter("bigtypeno");
+String isNo = request.getParameter("no");
+
 ProductImageDao productImageDao =new ProductImageDao();
 
 ProductImageDto productImageDto =productImageDao.get(no);
@@ -49,7 +54,15 @@ list = productDao.listByRownum(begin, end); //원하는 구간 목록
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1400 container-center"></div>
 	<div class="row right ">
-	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp" class="link-btn link-btn:hover">상품등록</a> 
+	 <%if(isType != null){ 
+	 	int bigTypeNo= Integer.parseInt(isType);
+	 %>
+	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
+	 <%}else if(isNo != null){
+		  int sno= Integer.parseInt(isNo); 
+		 %>
+	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
+	 <%} %>
 	</div>
     <div class="row flex-container">
     <%for(ProductDto product : list){ if(i == 4)break; i++;%>

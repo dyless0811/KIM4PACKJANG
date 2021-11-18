@@ -99,12 +99,14 @@
                     <div>
                          <ul class="slide-menu">
                             <%for(BigTypeDto bigType : bigTypeList){ %>
-                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
                             <ul>
+                               
                                 <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
                                 <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
                                 <%for(SmallTypeDto smalltype: smallTypeList){ %>
-                                <li>
+                                
+                              <li>
                                  	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
                                 <li>
                                 <%} %>
@@ -193,7 +195,7 @@
 
                         <ul class="slide-menu">
                             <%for(BigTypeDto bigType : bigTypeList){ %>
-                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                             <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
                              
                             <ul>
                                 <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
