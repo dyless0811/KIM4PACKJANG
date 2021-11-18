@@ -15,7 +15,7 @@
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
 	BoardImageDao boardImageDao = new BoardImageDao();
 	Set<Integer> boardViewedNo = (Set<Integer>)session.getAttribute("boardViewedNo");
-	
+
 	if(boardViewedNo == null) {
 		boardViewedNo = new HashSet<>();
 	}
@@ -36,9 +36,8 @@
     
     <div class="container-1400 container-center">
       <div class="row right">
-        <span><a href="#">홈</a></span>
-        <span><a href="#">게시판</a></span>
-        <span><a href="#"><%=boardTypeName%></a></span>
+        <span><a href="<%=request.getContextPath()%>">홈</a></span>
+        <span><a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeName%></a></span>
       </div>
       <div class="row center">
         <h2><%=boardTypeName%></h2>
