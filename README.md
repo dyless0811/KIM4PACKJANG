@@ -1,7 +1,7 @@
 # KH8 Semi Project
 ![banner](https://via.placeholder.com/500)
 
-# 프로젝트명
+# KIM4PARKJANG
 * 개요 1
 * 개요 2
 * 개요 3
