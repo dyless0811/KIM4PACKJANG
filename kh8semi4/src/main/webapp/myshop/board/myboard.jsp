@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BoardDto"%>
+<%@page import="semi.beans.BoardDao"%>
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="semi.beans.ReplyDto"%>
 <%@page import="java.util.List"%>
@@ -5,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%-- 입력 : 현재 로그인한 회원ID - String id --%>
 <%
 	String id = (String)session.getAttribute("loginId");
 %>    
@@ -13,16 +16,24 @@
 	ReplyDao replyDao = new ReplyDao();
 	List<ReplyDto>list = 	replyDao.ProductReplyMember2(id);
 	List<ProductDto>list2 = replyDao.CanWriteReply(id);
+	BoardDao boardDao = new BoardDao();
+	List<BoardDto>list3 = boardDao.list(id);
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
-<!--멀티페이지 스크립트-->
+<!-- jquery cdn 또는 보유한 파일을 불러오는 코드를 작성 -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <script>
 	$(function(){
+		//[1]다 숨김
 		$(".page").hide();
 		
+		//[2] 페이지 번호 관리 변수 생성
 		var p  = 0;
 		
+		//[3] 다음 단계로 버튼에 대한 이벤트 처리
+		//= p를 1 증가시키고 해당하는 페이지를 표시
+		//a태그 이동방지 -> e.preventDefault();
 		$(".a-next").click(function(e) {
 			e.preventDefault();
 			p++;
@@ -35,20 +46,24 @@
 		});
 		$(".a-prev").click(function(e) {
 			e.preventDefault();
+			console.log(p);
 			p++;
 			if(p > 1) {
 				p=0;
 				$(".page").eq(p).show();
+				
 			} else{				
 			$(".page").hide();
+			
 			};
 		});
 	});
 </script>
 
-    <div class="container-1400 container-center">
+<!-- 문의 테이블 -->
+<div class="container-1400 container-center">
       <div class="row center">
-        <h2>게시물 관리</h2>
+        	<h2>게시물 관리</h2>
       </div>
       <div class="row">
         <table class="table table-border table-hover">
@@ -61,22 +76,19 @@
             </tr>
           </thead>
           <tbody>
+          <%for(BoardDto boardDto : list3) {%>
             <tr>
-              <td>1</td>
+              <td><%=boardDto.getNo() %></td>
               <td>문의</td>
-              <td>난문의를!했다</td>
-              <td>오늘</td>
+              <td><%=boardDto.getBoardTitle() %></td>
+              <td><%=boardDto.getBoardDate() %></td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>문의</td>
-              <td>난!문의를!했다</td>
-              <td>오늘</td>
-            </tr>
-          </tbody>
+          
+          <%} %>
         </table>
-      </div>
-      <div class="row center">
+	</div>
+    <!-- 검색창 -->
+    <div class="row center">
         <form action="myboard.html" method="get">
           <select name="boardTypeNo">
             <option value="1">공지</option>
@@ -88,25 +100,23 @@
         <br><br><br>
       </div>
       
-      
-      
-      <div class="row">
+      <!-- 분류 -->
+     <div class="row">
         <ul class="slide-menu">
           <li style="width: 50%">
-            
-            <a class="center a-next" style="margin: 0 auto; width: auto" href="#">
-              작성가능한 리뷰(1)
-           
-            </a>
+            <a class="center a-next" style="margin: 0 auto; width: auto">
+              작성가능한 리뷰
+           </a>
           </li>
           <li style="width: 50%">
-            <a class="center a-prev" style="margin: 0 auto; width: auto" href="#">
-              작성한 리뷰(11)
+            <a class="center a-prev" style="margin: 0 auto; width: auto">
+              작성한 리뷰
             </a>
           </li>
         </ul>
       </div>
-    
+    	
+    <!-- 테이블 -->
       <div class="row page">
         <table class="table table-border table-hover">
           <thead>
