@@ -20,6 +20,11 @@
 	<div class="row">
 				<input type="submit" value="로그인" class="form-btn form-inline">
 	</div>		
+	<div class="row center">
+			<a href="./id/find_id.jsp">아이디 찾기</a> ㅣ 
+			<a href="./pw/find_pw.jsp">비밀번호 찾기</a> ㅣ 
+			<a href="join.jsp">회원가입</a>
+	</div>
 		
 	<%if(request.getParameter("error") != null){ %>
 	<div class="row center">

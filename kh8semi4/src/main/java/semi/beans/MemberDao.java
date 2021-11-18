@@ -220,8 +220,43 @@ public class MemberDao {
 		
 		return list;
 	}
-	
-	
-	
+	//아이디찾기
+	public String findId(String name, String phone) throws Exception {
+		String id = null;
+		
+		Connection con = JdbcUtils.connect();
+		String sql  = "select id from member where name=? and phone=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		System.out.println(name);
+		System.out.println(phone);
+		
+		ps.setString(1, name);
+		ps.setString(2, phone);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			id = rs.getString("id");
+		}
+		return id;
+	}
+
+	public String findpw(String id, String email, String phone) throws Exception {
+		String pw = null;
+		
+		Connection con = JdbcUtils.connect();
+		String sql = "select pw from member where id = ? and email = ? and phone = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, id);
+		ps.setString(2, email);
+		ps.setString(3, phone);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			pw = rs.getString("pw");
+		}
+		return pw;
+	}
 	
 }
