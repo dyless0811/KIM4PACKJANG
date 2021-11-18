@@ -119,4 +119,19 @@ public List<SmallTypeDto> searchSmallType(int no) throws Exception{
 	   con.close();
 	   return list;
 }
+//스몰타입NO로 빅타입NO가져오기
+	public int searchBigTypeNo(int no) throws Exception{
+	   Connection con = JdbcUtils.connect();
+	   String sql = "select bigtype_no from smalltype where no=?";
+	   
+	   PreparedStatement ps = con.prepareStatement(sql);
+	   ps.setInt(1, no);
+	   ResultSet rs = ps.executeQuery();
+	   
+	   rs.next();
+	   int bno =rs.getInt("bigtype_no");
+	   
+	   con.close();
+	   return bno;
+}
 }

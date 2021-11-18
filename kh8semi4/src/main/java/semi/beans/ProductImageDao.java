@@ -39,7 +39,7 @@ public class ProductImageDao {
 			productImageDto.setProductFileUploadName(rs.getString("product_file_uploadname"));
 			productImageDto.setProductFileSaveName(rs.getString("product_file_savename"));
 			productImageDto.setProductFileSize(rs.getLong("product_file_size"));
-			productImageDto.setProductFileType(rs.getString("prodict_file_type"));
+			productImageDto.setProductFileType(rs.getString("product_file_type"));
 		}
 		else {
 			productImageDto = null;
