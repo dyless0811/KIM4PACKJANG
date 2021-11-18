@@ -51,7 +51,7 @@ int i = 0;//pagenation begin를 집어넣으면 될 것 같다.
 
 <%--출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
-<div class="container-1400 container-center">
+<div class="container-1400 container-center"></div>
 	<div class="row right ">
 	 <%if(isType != null){ 
 	 	int bigTypeNo= Integer.parseInt(isType);
@@ -116,7 +116,7 @@ int i = 0;//pagenation begin를 집어넣으면 될 것 같다.
 		    			<td>색상 / <%=product.getViews()%></td>
 		    		</tr>
 		    		<tr>
-		    			<td><a href="./productdetail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a>(사이즈)</td>
+		    			<td><%=product.getName()%>(사이즈)</td>
 		    		</tr>
 		    		<tr>
 		    			<td><%=product.getPrice()%></td>
@@ -138,7 +138,7 @@ int i = 0;//pagenation begin를 집어넣으면 될 것 같다.
     	<!-- 페이지네이션 자리 -->
     	<h3>[이전] 1 / 2 / 3 / 4 / 5 / 6 / 7 /8 /9 / 10 [다음]</h3>
 
-	</div>
+</div>
 </div>
 <%i = 0; %>
 <div class="container-1400 container-center">
@@ -235,7 +235,10 @@ int i = 0;//pagenation begin를 집어넣으면 될 것 같다.
     </div>
 </div>
 
-
+<!-- 페이지네이션 모양만잇습니다-->
+<div class="row center">
+[이전] 1 2 3 4 5 6 7 8 9 10 [다음]
+</div>
 
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
