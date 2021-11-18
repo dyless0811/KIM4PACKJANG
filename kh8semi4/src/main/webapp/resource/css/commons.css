@@ -575,6 +575,7 @@ textarea.vertical {
         float: right;
         color: #777;
     }
+
     
 /* 링크를 버튼으로 만드는 스타일 */
 .link-btn:hover{
@@ -589,3 +590,6 @@ textarea.vertical {
     color:gray;
     
 }
+
+/*로그인창 CSS 종료*/
+
