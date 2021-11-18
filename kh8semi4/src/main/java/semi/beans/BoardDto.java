@@ -97,4 +97,8 @@ public class BoardDto {
 	public void setBoardDepth(int boardDepth) {
 		this.boardDepth = boardDepth;
 	}
+	
+	public boolean hasDepth() {
+		return this.getBoardDepth() > 0;
+	}
 }

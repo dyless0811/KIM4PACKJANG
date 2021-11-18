@@ -40,7 +40,7 @@ int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 	</div>
 	
 	<div class="row right">
-		<a href="write.jsp" class="link-btn">글쓰기</a>
+		<a href="write.jsp?no=<%=boardTypeNo %>" class="link-btn">글쓰기</a>
 	</div>
 	<div class="row center">
 	<%if(boardPagenation.getList().isEmpty()) {%>
@@ -61,7 +61,9 @@ int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 		 <%for(BoardDto boardDtolist : boardPagenation.getList()) {%>
 		  <tr>
 		  	<td><%=boardDtolist.getNo()%></td>
-		  	<td><a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDtolist.getNo()%>"><%=boardDtolist.getBoardTitle()%></a></td>
+		  	<td style="text-align:left;<%="padding-left:"+(10+40*boardDtolist.getBoardDepth())+"px"%>">
+		  		<a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDtolist.getNo()%>"><%=boardDtolist.getBoardTitle()%></a>
+		  	</td>
 		  	<td><%=boardDtolist.getMemberId()%></td>
 		  	<td><%=boardDtolist.getBoardDate()%></td>
 		  	<td><%=boardDtolist.getBoardHit()%></td>
