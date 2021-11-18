@@ -7,7 +7,7 @@
 	
 <div class="container-400 container-center">
 	<div class="row center">
-					<h1>회원 로그인</h1>
+				<h1>회원 로그인</h1>
 	</div>
 	<div class="row">
 				<label>아이디</label>
