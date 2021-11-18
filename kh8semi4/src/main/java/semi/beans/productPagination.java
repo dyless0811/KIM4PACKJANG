@@ -20,10 +20,30 @@ package semi.beans;
 		private int p;
 		private int count;
 		
+		
 		//선택 데이터
 		private String column;
 		private String keyword;
+		private String noType;
+		private String no;
 		
+		public String getNo() {
+			return no;
+		}
+
+		public String getNoType() {
+			return noType;
+		}
+
+		public String getColumn() {
+			return column;
+		}
+
+		public String getKeyword() {
+			return keyword;
+		}
+
+
 		//생성자를 이용하여 필수 데이터를 설정하도록 구현
 		public productPagination(HttpServletRequest req) {
 			try {
@@ -35,16 +55,16 @@ package semi.beans;
 			}
 			this.column = req.getParameter("column");
 			this.keyword = req.getParameter("keyword");
-			this.no = req.getParameter("no");
+			if(req.getParameter("bigtypeno") == null) {				
+				this.noType = "S";
+				this.no = req.getParameter("no");
+			}else {
+				this.noType = "B";
+				this.no = req.getParameter("bigtypeno");
+			}
 		}
 		
-		
-		//링크타고 들어올 경우를 처리할 코드들
-		private String no;
-		
-		public String getNo() {
-			return no;
-		}
+
 		//계산 메소드
 		private int pageSize = 12;
 		private int blockSize = 10;
@@ -55,10 +75,10 @@ package semi.beans;
 			//count 계산
 			ProductDao productDao = new ProductDao();
 			if(isSearch()) {
-				this.count = productDao.count(column, keyword);
+				this.count = productDao.count(noType, no, column, keyword);
 			}
 			else {
-				this.count = productDao.count();
+				this.count = productDao.count(noType, no);
 			}
 			
 			//rownum 계산
@@ -71,28 +91,18 @@ package semi.beans;
 			this.finishBlock = this.startBlock + (this.blockSize - 1);
 			
 			//list 계산
-//			if(this.no != null) {
-//				this.list = productDao.listByLink(Integer.parseInt(this.no));
-//			}
-//			else if(this.isSearch()) {
-//				this.list = productDao.searchByTreeSort(column, keyword, begin, end);
-//			}
-//			else {
-//				//this.list = boardDao.listByRownum(begin, end);//일반
-//				this.list = productDao.listByTreeSort(begin, end);//계층형
-//			}
+			if(this.isSearch()) {
+				this.list = productDao.searchByRownum(no, noType, begin, end, column, keyword);
+			}
+			else {
+				this.list = productDao.listByRownum(no, noType, begin, end);
+			}
 		}
 		public int getPage() {
 			return p;
 		}
 		public int getCount() {
 			return count;
-		}
-		public String getColumn() {
-			return column;
-		}
-		public String getKeyword() {
-			return keyword;
 		}
 		public int getPageSize() {
 			return pageSize;
@@ -144,14 +154,6 @@ package semi.beans;
 		public boolean columnIs(String column) {
 			return this.column != null && this.column.equals(column);
 		}
-		//추가 : null을 제거한 keyword 반환 메소드
-		public String getKeywordString() {
-			if(this.keyword == null) 
-				return "";
-			else
-				return this.keyword;
-		}
-		
 		@Override
 		public String toString() {
 			return "Pagination [p=" + p + ", count=" + count + ", column=" + column + ", keyword=" + keyword + ", pageSize="

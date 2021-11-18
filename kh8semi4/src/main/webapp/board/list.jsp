@@ -14,6 +14,7 @@ boardPagenation.calculate();
 BoardDto boardDto = new BoardDto();
 int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 %>
+
 <%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
 

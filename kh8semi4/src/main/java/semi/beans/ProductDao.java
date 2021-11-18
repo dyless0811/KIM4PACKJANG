@@ -148,18 +148,27 @@ public class ProductDao {
 		
 	}
 	//페이징이 가능한 목록
-	public List<ProductDto> listByRownum(int begin,int end)throws Exception{
+	public List<ProductDto> listByRownum(String no, String noType, int begin,int end)throws Exception{
+		
+		//주소에 B가 넘어오거나 S가 넘어올때 알아서 실행하겠지뭐...
 		Connection con= JdbcUtils.connect();
 		
 		String sql="select * from("
-				+ "select rownum rn ,TMP.*from( "
-				+ "select * from product order by no desc "
-				+ ")TMP "
-				+ ")where rn between ? and ? ";
-		
+							+ "select rownum rn ,TMP.*from( "
+								+ "select * from product P "
+								+ "inner join smalltype S "
+								+ "on P.small_type_no = S.no "
+								+ "inner join bigtype B "
+								+ "on S.bigtype_no = B.no "
+								+ "where #1.no = ? "
+								+ "order by S.no desc "
+							+ ")TMP "
+						+ ")where rn between ? and ? ";
+		sql = sql.replace("#1", noType);
 		PreparedStatement ps =con.prepareStatement(sql);
-		ps.setInt(1, begin);
-		ps.setInt(2, end);
+		ps.setInt(1, Integer.parseInt(no));
+		ps.setInt(2, begin);
+		ps.setInt(3, end);
 		ResultSet rs = ps.executeQuery();
 		
 
@@ -183,15 +192,15 @@ public class ProductDao {
 
 	}
 	//검색시 페이징 목록 
-	public  List<ProductDto> searchByRownum(int begin,int end,String column, String keyword) throws Exception{
+	public  List<ProductDto> searchByRownum(String no, String noType, int begin,int end,String column, String keyword) throws Exception{
 	Connection con = JdbcUtils.connect();
 	
 	 String sql = "select * from ("
-	 		  + "select rownum rn,TMp.*from("
+	 		  + "select rownum rn,tmp.*from("
 	 		    + "select * from product where instr(#1, ?) > 0 order by no desc"
-	 		  + ")TMP"
+	 		  + ")tmp"
 	 		+ ")where rn between ? and ?";
-	 
+	 sql = sql.replace("#1", column);
 	 PreparedStatement ps = con.prepareStatement(sql);
 	 ps.setString(1, keyword);
 	 ps.setInt(2, begin);
@@ -217,72 +226,65 @@ public class ProductDao {
 	}
 	
 //페이징에서 마지막 블록을 구하기 위하여 게시글 개수를 구하는 기능 ( 목록/ 검색 )
-public int count()throws Exception {
+public int count(String noType, String no)throws Exception {
 	  Connection con = JdbcUtils.connect();
-	  String sql="select count(*) from product";
+	  String sql="select count(*) from("
+		  				+ "select * from product P "
+		  				+ "inner join smalltype S "
+		  				+ "on P.small_type_no = S.no "
+		  				+ "inner join bigtype B "
+		  				+ "on S.bigtype_no = B.no "
+		  				+ "where S.#1 = ? "
+		  				+ "order by P.no desc"
+	  				+ ")";
+	  if(noType.equals("B")) {		  
+		  sql = sql.replace("#1", "bigtype_no");
+	  }else {		  
+		  sql = sql.replace("#1", "no");
+	  }
+
 	  PreparedStatement ps = con.prepareStatement(sql);
+	  ps.setInt(1, Integer.parseInt(no));
 	  ResultSet rs=ps.executeQuery();
 	  rs.next();
 	  
 	  int count=rs.getInt("count(*)");
-//	  int count=rs.getInt(1);
+
 	  con.close();
 	  return count;
 }
 
-public int count(String column,String keyword) throws Exception{
+public int count(String noType, String no, String column,String keyword) throws Exception{
 	  Connection con = JdbcUtils.connect();
-	  String sql="select count(*) from product where instr(#1,?)>0";
-	  sql=sql.replace("#1",column);
+	  String sql="select count(*) from("
+				+ "select * from product P "
+				+ "inner join smalltype S "
+				+ "on P.small_type_no = S.no "
+				+ "inner join bigtype B "
+				+ "on S.bigtype_no = B.no "
+				+ "where S.#1 = ? and instr(P.#2, ?)"
+				+ "order by P.no desc"
+			+ ")";
+	  if(noType.equals("B")) {		  
+		  sql = sql.replace("#1", "bigtype_no");
+	  }else {		  
+		  sql = sql.replace("#1", "no");
+	  }
+	  sql = sql.replace("#2", column);
+
 	  PreparedStatement ps = con.prepareStatement(sql);
-	  ps.setString(1, keyword);
+	  ps.setInt(1, Integer.parseInt(no));
+	  ps.setString(2, keyword);
 	  ResultSet rs=ps.executeQuery();
 	  rs.next();
 	  
 	  int count=rs.getInt("count(*)");
-//	  int count=rs.getInt(1);
+	  
 	  con.close();
 	  return count;
 	  
 }
   
-public List<ProductDto> searchByTreeSort(String column, String keyword, int begin, int end) {
-	// TODO Auto-generated method stub
-	return null;
-}
-  
-//계층형 목록 ( 미완성 )
-public List<ProductDto> listByTreeSort(int begin,int end) throws Exception{
-	 Connection con = JdbcUtils.connect();
-	 String sql = "select* from ("
-           + "select rownum rn, TMP.* from ("
-               + "select * from product "
-               + "connect by prior board_no = board_superno "
-               + "start with board_superno is null "
-               + "order siblings by board_groupno desc, board_no asc"
-           + ")TMP "
-       + ")where rn between ? and ?";
-	 PreparedStatement ps = con.prepareStatement(sql);
-	 ps.setInt(1, begin);
-	 ps.setInt(2, end);
-	 ResultSet rs=ps.executeQuery();
-		List<ProductDto> list = new ArrayList<>();
-		while(rs.next()) {
-			ProductDto productDto = new ProductDto();
-			productDto.setNo(rs.getInt("no"));
-			productDto.setSmallTypeNo(rs.getInt("small_type_no"));
-			productDto.setName(rs.getString("name"));
-			productDto.setPrice(rs.getInt("price"));
-			productDto.setDescription(rs.getString("description"));
-			productDto.setViews(rs.getInt("views"));
-			
-			list.add(productDto);
-		}
-		con.close();
-		
-		return list;
-}
-
 
 //리뷰 수를 기준으로 정렬된 목록
 public List<ProductDto> listByReplyCount() throws Exception {
