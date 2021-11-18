@@ -12,7 +12,7 @@
 BoardPagenation boardPagenation = new BoardPagenation(request);
 boardPagenation.calculate();
 BoardDto boardDto = new BoardDto();
-
+int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 %>
 <%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -42,7 +42,10 @@ BoardDto boardDto = new BoardDto();
 	<div class="row right">
 		<a href="write.jsp" class="link-btn">글쓰기</a>
 	</div>
-	
+	<div class="row center">
+	<%if(boardPagenation.getList().isEmpty()) {%>
+		<h3>데이터가 존재하지 않습니다</h3>
+	<%}else {%>
 	<table class="table table-border table-hover">
 		<thead>
 		 	<tr>
@@ -66,16 +69,17 @@ BoardDto boardDto = new BoardDto();
 		  <%} %>
 		</tbody>
 	</table>
-
+	<%}%>
+	</div>
 <!-- 페이지네이션 -->
 <div class="row center">
 <%if(boardPagenation.getStartBlock() > 1){ %>
 	<%if(boardPagenation.isSearch()){ %>
 		<!-- 검색용 링크 -->
-		<a href="list.jsp?column=<%=boardPagenation.getColumn()%>&keyword=<%=boardPagenation.getKeyword()%>&p=<%=boardPagenation.getStartBlock()-1%>">&lt;</a>
+		<a href="list.jsp?column=<%=boardPagenation.getColumn()%>&keyword=<%=boardPagenation.getKeyword()%>&p=<%=boardPagenation.getStartBlock()-1%>&no=<%=boardTypeNo%>">&lt;</a>
 	<%} else { %>
 		<!-- 목록용 링크 -->
-		<a href="list.jsp?p=<%=boardPagenation.getStartBlock()-1%>">&lt;</a>
+		<a href="list.jsp?p=<%=boardPagenation.getStartBlock()-1%>&no=<%=boardTypeNo%>">&lt;</a>
 	<%} %>
 <%} else { %>
 	 <a>&lt;</a>
@@ -84,20 +88,20 @@ BoardDto boardDto = new BoardDto();
 <%for(int i = boardPagenation.getStartBlock(); i <= Math.min(boardPagenation.getFinishBlock(),boardPagenation.getLastBlock()); i++){ %>
 	<%if(boardPagenation.isSearch()){ %>
 	<!-- 검색용 링크 -->
-	<a href="list.jsp?column=<%=boardPagenation.getColumn()%>&keyword=<%=boardPagenation.getKeyword()%>&p=<%=i%>"><%=i%></a>
+	<a href="list.jsp?column=<%=boardPagenation.getColumn()%>&keyword=<%=boardPagenation.getKeyword()%>&p=<%=i%>&no=<%=boardTypeNo%>"><%=i%></a>
 	<%}else{ %>
 	<!-- 목록용 링크 -->
-	<a href="list.jsp?p=<%=i%>"><%=i%></a>
+	<a href="list.jsp?p=<%=i%>&no=<%=boardTypeNo%>"><%=i%></a>
 	<%} %>
 <%} %>
 
 <%if(boardPagenation.getFinishBlock() < boardPagenation.getLastBlock()){ %>
 	<%if(boardPagenation.isSearch()){ %>
 		<!-- 검색용 링크 -->
-		<a href="list.jsp?column=<%=boardPagenation.getColumn()%>&keyword=<%=boardPagenation.getKeyword()%>&p=<%=boardPagenation.getFinishBlock()+1%>">&gt;</a>
+		<a href="list.jsp?column=<%=boardPagenation.getColumn()%>&keyword=<%=boardPagenation.getKeyword()%>&p=<%=boardPagenation.getFinishBlock()+1%>&no=<%=boardTypeNo%>">&gt;</a>
 	<%} else { %>
 		<!-- 목록용 링크 -->
-		<a href="list.jsp?p=<%=boardPagenation.getFinishBlock()+1%>">&gt;</a>
+		<a href="list.jsp?p=<%=boardPagenation.getFinishBlock()+1%>&no=<%=boardTypeNo%>">&gt;</a>
 	<%} %> 
 <%} else {%>
 	<a>&gt;</a>
@@ -108,7 +112,7 @@ BoardDto boardDto = new BoardDto();
 
 	<div class="row right">
 		<form action="list.jsp" method="get">
-		
+			<input type="hidden" name="no" value="<%=boardTypeNo%>">
 			<select name="column" class="form-input form-inline">
 				<%if(boardPagenation.columnIs("board_title")){ %>
 				<option value="board_title" selected>제목</option>

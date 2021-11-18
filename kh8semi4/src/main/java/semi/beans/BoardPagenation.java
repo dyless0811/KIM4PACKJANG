@@ -17,6 +17,7 @@ package semi.beans;
 	public class BoardPagenation {
 		//필수 데이터
 		private int p;
+		private int boardTypeNo;
 		private int count;
 		
 		//선택 데이터
@@ -32,18 +33,17 @@ package semi.beans;
 			catch(Exception e) {
 				this.p = 1;
 			}
+			try {
+				this.boardTypeNo = Integer.parseInt(req.getParameter("no"));
+				if(this.boardTypeNo <= 0) throw new Exception();
+			}
+			catch(Exception e) {
+				this.boardTypeNo = 1;
+			}
 			this.column = req.getParameter("column");
 			this.keyword = req.getParameter("keyword");
-			this.no = req.getParameter("no");
 		}
 		
-		
-		//링크타고 들어올 경우를 처리할 코드들
-		private String no;
-		
-		public String getNo() {
-			return no;
-		}
 		//계산 메소드
 		private int pageSize = 10;
 		private int blockSize = 10;
@@ -54,10 +54,10 @@ package semi.beans;
 			//count 계산
 			BoardDao boardDao = new BoardDao();
 			if(isSearch()) {
-				this.count = boardDao.count(column, keyword);
+				this.count = boardDao.count(boardTypeNo ,column, keyword);
 			}
 			else {
-				this.count = boardDao.count();
+				this.count = boardDao.count(boardTypeNo);
 			}
 			
 			//rownum 계산
@@ -70,19 +70,19 @@ package semi.beans;
 			this.finishBlock = this.startBlock + (this.blockSize - 1);
 			
 			//list 계산
-			if(this.no != null) {
-				this.list = boardDao.listByLink(Integer.parseInt(this.no));
-			}
-			else if(this.isSearch()) {
-				this.list = boardDao.searchByTreeSort(column, keyword, begin, end);
+			if(this.isSearch()) {
+				this.list = boardDao.searchByTreeSort(boardTypeNo, column, keyword, begin, end);
 			}
 			else {
 				//this.list = boardDao.listByRownum(begin, end);//일반
-				this.list = boardDao.listByTreeSort(begin, end);//계층형
+				this.list = boardDao.listByTreeSort(boardTypeNo, begin, end);//계층형
 			}
 		}
 		public int getPage() {
 			return p;
+		}
+		public int getBoardTypeNo() {
+			return boardTypeNo;
 		}
 		public int getCount() {
 			return count;
