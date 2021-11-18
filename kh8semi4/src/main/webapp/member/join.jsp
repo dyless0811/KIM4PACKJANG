@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
-<link rel="stylesheet" type="text/css" href="./css/commons.css">
+
 <script>
 function pwCheck(){
     var regex = /^[A-Za-z0-9!@#$\s_-]{8,16}$/;
@@ -18,6 +18,35 @@ function pwCheck(){
         notice.textContent = "비밀번호는 8~16자 이내의 영문,숫자,특수문자로 작성하세요";
         return false;
     }
+    
+    //아이디 중복확인 Ajax
+    $(function(){
+    	$("input[name=id]").on("blur", function(){
+    		
+    		var inputId = $("input[name=id]").val();
+    		
+    		$.ajax({
+    			url : "<%=request.getContextPath()%>/member/ajax_id_check.kj";
+    			type:"get"
+    				data:{//전송 시 첨부할 파라미터 정보
+                        id : inputId
+    				},
+    				success:function(resp) {
+    					if(resp =="YESICAN") {
+    						$("input[name=id]").next().text("아이디 사용 가능");
+    					} 
+    					else if(resp == "NONONO") {
+    						$("input[name=id]").next().text("아이디가 이미 사용중입니다");
+    				}
+    				},
+    				error:function(err){//통신이 실패했다.
+                        
+                    }	
+    	});
+    		
+    	});
+    });
+    
 }
 function pw2Check(){
     //비밀번호 확인은 비밀번호 입력창 2개가 필요하다.
@@ -51,6 +80,7 @@ function pw2Check(){
 			<div class="row">
 				<label>아이디</label>
 				<input type="text" name="id" required class="form-input" autocapitalize="off">
+				<span>안녕하세요</span>
 	</div>
 	<div class="row">
 				<label>비밀번호</label>
