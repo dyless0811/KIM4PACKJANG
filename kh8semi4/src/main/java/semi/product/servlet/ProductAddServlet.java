@@ -1,5 +1,6 @@
 package semi.product.servlet;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -12,52 +13,58 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-
-
+import semi.beans.BoardImageDao;
+import semi.beans.BoardImageDto;
 import semi.beans.ProductDao;
 import semi.beans.ProductDto;
+import semi.beans.ProductImageDao;
+import semi.beans.ProductImageDto;
 @WebServlet  (urlPatterns = "/product/productadd.kj")
 public class ProductAddServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//입력
-			System.out.println("어디까지왓니 0-1");
 			String savePath="D:/upload/product";
-			System.out.println("어디까지왓니 0-2");
 			int maxSize= 30 * 1024  * 1024;
-			System.out.println("어디까지왓니 0-3");
 			String encoding ="UTF-8";
-			System.out.println("어디까지왓니 0-4");
-			
-			System.out.println("어디까지왓니 0-5");
+			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
 			MultipartRequest mRequest = 
-					new MultipartRequest(req, savePath, maxSize, encoding);
+					new MultipartRequest(req, savePath, maxSize, encoding,policy);
 			
-		
-			System.out.println("어디까지왓니 0-6");
-			
-			System.out.println(mRequest.getParameter("no"));
-			System.out.println("어디까지왓니 1");
+
 			ProductDto productDto = new ProductDto();
 			//productDto.setNo(Integer.parseInt(mRequest.getParameter("no")));
 			productDto.setSmallTypeNo(Integer.parseInt(mRequest.getParameter("smallTypeNo")));
-			System.out.println("어디까지왓니 1-2");
 			productDto.setName(mRequest.getParameter("name"));
-			System.out.println("어디까지왓니 1-3");
 			productDto.setPrice(Integer.parseInt(mRequest.getParameter("price")));
-			System.out.println("어디까지왓니 1-4");
 			productDto.setDescription(mRequest.getParameter("description"));
-			System.out.println("어디까지왓니 1-5");
+		
 			
-			System.out.println("어디까지왓니 2");
+	
 			//처리
+			
 			ProductDao productDao = new ProductDao();
+			int no=productDao.getSeq();
+			productDto.setNo(no);
 			productDao.insert(productDto);
-			System.out.println("어디까지왓니 3");
+			
+			ProductImageDto productImageDto = new ProductImageDto();
+			productImageDto.setProductNo(no);
+			productImageDto.setProductFileSaveName(mRequest.getFilesystemName("attach"));
+			productImageDto.setProductFileUploadName(mRequest.getOriginalFileName("attach"));
+			productImageDto.setProductFileType(mRequest.getContentType("attach"));
+			File target = mRequest.getFile("attach");
+			
+			if(target!=null) {
+				productImageDto.setProductFileSize(target.length());
+				
+				ProductImageDao productImageDao = new ProductImageDao();
+				productImageDao.insert(productImageDto);				
+			}
+		
 			//출력
-			resp.sendRedirect("./productaddsuccess.jsp");
-			System.out.println("어디까지왓니 4");
+			resp.sendRedirect("./productdetail.jsp?no="+no);
 		}catch(Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);

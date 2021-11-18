@@ -575,3 +575,17 @@ textarea.vertical {
         float: right;
         color: #777;
     }
+    
+/* 링크를 버튼으로 만드는 스타일 */
+.link-btn:hover{
+    border-color:black;
+    color:black;
+}
+.link-btn {
+    display:inline-block;
+    padding:0.5rem;
+    border:2px solid gray;
+    text-decoration:none;
+    color:gray;
+    
+}

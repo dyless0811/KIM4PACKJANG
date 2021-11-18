@@ -16,12 +16,13 @@ public class ProductDao {
 	public void insert(ProductDto productDto) throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql ="insert into product values(product_seq.nextval,?,?,?,?,0)";
+		String sql ="insert into product values(?,?,?,?,?,0)";
 		PreparedStatement ps =con.prepareStatement(sql);
-		ps.setInt(1, productDto.getSmallTypeNo());
-		ps.setString(2, productDto.getName());
-		ps.setInt(3, productDto.getPrice());
-		ps.setString(4, productDto.getDescription());
+		ps.setInt(1, productDto.getNo());
+		ps.setInt(2, productDto.getSmallTypeNo());
+		ps.setString(3, productDto.getName());
+		ps.setInt(4, productDto.getPrice());
+		ps.setString(5, productDto.getDescription());
 		
 		
 		ps.execute();
@@ -317,4 +318,19 @@ public List<ProductDto> listByReplyCount() throws Exception {
 	
 	return list;
 }
+	//3. 시퀀스 번호를 미리 확인하는 메소드
+	public int getSeq() throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "select product_seq.nextval from dual";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		int seqNo = rs.getInt(1);
+		con.close();
+		
+		return seqNo;
+	}
 }
