@@ -593,3 +593,21 @@ textarea.vertical {
 
 /*로그인창 CSS 종료*/
 
+/*리스트카드*/
+.list-card>.list-card-image {
+	padding: 1rem;
+	width: 35%;
+}
+
+.list-card>.list-card-image>img {
+	width: 100%;
+}
+
+.list-card>.list-card-content {
+	width: 65%;
+	padding: 1rem;
+}
+
+div {
+	border: none;
+}
