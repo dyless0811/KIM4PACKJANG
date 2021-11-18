@@ -55,18 +55,12 @@ public class BoardDao {
 	public void update(BoardDto boardDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into board(no, member_id, boardtype_no, board_title, board_content, board_superno, board_groupno, board_depth) "
-				+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "update board set boardtype_no = ?, board_title = ?, board_content = ? where no = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, boardDto.getNo());
-		ps.setString(2, boardDto.getMemberId());
-		ps.setInt(3, boardDto.getBoardTypeNo());
-		
-		ps.setString(4, boardDto.getBoardTitle());
-		ps.setString(5, boardDto.getBoardContent());
-		ps.setInt(6, boardDto.getBoardSuperno());
-		ps.setInt(7, boardDto.getBoardGroupno());
-		ps.setInt(8, boardDto.getBoardDepth());
+		ps.setInt(1, boardDto.getBoardTypeNo());
+		ps.setString(2, boardDto.getBoardTitle());
+		ps.setString(3, boardDto.getBoardContent());
+		ps.setInt(4, boardDto.getNo());
 		ps.execute();
 		
 		con.close();

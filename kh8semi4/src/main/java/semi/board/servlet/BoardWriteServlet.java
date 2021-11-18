@@ -25,7 +25,7 @@ public class BoardWriteServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String savePath = request.getSession().getServletContext().getRealPath("/resource/image/board");
+			String savePath = "C:/upload/kh84/board/";
 			System.out.println(savePath);
 			
 			int maxSize = 10  * 1024 * 1024;

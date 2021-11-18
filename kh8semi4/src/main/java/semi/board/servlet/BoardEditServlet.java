@@ -25,17 +25,16 @@ public class BoardEditServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String savePath = "D:/upload/board";
+			String savePath = "C:/upload/kh84/board/";
 			int maxSize = 10  * 1024 * 1024;
 			String encoding = "UTF-8";
 			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
 			MultipartRequest mRequest = new MultipartRequest(request, savePath, maxSize, encoding, policy);
 			
+			int boardNo = Integer.parseInt(mRequest.getParameter("boardNo"));
 			BoardDao boardDao = new BoardDao();
-			int boardNo = boardDao.getSeq();
 			BoardDto boardDto = new BoardDto();
 			boardDto.setNo(boardNo);
-			boardDto.setMemberId((String)request.getSession().getAttribute("loginId"));
 			boardDto.setBoardTypeNo(Integer.parseInt(mRequest.getParameter("boardTypeNo")));
 			boardDto.setBoardTitle(mRequest.getParameter("boardTitle"));
 			boardDto.setBoardContent(mRequest.getParameter("boardContent"));
@@ -45,27 +44,36 @@ public class BoardEditServlet extends HttpServlet {
 				boardDto.setBoardSuperno(Integer.parseInt(mRequest.getParameter("boardSuperno")));
 			}
 			
-			if(isAnswer) {
-				BoardDto parentDto = boardDao.get(boardDto.getBoardSuperno());
-				boardDto.setBoardGroupno(parentDto.getBoardGroupno());
-				boardDto.setBoardDepth(parentDto.getBoardDepth()+1);
-				boardDao.insertAnswer(boardDto);
-			}else {
-				boardDao.insert(boardDto);
-			}
+			boardDao.update(boardDto);
 			
+			BoardImageDao boardImageDao = new BoardImageDao();
 			BoardImageDto boardImageDto = new BoardImageDto();
-			boardImageDto.setBoardNo(boardNo);
-			boardImageDto.setBoardSaveName(mRequest.getFilesystemName("attach"));
-			boardImageDto.setBoardUploadName(mRequest.getOriginalFileName("attach"));
-			boardImageDto.setBoardFileType(mRequest.getContentType("attach"));
-			File target = mRequest.getFile("attach");
 			
-			if(target!=null) {
-				boardImageDto.setBoardFileSize(target.length());
+			//existing = 기존파일, new = 신규파일, delete = 파일삭제
+			String selectImage = mRequest.getParameter("selectImage");
+			System.out.println("selectImage = " + selectImage);
+			switch(selectImage) {
+			case "new":
+				boardImageDao.deleteByBoardNo(boardNo);
+				//실제 파일도 삭제해야함
+				boardImageDto.setBoardNo(boardNo);
+				boardImageDto.setBoardSaveName(mRequest.getFilesystemName("attach"));
+				boardImageDto.setBoardUploadName(mRequest.getOriginalFileName("attach"));
+				boardImageDto.setBoardFileType(mRequest.getContentType("attach"));
+				File target = mRequest.getFile("attach");
 				
-				BoardImageDao boardFileDao = new BoardImageDao();
-				boardFileDao.insert(boardImageDto);				
+				if(target!=null) {
+					boardImageDto.setBoardFileSize(target.length());
+					
+					boardImageDao.insert(boardImageDto);				
+				}
+				break;
+			case "delete":
+				boardImageDao.deleteByBoardNo(boardNo);
+				//실제 파일도 삭제해야함
+				break;
+			case "existing":
+				break;
 			}
 			
 			response.sendRedirect("/kh8semi4/board/detail.jsp?no="+boardNo);

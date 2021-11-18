@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BoardImageDto"%>
+<%@page import="semi.beans.BoardImageDao"%>
 <%@page import="semi.beans.BoardDto"%>
 <%@page import="semi.beans.BoardDao"%>
 <%@page import="java.util.List"%>
@@ -13,6 +15,8 @@
 	BoardDao boardDao = new BoardDao();
 	BoardDto boardDto = boardDao.get(boardNo);
 	BoardTypeDto boardTypeDto = boardTypeDao.get(boardDto.getBoardTypeNo());
+	BoardImageDao boardImageDao = new BoardImageDao();
+	BoardImageDto boardImageDto = boardImageDao.getByBoardNo(boardNo);
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -21,7 +25,8 @@
       <div class="row center">
         <h2>게시글 수정</h2>
       </div>
-      <form action="update.kj" method="post" enctype="multipart/form-data">
+      <form action="edit.kj" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="boardNo" value="<%=boardDto.getNo()%>" />
         <input type="hidden" name="boardSuperno" value="<%=boardDto.getBoardSuperno()%>" />
         <div>
           <select name="boardTypeNo">
@@ -47,6 +52,11 @@
         </div>
         <div class="row">
           <input type="submit" value="등록" />
+        </div>
+        <div class="row">
+        	<input type="radio" name="selectImage" value="existing" checked="checked"> 기존 파일 <%=boardImageDto!=null ? boardImageDto.getBoardUploadName() : ""%>
+        	<input type="radio" name="selectImage" value="new"> 신규 파일
+        	<input type="radio" name="selectImage" value="delete"> 파일 삭제
         </div>
       </form>
     </div>
