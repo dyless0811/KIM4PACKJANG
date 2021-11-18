@@ -229,7 +229,8 @@ public class BoardDao {
 	//조회 확인 메소드
 	public void view(int no, String memberId) throws Exception {
 		Connection con = JdbcUtils.connect();
-		
+		System.out.println("no = "+no);
+		System.out.println("memberId = "+memberId);
 		String sql = "update board set board_hit = board_hit+1 where no = ? and member_id != ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, no);
