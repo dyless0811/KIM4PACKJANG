@@ -9,7 +9,7 @@ import java.util.List;
 public class SizeDao {
     public void insert(SizeDto sizeDto) throws Exception{
         Connection con = JdbcUtils.connect();
-        String sql = "insert into values(smallType_seq.nextval,?)";
+        String sql = "insert into sz values(smallType_seq.nextval,?)";
         
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, sizeDto.getSizeName());
@@ -22,7 +22,7 @@ public class SizeDao {
     //수정
     public boolean update(SizeDto sizeDto) throws Exception{
     	Connection con = JdbcUtils.connect();
-    	String sql = "update size set name=? where no=?";
+    	String sql = "update sz set name=? where no=?";
     	PreparedStatement ps = con.prepareStatement(sql);
     	ps.setString(1, sizeDto.getSizeName());
     	ps.setInt(2, sizeDto.getNo());
@@ -36,7 +36,7 @@ public class SizeDao {
     //삭제
    public boolean delete(int no) throws Exception{
 	   Connection con = JdbcUtils.connect();
-	   String sql = "delete size where no =?";
+	   String sql = "delete sz where no =?";
 	   
 	   PreparedStatement ps = con.prepareStatement(sql);
 	   ps.setInt(1, no);
@@ -50,7 +50,7 @@ public class SizeDao {
    //조회
    public List<SizeDto> list() throws Exception{
 	   Connection con = JdbcUtils.connect();
-	   String sql = "select * from size";
+	   String sql = "select * from sz";
 	   
 	   PreparedStatement ps = con.prepareStatement(sql);
 	   
@@ -72,7 +72,7 @@ public class SizeDao {
    //단일 조회
    public SizeDto get(int no) throws Exception{
 	   Connection con = JdbcUtils.connect();
-	   String sql = "select * from size where no = ?";
+	   String sql = "select * from sz where no = ?";
 	   
 	   PreparedStatement ps = con.prepareStatement(sql);
 	   ps.setInt(1, no);

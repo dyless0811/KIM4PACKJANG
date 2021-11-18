@@ -335,4 +335,20 @@ public List<ProductDto> listByReplyCount() throws Exception {
 		
 		return seqNo;
 	}
+	//상품 게시글 클릭시 조회수 증가 기능 
+		public boolean readUp(int no) throws Exception {
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "update product set views = views + 1 where no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+			int result = ps.executeUpdate();
+			
+			con.close();
+			
+			return result > 0;
+		}
+
+		
+	
 }
