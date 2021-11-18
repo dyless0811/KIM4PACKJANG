@@ -20,28 +20,28 @@
 <script>
 	$(function(){
 		$(".page").hide();
-		$(".page").eq(0).show();
 		
 		var p  = 0;
 		
 		$(".a-next").click(function(e) {
 			e.preventDefault();
-			
 			p++;
 			if(p > 2) {
 				p=1;
 			};
 			$(".page").hide();
 			$(".page").eq(p).show();
+			console.log(p);
 		});
 		$(".a-prev").click(function(e) {
 			e.preventDefault();
-			p--;
-			if(p < 2) {
+			p++;
+			if(p > 1) {
 				p=0;
-			};
+				$(".page").eq(p).show();
+			} else{				
 			$(".page").hide();
-			$(".page").eq(p).show();
+			};
 		});
 	});
 </script>
