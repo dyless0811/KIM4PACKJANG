@@ -44,47 +44,46 @@ ProductImageDto productImageDto =productImageDao.get(no);
 	 <%} %>
 	</div>
 
-   	<div class="row flex-container">
-	    <%
-	    	for(ProductDto product : pPagi.getList()){
-	    	if(i != 0 && i % 4 == 0){
-	    %>    			
-		</div>
-		<div class="row flex-container">
-		<%}%>
-			<div class="row flex-gro">
-	    		<table class="table table-border table-hover">
-		    		<tbody>
-		    			<tr height="400px">
-					   	 	<!-- 상품 이미지 -->
-							<td>
-							<%if(productImageDto == null){ %>
-							<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
-							<%}else{ %>
-							<img src="/product/productadd.kj?productImageNo=<%=productImageDto.getProductNo()%>" width="100%" class="image image-border">
-							<%} %>
-							</td>
-			    		</tr>
-			    		<tr>
-			    			<td>색상 / <%=product.getViews()%></td>
-			    		</tr>
-			    		<tr>
-			    			<td><a href="./productdetail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a>(사이즈)</td>
-			    		</tr>
-			    		<tr>
-			    			<td><%=product.getPrice()%></td>
-			    		</tr>
-			    		<tr>
-			    			<td>------------<%=i%></td>
-			    		</tr>
-			    		<tr>
-			    			<td><%=product.getDescription()%></td>
-			    		</tr>
-					</tbody>
-				</table>
-			</div>
-	    <%i++;} %>
-	</div>
+        	<div class="row flex-container">
+    <%for(ProductDto product : pPagi.getList()){ %>
+
+
+    		<div class="row flex-gro">
+	    	<table class="table table-border table-hover">
+		    	<tbody>
+		    		<tr height="400px">
+		   	 	<!-- 상품 이미지 -->
+				<td>
+
+				<%if(productImageDto == null){ %>
+				<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
+				<%}else{ %>
+				<img src="/product/productadd.kj?productImageNo=<%=productImageDto.getProductNo()%>" width="100%" class="image image-border">
+				<%} %>
+				</td>
+		    		</tr>
+		    		<tr>
+		    			<td>색상 / <%=product.getViews()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td><a href="./productdetail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a>(사이즈)</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getPrice()%></td>
+		    		</tr>
+		    		<tr>
+		    			<td>------------</td>
+		    		</tr>
+		    		<tr>
+		    			<td><%=product.getDescription()%></td>
+		    		</tr>
+		    	</tbody>
+		    </table>
+	    	</div>
+	    	<%} %>
+	    	</div>
+   	
+
 
 <!-- 페이지네이션 -->
 <div class="row center">
