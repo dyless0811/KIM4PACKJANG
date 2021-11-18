@@ -22,6 +22,10 @@
 	//로그인 상태인지 아닌지 판정하는 코드
 	String id = (String)session.getAttribute("loginId");
 	boolean login = id != null;
+
+	//관리자인지 확인하는 코드
+	//String grade=(String)session.getAttribute("loginGrade");
+	//boolean isAdmin = grade.equals("관리자");
 %>
 
 
@@ -95,12 +99,14 @@
                     <div>
                          <ul class="slide-menu">
                             <%for(BigTypeDto bigType : bigTypeList){ %>
-                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
                             <ul>
+                               
                                 <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
                                 <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
                                 <%for(SmallTypeDto smalltype: smallTypeList){ %>
-                                <li>
+                                
+                              <li>
                                  	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
                                 <li>
                                 <%} %>
@@ -189,7 +195,7 @@
 
                         <ul class="slide-menu">
                             <%for(BigTypeDto bigType : bigTypeList){ %>
-                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                             <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
                              
                             <ul>
                                 <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
@@ -197,6 +203,9 @@
                                 <%for(SmallTypeDto smalltype: smallTypeList){ %>
                                 <li>
                                  	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
+<%-- 									 <%if(isAdmin){ %> --%>
+<%-- 									 <a href="#"><%=smalltype.getName()%>[상품추가]</a> --%>
+<%-- 									 <%} %> --%>
                                 <li>
                                 <%} %>
                             </ul>

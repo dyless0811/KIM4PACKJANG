@@ -1,3 +1,5 @@
+<%@page import="semi.beans.ProductImageDao"%>
+<%@page import="semi.beans.ProductImageDto"%>
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="java.util.List"%>
 <%@page import="semi.beans.ProductDao"%>
@@ -5,7 +7,20 @@
     pageEncoding="UTF-8"%>
 
 <%--입력 --%>
+<%
+int no=1;
+if(request.getParameter("no")!=null){
+no =Integer.parseInt(request.getParameter("no"));
+}
 
+
+String isType = request.getParameter("bigtypeno");
+String isNo = request.getParameter("no");
+
+ProductImageDao productImageDao =new ProductImageDao();
+
+ProductImageDto productImageDto =productImageDao.get(no);
+%>
 <%--처리 --%>
 
 <% 
@@ -36,7 +51,18 @@ int i = 0;//pagenation begin를 집어넣으면 될 것 같다.
 
 <%--출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
-<div class="container-1400 container-center">
+<div class="container-1400 container-center"></div>
+	<div class="row right ">
+	 <%if(isType != null){ 
+	 	int bigTypeNo= Integer.parseInt(isType);
+	 %>
+	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
+	 <%}else if(isNo != null){
+		  int sno= Integer.parseInt(isNo); 
+		 %>
+	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
+	 <%} %>
+	</div>
     <div class="row flex-container">
 
     <%for(ProductDto product : list){ 
@@ -76,7 +102,15 @@ int i = 0;//pagenation begin를 집어넣으면 될 것 같다.
 	    	<table class="table table-border table-hover">
 		    	<tbody>
 		    		<tr height="400px">
-		    		<td><img src="https://via.placeholder.com/300x350"></td>
+		   	 	<!-- 상품 이미지 -->
+				<td>
+
+				<%if(productImageDto == null){ %>
+				<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
+				<%}else{ %>
+				<img src="/product/productadd.kj?productImageNo=<%=productImageDto.getProductNo()%>" width="100%" class="image image-border">
+				<%} %>
+				</td>
 		    		</tr>
 		    		<tr>
 		    			<td>색상 / <%=product.getViews()%></td>
@@ -201,7 +235,7 @@ int i = 0;//pagenation begin를 집어넣으면 될 것 같다.
     </div>
 </div>
 
-<!-- 페이지네이션 -->
+<!-- 페이지네이션 모양만잇습니다-->
 <div class="row center">
 [이전] 1 2 3 4 5 6 7 8 9 10 [다음]
 </div>

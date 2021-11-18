@@ -8,7 +8,7 @@
 
 	boolean isAnswer = boardSuperno != null;
 	String title = isAnswer ? "답글작성" : "게시글 작성";
-
+	int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
 	List<BoardTypeDto> list = boardTypeDao.list();
 %>
@@ -26,7 +26,7 @@
         <div>
           <select name="boardTypeNo">
           	<%for(BoardTypeDto boardTypeDto : list) {%>
-          	<option value="<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></option>
+          	<option value="<%=boardTypeDto.getNo()%>"<%=boardTypeNo == boardTypeDto.getNo() ? "selected" : "" %>><%=boardTypeDto.getName()%></option>
           	<%}%>
 		 </select>
         </div>

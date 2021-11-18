@@ -42,7 +42,7 @@ public class BoardWriteServlet extends HttpServlet {
 			boardDto.setBoardTitle(mRequest.getParameter("boardTitle"));
 			boardDto.setBoardContent(mRequest.getParameter("boardContent"));
 			
-			boolean isAnswer = request.getParameter("boardSuperno") != null;
+			boolean isAnswer = mRequest.getParameter("boardSuperno") != null;
 			if(isAnswer) {
 				boardDto.setBoardSuperno(Integer.parseInt(mRequest.getParameter("boardSuperno")));
 			}
