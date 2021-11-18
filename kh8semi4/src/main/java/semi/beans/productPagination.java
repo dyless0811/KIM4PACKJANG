@@ -46,7 +46,7 @@ package semi.beans;
 			return no;
 		}
 		//계산 메소드
-		private int pageSize = 10;
+		private int pageSize = 12;
 		private int blockSize = 10;
 		private int begin, end;
 		private int startBlock, finishBlock, lastBlock;
