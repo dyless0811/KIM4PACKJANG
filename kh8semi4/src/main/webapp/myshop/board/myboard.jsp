@@ -11,6 +11,8 @@
 
 <%-- 입력 : 현재 로그인한 회원ID - String id --%>
 <%
+String isType = request.getParameter("bigtypeno");
+String isNo = request.getParameter("no");
 	String id = (String)session.getAttribute("loginId");
 	String column = request.getParameter("column");
 	String keyword = request.getParameter("keyword");
@@ -32,39 +34,21 @@ BoardDao boardDao = new BoardDao();
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <script>
-	$(function(){
-		//[1]다 숨김
-		$(".page").hide();
-		
-		//[2] 페이지 번호 관리 변수 생성
-		var p  = 0;
-		
-		//[3] 다음 단계로 버튼에 대한 이벤트 처리
-		//= p를 1 증가시키고 해당하는 페이지를 표시
-		//a태그 이동방지 -> e.preventDefault();
-		$(".a-next").click(function(e) {
-			e.preventDefault();
-			p++;
-			if(p > 2) {
-				p=1;
-			};
-			$(".page").hide();
-			$(".page").eq(p).show();
-			console.log(p);
-		});
-		$(".a-prev").click(function(e) {
-			e.preventDefault();
-			console.log(p);
-			p++;
-			if(p > 1) {
-				p=0;
-				$(".page").eq(p).show();
-				
-			} else{				
-			$(".page").hide();
+	 
+			$(".test1").hide();
+		$(".can-write").click(function(){
 			
-			};
+			$(" .target1 > table").hide();
+			$(".target2 > table").fadeToggle();
+			
 		});
+		
+		$(".test1").hide();
+			$(".not-write").click(function(){
+				$(" .target2 > table").hide();
+				$(".target1 > table").fadeToggle();
+			});
+		
 	});
 </script>
 
@@ -84,17 +68,18 @@ BoardDao boardDao = new BoardDao();
             </tr>
           </thead>
           <tbody>
-          <%for(BoardDto boardDto : mpg.getList()) {%>
+           <%for(BoardDto boardDto : mpg.getList()) {%>
             <tr>
               <td><%=boardDto.getNo() %></td>
               <td>문의</td>
-              <td><%=boardDto.getBoardTitle() %></td>
+              <td><a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDto.getNo()%>"><%=boardDto.getBoardTitle()%></a></td>
+              
               <td><%=boardDto.getBoardDate() %></td>
             </tr>
           
           <%} %>
         </table>
-	</div>
+    </div>
 	
 	
 	<div>
@@ -124,27 +109,75 @@ BoardDao boardDao = new BoardDao();
         <br><br><br>
 		</div>
 		
+		<!-- 페이지네이션 -->
+		
+	<div class="row center">
+<%if(mpg.getStartBlock() > 1){ %>
+	<%if(mpg.isSearch()){ %>
+		<!-- 검색용 링크 -->
+		<a href="myboard.jsp?memberId=<%=id%>&column=<%=mpg.getColumn()%>&keyword=<%=mpg.getKeyword()%>&p=<%=mpg.getFinishBlock()+1%>%>">&lt;</a>
+	<%} else { %>
+		<!-- 목록용 링크 -->
+		<a href="myboard.jsp?memberId=<%=id%>&p=<%=mpg.getStartBlock()-1%>">&lt;</a>
+	<%} %>
+<%} else { %>
+	 <a>&lt;</a>
+<%} %> 
+
+<%for(int t = mpg.getStartBlock(); t <= Math.min(mpg.getFinishBlock(),mpg.getLastBlock()); t++){ %>
+	<%if(mpg.isSearch()){ %>
+	<!-- 검색용 버튼 -->
+	<a href="myboard.jsp?memberId=<%=id%>&column=<%=mpg.getColumn()%>&keyword=<%=mpg.getKeyword()%>&p=<%=t%>"><%=t%></a>
+	<%}else{ %>
+	<!-- 목록용 버튼 -->
+		
+		<a href="myboard.jsp?memberId=<%=id%>&p=<%=t%>"><%=t%></a>
+		
+		
+		<%} %>
+	<%} %>
+
+
+<%if(mpg.getFinishBlock() < mpg.getLastBlock()){ %>
+	<%if(mpg.isSearch()){ %>
+		<!-- 검색용 링크 -->
+		<a href="myboard.jsp?memberId=<%=id%>&column=<%=mpg.getColumn()%>&keyword=<%=mpg.getKeyword()%>&p=<%=mpg.getFinishBlock()+1%>">&gt;</a>
+	<%} else { %>
+		<!-- 목록용 링크 -->
+		<a href="myboard.jsp?memberId=<%=id%>&p=<%=mpg.getFinishBlock()+1%>">&gt;</a>
+	<%} %> 
+<%} else {%>
+	<a>&gt;</a>
+<%} %>
+</div>
 		
       
       <!-- 분류 -->
      <div class="row">
         <ul class="slide-menu">
           <li style="width: 50%">
-            <a class="center a-next" style="margin: 0 auto; width: auto" href="#">
-              작성가능한 리뷰
-           </a>
+          
+          	<button class="can-write form-btn ">작성가능한 리뷰</button>
+            <!-- 
+            <a class="center can-write" style="margin: 0 auto; width: auto" href="#">
+               -->
+           
           </li>
           <li style="width: 50%">
-            <a class="center a-prev" style="margin: 0 auto; width: auto" href="#">
+          	
+          	<button class="not-write form-btn ">작성한 리뷰</button>
+          	<!--  
+            <a class="center not-write" style="margin: 0 auto; width: auto" href="#">
               작성한 리뷰
             </a>
+            -->
           </li>
         </ul>
       </div>
     	
-    <!-- 테이블 -->
-      <div class="row page">
-        <table class="table table-border table-hover">
+    <!-- 작성한리뷰 0번-->
+      <div class="row target1">
+        <table class="table table-border table-hover test1">
           <thead>
             <tr>
               <th>번호</th>
@@ -167,10 +200,10 @@ BoardDao boardDao = new BoardDao();
         </table>
       </div>
       
-      	<!-- 작성가능한 리뷰 -->
+      	<!-- 작성가능한 리뷰 1번-->
 
-         <div class="row page">
-        <table class="table table-border table-hover">
+         <div class="row target2">
+        <table class="table table-border table-hover test1">
           <thead>
             <tr>
               <th>상품명</th>
@@ -192,5 +225,6 @@ BoardDao boardDao = new BoardDao();
         </table>
       </div>
     </div>
+    
     
 <jsp:include page="/template/footer.jsp"></jsp:include>
