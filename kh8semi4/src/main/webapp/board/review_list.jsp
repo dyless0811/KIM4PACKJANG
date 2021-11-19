@@ -1,3 +1,6 @@
+<%@page import="semi.beans.ReplyDto"%>
+<%@page import="semi.beans.ReplyListVo"%>
+<%@page import="semi.beans.ReplyDao"%>
 <%@page import="java.util.List"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.ProductDto"%>
@@ -7,7 +10,10 @@
 <%-- 입력 --%>
 
 <%-- 처리 --%>
-
+<%
+	ReplyDao replyDao = new ReplyDao();
+	List<ReplyListVo> volist = replyDao.listByReplyCount();
+%>
 <%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
 
@@ -18,8 +24,10 @@
 		
 		<!-- for문에서, container가 큰 한개. flex-gro을 4개가 되면 큰 container를 추가한다. -->
 		<div class="row flex-container" style="margin: 50px">
-		<%for(int i = 0; i <12; i++){%>
-			<%if(i%4==0){ %>
+		<%
+		int i =0;
+		for(ReplyListVo replyListVo : volist){%>
+			<%if(i %4==0){ %>
 			</div>
 				<div class="row flex-container" style="margin: 50px">
 			<%} %>
@@ -28,23 +36,31 @@
 		    		<tbody>
 					   	 	<!-- 상품 이미지 자리-->
 							<td>
-							<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
+							
+							<img src="C:/upload/kh84/product/ <%=replyListVo.getProductImageSavename()%>" width="100%" class="image  image-border">
 							</td>
 			    		<tr>
 			    			<td>
-			    			상품 이름,번호 : productName, productNo(vo에서가져와),
+			    			<a href ="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=replyListVo.getProductNo()%>"><%=replyListVo.getName()%></a>
 			    			</td>
 			    		</tr>
 			    		<tr>
-			    			<td>별점자리 : vo에서starpoint</td>
+			    			<td><%=replyListVo.getStarpoint()%>점/ 총 리뷰수:<%=replyListVo.getReplyCount()%>개</td>
 			    		</tr>
-			    		<tr>
-			    			<td>리뷰 디테일자리에: reply_detail.jsp로 가야됨. replyCount, productDao listByReplyCount()리뷰순, replydao에 있는게 최신순  </td>
-			    		</tr>
+			    		<%
+			    		List<ReplyDto> replyList = replyDao.list3(replyListVo.getProductNo());
+			    		%>
+			    		<%
+			    		for(ReplyDto replydto : replyList){
+			    		%>
+			    			<tr>
+			    			<td><%=replydto.getMemberId()%><%=replydto.getContent()%></td>
+			    			</tr>
+			    		<%} %>
 					</tbody>
 				</table>
 			</div>
-			<%}%>
+			<% i++; }%>
 	</div>
 </div>
 
