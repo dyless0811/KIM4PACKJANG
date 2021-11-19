@@ -1,17 +1,14 @@
-<%@page import="semi.beans.ProductColorDto"%>
-<%@page import="semi.beans.ProductColorDao"%>
-<%@page import="semi.beans.ProductSizeDto"%>
-<%@page import="semi.beans.ProductSizeDao"%>
-<%@page import="semi.beans.ColorDto"%>
-<%@page import="semi.beans.ColorDao"%>
-<%@page import="javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardResizeToggleHandler"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
+<%@page import="semi.beans.ProductColorDao"%>
+<%@page import="semi.beans.ProductSizeDao"%>
+<%@page import="semi.beans.ColorDao"%>
+<%@page import="semi.beans.ColorDto"%>
 <%@page import="semi.beans.SizeDao"%>
 <%@page import="semi.beans.SizeDto"%>
-<%@page import="java.util.List"%>
-<%@page import="semi.beans.ProductDto"%>
 <%@page import="semi.beans.ProductDao"%>
+<%@page import="semi.beans.ProductDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%--입력 --%>
