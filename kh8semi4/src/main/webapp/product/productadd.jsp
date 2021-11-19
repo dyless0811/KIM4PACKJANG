@@ -58,7 +58,6 @@ List<ColorDto> colorList = colorDao.list();
     	});
 
 	})
-	//vscode 59번 survey 참고해서 사이즈 색상 고르는거 만들어!!
 </script>
 
 

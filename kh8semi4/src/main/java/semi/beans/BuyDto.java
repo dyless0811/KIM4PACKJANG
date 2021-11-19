@@ -9,8 +9,22 @@ public class BuyDto {
 	private String type;
 	private Date buyDate;
 	private String status;
+	private int colorNo;
+	private int sizeNo;
 	
 	//setter & getter
+	public int getColorNo() {
+		return colorNo;
+	}
+	public void setColorNo(int colorNo) {
+		this.colorNo = colorNo;
+	}
+	public int getSizeNo() {
+		return sizeNo;
+	}
+	public void setSizeNo(int sizeNo) {
+		this.sizeNo = sizeNo;
+	}
 	public int getNo() {
 		return no;
 	}

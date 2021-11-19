@@ -21,7 +21,7 @@ public class ProductColorDao {
 	
 	public List<ColorDto> colorListByProductNo(int productNo) throws Exception {
 		Connection con = JdbcUtils.connect();
-		String sql = "select * from productsize where product_no = ?";
+		String sql = "select distinct c.no, c.color from productcolor pc inner join color c on pc.color_no = c.no where pc.product_no = ? order by c.no asc";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, productNo);
 		ResultSet rs = ps.executeQuery();
