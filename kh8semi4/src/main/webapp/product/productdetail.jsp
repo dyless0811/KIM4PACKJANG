@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 <%@page import="semi.beans.ColorDto"%>
 <%@page import="semi.beans.ColorDao"%>
-=======
 <%@page import="javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardResizeToggleHandler"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
->>>>>>> refs/remotes/origin/main
 <%@page import="semi.beans.SizeDao"%>
 <%@page import="semi.beans.SizeDto"%>
 <%@page import="java.util.List"%>
