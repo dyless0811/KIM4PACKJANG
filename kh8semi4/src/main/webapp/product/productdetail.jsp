@@ -1,3 +1,7 @@
+<%@page import="semi.beans.ProductColorDto"%>
+<%@page import="semi.beans.ProductColorDao"%>
+<%@page import="semi.beans.ProductSizeDto"%>
+<%@page import="semi.beans.ProductSizeDao"%>
 <%@page import="semi.beans.ColorDto"%>
 <%@page import="semi.beans.ColorDao"%>
 <%@page import="javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardResizeToggleHandler"%>
@@ -23,11 +27,11 @@
   
   <%
   //상품사이즈, 색상 가져오기
-  SizeDao sizeDao =new SizeDao();
-  List<SizeDto> sizeList = sizeDao.list();
+  ProductSizeDao productSizeDao =new ProductSizeDao();
+  List<SizeDto> sizeList = productSizeDao.sizeListByProductNo(no);
   
-  ColorDao colorDao = new ColorDao();
-  List<ColorDto> colorList = colorDao.list();
+  ProductColorDao productColorDao = new ProductColorDao();
+  List<ColorDto> colorList = productColorDao.colorListByProductNo(no);
   %>
   
 <%
