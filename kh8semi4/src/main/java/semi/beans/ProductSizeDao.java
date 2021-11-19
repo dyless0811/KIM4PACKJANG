@@ -30,7 +30,7 @@ public class ProductSizeDao {
 		while(rs.next()) {
 			SizeDto sizeDto = new SizeDto();
 			sizeDto.setNo(rs.getInt("no"));
-			sizeDto.setSizeName(rs.getString("size"));
+			sizeDto.setSizeName(rs.getString("sz"));
 			
 			list.add(sizeDto);
 		}
