@@ -2,7 +2,7 @@ package semi.beans;
 
 public class ProductColorDto {
 	private int no;
-	private int sizeNo;
+	private int colorNo;
 	private int productNo;
 	public int getNo() {
 		return no;
@@ -10,11 +10,11 @@ public class ProductColorDto {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getSizeNo() {
-		return sizeNo;
+	public int getColorNo() {
+		return colorNo;
 	}
-	public void setSizeNo(int sizeNo) {
-		this.sizeNo = sizeNo;
+	public void setColorNo(int colorNo) {
+		this.colorNo = colorNo;
 	}
 	public int getProductNo() {
 		return productNo;

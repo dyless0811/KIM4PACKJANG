@@ -32,5 +32,4 @@ public class sCategoriDeleteServlet extends HttpServlet{
 			resp.sendError(500);
 		}
 	}
-
 }

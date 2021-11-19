@@ -22,7 +22,7 @@ public class SizeDao {
     //수정
     public boolean update(SizeDto sizeDto) throws Exception{
     	Connection con = JdbcUtils.connect();
-    	String sql = "update sz set name=? where no=?";
+    	String sql = "update sz set sz=? where no=?";
     	PreparedStatement ps = con.prepareStatement(sql);
     	ps.setString(1, sizeDto.getSizeName());
     	ps.setInt(2, sizeDto.getNo());
@@ -61,13 +61,14 @@ public class SizeDao {
 		   SizeDto smallTypeDto = new SizeDto();
 		   
 		   smallTypeDto.setNo(rs.getInt("no"));
-		   smallTypeDto.setSizeName(rs.getString("name"));
+		   smallTypeDto.setSizeName(rs.getString("sz"));
 		   list.add(smallTypeDto);
 	   }
 	   con.close();
 	   
 	   return list;
    }
+   
    
    //단일 조회
    public SizeDto get(int no) throws Exception{
@@ -82,7 +83,7 @@ public class SizeDao {
 	   
 	   if(rs.next()) {
 		   sizeDto.setNo(rs.getInt("no"));
-		   sizeDto.setSizeName(rs.getString("name"));
+		   sizeDto.setSizeName(rs.getString("sz"));
 	   }
 	   else {
 		   sizeDto = null;

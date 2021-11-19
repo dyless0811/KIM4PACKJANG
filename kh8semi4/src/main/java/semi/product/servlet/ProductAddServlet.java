@@ -15,17 +15,19 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import semi.beans.BoardImageDao;
 import semi.beans.BoardImageDto;
+import semi.beans.ProductColorDao;
 import semi.beans.ProductDao;
 import semi.beans.ProductDto;
 import semi.beans.ProductImageDao;
 import semi.beans.ProductImageDto;
+import semi.beans.ProductSizeDao;
 @WebServlet  (urlPatterns = "/product/productadd.kj")
 public class ProductAddServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//입력
-			String savePath="D:/upload/product";
+			String savePath="C:/upload/kh84/product";
 			int maxSize= 30 * 1024  * 1024;
 			String encoding ="UTF-8";
 			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
@@ -34,13 +36,11 @@ public class ProductAddServlet extends HttpServlet{
 			
 
 			ProductDto productDto = new ProductDto();
-			//productDto.setNo(Integer.parseInt(mRequest.getParameter("no")));
 			productDto.setSmallTypeNo(Integer.parseInt(mRequest.getParameter("smallTypeNo")));
 			productDto.setName(mRequest.getParameter("name"));
 			productDto.setPrice(Integer.parseInt(mRequest.getParameter("price")));
 			productDto.setDescription(mRequest.getParameter("description"));
-		
-			
+
 	
 			//처리
 			
@@ -48,6 +48,20 @@ public class ProductAddServlet extends HttpServlet{
 			int no=productDao.getSeq();
 			productDto.setNo(no);
 			productDao.insert(productDto);
+	
+			if(mRequest.getParameter("size")!=null) {
+				ProductSizeDao productSizeDao = new ProductSizeDao();
+				for (String sizeNo : mRequest.getParameterValues("size")) {
+					productSizeDao.insert(Integer.parseInt(sizeNo), no);
+				}				
+			}
+			
+			if(mRequest.getParameter("color")!=null) {
+				ProductColorDao productColorDao = new ProductColorDao();
+				for (String colorNo : mRequest.getParameterValues("color")) {
+					productColorDao.insert(Integer.parseInt(colorNo), no);
+				}
+			}
 			
 			ProductImageDto productImageDto = new ProductImageDto();
 			productImageDto.setProductNo(no);
