@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+
 public class BoardDao {
 	//1. 게시글 등록(새글) 메소드
 	public boolean insert(BoardDto boardDto) throws Exception {
@@ -435,4 +436,144 @@ public class BoardDao {
 			
 			return BoardList;
 	}
-}
+		//저스트 검색기능
+		public List<BoardDto> search(String memberId,String column, String keyword) throws Exception {
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "select * from board where member_id = ? and instr(#1, ?) > 0 order by no desc";
+			sql = sql.replace("#1", column); //정적바인딩
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1,memberId);
+			ps.setString(2, keyword);
+			ResultSet rs = ps.executeQuery();
+			
+			List<BoardDto> list = new ArrayList<>();
+			while(rs.next()) {
+				BoardDto boardDto = new BoardDto();
+				
+				boardDto.setNo(rs.getInt("no"));
+				boardDto.setMemberId(rs.getString("member_id"));
+				boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
+				boardDto.setBoardTitle(rs.getString("board_title"));
+				boardDto.setBoardContent(rs.getString("board_content"));
+				boardDto.setBoardDate(rs.getDate("board_date"));
+				boardDto.setBoardHit(rs.getInt("board_hit"));
+				boardDto.setBoardSuperno(rs.getInt("board_superno"));
+				boardDto.setBoardGroupno(rs.getInt("board_groupno"));
+				boardDto.setBoardDepth(rs.getInt("board_depth"));
+				
+				list.add(boardDto);
+			}
+			con.close();
+			
+			return list;
+		}
+		//마이페이지 검색있을때 
+				public List<BoardDto> searchByRownum(String memberId, String column, String keyword, int begin, int end) throws Exception{
+					Connection con = JdbcUtils.connect();
+					
+					String sql = "select * from (select rownum rn,tmp.* from(select * from board where member_id = ? and instr(#1, ?) > 0)tmp)where rn between ? and ?";
+					sql = sql.replace("#1", column);
+					PreparedStatement ps = con.prepareStatement(sql);
+					ps.setString(1, memberId);
+					ps.setString(2, keyword);
+					ps.setInt(3, begin);
+					ps.setInt(4, end);
+					ResultSet rs = ps.executeQuery();
+					
+					List<BoardDto>boardList = new ArrayList<>();
+					while(rs.next()) {
+						BoardDto boardDto = new BoardDto();
+						
+						boardDto.setNo(rs.getInt("no"));
+						boardDto.setMemberId(rs.getString("member_id"));
+						boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
+						boardDto.setBoardTitle(rs.getString("board_title"));
+						boardDto.setBoardContent(rs.getString("board_content"));
+						boardDto.setBoardDate(rs.getDate("board_date"));
+						boardDto.setBoardHit(rs.getInt("board_hit"));
+						boardDto.setBoardSuperno(rs.getInt("board_superno"));
+						boardDto.setBoardGroupno(rs.getInt("board_groupno"));
+						boardDto.setBoardDepth(rs.getInt("board_depth"));
+						
+						boardList.add(boardDto);
+						
+					}
+					
+					
+					con.close();
+					return boardList;
+				}
+				
+				//마이페이지 검색없을때
+				public List<BoardDto> listByTreeSort(String memberId,int begin, int end) throws Exception {
+					Connection con = JdbcUtils.connect();
+					
+					String sql = "select * from(select rownum rn, tmp.* from (select * from board where member_id = ?)tmp )where rn BETWEEN ? and ?";
+					PreparedStatement ps = con.prepareStatement(sql);
+					ps.setString(1, memberId);
+					ps.setInt(2, begin);
+					ps.setInt(3, end);
+					ResultSet rs = ps.executeQuery();
+					
+					List<BoardDto> list = new ArrayList<>();
+					while(rs.next()) {
+						BoardDto boardDto = new BoardDto();
+						
+						boardDto.setNo(rs.getInt("no"));
+						boardDto.setMemberId(rs.getString("member_id"));
+						boardDto.setBoardTypeNo(rs.getInt("boardtype_no"));
+						boardDto.setBoardTitle(rs.getString("board_title"));
+						boardDto.setBoardContent(rs.getString("board_content"));
+						boardDto.setBoardDate(rs.getDate("board_date"));
+						boardDto.setBoardHit(rs.getInt("board_hit"));
+						boardDto.setBoardSuperno(rs.getInt("board_superno"));
+						boardDto.setBoardGroupno(rs.getInt("board_groupno"));
+						boardDto.setBoardDepth(rs.getInt("board_depth"));
+						
+						list.add(boardDto);
+					}
+					con.close();
+					return list;
+			}
+				
+				//마이페이지 게시글 개수 카운트
+				public int count(String memberId,String column, String keyword) throws Exception {
+					Connection con = JdbcUtils.connect();
+					
+					String sql = "select count(*) from board where member_id = ? and instr(#1, ?) > 0";
+					sql = sql.replace("#1", column);
+					PreparedStatement ps = con.prepareStatement(sql);
+					ps.setString(1, memberId);
+					ps.setString(2, keyword);
+					ResultSet rs = ps.executeQuery();
+					
+					rs.next();
+					
+					//int count = rs.getInt("count(*)");
+					int count =  rs.getInt(1);
+					
+					con.close();
+					return count;
+				}
+				
+				//마이페이지 검색없을때 카운트
+				public int count(String memberId) throws Exception {
+					Connection con = JdbcUtils.connect();
+					
+					String sql = "select count(*) from board where member_id = ?";
+					
+					PreparedStatement ps = con.prepareStatement(sql);
+					ps.setString(1, memberId);
+					ResultSet rs = ps.executeQuery();
+					
+					rs.next();
+					
+					//int count = rs.getInt("count(*)");
+					int count =  rs.getInt(1);
+					
+					con.close();
+					return count;
+				}	
+		
+	}
