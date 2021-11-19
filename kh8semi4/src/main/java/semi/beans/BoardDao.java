@@ -146,11 +146,10 @@ public class BoardDao {
 	}
 	
 	//6. 게시글 내글 조회 메소드
-	public List<BoardDto> list(String column, String memberId) throws Exception{
+	public List<BoardDto> list(String memberId) throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "select * from board where instr(#1, ?) > 0 order by board_no desc";
-		sql = sql.replace("#1", column);
+		String sql = "select * from board where member_id = ? order by no desc";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, memberId);
 		ResultSet rs = ps.executeQuery();

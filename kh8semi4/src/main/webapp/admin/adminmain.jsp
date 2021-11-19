@@ -6,6 +6,8 @@
 	->대분류 목록이 쫙 나온다.
 	->추가하면 추가되고 삭제하면 삭제되고 수정하면 수정된다
  -->
+<a href="./coloredit.jsp">색상 수정하러 가기</a>
+<a href="./sizeedit.jsp">사이즈 수정하러 가기</a>
  <a href="./customerlist.jsp">회원 목록 보러가기</a>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
