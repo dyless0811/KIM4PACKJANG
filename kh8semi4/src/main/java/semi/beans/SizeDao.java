@@ -69,6 +69,7 @@ public class SizeDao {
 	   return list;
    }
    
+   
    //단일 조회
    public SizeDto get(int no) throws Exception{
 	   Connection con = JdbcUtils.connect();
