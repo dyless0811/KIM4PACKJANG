@@ -24,8 +24,8 @@
 	boolean login = id != null;
 
 	//관리자인지 확인하는 코드
-	//String grade=(String)session.getAttribute("loginGrade");
-	//boolean isAdmin = grade.equals("관리자");
+	String grade=(String)session.getAttribute("grade");
+	boolean admin = grade != null && grade.equals("관리자");
 %>
 
 
@@ -173,6 +173,7 @@
 
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
+                	<span>[<%=session.getAttribute("grade") %>]등급</span>
                 	<%if(login) {%>
                 	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
                     <a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">장바구니</a>

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 	//아이디 중복확인 Ajax
     $(function(){
