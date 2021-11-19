@@ -1,3 +1,5 @@
+<%@page import="semi.beans.ColorDto"%>
+<%@page import="semi.beans.ColorDao"%>
 <%@page import="semi.beans.SizeDao"%>
 <%@page import="semi.beans.SizeDto"%>
 <%@page import="java.util.List"%>
@@ -16,20 +18,23 @@
   productDao.readUp(no);
   %>
   <%
-  //상품사이즈 가져오기
-  int sizeno=Integer.parseInt(request.getParameter("no"));
+  //상품사이즈, 색상 가져오기
+  int productNo = Integer.parseInt(request.getParameter("no"));
   SizeDao sizeDao =new SizeDao();
-  SizeDto sizeDto = sizeDao.get(sizeno);
+  List<SizeDto> sizeList = sizeDao.list();
+  
+  ColorDao colorDao = new ColorDao();
+  List<ColorDto> colorList = colorDao.list();
   %>
  <%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
     <script>
     function calculate(){
-            var price = document.querySelector("#size");
+            var price = document.querySelector("#price");
             var count = document.querySelector("#count");
             var result = document.querySelector("#result");
             if(count.value!="" && parseInt(count.value)>0){
-             result.value = parseInt(price.value) * parseInt(count.value);
+             result.value = parseInt(price.innerText) * parseInt(count.value);
             }else{
                 result.value=0;
             }
@@ -50,14 +55,26 @@
         </div>
        <div>
   
-        <select id="size" oninput="calculate();">
-           <option value="<%=productDto.getPrice()%>"><%=sizeDao.get(sizeno)%></option> 
+        <select id="size">
+<%--        <%for(SizeDto sizeDto : sizeList) {%>
+           <option value="<%=sizeDto.getNo()%>"><%=sizeDao.get(sizeno)%></option> 
            <option value="<%=productDto.getPrice()%>"><%=sizeDao.get(sizeno)%></option>  
            <option value="<%=productDto.getPrice()%>"><%=sizeDao.get(sizeno)%></option>
+        <%}%>  --%> 
+        <%for(SizeDto sizeDto : sizeList) {%>
+           <option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
+        <%}%>
+        </select>
+        
+		<select id="size">
+        <%for(ColorDto colorDto : colorList) {%>
+           <option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
+        <%}%>
         </select>
        </div>
        
-        <h4> 가격:<%=productDto.getPrice()%>원</h4>
+       
+        <h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
         <div>
         구매수량
         <input type="number"  value="1" id="count" oninput="calculate();" min="1">개
