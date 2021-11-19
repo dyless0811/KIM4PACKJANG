@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <script>
+	//버튼 누르면 세션
 	$(function () {
-		$("inp_chk").click(function(e)) {
+		$(".inp_radio").click(function(e)) {
 			e.preventDefault();
 			
 			var id = document.querySelector("input[name=loginId]");
 			window.localStorage.setItem("saveId",id.value);
+			
+			document.querySelector(".inp_radio").innerHTML = id;
 		}
-	});
-
+});
 </script>
+
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <form action="<%=request.getContextPath()%>/member/login.kj" method="post">
@@ -20,6 +24,7 @@
         <div class="login_tistory">
     			<div class="inp_text">
     			<h1>로그인</h1>
+    			
     			</div>
     			<fieldset>
                 <legend class="screen_out">로그인 정보 입력폼</legend>
@@ -35,6 +40,8 @@
                 </div>
                 <button class="btn_login" >로그인</button>
                 <div class="login_append">
+                    
+                    
                     <div class="inp_chk"> <!-- 체크시 checked 추가 -->
                     <input type="checkbox" id="keepLogin" class="inp_radio"  name="keepLogin">
                    

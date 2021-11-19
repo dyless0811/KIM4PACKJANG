@@ -105,7 +105,7 @@
 					<a href="<%=request.getContextPath() %>/myshop/wish_list.jsp">관심상품</a>
 		</div>
 		<div class="row">
-					<a href="<%=request.getContextPath() %>/myshop/board/myboard.jsp">게시물 관리</a>
+					<a href="<%=request.getContextPath() %>/myshop/board/myboard.jsp?memberId=<%=id%>">게시물 관리</a>
 		</div>
 </div>
 

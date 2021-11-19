@@ -4,7 +4,25 @@ public class BasketDto {
 	private int no;
 	private String memberId;
 	private int ProductNo;
+	private int colorNo;
+	private int SizeNo;
 	
+	public int getColorNo() {
+		return colorNo;
+	}
+
+	public void setColorNo(int colorNo) {
+		this.colorNo = colorNo;
+	}
+
+	public int getSizeNo() {
+		return SizeNo;
+	}
+
+	public void setSizeNo(int sizeNo) {
+		SizeNo = sizeNo;
+	}
+
 	public BasketDto() {
 		super();
 	}
@@ -32,4 +50,5 @@ public class BasketDto {
 	public void setProductNo(int productNo) {
 		ProductNo = productNo;
 	}
+	
 }

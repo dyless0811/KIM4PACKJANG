@@ -143,6 +143,38 @@ public class ReplyDao {
 		return replyList;
 	}
 	
+	public List<ReplyDto> list3(int productNo) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql="select * from("
+				+ "select rownum rn ,TMP.*from( "
+				+ "select * from reply where product_no=? order by time desc "
+				+ ")TMP "
+				+ ")where rn between 1 and 3 ";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, productNo);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReplyDto> replyList = new ArrayList<>();
+		
+		while(rs.next()) {
+			ReplyDto replyDto = new ReplyDto();
+			replyDto.setNo(rs.getInt("no"));
+			replyDto.setMemberId(rs.getString("member_id"));
+			replyDto.setProductNo(rs.getInt("product_no"));
+			replyDto.setStarPoint(rs.getInt("starpoint"));
+			replyDto.setContent(rs.getString("content"));
+			replyDto.setTime(rs.getDate("time"));
+			
+			replyList.add(replyDto);
+		}
+		
+		con.close();
+		
+		return replyList;
+	}
+	
 	public List<ReplyDto> listByRownum(int begin,int end)throws Exception{
 		Connection con= JdbcUtils.connect();
 		
@@ -202,12 +234,12 @@ public class ReplyDao {
 		
 		return list;
 	}
-	//최근 리뷰 순서로 정렬한 Top N 상품 목록
+	//최근 리뷰 순서로 정렬한 Top N VO
 	public List<ReplyListVo> listByReplyTime(int begin, int end) throws Exception {
 		Connection con = JdbcUtils.connect();
 		String sql = "select * from ("
 				+ "select rownum rn, TMP.* from ("
-				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join reply r on r.product_no = p.no group by p.no, p.small_type_no, p.name, p.price order by recent_reply desc"
+				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint, i.product_file_savename productimage_savename from product p inner join reply r on r.product_no = p.no left outer join productimage i on i.product_no = p.no group by p.no, p.small_type_no, p.name, p.price, i.product_file_savename order by recent_reply desc"
 				+ ")TMP "
 				+ ")where rn between ? and ?";
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -226,7 +258,7 @@ public class ReplyDao {
 			replyListVo.setRecentReply(rs.getString("recent_reply"));
 			replyListVo.setReplyCount(rs.getInt("reply_count"));
 			replyListVo.setStarpoint(rs.getDouble("starpoint"));
-			
+			replyListVo.setProductImageSavename((rs.getString("productimage_savename")));
 			
 			list.add(replyListVo);
 		}
@@ -235,6 +267,40 @@ public class ReplyDao {
 		
 		return list;
 	}
+	
+	//리뷰 수를 기준으로 정렬한 Top N VO
+	public List<ReplyListVo> listByReplyCount() throws Exception {
+		
+		Connection con = JdbcUtils.connect();
+		String sql = "select * from ("
+				+ "select rownum rn, TMP.* from ("
+				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint, i.product_file_savename productimage_savename from product p inner join reply r on r.product_no = p.no left outer join productimage i on i.product_no = p.no group by p.no, p.small_type_no, p.name, p.price, i.product_file_savename order by reply_count desc"
+				+ ")TMP "
+				+ ")where rn between 1 and 12";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReplyListVo> list = new ArrayList<>();
+		
+		while(rs.next()) {
+			ReplyListVo replyListVo = new ReplyListVo();
+			replyListVo.setProductNo(rs.getInt("product_no"));
+			replyListVo.setSmallTypeNo(rs.getInt("small_type_no"));
+			replyListVo.setName(rs.getString("name"));
+			replyListVo.setPrice(rs.getInt("price"));
+			replyListVo.setRecentReply(rs.getString("recent_reply"));
+			replyListVo.setReplyCount(rs.getInt("reply_count"));
+			replyListVo.setStarpoint(rs.getDouble("starpoint"));
+			replyListVo.setProductImageSavename((rs.getString("productimage_savename")));
+			
+			list.add(replyListVo);
+		}
+		
+		con.close();
+		
+		return list;
+	}
+	
 
 	public boolean delete(int replyNo) throws Exception{
 		Connection con = JdbcUtils.connect();

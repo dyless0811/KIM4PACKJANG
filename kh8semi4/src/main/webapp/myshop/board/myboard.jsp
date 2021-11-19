@@ -1,3 +1,5 @@
+
+<%@page import="semi.beans.MpgPagination"%>
 <%@page import="semi.beans.BoardDto"%>
 <%@page import="semi.beans.BoardDao"%>
 <%@page import="semi.beans.ProductDto"%>
@@ -10,18 +12,24 @@
 <%-- 입력 : 현재 로그인한 회원ID - String id --%>
 <%
 	String id = (String)session.getAttribute("loginId");
+	String column = request.getParameter("column");
+	String keyword = request.getParameter("keyword");
+	MpgPagination mpg = new MpgPagination(request);
+	mpg.calculate();
 %>    
 
 <%
 	ReplyDao replyDao = new ReplyDao();
 	List<ReplyDto>list = 	replyDao.ProductReplyMember2(id);
 	List<ProductDto>list2 = replyDao.CanWriteReply(id);
-	BoardDao boardDao = new BoardDao();
-	List<BoardDto>list3 = boardDao.list(id);
+	%>
+
+<%
+BoardDao boardDao = new BoardDao();
 %>
+
+
 <jsp:include page="/template/header.jsp"></jsp:include>
-<!-- jquery cdn 또는 보유한 파일을 불러오는 코드를 작성 -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <script>
 	$(function(){
@@ -76,7 +84,7 @@
             </tr>
           </thead>
           <tbody>
-          <%for(BoardDto boardDto : list3) {%>
+          <%for(BoardDto boardDto : mpg.getList()) {%>
             <tr>
               <td><%=boardDto.getNo() %></td>
               <td>문의</td>
@@ -87,29 +95,47 @@
           <%} %>
         </table>
 	</div>
+	
+	
+	<div>
+		<select name="boardTypeNo">
+		<option value="1" selected>작성일자별</option>
+		<option value="2">분류별</option>
+		
+		
+		</select>
+	</div>
+	
+	
+	
     <!-- 검색창 -->
     <div class="row center">
-        <form action="myboard.html" method="get">
-          <select name="boardTypeNo">
-            <option value="1">공지</option>
-            <option value="2">문의</option>
-          </select>
-          <input type="search" name="keyword" required />
-          <input type="submit" value="찾기" />
+        <form action="myboard.jsp" method="get">
+          <select name="column">
+          
+            <option value="board_title">제목</option>
+            <option value="board_content">내용</option>
+         </select>
+         <input type="hidden" name="memberId" value="<%=id%>">
+         
+          <input type="search" name="keyword" required placeholder="검색어 입력">
+          <input type="submit" value="찾기">
         </form>
         <br><br><br>
-      </div>
+		</div>
+		
+		
       
       <!-- 분류 -->
      <div class="row">
         <ul class="slide-menu">
           <li style="width: 50%">
-            <a class="center a-next" style="margin: 0 auto; width: auto">
+            <a class="center a-next" style="margin: 0 auto; width: auto" href="#">
               작성가능한 리뷰
            </a>
           </li>
           <li style="width: 50%">
-            <a class="center a-prev" style="margin: 0 auto; width: auto">
+            <a class="center a-prev" style="margin: 0 auto; width: auto" href="#">
               작성한 리뷰
             </a>
           </li>
@@ -166,5 +192,5 @@
         </table>
       </div>
     </div>
-
+    
 <jsp:include page="/template/footer.jsp"></jsp:include>
