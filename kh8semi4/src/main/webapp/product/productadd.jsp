@@ -39,17 +39,23 @@ List<ColorDto> colorList = colorDao.list();
         	e.preventDefault();
         	var template = $("#size-content-template").html();
         	$(".size-contents").append(template);
+        	
+    	  	$(".del-btn").click(function (e) {
+    	  		e.preventDefault();
+    	  		$(this).parent().remove();
+    	  	}); 
     	});
 		
 		$(".color-btn").click(function (e) {
         	e.preventDefault();
         	var template = $("#color-content-template").html();
         	$(".color-contents").append(template);
+        	
+    	  	$(".del-btn").click(function (e) {
+    	  		e.preventDefault();
+    	    	$(this).parent().remove();
+    	  	}); 
     	});
-	  
-	  	$("#list").on("click", ".btnDel", function() { //list안의 btnDel을 선택
-	    	$(this).parent().parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
-	  	});  
 
 	})
 	//vscode 59번 survey 참고해서 사이즈 색상 고르는거 만들어!!
@@ -65,6 +71,7 @@ List<ColorDto> colorList = colorDao.list();
            		<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
         	<%}%>
         	</select>
+        	<button class="del-btn">삭제</button>
         </div>
     </template>
     <template id="color-content-template">
@@ -74,6 +81,7 @@ List<ColorDto> colorList = colorDao.list();
            		<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
         	<%}%>
         	</select>
+        	<button class="del-btn">삭제</button>
         </div>
     </template>
 

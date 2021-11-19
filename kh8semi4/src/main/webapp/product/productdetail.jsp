@@ -84,6 +84,7 @@ productDto = productDao.get(no);//단일조회
             <img src="https://via.placeholder.com/400x350?text=ProductImage">
          </div>
     	<div class="float-item-left list-card-content">
+    	<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>
         <h2> 상품명:<%=productDto.getName()%></h2><h5>조회수:<%=productDto.getViews()%></h5>
         <h4>소분류번호:<%=productDto.getSmallTypeNo()%>
             상품번호:<%=productDto.getNo()%>
