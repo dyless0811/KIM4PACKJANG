@@ -259,4 +259,114 @@ public class MemberDao {
 		return pw;
 	}
 	
+	//관리자 페이지에서 회원의 개수를 가져오는 메소드(전체목록)
+	 public int count() throws Exception{
+		  Connection con = JdbcUtils.connect();
+		  String sql="select count(*) from member";
+		  PreparedStatement ps = con.prepareStatement(sql);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  
+		  int count=rs.getInt("count(*)");
+		  con.close();
+		  return count;
+		  
+	  }
+	 
+	 //관리자 페이지에서 회원의 개수를 가져오는 메소드(검색)
+	  public int count(String column,String keyword) throws Exception{
+		  Connection con = JdbcUtils.connect();
+		  String sql="select count(*) from member where instr(#1, ?) > 0";
+		  sql=sql.replace("#1",column);
+		  PreparedStatement ps = con.prepareStatement(sql);
+		  ps.setString(1, keyword);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  
+		  int count=rs.getInt("count(*)");
+		  con.close();
+		  return count;
+		  
+	  }
+	  
+	  //관리자 페이지에서 회원목록의 리스틀 가져오는 메소드(전체)
+	  public List<MemberDto> listByRownum(int begin, int end) throws Exception{
+		  	Connection con = JdbcUtils.connect();
+		  	
+		  	String sql = "select * from("
+			  					+ "select rownum rn, tmp.* from("
+			  						+ "select * from member order by join desc"
+			  					+ ")tmp"
+		  					+ ")where rn between ? and ?";
+		  	PreparedStatement ps = con.prepareStatement(sql);
+		  	ps.setInt(1, begin);
+		  	ps.setInt(2, end);
+		  	ResultSet rs = ps.executeQuery();
+		  	
+		  	List<MemberDto> memberList = new ArrayList<>();
+		  	while(rs.next()) {
+		  		MemberDto memberDto = new MemberDto();
+		  		
+		  		memberDto.setId(rs.getString("id"));
+				memberDto.setPw(rs.getString("pw"));
+				memberDto.setName(rs.getString("name"));
+				memberDto.setAddress(rs.getString("address"));
+				memberDto.setPhone(rs.getString("phone"));
+				memberDto.setEmail(rs.getString("email"));
+				memberDto.setBirth(rs.getString("birth"));
+				memberDto.setJoin(rs.getDate("join"));
+				memberDto.setPoint(rs.getInt("point"));
+				memberDto.setGrade(rs.getString("grade"));
+				memberDto.setGender(rs.getString("gender"));
+				
+				memberList.add(memberDto);
+		  	}
+		  	
+		  	con.close();
+		  	
+		  	return memberList;
+	  }
+	
+	//관리자 페이지에서 회원목록의 리스트를 가져오는 메소드(검색)
+	public List<MemberDto> searchByRownum(String column, String keyword, int begin, int end) throws Exception{
+		Connection con = JdbcUtils.connect();
+	  	
+	  	String sql = "select * from("
+		  					+ "select rownum rn, tmp.* from("
+		  						+ "select * from member where instr(#1, ?) > 0 "
+		  						+ "order by join desc"
+		  					+ ")tmp"
+	  					+ ")where rn between ? and ?";
+	  	sql = sql.replace("#1", column);
+	  	PreparedStatement ps = con.prepareStatement(sql);
+	  	ps.setString(1, keyword);
+	  	ps.setInt(2, begin);
+	  	ps.setInt(3, end);
+	  	ResultSet rs = ps.executeQuery();
+	  	
+	  	List<MemberDto> memberList = new ArrayList<>();
+	  	while(rs.next()) {
+	  		MemberDto memberDto = new MemberDto();
+	  		
+	  		memberDto.setId(rs.getString("id"));
+			memberDto.setPw(rs.getString("pw"));
+			memberDto.setName(rs.getString("name"));
+			memberDto.setAddress(rs.getString("address"));
+			memberDto.setPhone(rs.getString("phone"));
+			memberDto.setEmail(rs.getString("email"));
+			memberDto.setBirth(rs.getString("birth"));
+			memberDto.setJoin(rs.getDate("join"));
+			memberDto.setPoint(rs.getInt("point"));
+			memberDto.setGrade(rs.getString("grade"));
+			memberDto.setGender(rs.getString("gender"));
+			
+			memberList.add(memberDto);
+	  	}
+	  	
+	  	con.close();
+	  	
+	  	return memberList;
+	}
+
+	
 }
