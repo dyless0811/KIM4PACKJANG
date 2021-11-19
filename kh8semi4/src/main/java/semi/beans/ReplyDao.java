@@ -143,6 +143,38 @@ public class ReplyDao {
 		return replyList;
 	}
 	
+	public List<ReplyDto> list3(int productNo) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql="select * from("
+				+ "select rownum rn ,TMP.*from( "
+				+ "select * from reply where product_no=? order by time desc "
+				+ ")TMP "
+				+ ")where rn between 1 and 3 ";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, productNo);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReplyDto> replyList = new ArrayList<>();
+		
+		while(rs.next()) {
+			ReplyDto replyDto = new ReplyDto();
+			replyDto.setNo(rs.getInt("no"));
+			replyDto.setMemberId(rs.getString("member_id"));
+			replyDto.setProductNo(rs.getInt("product_no"));
+			replyDto.setStarPoint(rs.getInt("starpoint"));
+			replyDto.setContent(rs.getString("content"));
+			replyDto.setTime(rs.getDate("time"));
+			
+			replyList.add(replyDto);
+		}
+		
+		con.close();
+		
+		return replyList;
+	}
+	
 	public List<ReplyDto> listByRownum(int begin,int end)throws Exception{
 		Connection con= JdbcUtils.connect();
 		
@@ -244,7 +276,7 @@ public class ReplyDao {
 				+ "select rownum rn, TMP.* from ("
 				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint, i.product_file_savename productimage_savename from product p inner join reply r on r.product_no = p.no left outer join productimage i on i.product_no = p.no group by p.no, p.small_type_no, p.name, p.price, i.product_file_savename order by reply_count desc"
 				+ ")TMP "
-				+ ")where rn between ? and ?";
+				+ ")where rn between 1 and 12";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
