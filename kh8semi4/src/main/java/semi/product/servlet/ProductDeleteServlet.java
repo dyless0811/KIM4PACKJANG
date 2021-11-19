@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.ProductDao;
+import semi.beans.ProductDto;
 @WebServlet (urlPatterns = "/product/delete.kj")
 public class ProductDeleteServlet extends HttpServlet{
 	@Override
@@ -20,14 +21,15 @@ public class ProductDeleteServlet extends HttpServlet{
 		
 		//처리
 		ProductDao productDao =new ProductDao();
-		boolean success =productDao.delete(no);
+		ProductDto productDto = productDao.get(no);
+		boolean success = productDao.delete(no);
 		
 		
 		
 	
 		//출력
 		if(success) {
-			resp.sendRedirect("productlist.jsp");
+			resp.sendRedirect("productlist.jsp?no="+productDto.getSmallTypeNo());
 		}else {
 			resp.sendError(500);
 		}

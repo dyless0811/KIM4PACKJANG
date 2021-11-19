@@ -8,6 +8,7 @@ public class ReplyListVo {
 	String recentReply;
 	int replyCount;
 	double starpoint;
+	String productImageSavename;
 	public ReplyListVo() {
 		super();
 	}
@@ -53,4 +54,11 @@ public class ReplyListVo {
 	public void setStarpoint(double starpoint) {
 		this.starpoint = starpoint;
 	}
+	public String getProductImageSavename() {
+		return productImageSavename;
+	}
+	public void setProductImageSavename(String productImageSavename) {
+		this.productImageSavename = productImageSavename;
+	}
+	
 }

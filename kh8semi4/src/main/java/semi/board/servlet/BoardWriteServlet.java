@@ -67,7 +67,7 @@ public class BoardWriteServlet extends HttpServlet {
 				boardImageDto.setBoardFileSize(target.length());
 				
 				BoardImageDao boardFileDao = new BoardImageDao();
-				boardFileDao.insert(boardImageDto);				
+				boardFileDao.insert(boardImageDto);
 			}
 			
 			response.sendRedirect("/kh8semi4/board/detail.jsp?no="+boardNo);
