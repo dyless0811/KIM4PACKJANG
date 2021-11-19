@@ -285,41 +285,6 @@ public int count(String noType, String no, String column,String keyword) throws 
 	  
 }
   
-
-//리뷰 수를 기준으로 정렬된 목록
-public List<ProductDto> listByReplyCount() throws Exception {
-	
-	Connection con = JdbcUtils.connect();
-	String sql = "select p.*, c.cnt "
-				+ "from product p "
-				+ "inner join ("
-					+ "select r.product_no, count(*) cnt "
-					+ "from product p "
-					+ "inner join reply r "
-					+ "on r.product_no = p.no "
-					+ "group by r.product_no "
-					+ "order by count(*) desc) c "
-				+ "on p.no = c.product_no "
-				+ "order by c.cnt desc";
-	PreparedStatement ps = con.prepareStatement(sql);
-	ResultSet rs = ps.executeQuery();
-	
-	List<ProductDto> list = new ArrayList<>();
-	
-	while(rs.next()) {
-		ProductDto productDto = new ProductDto();
-		productDto.setNo(rs.getInt("no"));
-		productDto.setSmallTypeNo(rs.getInt("small_type_no"));
-		productDto.setName(rs.getString("name"));
-		productDto.setPrice(rs.getInt("price"));
-		
-		list.add(productDto);
-	}
-	
-	con.close();
-	
-	return list;
-}
 	//3. 시퀀스 번호를 미리 확인하는 메소드
 	public int getSeq() throws Exception{
 		Connection con = JdbcUtils.connect();
