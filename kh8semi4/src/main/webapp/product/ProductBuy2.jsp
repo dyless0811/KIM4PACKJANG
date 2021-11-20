@@ -6,11 +6,6 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 <form action="./buy.kj" method="post">
 	
-	<%--받을거
-			장바구니DTO?
-			
-	 --%>
-	
 	<div class="row center">
 		<h2>주문서작성</h2>
 		<div class="row">
