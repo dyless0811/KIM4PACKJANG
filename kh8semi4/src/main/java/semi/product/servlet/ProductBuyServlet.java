@@ -1,38 +1,59 @@
 package semi.product.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semi.beans.BasketDao;
+import semi.beans.BasketDto;
 import semi.beans.BuyDao;
 import semi.beans.BuyDto;
-@WebServlet (urlPatterns = "/product/buy.kj")
-public class ProductBuyServlet extends HttpServlet{
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+@WebServlet("/product/buy.kj")
+public class ProductBuyServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			//입력
-			String memberId=(String)req.getSession().getAttribute("loginId");
+			String[] basketList = request.getParameterValues("basketNo");
+			String memberId = (String)request.getSession().getAttribute("loginId");
+			String type = request.getParameter("type");
 			
-			BuyDto buyDto = new BuyDto();
-			buyDto.setNo(Integer.parseInt(req.getParameter("no")));
-			buyDto.setMemberId(memberId);
-			buyDto.setProductNo(Integer.parseInt(req.getParameter("product_no")));
-			buyDto.setType(req.getParameter("type"));
-			
-			//처리
+			BasketDao basketDao = new BasketDao();
 			BuyDao buyDao = new BuyDao();
-			buyDao.insert(buyDto);
-			//출력
-			resp.sendRedirect("/product/productBuySuccess.jsp");
 			
-		}catch(Exception e) {
+			//값 전달 확인용
+			for (String basketNo : basketList) {
+				BasketDto basketDto = basketDao.get(Integer.parseInt(basketNo));
+				
+				BuyDto buyDto = new BuyDto();
+				System.out.println(memberId +"/"+ basketDto.getProductNo()+"/"+basketDto.getColorNo()+"/"+basketDto.getSizeNo()+"/"+basketDto.getCount()+"/"+type);
+			}
+			
+			for (String basketN : basketList) {
+				int basketNo = Integer.parseInt(basketN);
+				BasketDto basketDto = basketDao.get(basketNo);
+				
+				BuyDto buyDto = new BuyDto();
+				buyDto.setMemberId(memberId);
+				buyDto.setProductNo(basketDto.getProductNo());
+				buyDto.setColorNo(basketDto.getColorNo());
+				buyDto.setSizeNo(basketDto.getSizeNo());
+				buyDto.setCount(basketDto.getCount());
+				buyDto.setType(type);
+				
+				buyDao.insert(buyDto);
+				basketDao.delete(basketNo);
+			}
+			
+			response.sendRedirect(request.getContextPath()+"/myshop/order/list.jsp");
+			
+		} catch (Exception e) {
 			e.printStackTrace();
-			resp.sendError(500);
+			response.sendError(500);
 		}
 	}
 }
