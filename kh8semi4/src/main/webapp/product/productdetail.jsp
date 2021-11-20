@@ -84,16 +84,15 @@ productDto = productDao.get(no);
         <div class="float-item-left list-card-image">
             <img src="https://via.placeholder.com/400x350?text=ProductImage">
          </div>
-    	<div class="float-item-left list-card-content">
+    <div class="float-item-left list-card-content">
     	<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>
     	<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>">수정</a>
         <h2> 상품명:<%=productDto.getName()%></h2><h5>조회수:<%=productDto.getViews()%></h5>
         <h4>소분류번호:<%=productDto.getSmallTypeNo()%>
             상품번호:<%=productDto.getNo()%>
         </h4>
-        </div>
-       <div>
-  
+    </div>
+    <div>
         <select id="size">
         <%for(SizeDto sizeDto : sizeList) {%>
            <option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
@@ -105,44 +104,90 @@ productDto = productDao.get(no);
            <option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
         <%}%>
         </select>
-       </div>
-       
-       
-        <h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
-        <div>
-        구매수량
-        <input type="number"  value="1" id="count" oninput="calculate();" min="1">개
-        </div>
-        <div class="row">
-          결제금액
-          <input type="number" placeholder=0 id="result" >원     
-        <div>  
+    </div>
+          
+    <div class="row">
+	    <h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
+    </div>
 
-        <form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post">
-        <div class="row order-content">
-            <input type="submit" name="addType" value="Buy" class="form-btn form-inline">
-            <input type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
-            <span form-index="1">
-            	<input type="hidden" name="price" value="<%=productDto.getPrice()%>">
-            	<input type="number" name="count" value="1">
-            	
+<%--    <form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post"> --%>
+    <form action="#" method="get">
+        <div class="row">
+        	<table style="width:500px" class="table order-content">
+        		<thead>
+        			<tr>
+        				<th>상품</th>
+        				<th>색상</th>
+        				<th>사이즈</th>
+        				<th>개수</th>
+        				<th>가격</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td data-product-index="1">
+        					<%=productDto.getName()%>
+        					<input type="hidden" name="productNo" value="<%=productDto.getNo()%>">
+        				</td>
+        				<td>
+        					베이지
+        					<input type="hidden" name="color" value="22">
+        				</td>
+        				<td>
+        					M
+        					<input type="hidden" name="size" value="102">
+        				</td>
+        				<td>
+        					<input type="number" name="count" value="2">
+        				</td>
+        				<td>
+        					<span>200000</span>
+        					<input type="hidden" name="price" value="<%=productDto.getPrice()%>">
+        				</td>
+        			</tr>
+        			<tr data-product-index="2">
+        				<td>
+        					<%=productDto.getName()%>
+        					<input type="hidden" name="productNo" value="<%=productDto.getNo()%>">
+        				</td>
+        				<td>
+        					레드
+        					<input type="hidden" name="color" value="24">
+        				</td>
+        				<td>
+        					S
+        					<input type="hidden" name="size" value="1">
+        				</td>
+        				<td>
+        					<input type="number" name="count" value="1">
+        				</td>
+        				<td>
+        					<span>100000</span>
+        					<input type="hidden" name="price" value="<%=productDto.getPrice()%>">
+        				</td>
+        			</tr>
+        			
+        		</tbody>
+        	</table>
             	<%--만들어야됨
-            		
             	색상 사이즈를 고르면 인풋타입 히든으로 여기에 넘겨줌
             		jquery로 가격 계산해서 보여줌
             		
             		addType이 buy면 addbasket 서블릿에서 해당 basket no들을 가지고 구매 서블릿으로 forward
             		addType이 Add-Cart면 addbasket 서블릿에서 장바구니 페이지로 redirect
             	 --%>
-            </span>
-        </div>  
-		</form>
-			</div>
+        </div> 
+        <div class="row">
+        	<h5>총 상품금액 = 300000</h5>
+        </div>
+        <div class="row">
+            <input type="submit" name="addType" value="Buy" class="form-btn form-inline">
+            <input type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
 		</div>
-		<div class="row center">
-			<h2>
-				설명:<%=productDto.getDescription()%></h2>
-		</div>
+	</form>
 	</div>
-
+	<div class="row center">
+		<h2>
+			설명:<%=productDto.getDescription()%></h2>
+	</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
