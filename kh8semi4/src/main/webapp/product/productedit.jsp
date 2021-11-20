@@ -1,60 +1,134 @@
-<%@page import="semi.beans.ProductDto"%>
-<%@page import="java.util.List"%>
+<%@page import="semi.beans.BigTypeDao"%>
 <%@page import="semi.beans.ProductDao"%>
+<%@page import="semi.beans.ProductDto"%>
+<%@page import="semi.beans.ProductImageDto"%>
+<%@page import="semi.beans.ColorDto"%>
+<%@page import="semi.beans.ColorDao"%>
+<%@page import="semi.beans.SizeDto"%>
+<%@page import="semi.beans.SizeDao"%>
+<%@page import="semi.beans.BigTypeDto"%>
+<%@page import="semi.beans.SmallTypeDto"%>
+<%@page import="java.util.List"%>
+<%@page import="semi.beans.SmallTypeDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%--입력 --%>
-
-<%--처리 --%>
-<% 
-ProductDao productDao =new ProductDao();
-
-int no =Integer.parseInt(request.getParameter("no"));
-ProductDto productDto =productDao.get(no);
+<%
+SizeDao sizeDao = new SizeDao();
+List<SizeDto> sizeList = sizeDao.list();
+ColorDao colorDao = new ColorDao();
+List<ColorDto> colorList = colorDao.list();
 %>
-
-<%--출력 --%>
+<%
+SmallTypeDao smallTypeDao = new SmallTypeDao();
+int bigTypeNo = smallTypeDao.searchBigTypeNo(Integer.parseInt(request.getParameter("smalltypeno")));
+List<SmallTypeDto> list = smallTypeDao.searchSmallType(bigTypeNo);
+ProductDao productDao =new ProductDao();
+ProductDto productDto =productDao.get(Integer.parseInt(request.getParameter("productno")));
+%>
 <jsp:include page="/template/header.jsp"></jsp:include>
-<form action="edit.kj" method="post">
-
-
-<div class="container-700 container-center">
-	
-	<div class="row center">
-		<h2>상품 수정</h2>
-	</div>
-	<div class="row">
-		<label>상품번호</label>
-		<input type="number" name="no" value=<%=productDto.getNo() %> class="form-input" readonly>
-	</div>
-	
-	<div class="row">
-		<label>소분류번호</label>
-		<input type="number" name="SmallTypeNo" value=<%=productDto.getSmallTypeNo()%> class="form-input">
-	</div>
-	
-	<div class="row">
-		<label>상품이름</label>
-		<input type="text" name="name" value=<%=productDto.getName()%> class="form-input">
-	</div>
-	
-	<div class="row">
-		<label>상품금액</label>
-		<input type="number" name="price"  value=<%=productDto.getPrice()%> class="form-input">
-	</div>
-	
-	<div class="row">
-		<label>설명</label>
-		<textarea name="description" rows="50" cols="100" ><%=productDto.getDescription()%></textarea>
+<script type="text/javascript">
+	$(function(){
+		$(".size-btn").click(function (e) {
+        	e.preventDefault();
+        	var template = $("#size-content-template").html();
+        	$(".size-contents").append(template);
+        	
+    	  	$(".del-btn").click(function (e) {
+    	  		e.preventDefault();
+    	  		$(this).parent().remove();
+    	  	}); 
+    	});
 		
+		$(".color-btn").click(function (e) {
+        	e.preventDefault();
+        	var template = $("#color-content-template").html();
+        	$(".color-contents").append(template);
+        	
+    	  	$(".del-btn").click(function (e) {
+    	  		e.preventDefault();
+    	    	$(this).parent().remove();
+    	  	}); 
+    	});
+
+	})
+</script>
+<form action="./productadd.kj" method=post enctype="multipart/form-data">
+    <template id="size-content-template">
+        <div class="row">
+        	<select name="size">
+        	<%for(SizeDto sizeDto : sizeList) {%>
+           		<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
+        	<%}%>
+        	</select>
+        	<button class="del-btn">삭제</button>
+        </div>
+    </template>
+    <template id="color-content-template">
+    	<div class="row">
+			<select name="color">
+        	<%for(ColorDto colorDto : colorList) {%>
+           		<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
+        	<%}%>
+        	</select>
+        	<button class="del-btn">삭제</button>
+        </div>
+    </template>
+	
+	<div>
+		<h1>상품수정페이지 페이지</h1>
+	</div>
+	<div  class="row">	 
+	
+	 <select name=smallTypeNo class="form-input form-inline">
+	 <%for(SmallTypeDto smallTypeDto : list){ %>
+		<%if(smallTypeDto.getNo()==Integer.parseInt(request.getParameter("smalltypeno"))){ %>	 
+	 	<option selected value=<%=smallTypeDto.getNo()%>><%=smallTypeDto.getName()%></option>
+	 	<%}else{ %>
+	 	<option value=<%=smallTypeDto.getNo()%>><%=smallTypeDto.getName()%></option>
+	    <%} %>
+	 <%} %>
+	 </select>
+
+	</div>
+	<div class="row">
+	 상품명 <input type="text"  name="name" value=<%=productDto.getName()%> required class=form-input>
+	</div>
+
+	<div  class="row">
+	 가격 <input type="number" name="price" value=<%=productDto.getPrice()%>  required class=form-input>
 	</div>
 	
-	<div class="row right">
-		<a href="productlist.jsp" class="form-btn">목록</a>
-		<input type="submit" value="수정" class="form-btn form-inline">	
+	<div class="row">
+		<div class="flex-container">
+			<div class="flex-gro center">
+   				<button style="width:30%" class="size-btn form-btn">사이즈 추가</button>
+   				<div class="size-contents"></div>
+			</div>
+			<div class="flex-gro center">
+				<button style="width:30%" class="color-btn form-btn">색상 추가</button>
+				<div class="color-contents"></div>
+			</div>
+		</div>
 	</div>
-</div>
+	
+	<div  class="row">
+	상품설명
+	<textarea rows="40" cols="100"  name="description" class=form-input><%=productDto.getDescription()%></textarea>
+	</div>
+	<%ProductImageDto productImageDto = new ProductImageDto(); %>
+	<div class="row">
+	상품이미지
+	<input type="file" name="attach" accept="image/*" class="form-input" value=<%=productImageDto.getProductFileSaveName()%>>
+	</div>
+		
+			
 
+	<div class="row">
+	<input type="submit" value="수정">
+	</div>
 </form>
+
+
+
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
