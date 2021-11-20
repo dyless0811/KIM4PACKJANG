@@ -6,11 +6,12 @@ public class BuyDto {
 	private int no;
 	private String memberId;
 	private int productNo;
+	private int colorNo;
+	private int sizeNo;
+	private int count;
 	private String type;
 	private Date buyDate;
 	private String status;
-	private int colorNo;
-	private int sizeNo;
 	
 	//setter & getter
 	public int getColorNo() {
@@ -30,6 +31,13 @@ public class BuyDto {
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	public String getMemberId() {
 		return memberId;

@@ -110,8 +110,7 @@ productDto = productDao.get(no);
 	    <h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
     </div>
 
-<%--    <form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post"> --%>
-    <form action="#" method="get">
+	<form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post">
         <div class="row">
         	<table style="width:500px" class="table order-content">
         		<thead>
@@ -138,7 +137,7 @@ productDto = productDao.get(no);
         					<input type="hidden" name="size" value="102">
         				</td>
         				<td>
-        					<input type="number" name="count" value="2">
+        					<input type="number" name="count" min="1" value="2">
         				</td>
         				<td>
         					<span>200000</span>
@@ -159,7 +158,7 @@ productDto = productDao.get(no);
         					<input type="hidden" name="size" value="1">
         				</td>
         				<td>
-        					<input type="number" name="count" value="1">
+        					<input type="number" name="count" min="1" value="1">
         				</td>
         				<td>
         					<span>100000</span>
@@ -169,13 +168,6 @@ productDto = productDao.get(no);
         			
         		</tbody>
         	</table>
-            	<%--만들어야됨
-            	색상 사이즈를 고르면 인풋타입 히든으로 여기에 넘겨줌
-            		jquery로 가격 계산해서 보여줌
-            		
-            		addType이 buy면 addbasket 서블릿에서 해당 basket no들을 가지고 구매 서블릿으로 forward
-            		addType이 Add-Cart면 addbasket 서블릿에서 장바구니 페이지로 redirect
-            	 --%>
         </div> 
         <div class="row">
         	<h5>총 상품금액 = 300000</h5>
