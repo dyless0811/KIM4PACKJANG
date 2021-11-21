@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class MpgPagination {
-	//MyPageBoardPagination
+//MemberPagination
+public class MPagination {
 	/**
 	 *	Pagination을 위한 도구 클래스
 	 *	
@@ -23,12 +23,11 @@ public class MpgPagination {
 		private int count;
 		
 		//선택 데이터
-		private String memberId;
 		private String column;
 		private String keyword;
 		
 		//생성자를 이용하여 필수 데이터를 설정하도록 구현
-		public MpgPagination(HttpServletRequest req) {
+		public MPagination(HttpServletRequest req) {
 			try {
 				this.p = Integer.parseInt(req.getParameter("p"));
 				if(this.p <= 0) throw new Exception();
@@ -36,25 +35,24 @@ public class MpgPagination {
 			catch(Exception e) {
 				this.p = 1;
 			}
-			this.memberId = req.getParameter("memberId");
 			this.column = req.getParameter("column");
 			this.keyword = req.getParameter("keyword");
 		}
 		
 		//계산 메소드
-		private int pageSize = 2;
+		private int pageSize = 10;
 		private int blockSize = 10;
 		private int begin, end;
 		private int startBlock, finishBlock, lastBlock;
-		private List<BoardDto> list;
+		private List<MemberDto> list;
 		public void calculate() throws Exception {
 			//count 계산
-			BoardDao boardDao = new BoardDao();
+			MemberDao memberDao = new MemberDao();
 			if(isSearch()) {
-				this.count = boardDao.count(memberId,column, keyword);
+				this.count = memberDao.count(column, keyword);
 			}
 			else {
-				this.count = boardDao.count(memberId);
+				this.count = memberDao.count();
 			}
 			
 			//rownum 계산
@@ -68,17 +66,12 @@ public class MpgPagination {
 			
 			//list 계산
 			if(this.isSearch()) {
-				this.list = boardDao.searchByRownum(memberId,column, keyword, begin, end);
+				this.list = memberDao.searchByRownum(column, keyword, begin, end);
 			}
 			else {
-				//this.list = boardDao.listByRownum(begin, end);//일반
-				this.list = boardDao.listByTreeSort(memberId,begin, end);//계층형
+				this.list = memberDao.listByRownum(begin, end);
 			}
 		}
-		public String getMemberId() {
-			return memberId;
-		}
-
 		public int getPage() {
 			return p;
 		}
@@ -162,7 +155,8 @@ public class MpgPagination {
 		public void setBlockSize(int blockSize) {
 			this.blockSize = blockSize;
 		}
-		public List<BoardDto> getList() {
+		public List<MemberDto> getList() {
 			return list;
 		}
+
 }

@@ -6,7 +6,16 @@ public class BasketDto {
 	private int ProductNo;
 	private int colorNo;
 	private int SizeNo;
+	private int count;
 	
+	public int getCount() {
+		return count;
+	}
+	
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	public int getColorNo() {
 		return colorNo;
 	}

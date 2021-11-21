@@ -12,13 +12,14 @@ public class BuyDao {
 	public void insert(BuyDto buyDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into buy values(buy_seq.nextval, ? ,? ,? ,sysdate, ?)";
+		String sql = "insert into buy values(buy_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, default)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, buyDto.getMemberId());
 		ps.setInt(2, buyDto.getProductNo());
-		ps.setString(3, buyDto.getType());
-		ps.setDate(4, buyDto.getBuyDate());
-		ps.setString(5, buyDto.getStatus());
+		ps.setInt(3, buyDto.getColorNo());
+		ps.setInt(4, buyDto.getSizeNo());
+		ps.setInt(5, buyDto.getCount());
+		ps.setString(6, buyDto.getType());
 		ps.execute();
 		
 		con.close();
