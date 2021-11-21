@@ -26,7 +26,8 @@ public class ProductImageDao {
 	public ProductImageDto get(int no) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "select * from productImage where no = ?";
+		String sql = "select * from productImage"
+				+ " inner join  product on productImage.product_no = product.no where product_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, no);
 		ResultSet rs = ps.executeQuery();

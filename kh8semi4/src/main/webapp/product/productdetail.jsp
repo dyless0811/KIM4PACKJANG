@@ -1,3 +1,4 @@
+<%@page import="semi.beans.ProductImageDto"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
@@ -28,6 +29,9 @@
   
   ProductColorDao productColorDao = new ProductColorDao();
   List<ColorDto> colorList = productColorDao.colorListByProductNo(no);
+  
+  //상품이미지 가져오기
+  ProductImageDto productImageDto = new ProductImageDto();
   %>
   
 <%
@@ -66,7 +70,7 @@ productDto = productDao.get(no);
     <h1>상품구매</h1>
     <div class="float-container list-card">
         <div class="float-item-left list-card-image">
-            <img src="https://via.placeholder.com/400x350?text=ProductImage">
+            <img src="file:///C:\Users\upload\kh84\product\<%=productImageDto.getProductFileSaveName()%>">
          </div>
     	<div class="float-item-left list-card-content">
     	<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>

@@ -20,7 +20,7 @@ String isNo = request.getParameter("no");
 
 ProductImageDao productImageDao =new ProductImageDao();
 
-ProductImageDto productImageDto =productImageDao.get(no);
+
 %>
 <%--처리 --%>
 <%
@@ -36,11 +36,11 @@ ProductImageDto productImageDto =productImageDao.get(no);
 	 <%if(isType != null){ 
 	 	int bigTypeNo= Integer.parseInt(isType);
 	 %>
-	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
+	  <a href="<%=request.getContextPath()%>/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
 	 <%}else if(isNo != null){
 		  int sno= Integer.parseInt(isNo); 
 		 %>
-	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
+	  <a href="<%=request.getContextPath()%>/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
 	 <%} %>
 	</div>
 
@@ -58,10 +58,13 @@ ProductImageDto productImageDto =productImageDao.get(no);
 		    			<tr height="400px">
 					   	 	<!-- 상품 이미지 -->
 							<td>
+							<%ProductImageDto productImageDto =productImageDao.get(product.getNo());%>
 							<%if(productImageDto == null){ %>
+							<%System.out.print(productImageDto); %>
 							<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
 							<%}else{ %>
-							<img src="/product/productadd.kj?productImageNo=<%=productImageDto.getProductNo()%>" width="100%" class="image image-border">
+							<img src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="350px" height="350px"class="image image-border"> 
+<!-- 							<iframe src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="100%" height="100%"></iframe> -->
 							<%} %>
 							</td>
 			    		</tr>
