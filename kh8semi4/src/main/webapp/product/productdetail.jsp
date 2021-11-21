@@ -48,7 +48,9 @@ productDto = productDao.get(no);
 
  <%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
+<style>
 
+</style>
     
 <script type="text/javascript">
 	$(function(){
@@ -78,8 +80,9 @@ productDto = productDao.get(no);
 	})
 </script>
     
-
-    <h1>상품구매</h1>
+	<div class="row center">
+    <h1><%=productDto.getName()%>의 상세페이지</h1>
+    </div>
     <div class="float-container list-card">
         <div class="float-item-left list-card-image">
             <img src="https://via.placeholder.com/400x350?text=ProductImage">
@@ -178,8 +181,9 @@ productDto = productDao.get(no);
 		</div>
 	</form>
 	</div>
-	<div class="row center">
-		<h2>
-			설명:<%=productDto.getDescription()%></h2>
+
+	<div class="row center clear">
+	<h2>설명:<%=productDto.getDescription()%></h2>
+	<img src="https://mochaccino1.cafe24.com/up/2021/09/x/s16/outer/01_1.jpg">
 	</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

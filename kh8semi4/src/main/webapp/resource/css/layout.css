@@ -31,3 +31,7 @@ main > footer {
     padding:1rem;
     overflow: hidden;
 }
+/*레이아웃 일그러침 초기화*/
+.clear{
+	clear:both;
+}
