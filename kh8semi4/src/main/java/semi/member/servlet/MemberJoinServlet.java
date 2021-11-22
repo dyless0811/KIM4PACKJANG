@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.MemberDao;
 import semi.beans.MemberDto;
-import semi.util.Sessioner;
+
 
 @WebServlet(urlPatterns = "/member/join.kj")
 public class MemberJoinServlet extends HttpServlet {
@@ -33,11 +33,15 @@ public class MemberJoinServlet extends HttpServlet {
 			// 처리 : MemberDao
 			MemberDao memberDao = new MemberDao();
 			memberDao.join(memberDto);
-
+			
+			
+			//req.getSession().setAttribute("joinId", memberDto.getId());
+			//req.getSession().setAttribute("joinPw", memberDto.getPw());
+			
 			// 출력 : 리다이렉트
-			Sessioner.login(null, memberDto);
-			resp.sendRedirect("join_success.jsp");
-
+			
+			resp.sendRedirect("autologin.kj?id="+memberDto.getId()+"&pw="+memberDto.getPw());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);

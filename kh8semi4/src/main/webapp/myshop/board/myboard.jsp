@@ -32,6 +32,7 @@ BoardDao boardDao = new BoardDao();
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <script>
+	$(function(){
 	 $(".test1").hide();
 		
 	 	$(".can-write").click(function(){
@@ -42,6 +43,7 @@ BoardDao boardDao = new BoardDao();
 				$(".target2 > table").hide();
 				$(".target1 > table").fadeToggle();
 			});
+	});
 </script>
 
 <!-- 문의 테이블 -->

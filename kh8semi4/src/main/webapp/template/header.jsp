@@ -191,7 +191,7 @@
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
-                	<ul class="slide-menu two">
+					<ul class="slide-menu two">
                 		<li><a href="#"><%=menuTitle%></a>
 		                	<ul>
 		                			<%if(login) {%>
@@ -223,6 +223,7 @@
 		                	</ul>
 		                </li>
                 	</ul>
+
                 </div>
                 
                 
