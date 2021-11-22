@@ -20,7 +20,8 @@ String isNo = request.getParameter("no");
 
 ProductImageDao productImageDao =new ProductImageDao();
 
-
+String grade=(String)session.getAttribute("grade");
+boolean admin = grade != null && grade.equals("관리자");
 %>
 <%--처리 --%>
 <%
@@ -33,15 +34,15 @@ ProductImageDao productImageDao =new ProductImageDao();
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1400 container-center">
 	<div class="row right ">
-	 <%if(isType != null){ 
-	 	int bigTypeNo= Integer.parseInt(isType);
-	 %>
-	  <a href="<%=request.getContextPath()%>/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
-	 <%}else if(isNo != null){
-		  int sno= Integer.parseInt(isNo); 
-		 %>
-	  <a href="<%=request.getContextPath()%>/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
-	 <%} %>
+	 <%if(admin){%>
+	 	<%if(isType != null){ 
+		 int bigTypeNo= Integer.parseInt(isType); %>
+	 	 <a href="<%=request.getContextPath()%>/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
+	 	<%}else if(isNo != null){
+	    	int sno= Integer.parseInt(isNo);%>
+	 	 <a href="<%=request.getContextPath()%>/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
+		 <%} %> 
+	<%}%>
 	</div>
 
    	<div class="row flex-container">
@@ -64,7 +65,7 @@ ProductImageDao productImageDao =new ProductImageDao();
 							<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
 							<%}else{ %>
 							<img src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="350px" height="350px"class="image image-border"> 
-<!-- 							<iframe src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="100%" height="100%"></iframe> -->
+<!-- 						<iframe src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="100%" height="100%"></iframe> -->
 							<%} %>
 							</td>
 			    		</tr>
