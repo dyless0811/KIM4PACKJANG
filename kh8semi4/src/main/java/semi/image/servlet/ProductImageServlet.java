@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import semi.beans.ProductImageDao;
 import semi.beans.ProductImageDto;
 @WebServlet (urlPatterns = "/product/productImage.kj")
-public class ProductFileServlet extends HttpServlet {
+public class ProductImageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
@@ -25,7 +25,7 @@ public class ProductFileServlet extends HttpServlet {
 			ProductImageDao productIamgeDao= new ProductImageDao();
 			ProductImageDto productImageDto = productIamgeDao.get(no);
 			
-			File dir=new File("C:\\upload\\kh84\\product");
+			File dir=new File("C:/upload/kh84/product");
 			File target =new File(dir,productImageDto.getProductFileSaveName());
 			InputStream in = new FileInputStream(target);
 			byte[] buffer = new byte[8192];

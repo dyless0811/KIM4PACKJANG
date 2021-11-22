@@ -14,30 +14,32 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.BoardImageDao;
 import semi.beans.BoardImageDto;
+import semi.beans.ReplyImageDao;
+import semi.beans.ReplyImageDto;
 
-@WebServlet("/board/boardImage.kj")
-public class BoardImageServlet extends HttpServlet {
+@WebServlet("/board/replyImage.kj")
+public class ReplyImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			int boardNo =Integer.parseInt(request.getParameter("no"));
+			int replyNo =Integer.parseInt(request.getParameter("no"));
 			//처리
-			BoardImageDao boardIamgeDao= new BoardImageDao();
-			BoardImageDto boardImageDto = boardIamgeDao.getByBoardNo(boardNo);
+			ReplyImageDao replyIamgeDao= new ReplyImageDao();
+			ReplyImageDto replyImageDto = replyIamgeDao.getByReplyNo(replyNo);
 			
-			File dir=new File("C:/upload/kh84/board");
-			File target =new File(dir,boardImageDto.getBoardSaveName());
+			File dir=new File("C:/upload/kh84/reply");
+			File target =new File(dir,replyImageDto.getReplySaveName());
 			InputStream in = new FileInputStream(target);
 			byte[] buffer = new byte[8192];
 			
-			String encodeFilename = URLEncoder.encode(boardImageDto.getBoardUploadName(), "UTF-8");
+			String encodeFilename = URLEncoder.encode(replyImageDto.getReplyUploadName(), "UTF-8");
 			encodeFilename = encodeFilename.replace("+", "%20");
 			
 			response.setHeader("Content-Type", "application/octet-stream");
 			response.setHeader("Content-Disposition", "attachment; filename=\""+encodeFilename+"\"");
 			response.setHeader("Content-Encoding", "UTF-8");
-			response.setHeader("Content-Length", String.valueOf(boardImageDto.getBoardFileSize()));
+			response.setHeader("Content-Length", String.valueOf(replyImageDto.getReplyFileSize()));
 			
 			while(true) {
 				int size = in.read(buffer);
