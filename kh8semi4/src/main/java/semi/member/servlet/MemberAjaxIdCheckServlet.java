@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import semi.beans.MemberDao;
 import semi.beans.MemberDto;
 
+//비동기 통신을 위한 서블릿
 @WebServlet(urlPatterns = "/member/ajax_id_check.kj")
 public class MemberAjaxIdCheckServlet extends HttpServlet{
 	@Override

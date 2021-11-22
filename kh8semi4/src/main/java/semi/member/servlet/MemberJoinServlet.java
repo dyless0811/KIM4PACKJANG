@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.MemberDao;
 import semi.beans.MemberDto;
+import semi.util.Sessioner;
 
 @WebServlet(urlPatterns = "/member/join.kj")
 public class MemberJoinServlet extends HttpServlet {
@@ -33,7 +34,8 @@ public class MemberJoinServlet extends HttpServlet {
 			MemberDao memberDao = new MemberDao();
 			memberDao.join(memberDto);
 
-			// 성공시
+			// 출력 : 리다이렉트
+			Sessioner.login(null, memberDto);
 			resp.sendRedirect("join_success.jsp");
 
 		} catch (Exception e) {

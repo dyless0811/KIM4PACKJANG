@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%
+	String root = request.getContextPath();
+%>
+
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <div class="container-500 container-center">
@@ -12,7 +16,7 @@
 	</div>
 	<hr>
 	<div class="row center">
-		<a href="<%=request.getContextPath()%>/index.jsp">완료</a>
+		<a href="<%=root%>/index.jsp">완료</a>
 	</div>
 </div>
 
