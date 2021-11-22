@@ -1,4 +1,3 @@
-
 <%@page import="semi.beans.MpgPagination"%>
 <%@page import="semi.beans.BoardDto"%>
 <%@page import="semi.beans.BoardDao"%>
@@ -30,26 +29,19 @@ String isNo = request.getParameter("no");
 BoardDao boardDao = new BoardDao();
 %>
 
-
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <script>
-	 
-			$(".test1").hide();
-		$(".can-write").click(function(){
-			
-			$(" .target1 > table").hide();
-			$(".target2 > table").fadeToggle();
-			
-		});
+	 $(".test1").hide();
 		
-		$(".test1").hide();
-			$(".not-write").click(function(){
-				$(" .target2 > table").hide();
+	 	$(".can-write").click(function(){
+			$(".target1 > table").hide();
+			$(".target2 > table").fadeToggle();
+		});
+		$(".not-write").click(function(){
+				$(".target2 > table").hide();
 				$(".target1 > table").fadeToggle();
 			});
-		
-	});
 </script>
 
 <!-- 문의 테이블 -->
@@ -73,44 +65,34 @@ BoardDao boardDao = new BoardDao();
               <td><%=boardDto.getNo() %></td>
               <td>문의</td>
               <td><a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDto.getNo()%>"><%=boardDto.getBoardTitle()%></a></td>
-              
               <td><%=boardDto.getBoardDate() %></td>
             </tr>
-          
-          <%} %>
+           <%} %>
         </table>
     </div>
-	
 	
 	<div>
 		<select name="boardTypeNo">
 		<option value="1" selected>작성일자별</option>
 		<option value="2">분류별</option>
-		
-		
 		</select>
 	</div>
 	
-	
-	
-    <!-- 검색창 -->
+<!-- 검색창 -->
     <div class="row center">
         <form action="myboard.jsp" method="get">
           <select name="column">
-          
-            <option value="board_title">제목</option>
+          	<option value="board_title">제목</option>
             <option value="board_content">내용</option>
          </select>
          <input type="hidden" name="memberId" value="<%=id%>">
-         
-          <input type="search" name="keyword" required placeholder="검색어 입력">
+         <input type="search" name="keyword" required placeholder="검색어 입력">
           <input type="submit" value="찾기">
         </form>
         <br><br><br>
 		</div>
-		
-		<!-- 페이지네이션 -->
-		
+
+<!-- 페이지네이션 -->		
 	<div class="row center">
 <%if(mpg.getStartBlock() > 1){ %>
 	<%if(mpg.isSearch()){ %>
@@ -151,31 +133,18 @@ BoardDao boardDao = new BoardDao();
 <%} %>
 </div>
 		
-      
-      <!-- 분류 -->
-     <div class="row">
+      <div class="row">
         <ul class="slide-menu">
           <li style="width: 50%">
-          
-          	<button class="can-write form-btn ">작성가능한 리뷰</button>
-            <!-- 
-            <a class="center can-write" style="margin: 0 auto; width: auto" href="#">
-               -->
-           
+          		<button class="can-write form-btn ">작성가능한 리뷰</button>
           </li>
           <li style="width: 50%">
-          	
-          	<button class="not-write form-btn ">작성한 리뷰</button>
-          	<!--  
-            <a class="center not-write" style="margin: 0 auto; width: auto" href="#">
-              작성한 리뷰
-            </a>
-            -->
-          </li>
+          		<button class="not-write form-btn ">작성한 리뷰</button>
+         </li>
         </ul>
       </div>
     	
-    <!-- 작성한리뷰 0번-->
+    <!-- 작성한리뷰-->
       <div class="row target1">
         <table class="table table-border table-hover test1">
           <thead>
@@ -187,44 +156,40 @@ BoardDao boardDao = new BoardDao();
             </tr>
           </thead>
           <tbody>
-          <%for(ReplyDto replyDto : list) {%>
+         	 <%for(ReplyDto replyDto : list) {%>
        	 <tr>
             <td><%=replyDto.getNo() %></td>
             <td>리뷰</td>
             <td><%=replyDto.getContent()%></td>
             <td><%=replyDto.getTime()%></td>
           </tr>
-          
           </tbody>
           <%} %>
         </table>
       </div>
       
-      	<!-- 작성가능한 리뷰 1번-->
-
-         <div class="row target2">
+      	<!-- 작성가능한 리뷰-->
+		<div class="row target2">
         <table class="table table-border table-hover test1">
           <thead>
             <tr>
               <th>상품명</th>
               <th>가격</th>
               <th>내용</th>
-              
-            </tr>
+             </tr>
           </thead>
           <tbody>
-          <%for(ProductDto productDto : list2) {%>
+          	<%for(ProductDto productDto : list2) {%>
        	 <tr>
             <td><%=productDto.getName() %></td>
             <td><%=productDto.getPrice()%></td>
             <td><%=productDto.getDescription()%></td>
           </tr>
-          
-          </tbody>
+         </tbody>
           <%} %>
         </table>
       </div>
-    </div>
     
+</div>
     
 <jsp:include page="/template/footer.jsp"></jsp:include>

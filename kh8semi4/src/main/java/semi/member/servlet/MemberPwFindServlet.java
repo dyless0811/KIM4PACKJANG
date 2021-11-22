@@ -11,22 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 import semi.beans.MemberDao;
 
 @WebServlet(urlPatterns = "/member/pw/find_pw.kj")
-public class MemberPwFindServlet extends HttpServlet{
+public class MemberPwFindServlet extends HttpServlet {
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			MemberDao memberDao = new MemberDao();
+			// 입력 : 아이디, 이메일, 전화번호
 			String id = req.getParameter("id");
-			String email = req.getParameter("email"); 
+			String email = req.getParameter("email");
 			String phone = req.getParameter("phone");
+
+			// 처리
+			MemberDao memberDao = new MemberDao();
 			String pw = memberDao.findpw(id, email, phone);
-			if(pw != null) {
-			resp.sendRedirect(req.getContextPath() + "/member/pw/find_pw_success.jsp?pw="+pw);
+			if (pw != null) {
+				resp.sendRedirect(req.getContextPath() + "/member/pw/find_pw_success.jsp?pw=" + pw);
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/member/pw/find_pw.jsp?error");
 			}
-			else {
-				resp.sendRedirect(req.getContextPath() + "/member/pw/find_pw.jsp");
-			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);
 		}

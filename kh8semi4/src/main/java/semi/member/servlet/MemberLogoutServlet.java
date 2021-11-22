@@ -17,7 +17,7 @@ public class MemberLogoutServlet extends HttpServlet {
 			// = 서블릿에서는 세션을 req.getSession() 형태로 접근
 			req.getSession().removeAttribute("loginId");// 세션의 항목삭제 명령 - 로그아웃
 			req.getSession().removeAttribute("grade");
-
+			
 			resp.sendRedirect(req.getContextPath() + "/index.jsp");// 절대
 		} catch (Exception e) {
 			e.printStackTrace();

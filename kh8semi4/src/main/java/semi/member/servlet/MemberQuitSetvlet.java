@@ -20,20 +20,16 @@ public class MemberQuitSetvlet extends HttpServlet {
 
 			MemberDao memberDao = new MemberDao();
 			boolean success = memberDao.quit(id, pw);
-
 			if (success) {
 				req.getSession().removeAttribute("loginId");
-				
-				resp.sendRedirect("../index.jsp");
+				resp.sendRedirect(req.getContextPath() + "/index.jsp");
 			} else {
-				resp.sendRedirect("check.jsp?error");
+				resp.sendRedirect("#");
 			}
 		}
-
 		catch (Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);
 		}
-
 	}
 }
