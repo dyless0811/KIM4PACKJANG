@@ -1,5 +1,6 @@
 package semi.product.servlet;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -8,28 +9,71 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import semi.beans.ProductDao;
 import semi.beans.ProductDto;
-@WebServlet (urlPatterns = "/product/edit.kj")
+import semi.beans.ProductImageDao;
+import semi.beans.ProductImageDto;
+@WebServlet (urlPatterns = "/product/productedit.kj")
 public class ProductEditServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
+			String savePath="C:/upload/kh84/product";
+			int maxSize= 30 * 1024  * 1024;
+			String encoding ="UTF-8";
+			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
+			MultipartRequest mRequest = 
+					new MultipartRequest(req, savePath, maxSize, encoding,policy);
+			
 			//입력
+			int productNo = Integer.parseInt(mRequest.getParameter("productNo"));
 			ProductDto productDto = new ProductDto();
-			productDto.setNo(Integer.parseInt(req.getParameter("no")));
-			productDto.setSmallTypeNo(Integer.parseInt(req.getParameter("SmallTypeNo")));
-			productDto.setName(req.getParameter("name"));
-			productDto.setPrice(Integer.parseInt(req.getParameter("price")));
-			productDto.setDescription(req.getParameter("description"));
+			productDto.setNo(productNo);
+			productDto.setSmallTypeNo(Integer.parseInt(mRequest.getParameter("smallTypeNo")));
+			productDto.setName(mRequest.getParameter("name"));
+			productDto.setPrice(Integer.parseInt(mRequest.getParameter("price")));
+			productDto.setDescription(mRequest.getParameter("description"));
 			//처리
 			
 			ProductDao productDao = new ProductDao();
 			boolean success=productDao.update(productDto);
 			
-			//출력
 			if(success) {
-				resp.sendRedirect("productdetail.jsp?no="+productDto.getNo());
+				ProductImageDao productImageDao = new ProductImageDao();
+				ProductImageDto productImageDto = new ProductImageDto();
+				
+				//existing = 기존파일, new = 신규파일, delete = 파일삭제
+				String selectImage = mRequest.getParameter("selectImage");
+				System.out.println("selectImage = " + selectImage);
+				switch(selectImage) {
+				case "new":
+					productImageDao.deleteByProductNo(productNo);
+					//실제 파일도 삭제해야함
+					productImageDto.setProductNo(productNo);
+					productImageDto.setProductFileSaveName(mRequest.getFilesystemName("attach"));
+					productImageDto.setProductFileUploadName(mRequest.getOriginalFileName("attach"));
+					productImageDto.setProductFileType(mRequest.getContentType("attach"));
+					File target = mRequest.getFile("attach");
+					
+					if(target!=null) {
+						productImageDto.setProductFileSize(target.length());
+						
+						productImageDao.insert(productImageDto);				
+					}
+					break;
+				case "delete":
+					productImageDao.deleteByProductNo(productNo);
+					//실제 파일도 삭제해야함
+					break;
+				case "existing":
+					break;
+				}			
+				
+				//출력
+				resp.sendRedirect("productdetail.jsp?no="+productNo);
 			}else {
 				resp.sendError(500);
 			}

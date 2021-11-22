@@ -113,7 +113,7 @@ productDto = productDao.get(no);
         	<h4>소분류번호:<%=productDto.getSmallTypeNo()%>
             	상품번호:<%=productDto.getNo()%>
         	</h4>
-   
+
     	<div>
         	<select id="size">
         	<%for(SizeDto sizeDto : sizeList) {%>
@@ -209,6 +209,7 @@ productDto = productDao.get(no);
 	<%} else {%>
 	<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg">
 	<%}%>
+
 	</div>
 	<hr>
 	<div class="row center">

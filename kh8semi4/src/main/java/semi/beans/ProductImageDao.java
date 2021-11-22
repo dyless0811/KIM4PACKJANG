@@ -50,5 +50,14 @@ public class ProductImageDao {
 		
 		return productImageDto;
 	}
+	public void deleteByProductNo(int productNo) throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "delete from productimage where product_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, productNo);
+		ps.execute();
+		
+		con.close();
+	}
 	
 }
