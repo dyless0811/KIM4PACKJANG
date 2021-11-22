@@ -7,7 +7,6 @@ private String productFileSaveName;
 private String productFileUploadName;
 private long productFileSize;
 private String productFileType;
-
 //setter & getter 
 public int getNo() {
 	return no;
