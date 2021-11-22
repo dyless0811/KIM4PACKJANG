@@ -1,4 +1,4 @@
-package semi.servlet.product;
+package semi.product.servlet;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +25,7 @@ public class ProductFileServlet extends HttpServlet {
 			ProductImageDao productIamgeDao= new ProductImageDao();
 			ProductImageDto productImageDto = productIamgeDao.get(no);
 			
-			File dir=new File("D:/upload/product");
+			File dir=new File("c:/upload/kh84/product");
 			File target =new File(dir,productImageDto.getProductFileSaveName());
 			InputStream in = new FileInputStream(target);
 			byte[] buffer = new byte[8192];
