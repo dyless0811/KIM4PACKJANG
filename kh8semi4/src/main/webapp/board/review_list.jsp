@@ -36,7 +36,6 @@
 		    		<tbody>
 					   	 	<!-- 상품 이미지 자리-->
 							<td>
-							
 							<img src="C:/upload/kh84/product/ <%=replyListVo.getProductImageSavename()%>" width="100%" class="image  image-border">
 							</td>
 			    		<tr>
@@ -44,9 +43,11 @@
 			    			<a href ="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=replyListVo.getProductNo()%>"><%=replyListVo.getName()%></a>
 			    			</td>
 			    		</tr>
+			    		<!-- 별점, 리뷰개수-->
 			    		<tr>
 			    			<td><%=replyListVo.getStarpoint()%>점/ 총 리뷰수:<%=replyListVo.getReplyCount()%>개</td>
 			    		</tr>
+			    		<!--리뷰 top 3 자리(detail.jsp 연결하기)-->
 			    		<%
 			    		List<ReplyDto> replyList = replyDao.list3(replyListVo.getProductNo());
 			    		%>
@@ -54,7 +55,9 @@
 			    		for(ReplyDto replydto : replyList){
 			    		%>
 			    			<tr>
-			    			<td><%=replydto.getMemberId()%><%=replydto.getContent()%></td>
+			    			<td>
+			    			<a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=replydto.getNo()%>"><%=replydto.getMemberId()%><%=replydto.getContent()%></a>
+			    			</td>
 			    			</tr>
 			    		<%} %>
 					</tbody>

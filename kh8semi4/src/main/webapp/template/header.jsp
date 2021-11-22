@@ -133,7 +133,7 @@
                             <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
                 				<ul>
                 					<li>
-                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
+                						<a href="<%=request.getContextPath()%>/board/review_list.jsp">
                 							review
                 						</a>
                 					</li>
@@ -256,7 +256,7 @@
                             <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
                 				<ul>
                 					<li>
-                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
+                						<a href="<%=request.getContextPath()%>/board/review_list.jsp">
                 							review
                 						</a>
                 					</li>
