@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import semi.beans.ProductImageDao;
 import semi.beans.ProductImageDto;
 @WebServlet (urlPatterns = "/product/productImage.kj")
-public class ProductFileServlet extends HttpServlet {
+public class ProductImageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
