@@ -183,7 +183,7 @@ BoardDao boardDao = new BoardDao();
           <tbody>
           	<%for(ProductDto productDto : list2) {%>
        	 <tr>
-            <td><%=productDto.getName() %></td>
+            <td><a href="<%=request.getContextPath()%>/reply/write.jsp?no=<%= productDto.getNo()%>"><%=productDto.getName() %></a></td>
             <td><%=productDto.getPrice()%></td>
             <td><%=productDto.getDescription()%></td>
           </tr>
