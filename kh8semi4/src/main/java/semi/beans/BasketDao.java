@@ -97,4 +97,36 @@ public class BasketDao {
 		
 		con.close();
 	}
+	
+	public List<BasketVo> VolistByMemberId(String memberId) throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "select i.product_file_savename, p.no product_no, p.name product_name, c.color color_name, s.sz size_name, p.price, b.no basket_no, b.count from basket b "
+				+ "inner join product p on b.product_no = p.no "
+				+ "inner join productimage i on p.no = i.product_no "
+				+ "inner join sz s on b.size_no = s.no "
+				+ "inner join color c on b.color_no = c.no "
+				+ "where member_id = '?'";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, memberId);
+		ResultSet rs = ps.executeQuery();
+		
+		List<BasketVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			BasketVo basketVo = new BasketVo();
+			basketVo.setProductFileSavename(rs.getString("product_file_savename"));
+			basketVo.setProductNo(rs.getInt("product_no"));
+			basketVo.setProductName(rs.getString("product_name"));
+			basketVo.setColorName(rs.getString("color_name"));
+			basketVo.setSizeName(rs.getString("size_name"));
+			basketVo.setPrice(rs.getInt("price"));
+			basketVo.setBasketNo(rs.getInt("basket_no"));
+			basketVo.setCount(rs.getInt("count"));
+			
+			voList.add(basketVo);
+		}
+		
+		con.close();
+		return voList;
+	}
 }
