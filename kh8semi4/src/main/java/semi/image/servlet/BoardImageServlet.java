@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import semi.beans.BoardImageDao;
 import semi.beans.BoardImageDto;
 
-@WebServlet("/board/boardimage.kj")
+@WebServlet("/board/boardImage.kj")
 public class BoardImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public class BoardImageServlet extends HttpServlet {
 			BoardImageDao boardIamgeDao= new BoardImageDao();
 			BoardImageDto boardImageDto = boardIamgeDao.getByBoardNo(boardNo);
 			
-			File dir=new File("D:/upload/board");
+			File dir=new File("C:/upload/kh84/board");
 			File target =new File(dir,boardImageDto.getBoardSaveName());
 			InputStream in = new FileInputStream(target);
 			byte[] buffer = new byte[8192];
