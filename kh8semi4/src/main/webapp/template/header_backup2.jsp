@@ -22,15 +22,7 @@
 	//로그인 상태인지 아닌지 판정하는 코드
 	String id = (String)session.getAttribute("loginId");
 	boolean login = id != null;
-	//로그인 상태에 따라 슬라이드메뉴의 텍스트를 바꿔준다.
-	String menuTitle = "";
-	if(login){
-		menuTitle = "회원 기능";
-	} else{
-		menuTitle = "비회원 기능";
-	}
-	
-	
+
 	//관리자인지 확인하는 코드
 	String grade=(String)session.getAttribute("grade");
 	boolean admin = grade != null && grade.equals("관리자");
@@ -62,15 +54,6 @@
         }
         .flexgrow{
         	flex-grow:1;
-        }
-        .one, .two{
-        	position: absolute;
-        }
-        .one{
-        	z-index: 1;
-        }
-        .two{
-        	z-index:2;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -191,38 +174,19 @@
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
-                	<ul class="slide-menu two">
-                		<li><a href="#"><%=menuTitle%></a>
-		                	<ul>
-		                			<%if(login) {%>
-		                		<li>
-				                	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
-				                </li>
-				                <li>
-				                    <a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">장바구니</a>
-				                </li>
-				                <li>
-				                    <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
-				                </li>
-										<%if(session.getAttribute("grade").equals("관리자")){ %>
-										<li>
-											<a href="<%=request.getContextPath()%>/admin/adminmain.jsp">[관리자기능]</a>
-										</li>										
-										<%}%>
-				                	<%} else {%>
-				                <li>
-				                		<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
-				                </li>
-				                <li>
-										<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
-								</li>
-									<%} %>
-								<li>
-									<a href="#검색">검색</a>
-		                		</li>
-		                	</ul>
-		                </li>
-                	</ul>
+                	<%if(login) {%>
+                	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
+                    <a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">장바구니</a>
+                    <a href="<%=request.getContextPath()%>/member/logout.kj">로그아웃</a>
+                    <a href="#검색">검색</a>
+						<%if(session.getAttribute("grade").equals("관리자")){ %>
+						<a href="<%=request.getContextPath()%>/admin/adminmain.jsp" class="link-btn">관리자페이지</a>
+						<%}%>
+                	<%} else {%>
+                	<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
+					<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
+					<a href="#검색">검색</a>
+					<%} %>
                 </div>
                 
                 
