@@ -11,29 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import semi.beans.MemberDao;
 import semi.beans.MemberDto;
 
-@WebServlet(urlPatterns = "/member/login.kj")
-public class MemberLoginServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/member/autologin.kj")
+public class MemberAutoLoginServlet extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			
-//			String id;
-//			String pw;
-			//String joinId = (String)req.getSession().getAttribute("joinId");
-			//String joinPw = (String)req.getSession().getAttribute("joinPw");
-			
-//			
-//			if(joinId != null && joinPw != null) {
-//				id = joinId;
-//				pw = joinPw;
-//			}
-//			else {
-//				id = req.getParameter("id");
-//				pw = req.getParameter("pw");
-//			}
-//			req.getSession().removeAttribute(joinId);
-//			req.getSession().removeAttribute(joinPw);
-			
 			
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");
@@ -55,7 +37,7 @@ public class MemberLoginServlet extends HttpServlet {
 
 			} else {
 				// login.jsp 로 이동하면서 ?error 파라미터를 붙여서 오류임을 표시
-				resp.sendRedirect("login.jsp?error");
+				resp.sendRedirect(req.getContextPath() + "/index.jsp");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -174,6 +174,7 @@
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
+                	
                 	<%if(login) {%>
                 	<a href="<%=request.getContextPath()%>/myshop/index.jsp">마이페이지</a>
                     <a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">장바구니</a>
