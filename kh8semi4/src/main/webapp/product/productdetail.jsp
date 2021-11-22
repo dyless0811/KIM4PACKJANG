@@ -1,3 +1,4 @@
+<%@page import="semi.beans.ProductImageDao"%>
 <%@page import="semi.beans.ProductImageDto"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Set"%>
@@ -31,7 +32,8 @@
   List<ColorDto> colorList = productColorDao.colorListByProductNo(no);
   
   //상품이미지 가져오기
-  ProductImageDto productImageDto = new ProductImageDto();
+  ProductImageDao productImageDao = new ProductImageDao();
+  ProductImageDto productImageDto = productImageDao.get(no);
   %>
   
 <%
@@ -89,29 +91,33 @@ productDto = productDao.get(no);
     </div>
     <div class="float-container list-card">
         <div class="float-item-left list-card-image">
-            <img src="file:///C:\Users\upload\kh84\product\<%=productImageDto.getProductFileSaveName()%>">
-         </div>
-    <div class="float-item-left list-card-content">
-    	<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>
-    	<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>">수정</a>
-        <h2> 상품명:<%=productDto.getName()%></h2><h5>조회수:<%=productDto.getViews()%></h5>
-        <h4>소분류번호:<%=productDto.getSmallTypeNo()%>
-            상품번호:<%=productDto.getNo()%>
-        </h4>
-    </div>
-    <div>
-        <select id="size">
-        <%for(SizeDto sizeDto : sizeList) {%>
-           <option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
-        <%}%>
-        </select>
+            	<%if(productImageDto != null) {%>
+				<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>">
+				<%} else {%>
+				<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg">
+				<%}%>
+        </div>
+    	<div class="float-item-left list-card-content">
+    		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>
+    		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>">수정</a>
+        	<h2> 상품명:<%=productDto.getName()%></h2><h5>조회수:<%=productDto.getViews()%></h5>
+        	<h4>소분류번호:<%=productDto.getSmallTypeNo()%>
+            	상품번호:<%=productDto.getNo()%>
+        	</h4>
+    	</div>
+    	<div>
+        	<select id="size">
+        	<%for(SizeDto sizeDto : sizeList) {%>
+           	<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
+        	<%}%>
+        	</select>
         
-		<select id="size">
-        <%for(ColorDto colorDto : colorList) {%>
-           <option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
-        <%}%>
-        </select>
-    </div>
+			<select id="size">
+        	<%for(ColorDto colorDto : colorList) {%>
+           	<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
+        	<%}%>
+        	</select>
+    	</div>
           
     <div class="row">
 	    <h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
@@ -188,6 +194,10 @@ productDto = productDao.get(no);
 
 	<div class="row center clear">
 	<h2>설명:<%=productDto.getDescription()%></h2>
-	<img src="https://mochaccino1.cafe24.com/up/2021/09/x/s16/outer/01_1.jpg">
+	<%if(productImageDto != null) {%>
+	<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>">
+	<%} else {%>
+	<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg">
+	<%}%>
 	</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

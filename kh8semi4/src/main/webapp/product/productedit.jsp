@@ -1,3 +1,4 @@
+<%@page import="semi.beans.ProductImageDao"%>
 <%@page import="semi.beans.BigTypeDao"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.ProductDto"%>
@@ -52,7 +53,8 @@ ProductDto productDto =productDao.get(Integer.parseInt(request.getParameter("pro
 
 	})
 </script>
-<form action="./productadd.kj" method=post enctype="multipart/form-data">
+<form action="./productedit.kj" method=post enctype="multipart/form-data">
+<input type="hidden" name="productNo" value="<%=productDto.getNo()%>">
     <template id="size-content-template">
         <div class="row">
         	<select name="size">
@@ -79,7 +81,7 @@ ProductDto productDto =productDao.get(Integer.parseInt(request.getParameter("pro
 	</div>
 	<div  class="row">	 
 	
-	 <select name=smallTypeNo class="form-input form-inline">
+	 <select name="smallTypeNo" class="form-input form-inline">
 	 <%for(SmallTypeDto smallTypeDto : list){ %>
 		<%if(smallTypeDto.getNo()==Integer.parseInt(request.getParameter("smalltypeno"))){ %>	 
 	 	<option selected value=<%=smallTypeDto.getNo()%>><%=smallTypeDto.getName()%></option>
@@ -115,12 +117,19 @@ ProductDto productDto =productDao.get(Integer.parseInt(request.getParameter("pro
 	상품설명
 	<textarea rows="40" cols="100"  name="description" class=form-input><%=productDto.getDescription()%></textarea>
 	</div>
-	<%ProductImageDto productImageDto = new ProductImageDto(); %>
+	<%	
+		ProductImageDao productImageDao = new ProductImageDao();
+		ProductImageDto productImageDto = productImageDao.get(productDto.getNo());
+	%>
 	<div class="row">
 	상품이미지
 	<input type="file" name="attach" accept="image/*" class="form-input" value=<%=productImageDto.getProductFileSaveName()%>>
 	</div>
-		
+	<div class="row">
+       	<input type="radio" name="selectImage" value="existing" checked="checked"> 기존 파일 <%=productImageDto!=null ? productImageDto.getProductFileUploadName() : ""%>
+        <input type="radio" name="selectImage" value="new"> 신규 파일
+        <input type="radio" name="selectImage" value="delete"> 파일 삭제
+    </div>
 			
 
 	<div class="row">

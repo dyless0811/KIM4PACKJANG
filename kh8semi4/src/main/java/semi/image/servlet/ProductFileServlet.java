@@ -1,4 +1,4 @@
-package semi.servlet.product;
+package semi.image.servlet;
 
 import java.io.File;
 import java.io.FileInputStream;
