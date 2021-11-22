@@ -98,7 +98,7 @@ public class BasketDao {
 		con.close();
 	}
 	
-	public List<BasketVo> VolistByMemberId(String memberId) throws Exception {
+	public List<BasketVo> voListByMemberId(String memberId) throws Exception {
 		Connection con = JdbcUtils.connect();
 		String sql = "select i.product_file_savename, p.no product_no, p.name product_name, c.color color_name, s.sz size_name, p.price, b.no basket_no, b.count from basket b "
 				+ "inner join product p on b.product_no = p.no "
