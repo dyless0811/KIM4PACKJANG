@@ -9,5 +9,5 @@
 <a href="./coloredit.jsp">색상 수정하러 가기</a>
 <a href="./sizeedit.jsp">사이즈 수정하러 가기</a>
  <a href="./customerlist.jsp">회원 목록 보러가기</a>
-
+<a href="./stock.jsp">재고 관리</a>
 <jsp:include page="/template/footer.jsp"></jsp:include>
