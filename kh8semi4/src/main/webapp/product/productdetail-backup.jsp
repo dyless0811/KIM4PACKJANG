@@ -14,12 +14,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%--입력 --%>
-  <!-- 관리자 권한 가져오기  -->
-  <%
-  String grade=(String)session.getAttribute("grade");
-  boolean admin = grade != null && grade.equals("관리자");
-  %>
-
   <%--상품 번호 --%>
   <% int no =Integer.parseInt(request.getParameter("no")); %>
   <%--처리 --%>
@@ -95,8 +89,11 @@ productDto = productDao.get(no);
 	})
 </script>
     
-    <div class="flex-container ">
-        <div class="flex-15 right">
+	<div class="row center">
+    <h1><%=productDto.getName()%>의 상세페이지</h1>
+    </div>
+    <div class="float-container list-card">
+        <div class="float-item-left list-card-image">
         <!-- 이미지 출력 -->
             	<%if(productImageDto != null) {%>
 				<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>" width="320px" height="320px">
@@ -104,16 +101,14 @@ productDto = productDao.get(no);
 				<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
 				<%}%>
         </div>
-    	<div class="flex-2 ">
-    		<%if(admin){ %>
+    	<div class="float-item-left list-card-content ">
     		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>
     		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>">수정</a>
-    		<%} %>
         	<h2> 상품명:<%=productDto.getName()%></h2><h5>조회수:<%=productDto.getViews()%></h5>
         	<h4>소분류번호:<%=productDto.getSmallTypeNo()%>
             	상품번호:<%=productDto.getNo()%>
         	</h4>
-
+   
     	<div>
         	<select id="size">
         	<%for(SizeDto sizeDto : sizeList) {%>
@@ -209,13 +204,5 @@ productDto = productDao.get(no);
 	<%} else {%>
 	<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg">
 	<%}%>
-
-	</div>
-	<hr>
-	<div class="row center">
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
 	</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

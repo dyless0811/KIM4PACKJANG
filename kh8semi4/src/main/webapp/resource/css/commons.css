@@ -316,6 +316,7 @@ textarea.vertical {
   float: right;
 }
 
+
 /*
     flex layout
     = display:flex; 를 통해 영역 내부의 요소를 float처럼 처리할 수 있다.
@@ -327,6 +328,7 @@ textarea.vertical {
 .flex-container {
   display: flex;
   flex-direction: row;
+	
 }
 
 .flex-equal {
@@ -343,6 +345,10 @@ textarea.vertical {
 
 .flex-05 {
   flex-grow: 0.5;
+}
+
+.flex-15 {
+  flex-grow: 1.5;
 }
 
 /*

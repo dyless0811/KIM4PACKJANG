@@ -28,6 +28,8 @@ boolean admin = grade != null && grade.equals("관리자");
 	productPagination pPagi = new productPagination(request);
 	pPagi.calculate();
 	int i = 0;
+	
+	ProductDto productDto = new ProductDto();
 %>
 
 <%--출력 --%>
@@ -60,13 +62,11 @@ boolean admin = grade != null && grade.equals("관리자");
 					   	 	<!-- 상품 이미지 -->
 							<td>
 							<%ProductImageDto productImageDto =productImageDao.get(product.getNo());%>
-							<%if(productImageDto == null){ %>
-							<%System.out.print(productImageDto); %>
-							<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
-							<%}else{ %>
-							<img src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="350px" height="350px"class="image image-border"> 
-<!-- 						<iframe src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="100%" height="100%"></iframe> -->
-							<%} %>
+							<%if(productImageDto != null) {%>
+								<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=product.getNo()%>" width="320px" height="320px">
+								<%} else {%>
+								<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
+								<%}%>
 							</td>
 			    		</tr>
 			    		<tr>
