@@ -38,4 +38,34 @@ public class ProductColorDao {
 		
 		return list;
 	}
+	
+		//상품번호를 이용해서 ProductColor테이블과 Color테이블을 이너조인하여
+		//해당 상품의 ProductColor정보를 구하는 메소드
+		public ProductColorDto getProductColorData(int productNo) throws Exception{
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "select R.* from product P "
+							+ "inner join productcolor R on P.no = R.product_no "
+							+ "inner join color C on R.color_no = C.no "
+							+ "where P.no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, productNo);
+			ResultSet rs = ps.executeQuery();
+			
+			ProductColorDto pCDto;
+			if(rs.next()) {
+				pCDto = new ProductColorDto();
+				pCDto.setNo(rs.getInt("no"));
+				pCDto.setColorNo(rs.getInt("color_no"));
+				pCDto.setProductNo(rs.getInt("product_no"));
+			} else {
+				pCDto = null;
+			}
+			
+			
+			con.close();
+			
+			return pCDto;
+			
+		}
 }
