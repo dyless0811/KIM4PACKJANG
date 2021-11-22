@@ -262,7 +262,7 @@ public int count(String noType, String no, String column,String keyword) throws 
 				+ "on P.small_type_no = S.no "
 				+ "inner join bigtype B "
 				+ "on S.bigtype_no = B.no "
-				+ "where S.#1 = ? and instr(P.#2, ?)"
+				+ "where S.#1 = ? and instr(P.#2, ?)>0"
 				+ "order by P.no desc"
 			+ ")";
 	  if(noType.equals("B")) {		  

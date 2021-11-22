@@ -4,7 +4,7 @@
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="java.util.List"%>
 <%@page import="semi.beans.ProductDao"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%--입력 --%>
@@ -20,7 +20,7 @@ String isNo = request.getParameter("no");
 
 ProductImageDao productImageDao =new ProductImageDao();
 
-ProductImageDto productImageDto =productImageDao.get(no);
+
 %>
 <%--처리 --%>
 <%
@@ -36,11 +36,11 @@ ProductImageDto productImageDto =productImageDao.get(no);
 	 <%if(isType != null){ 
 	 	int bigTypeNo= Integer.parseInt(isType);
 	 %>
-	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
+	  <a href="<%=request.getContextPath()%>/product/productadd.jsp?bigtypeno=<%=bigTypeNo%>" class="link-btn link-btn:hover">상품등록</a> 
 	 <%}else if(isNo != null){
 		  int sno= Integer.parseInt(isNo); 
 		 %>
-	  <a href="http://localhost:8080/kh8semi4/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
+	  <a href="<%=request.getContextPath()%>/product/productadd.jsp?no=<%=sno%>" class="link-btn link-btn:hover">상품등록</a> 
 	 <%} %>
 	</div>
 
@@ -58,10 +58,13 @@ ProductImageDto productImageDto =productImageDao.get(no);
 		    			<tr height="400px">
 					   	 	<!-- 상품 이미지 -->
 							<td>
+							<%ProductImageDto productImageDto =productImageDao.get(product.getNo());%>
 							<%if(productImageDto == null){ %>
+							<%System.out.print(productImageDto); %>
 							<img src="https://via.placeholder.com/300x350?text=ProductImage" width="100%" class="image  image-border">
 							<%}else{ %>
-							<img src="/product/productadd.kj?productImageNo=<%=productImageDto.getProductNo()%>" width="100%" class="image image-border">
+							<img src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="350px" height="350px"class="image image-border"> 
+<!-- 							<iframe src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="100%" height="100%"></iframe> -->
 							<%} %>
 							</td>
 			    		</tr>
@@ -126,6 +129,45 @@ ProductImageDto productImageDto =productImageDao.get(no);
 	<a>&gt;</a>
 <%} %>
 </div>
+	<!-- 검색창 -->
+	<div class="row center">
+		<form action="productlist.jsp" method="get">
+	
+	<select name="column" class="form-input form-inline">
+				<%if(pPagi.columnIs("name")){ %>
+				<option value="name" selected>상품명</option>
+				<%}else{ %>
+				<option value="name">상품명</option>
+				<%}%>
+				
+				<%if(pPagi.columnIs("price")){ %>
+				<option value="price" selected>가격</option>
+				<%}else{ %>
+				<option value="price">가격</option>
+				<%}%>	
+				
+				<%if(pPagi.columnIs("no")){ %>
+				<option value="no" selected>상품번호</option>
+				<%}else{ %>
+				<option value="no">상품번호</option>
+				<%}%>
+			</select>
+			
+			<input type="search" name="keyword" placeholder="검색어 입력" required 
+					value="<%=pPagi.getKeywordString()%>" class="form-input form-inline">
+			
+			<% if(isType != null) { %>
+			<input type="hidden" name="bigtypeno" value=<%=isType%>>
+			<%}else{ %>
+			<input type="hidden" name="no" value=<%=isNo%>>
+			<%} %>
+			
+			
+			<input type="submit" value="검색" class="form-btn form-inline">
+			
+		</form>
+	</div>
 </div>
+	
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

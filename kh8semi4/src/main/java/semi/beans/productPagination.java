@@ -170,6 +170,15 @@ package semi.beans;
 		public List<ProductDto> getList() {
 			return list;
 		}
+
+		//추가 : null을 제거한 keyword 반환 메소드
+		public String getKeywordString() {
+			if(this.keyword == null) 
+				return "";
+			else
+				return this.keyword;
+		}
+		
 		
 		
 		
