@@ -54,9 +54,14 @@ $(function(){
 			</thead>
 			<tbody>
 					<%for(BasketVo basketVo : list3){ %>
-							<tr>
+							<tr> 
+									<%System.out.println("뭐찍을까요");%>
 									<td align="center">
-										<img src="https://bymono.com/web/product/medium/202108/6f9f9933b1ac7791996620ddfe99b993.jpg" width="100px" height="100px"class="image image-border"> 
+									<%if(basketVo.getProductFileSavename() != null) {%>
+									<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=basketVo.getProductNo()%>" width="320px" height="320px">
+									<%} else {%>
+									<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
+									<%}%> 
 									</td>
 									<td align="center">
 									<a href = "<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=basketVo.getProductNo()%>"><%=basketVo.getProductName()%></a>
@@ -64,6 +69,7 @@ $(function(){
 									<%=basketVo.getSizeName() %>
 									
 									</td>
+									
 									<td align="center"><%=basketVo.getPrice()%></td>
 									<td align="center"><%=basketVo.getPrice() *0.0001 %>p</td>
 									<td align="center">배송 전</td>
