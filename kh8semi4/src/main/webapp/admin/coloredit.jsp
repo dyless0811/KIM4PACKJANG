@@ -9,7 +9,7 @@
 	List<ColorDto> colorList = colorDao.list();
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
-	<style>
+<style>
 .form-input,
 .form-btn {
     width: 14%;
@@ -41,6 +41,18 @@ a:hover {
 color: black; text-decoration: underline;
 }
 </style>
+
+<script>
+$(function() {
+	$(function() {
+		$(".delete").click(function(e) {	
+			if (!confirm("정말 삭제하시겠습니까?")) {
+				e.preventDefault();
+			}
+		});
+	});
+});
+</script>
 	
 	<form action="./colorinsert.kj" method="post">
 		<label>색상:</label>
@@ -53,7 +65,7 @@ color: black; text-decoration: underline;
 	<ol class="contents mylist">
 	<%for(ColorDto colorDto : colorList){ %>
         <li class="mylist">
-            <a href="#"><%=colorDto.getColorName()%></a> / <a href="./colordelete.kj?no=<%=colorDto.getNo()%>">삭제</a>
+            <a href="#"><%=colorDto.getColorName()%></a> → <a href="./colordelete.kj?no=<%=colorDto.getNo()%>" class="delete">삭제</a>
         </li>
     <%} %>
     </ol>
