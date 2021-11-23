@@ -28,24 +28,32 @@ public class ReplyAddServlet extends HttpServlet {
 			String savePath = "C:/upload/kh84/reply/";
 			System.out.println(savePath);
 			
-			int maxSize = 10 * 1024 * 1024;
+			int maxSize = 30 * 1024 * 1024;
 			String encoding = "UTF-8";
 			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
 			MultipartRequest mRequest = new MultipartRequest(request, savePath, maxSize, encoding, policy);
 			
+			ReplyDao replyDao = new ReplyDao();
+			int replyNo = replyDao.getSeq();
 			ReplyDto replyDto = new ReplyDto();
-			replyDto.setNo(Integer.parseInt(mRequest.getParameter("no")));
-			replyDto.setContent((String)request.getSession().getAttribute("content"));
-			replyDto.setMemberId((String)request.getSession().getAttribute("memberId"));
+			replyDto.setNo(replyNo);
+			replyDto.setContent(mRequest.getParameter("content"));
+			replyDto.setProductNo(Integer.parseInt(mRequest.getParameter("productNo")));
+			replyDto.setMemberId((String)request.getSession().getAttribute("loginId"));		
 			replyDto.setStarPoint(Integer.parseInt(mRequest.getParameter("starPoint")));
 			replyDto.setProductNo(Integer.parseInt(mRequest.getParameter("productNo")));
 			
+			replyDao.insert(replyDto);
+			
+			
 			ReplyImageDto replyImageDto = new ReplyImageDto();
-			replyImageDto.setReplyNo(Integer.parseInt(mRequest.getParameter("replyNo")));
+			replyImageDto.setReplyNo(replyNo);
 			replyImageDto.setReplySaveName(mRequest.getFilesystemName("attach"));
 			replyImageDto.setReplyUploadName(mRequest.getOriginalFileName("attach"));
 			replyImageDto.setReplyFileType(mRequest.getContentType("attach"));
 			File target = mRequest.getFile("attach");
+			
+			System.out.println(replyImageDto.toString());
 			
 			if(target != null) {
 				replyImageDto.setReplyFileSize(target.length());
@@ -55,7 +63,7 @@ public class ReplyAddServlet extends HttpServlet {
 			}
 			
 			//출력
-			response.sendRedirect("");
+			response.sendRedirect("../board/review_detail.jsp?no="+ replyNo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
