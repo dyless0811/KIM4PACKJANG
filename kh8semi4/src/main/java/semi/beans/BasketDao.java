@@ -99,6 +99,18 @@ public class BasketDao {
 		
 		return result > 0;
 	}
+	//장바구니 전체비우기
+	public boolean BasketEmpty(String memberId) throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "delete from basket where member_id = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, memberId);
+		int result = ps.executeUpdate();
+		
+		con.close();
+		
+		return result > 0;
+	}
 	
 	public List<BasketVo> voListByMemberId(String memberId) throws Exception {
 		Connection con = JdbcUtils.connect();

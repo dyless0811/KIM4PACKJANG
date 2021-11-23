@@ -65,6 +65,7 @@
 		<hr>
 
 		<div class="row">
+		
 		결제하는곳
 		</div>
 	</div>

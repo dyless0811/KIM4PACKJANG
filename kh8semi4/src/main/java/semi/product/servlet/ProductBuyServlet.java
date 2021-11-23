@@ -1,4 +1,4 @@
- package semi.product.servlet;
+package semi.product.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -17,6 +17,7 @@ public class ProductBuyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
 			String[] basketList = request.getParameterValues("basketNo");
 			String memberId = (String)request.getSession().getAttribute("loginId");
@@ -56,4 +57,8 @@ public class ProductBuyServlet extends HttpServlet {
 			response.sendError(500);
 		}
 	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
 }
+
