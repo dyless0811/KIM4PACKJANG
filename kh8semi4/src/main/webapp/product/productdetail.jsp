@@ -68,139 +68,80 @@ productDto = productDao.get(no);
 
 </style>
     
-<script type="text/javascript">
-	$(function(){
-		$(".size-btn").click(function (e) {
-        	e.preventDefault();
-        	var template = $("#size-content-template").html();
-        	$(".size-contents").append(template);
-        	
-    	  	$(".del-btn").click(function (e) {
-    	  		e.preventDefault();
-    	  		$(this).parent().remove();
-    	  	}); 
-    	});
-		
-		$("#count").on("input", function () {
-			var price = $("#price").get();
-	        var count = $("#count").get();
-	        var result = $("#result").get();
-	        for(i = 0;)
-	        if(count.value!="" && parseInt(count.value)>0){
-	        	result.value = parseInt(price.innerText) * parseInt(count.value);
-	        }else{
-	            result.value=0;
-	        }
-		});
-	})
-</script>
+<script src="<%=request.getContextPath()%>/resource/js/productdetail.js" ></script>
     
-    <div class="flex-container ">
-        <div class="flex-15 right">
+<div class="flex-container ">
+	<div class="flex-15 right">
         <!-- 이미지 출력 -->
-            	<%if(productImageDto != null) {%>
-				<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>" width="320px" height="320px">
-				<%} else {%>
-				<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
-				<%}%>
-        </div>
-    	<div class="flex-2 ">
-    		<%if(admin){ %>
-    		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>
-    		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>">수정</a>
-    		<%} %>
-        	<h2> 상품명:<%=productDto.getName()%></h2><h5>조회수:<%=productDto.getViews()%></h5>
-        	<h4>소분류번호:<%=productDto.getSmallTypeNo()%>
-            	상품번호:<%=productDto.getNo()%>
-        	</h4>
+		<%if(productImageDto != null) {%>
+		<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>" width="320px" height="320px">
+		<%} else {%>
+		<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
+		<%}%>
+	</div>
+   	<div class="flex-2 ">
+		<%if(admin){ %>
+		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>">삭제</a>
+		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>">수정</a>
+		<%} %>
+		<h2>
+			상품명:<span id="product-name"><%=productDto.getName()%></span>
+			상품번호:<span id="product-no"><%=productDto.getNo()%></span>
+		</h2>
+		<h5>
+			조회수:<%=productDto.getViews()%>
+			</h5>
+		<h4>상품가격:<span id="product-price"><%=productDto.getPrice()%></span></h4>
 
-    	<div>
-        	<select id="size">
-        	<%for(SizeDto sizeDto : sizeList) {%>
-           	<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
-        	<%}%>
+    	<div class="row">
+    	    <select id="select-size" required>
+    	    	<option value="" selected>---</option>
+        		<%for(SizeDto sizeDto : sizeList) {%>
+           		<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
+        		<%}%>
         	</select>
         
-			<select id="size">
-        	<%for(ColorDto colorDto : colorList) {%>
-           	<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
-        	<%}%>
+			<select id="select-color" required>
+				<option value="" selected>---</option>
+        		<%for(ColorDto colorDto : colorList) {%>
+           		<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
+        		<%}%>
         	</select>
-    	</div>
-          
-    <div class="row">
-	    <h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
-    </div>
-
-	<form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post">
-        <div class="row table">
-        	<table style="width:500px" class="table order-content">
-        		<thead>
-        			<tr>
-        				<th>상품</th>
-        				<th>색상</th>
-        				<th>사이즈</th>
-        				<th>개수</th>
-        				<th>가격</th>
-        			</tr>
-        		</thead>
-        		<tbody>
-        			<tr>
-        				<td data-product-index="1">
-        					<%=productDto.getName()%>
-        					<input type="hidden" name="productNo" value="<%=productDto.getNo()%>">
-        				</td>
-        				<td>
-        					베이지
-        					<input type="hidden" name="color" value="22">
-        				</td>
-        				<td>
-        					M
-        					<input type="hidden" name="size" value="102">
-        				</td>
-        				<td>
-        					<input type="number" name="count" min="1" value="2">
-        				</td>
-        				<td>
-        					<span>200000</span>
-        					<input type="hidden" name="price" value="<%=productDto.getPrice()%>">
-        				</td>
-        			</tr>
-        			<tr data-product-index="2">
-        				<td>
-        					<%=productDto.getName()%>
-        					<input type="hidden" name="productNo" value="<%=productDto.getNo()%>">
-        				</td>
-        				<td>
-        					레드
-        					<input type="hidden" name="color" value="24">
-        				</td>
-        				<td>
-        					S
-        					<input type="hidden" name="size" value="1">
-        				</td>
-        				<td>
-        					<input type="number" name="count" min="1" value="1">
-        				</td>
-        				<td>
-        					<span>100000</span>
-        					<input type="hidden" name="price" value="<%=productDto.getPrice()%>">
-        				</td>
-        			</tr>
-        			
-        		</tbody>
-        	</table>
-        </div> 
-        <div class="row">
-        	<h5>총 상품금액 = 300000</h5>
+			<button id="select-btn">선택</button>
         </div>
-        <div class="row">
-            <input type="submit" name="addType" value="Buy" class="form-btn form-inline">
-            <input type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
+          
+    	<div class="row">
+	    	<h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
+    	</div>
+
+		<form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post">
+    	<div class="row">
+    		<table style="width: 500px" class="table">
+    			<thead>
+    				<tr>
+    					<th>상품</th>
+    					<th>색상</th>
+    					<th>사이즈</th>
+    					<th>개수</th>
+    					<th>가격</th>
+    					<th>제거</th>
+    				</tr>
+            	</thead>
+            	<tbody id="selected-item">
+                
+            	</tbody>
+        	</table>
+    	</div>
+    	<div class="row">
+        	<input type="submit" name="addType" value="Buy" class="form-btn form-inline">
+        	<input type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
 		</div>
-	</form>
+    	</form>
+    	<div class="row">
+    		총 상품 금액 : <span id="totalPrice">0</span>원
+    	</div>
 	</div>
-	</div>
+</div>
 
 	<div class="row center clear">
 	<h2>설명:<%=productDto.getDescription()%></h2>
@@ -213,9 +154,9 @@ productDto = productDao.get(no);
 	</div>
 	<hr>
 	<div class="row center">
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	 <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
+	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
+	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
+	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
+	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
 	</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
