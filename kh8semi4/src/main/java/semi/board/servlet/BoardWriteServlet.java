@@ -28,7 +28,7 @@ public class BoardWriteServlet extends HttpServlet {
 			String savePath = "C:/upload/kh84/board/";
 			System.out.println(savePath);
 			
-			int maxSize = 10  * 1024 * 1024;
+			int maxSize = 30  * 1024 * 1024;
 			String encoding = "UTF-8";
 			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
 			MultipartRequest mRequest = new MultipartRequest(request, savePath, maxSize, encoding, policy);

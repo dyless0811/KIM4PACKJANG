@@ -123,7 +123,7 @@ ProductDto productDto =productDao.get(Integer.parseInt(request.getParameter("pro
 	%>
 	<div class="row">
 	상품이미지
-	<input type="file" name="attach" accept="image/*" class="form-input" value=<%=productImageDto.getProductFileSaveName()%>>
+	<input type="file" name="attach" accept="image/*" class="form-input">
 	</div>
 	<div class="row">
        	<input type="radio" name="selectImage" value="existing" checked="checked"> 기존 파일 <%=productImageDto!=null ? productImageDto.getProductFileUploadName() : ""%>

@@ -84,6 +84,7 @@ public class SmallTypeDao {
 	   
 	   if(rs.next()) {
 		   smallTypeDto.setNo(rs.getInt("no"));
+		   smallTypeDto.setBigTypeNo(rs.getInt("bigtype_no"));
 		   smallTypeDto.setName(rs.getString("name"));
 	   }
 	   else {

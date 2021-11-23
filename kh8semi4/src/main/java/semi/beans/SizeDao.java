@@ -71,12 +71,12 @@ public class SizeDao {
    
    
    //단일 조회
-   public SizeDto get(int no) throws Exception{
+   public SizeDto get(int sizeNo) throws Exception{
 	   Connection con = JdbcUtils.connect();
 	   String sql = "select * from sz where no = ?";
 	   
 	   PreparedStatement ps = con.prepareStatement(sql);
-	   ps.setInt(1, no);
+	   ps.setInt(1, sizeNo);
 	   ResultSet rs = ps.executeQuery();
 	   
 	   SizeDto sizeDto = new SizeDto();

@@ -61,4 +61,10 @@ public class ReplyDto {
 	public void setTime(Date time) {
 		this.time = time;
 	}
+
+	@Override
+	public String toString() {
+		return "ReplyDto [no=" + no + ", memberId=" + memberId + ", productNo=" + productNo + ", starPoint=" + starPoint
+				+ ", content=" + content + ", time=" + time + "]";
+	}
 }

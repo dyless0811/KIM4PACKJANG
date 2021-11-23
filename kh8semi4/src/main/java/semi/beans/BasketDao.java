@@ -88,14 +88,16 @@ public class BasketDao {
 		return seqList;
 	}
 	
-	public void delete(int no) throws Exception {
+	public boolean delete(int no) throws Exception {
 		Connection con = JdbcUtils.connect();
 		String sql = "delete from basket where no = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, no);
-		ps.execute();
+		int result = ps.executeUpdate();
 		
 		con.close();
+		
+		return result > 0;
 	}
 	
 	public List<BasketVo> voListByMemberId(String memberId) throws Exception {
@@ -105,7 +107,7 @@ public class BasketDao {
 				+ "inner join productimage i on p.no = i.product_no "
 				+ "inner join sz s on b.size_no = s.no "
 				+ "inner join color c on b.color_no = c.no "
-				+ "where member_id = '?'";
+				+ "where member_id = ?";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, memberId);

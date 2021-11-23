@@ -1,13 +1,12 @@
 package semi.beans;
 
-import java.sql.Date;
 
 public class StockDto {
 	private int no;
 	private int colorNo;
 	private int sizeNo;
 	private int productNo;
-	private Date stockDate;
+	private String stockDate;
 	private int stockChange;
 	public StockDto() {
 		super();
@@ -37,10 +36,10 @@ public class StockDto {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
-	public Date getStockDate() {
+	public String getStockDate() {
 		return stockDate;
 	}
-	public void setStockDate(Date stockDate) {
+	public void setStockDate(String stockDate) {
 		this.stockDate = stockDate;
 	}
 	public int getStockChange() {

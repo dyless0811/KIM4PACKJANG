@@ -52,10 +52,10 @@
         <hr />
       </div>
       	<%if(boardImageDto!=null) {%>
-      <div class="row">
-      	<img src="C:/upload/kh84/board/<%=boardImageDto.getBoardSaveName()%>">
-      </div>
-      <%} %>
+      	  <div class="row">
+	        <img src="<%=request.getContextPath()%>/board/boardImage.kj?no=<%=boardDto.getNo()%>">
+          </div>
+		<%}%>
       <div class="row">
         <%=boardDto.getBoardContent()%>
       </div>

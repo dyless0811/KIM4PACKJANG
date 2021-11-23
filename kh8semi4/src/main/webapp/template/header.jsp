@@ -133,7 +133,7 @@
                             <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
                 				<ul>
                 					<li>
-                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
+                						<a href="<%=request.getContextPath()%>/board/review_list.jsp">
                 							review
                 						</a>
                 					</li>
@@ -191,7 +191,7 @@
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
-                	<ul class="slide-menu two">
+					<ul class="slide-menu two">
                 		<li><a href="#"><%=menuTitle%></a>
 		                	<ul>
 		                			<%if(login) {%>
@@ -223,6 +223,7 @@
 		                	</ul>
 		                </li>
                 	</ul>
+
                 </div>
                 
                 
@@ -255,7 +256,7 @@
                             <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
                 				<ul>
                 					<li>
-                						<a href="<%=request.getContextPath()%>/reply/list.jsp">
+                						<a href="<%=request.getContextPath()%>/board/review_list.jsp">
                 							review
                 						</a>
                 					</li>

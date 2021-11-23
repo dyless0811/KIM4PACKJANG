@@ -104,12 +104,13 @@ public class ReplyDao {
 	public boolean insert(ReplyDto replyDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into reply values(reply_seq.nextval, ?, ?, ?, ?, default)";
+		String sql = "insert into reply values(?, ?, ?, ?, ?, default)";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, replyDto.getMemberId());
-		ps.setInt(2, replyDto.getProductNo());
-		ps.setInt(3, replyDto.getStarPoint());
-		ps.setString(4, replyDto.getContent());
+		ps.setInt(1, replyDto.getNo());
+		ps.setString(2, replyDto.getMemberId());
+		ps.setInt(3, replyDto.getProductNo());
+		ps.setInt(4, replyDto.getStarPoint());
+		ps.setString(5, replyDto.getContent());
 		int result = ps.executeUpdate();
 		
 		con.close();
@@ -315,5 +316,20 @@ public class ReplyDao {
 		//1 : 삭제 성공
 		//0 : 삭제 실패
 		return result > 0;
+	}
+
+	public int getSeq() throws Exception {
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "select reply_seq.nextval from dual";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs =  ps.executeQuery();
+			
+			rs.next();
+			
+			int seqNo = rs.getInt(1);
+			con.close();
+		
+			return seqNo;
 	}
 }
