@@ -1,13 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/template/header.jsp"></jsp:include>
-<a href="./categoryedit.jsp">카테고리 수정하러 가기</a>
-<!--  누르면 수정 페이지로 이동(일단은 대분류만 수정가능하게끔)
-	->대분류 목록이 쫙 나온다.
-	->추가하면 추가되고 삭제하면 삭제되고 수정하면 수정된다
- -->
-<a href="./coloredit.jsp">색상 수정하러 가기</a>
-<a href="./sizeedit.jsp">사이즈 수정하러 가기</a>
- <a href="./customerlist.jsp">회원 목록 보러가기</a>
-<a href="./stock.jsp">재고 관리</a>
+<style>
+.title-font{
+font-size: 100px;
+}
+.content-font{
+font-size:30px;
+}
+</style>
+<script>
+	$(function() {
+		$(function() {
+			$(this).click(function(e) {	
+				if (!confirm("해당 페이지로 이동하시겠습니까?")) {
+					e.preventDefault();
+				}
+			});
+		});
+	});
+</script>
+<h1 class="title-font center">관리자 페이지</h1>
+<ol class="content-font center">
+ <li><a href="./categoryedit.jsp">카테고리 수정하러 가기</a></li> 
+ <li><a href="./coloredit.jsp">색상 수정하러 가기</a></li>
+ <li><a href="./sizeedit.jsp">사이즈 수정하러 가기</a></li>
+ <li><a href="./customerlist.jsp">회원 목록 보러가기</a></li>
+</ol>
+
 <jsp:include page="/template/footer.jsp"></jsp:include>
+
