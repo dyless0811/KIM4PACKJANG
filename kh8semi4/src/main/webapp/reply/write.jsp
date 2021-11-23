@@ -21,10 +21,10 @@
 		<h2><%=productDto.getName()%></h2>
 		</div>
 		
-		<form action="/reply/add.kj" method="post" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/reply/add.kj" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="productNo" value="<%=productNo%>">
 		<div class="row right">
-			<select name="starpoint">
+			<select name="starPoint">
 				<option value= "5">★★★★★</option>
 				<option value= "4">★★★★☆</option>
 				<option value= "3">★★★☆☆</option>
@@ -36,7 +36,7 @@
 		<div class="row center">
 			<textarea
 				style="width : 1000px; height : 400px"
-				name= "boardContent"
+				name= "content"
 				required>
 			</textarea>
 		</div>

@@ -10,7 +10,7 @@ public class ReplyImageDao {
 	public void insert(ReplyImageDto replyImageDto)throws Exception{
 		Connection con= JdbcUtils.connect();
 		
-		String sql="insert into productImage values(productImage_seq.nextval,?,?,?,?,?)";
+		String sql="insert into replyImage values(replyImage_seq.nextval,?,?,?,?,?)";
 		PreparedStatement ps =con.prepareStatement(sql);
 		ps.setInt(1,replyImageDto.getReplyNo());
 		ps.setString(2,replyImageDto.getReplyUploadName());

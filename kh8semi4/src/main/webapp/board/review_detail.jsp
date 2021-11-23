@@ -1,3 +1,5 @@
+<%@page import="semi.beans.ReplyImageDao"%>
+<%@page import="semi.beans.ReplyImageDto"%>
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.ReplyDto"%>
@@ -21,6 +23,8 @@
 	
 	ProductDto productDto = productDao.get(replyDto.getProductNo());
 	
+	ReplyImageDao replyImageDao = new ReplyImageDao();
+	ReplyImageDto replyImageDto = replyImageDao.getByReplyNo(replyDto.getNo());
 %>
 
 <!-- 출력 -->
@@ -40,7 +44,12 @@
 		<div class="row">
 			<div class="row float-container">
 				<div class="float-item-left" style="width : 50%">
-					<img src="https://i.pinimg.com/originals/33/8f/92/338f92828ddcc3ff6b78a4847ded8b2e.jpg" style="width: 500px"  >
+					<img src="" style="width: 500px"  >
+					<%if(replyImageDto != null) {%>
+      	 			 	<div class="row">
+	        				<img src="<%=request.getContextPath()%>/board/replyImage.kj?no=<%=replyDto.getNo()%>">
+         			 	</div>
+					<%}%>
 				</div>
 				
 				<div class="float-item-right" style="width : 50%">
