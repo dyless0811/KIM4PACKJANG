@@ -79,8 +79,8 @@ $(function() {
 	<%for(BigTypeDto bigType : bigTypeList){ %>
         <li class="mylist">
             <a class="toggle"><%=bigType.getName()%></a> →
-            [<a href="./bcategoridelete.kj?no=<%=bigType.getNo()%>">삭제</a>
-            /<a href="./bigcategori_eidt.jsp?no=<%=bigType.getNo()%>&name=<%=bigType.getName()%>">수정]</a>
+            [<a href="./bcategoridelete.kj?no=<%=bigType.getNo()%>" class="delete">삭제</a>
+            /<a href="./bigcategori_eidt.jsp?no=<%=bigType.getNo()%>&name=<%=bigType.getName()%>" class="edit">수정]</a>
             <ol class="mylist">
            
             <%  SmallTypeDao small = new SmallTypeDao();
