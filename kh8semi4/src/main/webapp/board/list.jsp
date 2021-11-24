@@ -4,8 +4,17 @@
     pageEncoding="UTF-8"%>
 
 <%-- 입력 : 검색분류(column), 검색어(keyword) --%>
-
-
+ <!-- 관리자 권한 가져오기  -->
+ <%
+ String grade=(String)session.getAttribute("grade");
+ boolean admin = grade != null && grade.equals("관리자");
+ %>
+ 
+ <!-- 회원 아이디 가져오기 -->
+<%
+String id = (String)session.getAttribute("loginId");
+boolean member = grade != null && grade.equals("회원");
+%>
 
 <%-- 처리 --%>
 <%
@@ -40,9 +49,18 @@ int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 		<h2>상품 문의</h2>
 	</div>
 	
+	<%if(admin){ %>
 	<div class="row right">
-		<a href="write.jsp?no=<%=boardTypeNo %>" class="link-btn">글쓰기</a>
+		<a href="<%=request.getContextPath()%>/board/write.jsp?no=<%=boardTypeNo %>" class="link-btn">글쓰기</a>
 	</div>
+	<%}else if(member&&Integer.parseInt((request.getParameter("no")))==2){%>
+	<!-- 관리자가 아니라면 고객센터에만 글쓰기 가능 -->
+	<div class="row right">
+		<a href="<%=request.getContextPath()%>/board/write.jsp?no=2" class="link-btn">글쓰기</a>
+	</div>
+	<%}%>
+
+	
 	<div class="row center">
 	<%if(boardPagenation.getList().isEmpty()) {%>
 		<h3>데이터가 존재하지 않습니다</h3>
