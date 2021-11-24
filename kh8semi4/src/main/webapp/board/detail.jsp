@@ -64,7 +64,7 @@
           </div>
 		<%}%>
       <div class="row">
-        <%=boardDto.getBoardContent()%>
+	      <pre><%=boardDto.getBoardContent()%></pre>
       </div>
       <div class="row left">
         <br /><br /><br />

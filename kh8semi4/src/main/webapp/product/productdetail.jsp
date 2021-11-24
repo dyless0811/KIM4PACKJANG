@@ -115,8 +115,8 @@ $(function() {
 	</div>
    	<div class="flex-2 ">
 		<%if(admin){ %>
-		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%> class="delete">삭제</a>
-		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%> class="edit">수정</a>
+		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>" class="delete">삭제</a>
+		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>" class="edit">수정</a>
 		<%} %>
 		<h2>
 			상품명:<span id="product-name"><%=productDto.getName()%></span>
