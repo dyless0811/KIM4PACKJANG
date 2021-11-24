@@ -284,7 +284,107 @@ public int count(String noType, String no, String column,String keyword) throws 
 	  return count;
 	  
 }
-  
+	
+	//관리자용 상품 페이지네이션 카운트 메소드(검색)
+	public int aCount(String column, String keyword) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "select count(*) from product where instr(#1, ? ) > 0 order by no desc";
+		sql = sql.replace("#1", column);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, keyword);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		int count = rs.getInt(1);
+		
+		con.close();
+		
+		return count;
+	}
+	
+	//관리자용 상품 페이지네이션 카운트 메소드(전체)
+	public int aCount() throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "select count(*) from product order by no desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		int count = rs.getInt(1);
+		
+		con.close();
+		
+		return count;
+	}
+	
+	//관리자용 상품 페이지네이션 정렬 메소드(검색)
+	public List<ProductDto> aSearchByRownum(String column, String keyword, int begin, int end) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "select * from("
+							+ "select rownum rn, tmp.* from("
+								+ "select * from product where instr(#1, ?) > 0 "
+								+ "order by no desc)"
+							+ "tmp)"
+						+ "where rn between ? and ?";
+		sql = sql.replace("#1", column);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, keyword);
+		ps.setInt(2, begin);
+		ps.setInt(3, end);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ProductDto> productList = new ArrayList<>();
+		while(rs.next()) {
+			ProductDto product = new ProductDto();
+			product.setNo(rs.getInt("no"));
+			product.setSmallTypeNo(rs.getInt("small_type_no"));
+			product.setName(rs.getString("name"));
+			product.setPrice(rs.getInt("price"));
+			product.setDescription(rs.getString("description"));
+			product.setViews(rs.getInt("views"));
+			
+			productList.add(product);
+		}
+		con.close();
+		
+		return productList;
+	}
+	
+	//관리자용 상품 페이지네이션 정렬 메소드(전체)
+	public List<ProductDto> aListByRownum(int begin, int end) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "select * from("
+							+ "select rownum rn, tmp.* from("
+								+ "select * from product "
+								+ "order by no desc)"
+							+ "tmp)"
+						+ "where rn between ? and ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, begin);
+		ps.setInt(2, end);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ProductDto> productList = new ArrayList<>();
+		while(rs.next()) {
+			ProductDto product = new ProductDto();
+			product.setNo(rs.getInt("no"));
+			product.setSmallTypeNo(rs.getInt("small_type_no"));
+			product.setName(rs.getString("name"));
+			product.setPrice(rs.getInt("price"));
+			product.setDescription(rs.getString("description"));
+			product.setViews(rs.getInt("views"));
+			
+			productList.add(product);
+		}
+		con.close();
+		
+		return productList;
+	}
+
 	//3. 시퀀스 번호를 미리 확인하는 메소드
 	public int getSeq() throws Exception{
 		Connection con = JdbcUtils.connect();
@@ -327,6 +427,7 @@ public int count(String noType, String no, String column,String keyword) throws 
 			
 			return result > 0;
 		}
+		
 	
 	
 	
