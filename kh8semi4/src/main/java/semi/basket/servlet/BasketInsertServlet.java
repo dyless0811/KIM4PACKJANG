@@ -25,17 +25,16 @@ public class BasketInsertServlet extends HttpServlet {
 			String[] sizeList = request.getParameterValues("size");
 			String[] countList = request.getParameterValues("count");
 			int[] no = basketDao.getSeqList(productNoList.length);
-			boolean isBuy = request.getParameter("addType").equals("Buy");
-			
+			String buyType = request.getParameter("addType");
 			//값 전달 테스트 용
-			System.out.println("isBuy = "+isBuy);
-			for (int i = 0; i < productNoList.length; i++) {
-					System.out.println(memberId+"/"+
-							productNoList[i]+"/"+
-							colorList[i]+"/"+
-							sizeList[i]+"/"+
-							countList[i]);
-			}
+//			System.out.println("isBuy = "+isBuy);
+//			for (int i = 0; i < productNoList.length; i++) {
+//					System.out.println(memberId+"/"+
+//							productNoList[i]+"/"+
+//							colorList[i]+"/"+
+//							sizeList[i]+"/"+
+//							countList[i]);
+//			}
 			
 			//basket 테이블에 추가
 			for (int i = 0; i < productNoList.length; i++) {
@@ -53,16 +52,18 @@ public class BasketInsertServlet extends HttpServlet {
 			//redirect URL
 			String buyURL = request.getContextPath()+"/product/productbuy.jsp?";
 			String basketURL = request.getContextPath()+"/myshop/order/basket.jsp";
+			String returnURL = request.getContextPath()+"/product/productdetail.jsp?no="+productNoList[0];
+			
 			
 			//장바구니 번호 파라미터 세팅
 			for (int i : no) {
 				buyURL += "basketNo="+i+"&";
 			}
-			System.out.println(buyURL);
-			System.out.println(basketURL);
 			
-			if(isBuy) {
+			if(buyType.equals("Buy")) {
 				response.sendRedirect(buyURL);
+			} else if(buyType.equals("shopping")) {
+				response.sendRedirect(returnURL);
 			} else {				
 				response.sendRedirect(basketURL);
 			}
