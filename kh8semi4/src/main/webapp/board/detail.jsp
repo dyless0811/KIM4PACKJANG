@@ -10,6 +10,10 @@
     pageEncoding="UTF-8"%>
 <%
 	String memberId = (String)session.getAttribute("loginId");
+	String grade=(String)session.getAttribute("grade");
+	boolean admin = grade != null && grade.equals("관리자");
+%> 
+<%
 	int boardNo = Integer.parseInt(request.getParameter("no"));
 	BoardDao boardDao = new BoardDao();
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
@@ -28,6 +32,9 @@
 	BoardTypeDto boardTypeDto = boardTypeDao.get(boardDto.getBoardTypeNo());
 	BoardImageDto boardImageDto = boardImageDao.getByBoardNo(boardNo);
 	String boardTypeName = boardTypeDto.getName();
+	
+	//본인글인지 아닌지 판별
+	boolean owner = boardDto.getMemberId().equals(memberId);
 
 	//보드이미지 추가해야함
 %>
@@ -57,14 +64,17 @@
           </div>
 		<%}%>
       <div class="row">
-        <%=boardDto.getBoardContent()%>
+	      <pre><%=boardDto.getBoardContent()%></pre>
       </div>
       <div class="row left">
         <br /><br /><br />
         <hr />
         <a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardDto.getBoardTypeNo()%>">목록</a>
+
+        <%if(owner||admin){ %> <!--자기글/관리자 일때만 수정 삭제 가능  -->
         <a href="<%=request.getContextPath()%>/board/delete.kj?no=<%=boardDto.getNo()%>">삭제</a>
         <a href="<%=request.getContextPath()%>/board/edit.jsp?no=<%=boardDto.getNo()%>">수정</a>
+        <%} %>
         <a href="<%=request.getContextPath()%>/board/write.jsp?no=<%=boardDto.getBoardTypeNo() %>&boardSuperno=<%=boardDto.getNo()%>" class="link-btn">답글</a>
       </div>
     </div>

@@ -1,3 +1,5 @@
+<%@page import="semi.beans.ProductImageDto"%>
+<%@page import="semi.beans.ProductImageDao"%>
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.BuyDto"%>
@@ -17,7 +19,7 @@
 	List<BuyDto> buyList = buyDao.BuyProductMember(id);
 	
 	ProductDao productDao =new ProductDao();
-	List<ProductDto> list = productDao.list();
+	ProductImageDao productImageDao = new ProductImageDao();
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -42,13 +44,16 @@
 					</tr>
 			</thead>
 			<tbody>
-					<%for(BuyDto buyDto : buyList) {%>
+					<%for(BuyDto buyDto : buyList) {
+						ProductDto productDto = productDao.get(buyDto.getProductNo());
+						ProductImageDto productImageDto = productImageDao.get(productDto.getNo());
+					%>
 							<tr>
 									<td align="center"><%=buyDto.getBuyDate() %></td>
-									<td align="center">없어용</td>
-									<td align="center"><%=buyDto.getProductNo() %></td>
-									<td align="center">없음</td>
-									<td align="center"></td>
+									<td align="center"><img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>" width="150px" height="100px"></td>
+									<td align="center"><a href="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=productDto.getNo()%>"><%=productDto.getName()%></a></td>
+									<td align="center"><%=buyDto.getCount()%></td>
+									<td align="center"><%=buyDto.getCount() * productDto.getPrice()%></td>
 									<td align="center"><%=buyDto.getStatus() %></td>
 									<td align="center">없음</td>
 							</tr>

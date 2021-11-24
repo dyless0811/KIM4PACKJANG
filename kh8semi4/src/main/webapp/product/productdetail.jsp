@@ -69,21 +69,37 @@ productDto = productDao.get(no);
 </style>
 <script>
 $(function() {
-	$(function() {
-		$(".delete").click(function(e) {	
-			if (!confirm("정말 삭제하시겠습니까?")) {
-				e.preventDefault();
-			}
-		});
+	$(".delete").click(function(e) {	
+		if (!confirm("정말 삭제하시겠습니까?")) {
+			e.preventDefault();
+		}
 	});
 	
-	$(function() {
-		$(".edit").click(function(e) {	
-			if (!confirm("수정페이지로이동할까요?")) {
-				e.preventDefault();
-			}
-		});
+	$(".edit").click(function(e) {	
+		if (!confirm("수정페이지로이동할까요?")) {
+			e.preventDefault();
+		}
 	});
+	
+	$("#add-cart").click(function(e) {
+		if($("#selected-item").is(":empty")) {
+			e.preventDefault();
+			alert("상품을 선택해주세요");
+			return;
+		}
+
+		if (!confirm("장바구니로 이동할까요?")) {
+			$(this).val("shopping");
+		}
+	})
+	
+	$("#buy").click(function(e) {
+		if($("#selected-item").is(":empty")) {
+			e.preventDefault();
+			alert("상품을 선택해주세요");
+			return;
+		}
+	})
 });
 </script>
 <script src="<%=request.getContextPath()%>/resource/js/productdetail.js" ></script>
@@ -99,8 +115,8 @@ $(function() {
 	</div>
    	<div class="flex-2 ">
 		<%if(admin){ %>
-		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%> class="delete">삭제</a>
-		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%> class="edit">수정</a>
+		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>" class="delete">삭제</a>
+		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>" class="edit">수정</a>
 		<%} %>
 		<h2>
 			상품명:<span id="product-name"><%=productDto.getName()%></span>
@@ -145,14 +161,12 @@ $(function() {
     					<th>제거</th>
     				</tr>
             	</thead>
-            	<tbody id="selected-item">
-                
-            	</tbody>
+            	<tbody id="selected-item"></tbody>
         	</table>
     	</div>
     	<div class="row">
-        	<input type="submit" name="addType" value="Buy" class="form-btn form-inline">
-        	<input type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
+        	<input id="buy" type="submit" name="addType" value="Buy" class="form-btn form-inline">
+        	<input id="add-cart" type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
    			<a href="<%=request.getContextPath()%>/product/wishlistadd.kj?productNo=<%=productDto.getNo()%>">내찜콩</a>
 		</div>
     	</form>

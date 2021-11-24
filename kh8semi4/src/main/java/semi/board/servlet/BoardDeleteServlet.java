@@ -20,7 +20,8 @@ public class BoardDeleteServlet extends HttpServlet {
 			int boardNo = Integer.parseInt(request.getParameter("no"));
 			BoardDao boardDao = new BoardDao();
 			BoardDto boardDto = boardDao.get(boardNo);
-			if(memberId == boardDto.getMemberId()) {
+			
+			if(memberId.equals(boardDto.getMemberId())) {
 				boardDao.delete(boardNo);
 			}
 			

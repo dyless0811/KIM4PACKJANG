@@ -18,6 +18,11 @@
 	
 	<!-- 에러 페이지 설정 -->
 	<error-page>
+		<error-code>401</error-code>
+		<location>/member/login.jsp</location>
+	</error-page>
+	
+	<error-page>
 		<error-code>403</error-code>
 		<location>/error/403.jsp</location>
 	</error-page>

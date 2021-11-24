@@ -57,6 +57,14 @@ public class BasketVo {
 	public int getPrice() {
 		return price;
 	}
+	public int getReserves() {
+		int reserves = (int)(price * 0.03);
+		return reserves;
+	}
+	public int getTotalPrice() {
+		int total = price * count;
+		return total;
+	}
 
 	public void setPrice(int price) {
 		this.price = price;
