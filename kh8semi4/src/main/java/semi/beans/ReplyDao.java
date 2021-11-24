@@ -19,8 +19,7 @@ public class ReplyDao {
 			
 			if(rs.next()) {
 				replyDto.setNo(rs.getInt("no"));
-				replyDto.setMemberId(rs.getString("member_id"));
-				replyDto.setProductNo(rs.getInt("product_no"));
+				replyDto.setBuyNo(rs.getInt("buy_no"));
 				replyDto.setStarPoint(rs.getInt("starpoint"));
 				replyDto.setContent(rs.getString("content"));
 				replyDto.setTime(rs.getDate("time"));
@@ -28,6 +27,19 @@ public class ReplyDao {
 			con.close();
 			
 			return replyDto;
+		}
+		
+		public String getMemberIdByBuyNo(int no) throws Exception {
+			Connection con = JdbcUtils.connect();
+			String sql = "select b.member_id from reply r inner join buy b on b.no = r.buy_no where b.no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			String memberId = rs.getString(1);
+			
+			con.close();
+			return memberId;
 		}
 		
 		public List<ReplyDto> ProductReplyMember(String memberId) throws Exception{
@@ -41,8 +53,7 @@ public class ReplyDao {
 				ReplyDto replyDto = new ReplyDto();
 				
 				replyDto.setNo(rs.getInt("no"));
-				replyDto.setMemberId(rs.getString("member_id"));
-				replyDto.setProductNo(rs.getInt("product_no"));
+				replyDto.setBuyNo(rs.getInt("buy_no"));
 				replyDto.setStarPoint(rs.getInt("starpoint"));
 				replyDto.setContent(rs.getString("content"));
 				replyDto.setTime(rs.getDate("time"));
@@ -52,29 +63,7 @@ public class ReplyDao {
 			con.close();
 			return list;
 		}
-		public List<ReplyDto> ProductReplyMember2(String memberId) throws Exception{
-			Connection con = JdbcUtils.connect();
-			String sql = "select * from reply where member_id = ?";
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, memberId);
-			ResultSet rs = ps.executeQuery();
-			
-			List<ReplyDto>list = new ArrayList<>();
-			while(rs.next()) {
-				ReplyDto replyDto = new ReplyDto();
-				
-				replyDto.setNo(rs.getInt("no"));
-				replyDto.setMemberId(rs.getString("member_id"));
-				replyDto.setProductNo(rs.getInt("product_no"));
-				replyDto.setStarPoint(rs.getInt("starpoint"));
-				replyDto.setContent(rs.getString("content"));
-				replyDto.setTime(rs.getDate("time"));
-				
-				list.add(replyDto);
-			}
-			con.close();
-			return list;
-		}
+
 		public List<ProductDto> CanWriteReply(String memberId) throws Exception {
 			Connection con = JdbcUtils.connect();
 			String sql = "select product.* from product left outer join buy on product.no = buy.product_no where buy.member_id = ?";
@@ -99,18 +88,42 @@ public class ReplyDao {
 				return list;
 			}
 		
-
+		public List<BuyDto> CanWriteReplyBuyList(String memberId) throws Exception {
+			Connection con = JdbcUtils.connect();
+			String sql = "select b.* from product p left outer join buy b on p.no = b.product_no where b.member_id = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, memberId);
+			ResultSet rs = ps.executeQuery();
+			
+			List<BuyDto> list = new ArrayList<>();
+			while(rs.next()) {
+				BuyDto buyDto = new BuyDto();
+				
+				buyDto.setNo(rs.getInt("no"));
+				buyDto.setMemberId(rs.getString("member_id"));
+				buyDto.setProductNo(rs.getInt("product_no"));
+				buyDto.setType(rs.getString("type"));
+				buyDto.setBuyDate(rs.getDate("buy_date"));
+				buyDto.setStatus(rs.getString("status"));
+				
+				list.add(buyDto);
+			}
+			con.close();
+			
+			return list;
+		}
+		
+		
 	
 	public boolean insert(ReplyDto replyDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into reply values(?, ?, ?, ?, ?, default)";
+		String sql = "insert into reply values(?, ?, ?, ?, default)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, replyDto.getNo());
-		ps.setString(2, replyDto.getMemberId());
-		ps.setInt(3, replyDto.getProductNo());
-		ps.setInt(4, replyDto.getStarPoint());
-		ps.setString(5, replyDto.getContent());
+		ps.setInt(2, replyDto.getBuyNo());
+		ps.setInt(3, replyDto.getStarPoint());
+		ps.setString(4, replyDto.getContent());
 		int result = ps.executeUpdate();
 		
 		con.close();
@@ -130,8 +143,7 @@ public class ReplyDao {
 		while(rs.next()) {
 			ReplyDto replyDto = new ReplyDto();
 			replyDto.setNo(rs.getInt("no"));
-			replyDto.setMemberId(rs.getString("member_id"));
-			replyDto.setProductNo(rs.getInt("product_no"));
+			replyDto.setBuyNo(rs.getInt("buy_no"));
 			replyDto.setStarPoint(rs.getInt("starpoint"));
 			replyDto.setContent(rs.getString("content"));
 			replyDto.setTime(rs.getDate("time"));
@@ -162,8 +174,7 @@ public class ReplyDao {
 		while(rs.next()) {
 			ReplyDto replyDto = new ReplyDto();
 			replyDto.setNo(rs.getInt("no"));
-			replyDto.setMemberId(rs.getString("member_id"));
-			replyDto.setProductNo(rs.getInt("product_no"));
+			replyDto.setBuyNo(rs.getInt("buy_no"));
 			replyDto.setStarPoint(rs.getInt("starpoint"));
 			replyDto.setContent(rs.getString("content"));
 			replyDto.setTime(rs.getDate("time"));
@@ -174,6 +185,29 @@ public class ReplyDao {
 		con.close();
 		
 		return replyList;
+	}
+	
+	public List<ReplyDto> ProductReplyMember2(String memberId) throws Exception{
+		Connection con = JdbcUtils.connect();
+		String sql = "select r.* from reply r inner join buy b on b.no = r.buy_no where b.member_id = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, memberId);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReplyDto>list = new ArrayList<>();
+		while(rs.next()) {
+			ReplyDto replyDto = new ReplyDto();
+			
+			replyDto.setNo(rs.getInt("no"));
+			replyDto.setBuyNo(rs.getInt("buy_no"));
+			replyDto.setStarPoint(rs.getInt("starpoint"));
+			replyDto.setContent(rs.getString("content"));
+			replyDto.setTime(rs.getDate("time"));
+			
+			list.add(replyDto);
+		}
+		con.close();
+		return list;
 	}
 	
 	public List<ReplyDto> listByRownum(int begin,int end)throws Exception{
@@ -195,8 +229,7 @@ public class ReplyDao {
 		while(rs.next()) {
 			ReplyDto replyDto = new ReplyDto();
 			replyDto.setNo(rs.getInt("no"));
-			replyDto.setMemberId(rs.getString("member_id"));
-			replyDto.setProductNo(rs.getInt("product_no"));
+			replyDto.setBuyNo(rs.getInt("buy_no"));
 			replyDto.setContent(rs.getString("content"));
 			replyDto.setTime(rs.getDate("time"));
 			
@@ -211,7 +244,7 @@ public class ReplyDao {
 	//최근 리뷰 순서로 정렬한 상품목록
 	public List<ReplyListVo> listByReplyTime() throws Exception {
 		Connection con = JdbcUtils.connect();
-		String sql = "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join reply r on r.product_no = p.no group by p.no, p.small_type_no, p.name, p.price order by recent_reply desc";
+		String sql = "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no group by p.no, p.small_type_no, p.name, p.price order by recent_reply desc";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
@@ -240,7 +273,7 @@ public class ReplyDao {
 		Connection con = JdbcUtils.connect();
 		String sql = "select * from ("
 				+ "select rownum rn, TMP.* from ("
-				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint, i.product_file_savename productimage_savename from product p inner join reply r on r.product_no = p.no left outer join productimage i on i.product_no = p.no group by p.no, p.small_type_no, p.name, p.price, i.product_file_savename order by recent_reply desc"
+				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no group by p.no, p.small_type_no, p.name, p.price order by recent_reply desc"
 				+ ")TMP "
 				+ ")where rn between ? and ?";
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -275,7 +308,7 @@ public class ReplyDao {
 		Connection con = JdbcUtils.connect();
 		String sql = "select * from ("
 				+ "select rownum rn, TMP.* from ("
-				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint, i.product_file_savename productimage_savename from product p inner join reply r on r.product_no = p.no left outer join productimage i on i.product_no = p.no group by p.no, p.small_type_no, p.name, p.price, i.product_file_savename order by reply_count desc"
+				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no group by p.no, p.small_type_no, p.name, p.price order by reply_count desc"
 				+ ")TMP "
 				+ ")where rn between 1 and 12";
 		PreparedStatement ps = con.prepareStatement(sql);

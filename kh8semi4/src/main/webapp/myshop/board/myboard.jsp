@@ -1,3 +1,5 @@
+<%@page import="semi.beans.ProductDao"%>
+<%@page import="semi.beans.BuyDto"%>
 <%@page import="semi.beans.MpgPagination"%>
 <%@page import="semi.beans.BoardDto"%>
 <%@page import="semi.beans.BoardDao"%>
@@ -21,8 +23,10 @@ String isNo = request.getParameter("no");
 
 <%
 	ReplyDao replyDao = new ReplyDao();
+	ProductDao productDao = new ProductDao();
 	List<ReplyDto>list = 	replyDao.ProductReplyMember2(id);
 	List<ProductDto>list2 = replyDao.CanWriteReply(id);
+	List<BuyDto> buyDtoList = replyDao.CanWriteReplyBuyList(id);
 	%>
 
 <%
@@ -181,9 +185,11 @@ BoardDao boardDao = new BoardDao();
              </tr>
           </thead>
           <tbody>
-          	<%for(ProductDto productDto : list2) {%>
+          	<%for(BuyDto buyDto : buyDtoList) {
+          		ProductDto productDto = productDao.get(buyDto.getProductNo());
+          	%>
        	 <tr>
-            <td><a href="<%=request.getContextPath()%>/reply/write.jsp?no=<%= productDto.getNo()%>"><%=productDto.getName() %></a></td>
+            <td><a href="<%=request.getContextPath()%>/reply/write.jsp?no=<%= buyDto.getNo()%>"><%=productDto.getName() %></a></td>
             <td><%=productDto.getPrice()%></td>
             <td><%=productDto.getDescription()%></td>
           </tr>
