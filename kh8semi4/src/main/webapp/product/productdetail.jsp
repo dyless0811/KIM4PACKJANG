@@ -127,8 +127,8 @@ $(function() {
         	</select>
 			<button id="select-btn">선택</button>
         </div>
-          
-    	<div class="row">
+
+       	<div class="row">
 	    	<h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
     	</div>
 
@@ -153,6 +153,7 @@ $(function() {
     	<div class="row">
         	<input type="submit" name="addType" value="Buy" class="form-btn form-inline">
         	<input type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
+   			<a href="<%=request.getContextPath()%>/product/wishlistadd.kj?productNo=<%=productDto.getNo()%>">내찜콩</a>
 		</div>
     	</form>
     	<div class="row">
