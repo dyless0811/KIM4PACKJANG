@@ -37,9 +37,11 @@
 	    		<table class="table table-border table-hover">
 		    		<tbody>
 					   	 	<!-- 상품 이미지 자리-->
+					   	 <tr>
 							<td>
 							<img src="C:/upload/kh84/product/ <%=replyListVo.getProductImageSavename()%>" width="100%" class="image  image-border">
 							</td>
+						</tr>
 			    		<tr>
 			    			<td>
 			    			<a href ="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=replyListVo.getProductNo()%>"><%=replyListVo.getName()%></a>
