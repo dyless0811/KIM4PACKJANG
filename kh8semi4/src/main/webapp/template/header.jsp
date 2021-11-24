@@ -12,8 +12,8 @@
 	String root = request.getContextPath();
 	//타입 리스트 출력을 위한 dao, dto
 	BigTypeDao bigTypeDao = new BigTypeDao();
-	List<BigTypeDto> bigTypeList = bigTypeDao.list();
 	
+	List<BigTypeDto> bigTypeList = bigTypeDao.list();
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
 	List<BoardTypeDto> boardTypeList = boardTypeDao.list();
 %>
@@ -191,7 +191,45 @@
                 <div class="flex-equal right">
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
-					<ul class="slide-menu two">
+                </div>
+                
+                
+            </div>
+        </header>
+        <!-- 헤더 끝 -->
+
+		<!-- 네비게이션 시작 -->
+		<nav>
+
+			<ul class="slide-menu">
+				<%for(BigTypeDto bigType : bigTypeList){ %>
+				<li><a
+					href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+
+					<ul>
+						<%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
+						<%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
+						<%for(SmallTypeDto smalltype: smallTypeList){ %>
+						<li><a
+							href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
+						<li>
+							<%} %>
+						
+					</ul></li>
+
+				<%} %>
+				<li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
+					<ul>
+						<li><a
+							href="<%=request.getContextPath()%>/board/review_list.jsp">
+								review </a></li>
+						<%for(BoardTypeDto boardTypeDto : boardTypeList) {%>
+						<li><a
+							href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></a>
+						</li>
+						<%}%>
+					</ul></li>
+					
                 		<li><a href="#"><%=menuTitle%></a>
 		                	<ul>
 		                			<%if(login) {%>
@@ -222,56 +260,13 @@
 		                		</li>
 		                	</ul>
 		                </li>
-                	</ul>
-
-                </div>
-                
-                
-            </div>
-        </header>
-        <!-- 헤더 끝 -->
-
-        <!-- 네비게이션 시작 -->
-        <nav>
-
-                        <ul class="slide-menu">
-                            <%for(BigTypeDto bigType : bigTypeList){ %>
-                             <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
-                             
-                            <ul>
-                                <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
-                                <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
-                                <%for(SmallTypeDto smalltype: smallTypeList){ %>
-                                <li>
-                                 	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
-<%-- 									 <%if(isAdmin){ %> --%>
-<%-- 									 <a href="#"><%=smalltype.getName()%>[상품추가]</a> --%>
-<%-- 									 <%} %> --%>
-                                <li>
-                                <%} %>
-                            </ul>
-                            </li>
-                            
-                            <%} %>
-                            <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
-                				<ul>
-                					<li>
-                						<a href="<%=request.getContextPath()%>/board/review_list.jsp">
-                							review
-                						</a>
-                					</li>
-                					<%for(BoardTypeDto boardTypeDto : boardTypeList) {%>
-                					<li>
-                						<a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></a>
-                					</li>
-                					<%}%>
-                				</ul>
-                			</li>
-                        </ul>
-            
-        </nav>
-        <!-- 네비게이션 끝 -->
+                	
+					
+			</ul>
+			
+		</nav>
+		<!-- 네비게이션 끝 -->
 
 
-        <!-- 섹션 시작 -->
+		<!-- 섹션 시작 -->
         <section>
