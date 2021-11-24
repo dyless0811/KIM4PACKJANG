@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BuyDto"%>
+<%@page import="semi.beans.BuyDao"%>
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -8,9 +10,11 @@
 <!-- 처리 -->
 <%
 	
-	int productNo = Integer.parseInt(request.getParameter("no"));
+	int buyNo = Integer.parseInt(request.getParameter("no"));
+	BuyDao buyDao = new BuyDao();
+	BuyDto buyDto = buyDao.get(buyNo);
 	ProductDao productDao = new ProductDao();
-	ProductDto productDto = productDao.get(productNo);
+	ProductDto productDto = productDao.get(buyDto.getProductNo());
 %>
 
 <!-- 출력 -->
@@ -22,7 +26,7 @@
 		</div>
 		
 		<form action="<%=request.getContextPath()%>/reply/add.kj" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="productNo" value="<%=productNo%>">
+		<input type="hidden" name="buyNo" value="<%=buyNo%>">
 		<div class="row right">
 			<select name="starPoint">
 				<option value= "5">★★★★★</option>
