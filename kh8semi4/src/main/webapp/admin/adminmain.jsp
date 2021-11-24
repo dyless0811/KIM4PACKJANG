@@ -26,6 +26,8 @@ font-size:30px;
  <li><a href="./coloredit.jsp">색상 수정하러 가기</a></li>
  <li><a href="./sizeedit.jsp">사이즈 수정하러 가기</a></li>
  <li><a href="./customerlist.jsp">회원 목록 보러가기</a></li>
+ <li><a href="./stock.jsp">재고 관리</a></li>
+ <li><a href="./statistics.jsp">홈페이지 통계 보기</a></li>
 </ol>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
