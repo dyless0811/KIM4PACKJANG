@@ -34,6 +34,9 @@ boolean admin = grade != null && grade.equals("관리자");
 
 <%--출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
+<style>
+
+</style>
 <div class="container-1400 container-center">
 	<div class="row right ">
 	 <%if(admin){%>
