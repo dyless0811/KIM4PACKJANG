@@ -66,11 +66,16 @@ $(function() {
 });
 </script>
 	<form action="./bcategoriinsert.kj" method="post">
+		<%if(bigTypeDao.list10()){ %>
 		<div>
 			<label>대분류명</label>
 			<input type="text" name="name" class="form-input">
 			<input type="submit" value="등록하기" class="form-btn">
 		</div>
+		<%}else{ %>
+		<h4>큰 카테고리는 10개만 등록할수 있습니다</h4>
+		<h4>추가 등록하고싶으시면 기존 카테고리 삭제하세요</h4>
+		<%} %>
 	</form>
 	
 	<hr>
