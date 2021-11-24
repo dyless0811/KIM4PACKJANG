@@ -166,7 +166,7 @@ BoardDao boardDao = new BoardDao();
        	 <tr>
             <td><%=replyDto.getNo() %></td>
             <td>리뷰</td>
-            <td><%=replyDto.getContent()%></td>
+            <td><a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=replyDto.getNo()%>"><%=replyDto.getContent()%></a></td>
             <td><%=replyDto.getTime()%></td>
           </tr>
           </tbody>
