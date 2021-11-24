@@ -7,37 +7,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 입력 --%>
-
 <%
 	String root = request.getContextPath();
 %>
-
 <%
 	String id = (String)session.getAttribute("loginId");
 %>    
 
 <%
 BasketDao basketDao = new BasketDao();
-List<ProductDto> list = basketDao.BasketProductMember(id);
-/* BuyDao buyDao = new BuyDao();
+List<BasketVo> list = basketDao.voListByMemberId(id); 
+
+//시행착오
+/*List<ProductDto> list = basketDao.BasketProductMember(id);
+BuyDao buyDao = new BuyDao();
 List<BuyDto> list2 = buyDao.BuyProductMember(id);
 */
-List<BasketVo> list3 = basketDao.voListByMemberId(id); 
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
-
 <script>
+//장바구니에서 상품삭제 메세지
+window.addEventListener("load", function(){
+            
+            document.querySelector(".confirm-link").addEventListener("click", function(e){
+                
+
+                var choice = confirm("정말 이동하시겠습니까?");
+              
+                if(!choice){
+                    e.preventDefault();
+                }
+            });
+        });
+
+
 $(function() {
 	$(".confirm-link").click(function(e) {
 		if (!confirm("정말 삭제하시겠습니까?")) {
 			e.preventDefault();
-		}
-	});
+		});
 });
-
 //장바구니 전체 비우기
-
-
 $(function(){
 	$(".empty-btn").click(function(){
 		$.ajax({
@@ -62,7 +72,9 @@ $(function(){
 	$(".check-all").on("input",function(){
 		var isChecked = $(this.).prop("checked");
 		$("input[type=checkbox]").prop("checked",isChecked);
+		
 	});
+	
 });
 </script>
 	
@@ -88,7 +100,7 @@ $(function(){
 			</thead>
 			<tbody>
 				
-					<%for(BasketVo basketVo : list3){ %>
+					<%for(BasketVo basketVo : list){ %>
 							<tr> 
 									
 									<td align="center">
@@ -97,13 +109,13 @@ $(function(){
 									</td>
 									<td align="center">
 									<%if(basketVo.getProductFileSavename() != null) {%>
-									<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=basketVo.getProductNo()%>" width="150px" height="150px">
+									<img src="<%=root%>/product/productImage.kj?no=<%=basketVo.getProductNo()%>" width="150px" height="150px">
 									<%} else {%>
 									<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
 									<%}%> 
 									</td>
 									<td align="center">
-									<a href = "<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=basketVo.getProductNo()%>"><%=basketVo.getProductName()%></a>
+									<a href = "<%=root%>/product/productdetail.jsp?no=<%=basketVo.getProductNo()%>"><%=basketVo.getProductName()%></a>
 									<%=basketVo.getColorName()%>
 									<%=basketVo.getSizeName() %>
 									</td>
@@ -112,8 +124,8 @@ $(function(){
 									<td align="center">배송 전</td>
 									<td align="center">3000원</td>
 									<td align="center">
-									<a href="<%=request.getContextPath()%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>">구매하기</a>
-									<a href = "<%=request.getContextPath()%>/myshop/order/deletebasket.kj?basketNo=<%=basketVo.getBasketNo()%>"   class = "confirm-link">삭제하기</a>
+									<a href="<%=root%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>">구매하기</a>
+									<a href="<%=root%>/myshop/order/deletebasket.kj?basketNo=<%=basketVo.getBasketNo()%>" class="confirm-link">삭제하기</a>
 									</td>
 								</tr>
 					</tbody>
@@ -122,20 +134,22 @@ $(function(){
 							<input type="submit" value="선택 구매하기" class="form-btn form- inline">
 							<label>
        					 			<input type="checkbox" class="check-all"> 
-      							 	<span>전체 선택</span>
+      							 <span>전체 선택</span>
    						 </label>
 		
 	
 	
 	
 	</table>
-	
+				
 	</div>
-
+		
 </div>
+
 	</form>
+	
 	<form action="<%=request.getContextPath()%>/product/productbuy.jsp" method="get">
-		<%for(BasketVo basketVo : list3){ %>
+		<%for(BasketVo basketVo : list){ %>
 			<input type="hidden" name="basketNo" value="<%=basketVo.getBasketNo()%>">
 			
 		<%} %>

@@ -197,6 +197,7 @@ productDto = productDao.get(no);
         <div class="row">
             <input type="submit" name="addType" value="Buy" class="form-btn form-inline">
             <input type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
+            <a href="<%=request.getContextPath()%>/product/wishlistadd.kj?productNo=<%=productDto.getNo()%>">내찜콩</a>
 		</div>
 	</form>
 	</div>

@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WishlistDao {
-
+	
+	//좋아요 추가
 	public void insert(WishlistDto wishlistDto) throws Exception {
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "insert into wishlist values(wishlist_seq.nextval, '?', ?)";
+		String sql = "insert into wishlist values(wishlist_seq.nextval, ?, ?)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, wishlistDto.getMemberId());
 		ps.setInt(2, wishlistDto.getProductNo());

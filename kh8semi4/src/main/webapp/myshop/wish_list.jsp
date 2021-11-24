@@ -51,7 +51,10 @@ List<ProductDto> list = productDao.list();
 									<td align="center"><%=productDto.getPrice() *0.1 %>p</td>
 									<td align="center">기본배송</td>
 									<td align="center"><%=productDto.getPrice() %></td>
-									<td align="center">주문하기</td>
+									<td align="center">
+									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?<%=productDto%>">삭제하기</a>
+									
+									</td>
 							</tr>
 			</tbody>
 			<%} %>
