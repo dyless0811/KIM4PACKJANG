@@ -12,18 +12,11 @@
 <%
 	String id = (String)session.getAttribute("loginId");
 %>    
-
 <%-- 처리 --%>
 <%
 	WishlistDao wishlistDao = new WishlistDao();
 	List<ProductDto> list2 = wishlistDao.WishProductMember(id);
 %>
-<% 
-ProductDao productDao =new ProductDao();
-List<ProductDto> list = productDao.list();
-
-%>
-
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1200 container-center">
 	<div class="row center">
@@ -53,12 +46,11 @@ List<ProductDto> list = productDao.list();
 									<td align="center"><%=productDto.getPrice() %></td>
 									<td align="center">
 									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?<%=productDto%>">삭제하기</a>
-									
 									</td>
 							</tr>
 			</tbody>
-			<%} %>
-	</table>
+					<%} %>
+			</table>
 	</div>
 </div>
 

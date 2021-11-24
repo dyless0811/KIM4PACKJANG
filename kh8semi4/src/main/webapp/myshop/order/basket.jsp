@@ -17,7 +17,6 @@
 <%
 BasketDao basketDao = new BasketDao();
 List<BasketVo> list = basketDao.voListByMemberId(id); 
-
 //시행착오
 /*List<ProductDto> list = basketDao.BasketProductMember(id);
 BuyDao buyDao = new BuyDao();
@@ -27,20 +26,6 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 <jsp:include page="/template/header.jsp"></jsp:include>
 <script>
 //장바구니에서 상품삭제 메세지
-window.addEventListener("load", function(){
-            
-            document.querySelector(".confirm-link").addEventListener("click", function(e){
-                
-
-                var choice = confirm("정말 이동하시겠습니까?");
-              
-                if(!choice){
-                    e.preventDefault();
-                }
-            });
-        });
-
-
 $(function() {
 	$(".confirm-link").click(function(e) {
 		if (!confirm("정말 삭제하시겠습니까?")) {
@@ -72,13 +57,11 @@ $(function(){
 	$(".check-all").on("input",function(){
 		var isChecked = $(this.).prop("checked");
 		$("input[type=checkbox]").prop("checked",isChecked);
-		
 	});
-	
 });
 </script>
 	
-	<form action="<%=request.getContextPath()%>/product/productbuy.jsp" method="get">
+<form action="<%=request.getContextPath()%>/product/productbuy.jsp" method="get">
 <div class="container-1200 container-center">
 	<div class="row center">
 		<h2>장바구니</h2>
