@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BuyDao"%>
+<%@page import="semi.beans.BuyDto"%>
 <%@page import="semi.beans.ReplyImageDao"%>
 <%@page import="semi.beans.ReplyImageDto"%>
 <%@page import="semi.beans.ProductDto"%>
@@ -16,12 +18,13 @@
 <%
 	ReplyDao replyDao = new ReplyDao();
 	int replyNo = Integer.parseInt(request.getParameter("no"));
-	
 	ReplyDto replyDto = replyDao.get(replyNo);
 	
-	ProductDao productDao = new ProductDao();
+	BuyDao buyDao = new BuyDao();
+	BuyDto buyDto = buyDao.get(replyDto.getBuyNo());
 	
-	ProductDto productDto = productDao.get(replyDto.getProductNo());
+	ProductDao productDao = new ProductDao();
+	ProductDto productDto = productDao.get(buyDto.getProductNo());
 	
 	ReplyImageDao replyImageDao = new ReplyImageDao();
 	ReplyImageDto replyImageDto = replyImageDao.getByReplyNo(replyDto.getNo());
@@ -36,7 +39,7 @@
 			<hr>
 		</div>
 		<div class= "row right">
-			<h3><%=replyDto.getMemberId()%></h3>
+			<h3><%=buyDto.getMemberId()%></h3>
 			<br>
 		</div>
 		

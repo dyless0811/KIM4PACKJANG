@@ -22,7 +22,7 @@ public class ReplyDeleteServlet extends HttpServlet {
 			ReplyDao replyDao = new ReplyDao();
 			ReplyDto replyDto = replyDao.get(replyNo);
 			
-			if(memberId == replyDto.getMemberId()) {
+			if(memberId == replyDao.getMemberIdByBuyNo(replyDto.getBuyNo())) {
 				replyDao.delete(replyNo);
 			}
 			

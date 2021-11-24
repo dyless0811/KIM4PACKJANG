@@ -50,4 +50,32 @@ public class BuyDao {
 		
 		return list;
 	}
+	
+	public BuyDto get(int no) throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "select * from buy where no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, no);
+		ResultSet rs = ps.executeQuery();
+		
+		BuyDto buyDto;
+		if(rs.next()) {
+			buyDto = new BuyDto();
+			buyDto.setNo(rs.getInt(1));
+			buyDto.setMemberId(rs.getString(2));
+			buyDto.setProductNo(rs.getInt(3));
+			buyDto.setColorNo(rs.getInt(4));
+			buyDto.setSizeNo(rs.getInt(5));
+			buyDto.setCount(rs.getInt(6));
+			buyDto.setType(rs.getString(7));
+			buyDto.setBuyDate(rs.getDate(8));
+			buyDto.setStatus(rs.getString(9));
+		} else {
+			buyDto = null;
+		}
+		
+		con.close();
+		
+		return buyDto;
+	}
 }
