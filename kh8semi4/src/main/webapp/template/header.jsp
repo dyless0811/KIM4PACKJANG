@@ -255,9 +255,7 @@
 										<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
 								</li>
 									<%} %>
-								<li>
-									<a href="#검색">검색</a>
-		                		</li>
+				
 		                	</ul>
 		                </li>
                 	
