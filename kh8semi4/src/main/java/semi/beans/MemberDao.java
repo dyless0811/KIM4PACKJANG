@@ -105,6 +105,28 @@ public class MemberDao {
 		
 		return memberDto;
 }
+	//휴대폰 번호 조회 메소드
+	public MemberDto getPhone(String phone) throws Exception{
+		Connection con = JdbcUtils.connect();
+		String sql = "select * from member where phone = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, phone);
+		
+		ResultSet rs = ps.executeQuery();
+
+		MemberDto memberDto;
+
+		if (rs.next()) {
+			memberDto = new MemberDto();
+			memberDto.setPhone(rs.getString("phone"));
+		} else {
+			memberDto = null;
+		}
+		con.close();
+		
+		return memberDto;
+		
+	}
 
 	//개인정보 변경 메소드
 	public boolean edit(MemberDto memberDto) throws Exception {
