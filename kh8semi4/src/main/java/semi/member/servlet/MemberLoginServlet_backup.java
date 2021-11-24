@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.MemberDao;
 import semi.beans.MemberDto;
-import semi.beans.MemberLogDao;
-import semi.beans.MemberLogDto;
 
-@WebServlet(urlPatterns = "/member/login.kj")
-public class MemberLoginServlet extends HttpServlet {
+//@WebServlet(urlPatterns = "/member/login.kj")
+public class MemberLoginServlet_backup extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
@@ -39,14 +37,6 @@ public class MemberLoginServlet extends HttpServlet {
 			
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");
-			
-			//11/24 새롭게 추가된 코드 (Log테이블에 데이터 저장)
-			MemberLogDao memberLogDao = new MemberLogDao();
-			MemberLogDto memberLogDto = memberLogDao.search(id);
-			
-			if(memberLogDto == null) {//만약 로그가 기록되어있지 않으면 로그를 저장
-				memberLogDao.insert(id);
-			}//없으면 그냥 넘어가잇
 			
 			// 처리
 			MemberDao memberDao = new MemberDao();

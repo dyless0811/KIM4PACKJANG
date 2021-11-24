@@ -22,10 +22,14 @@ font-size:30px;
 </script>
 <h1 class="title-font center">관리자 페이지</h1>
 <ol class="content-font center">
+  
  <li class="here"><a href="./categoryedit.jsp">카테고리 수정하러 가기</a></li> 
  <li class="here"><a href="./coloredit.jsp">색상 수정하러 가기</a></li>
  <li class="here"><a href="./sizeedit.jsp">사이즈 수정하러 가기</a></li>
  <li class="here"><a href="./customerlist.jsp">회원 목록 보러가기</a></li>
+ <li class="here"><a href="./stock.jsp">재고 관리</a></li>
+ <li class="here"><a href="./statistics.jsp">홈페이지 통계 보기</a></li>
+
 </ol>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
