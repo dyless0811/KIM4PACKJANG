@@ -3,6 +3,19 @@
 <%@page import="semi.beans.BoardTypeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- 입력 -->
+<!-- 관리자 권한 가져오기  -->
+ <%
+ String grade=(String)session.getAttribute("grade");
+ boolean admin = grade != null && grade.equals("관리자");
+ %>
+ 
+<!-- 회원 아이디 가져오기 -->
+<%
+String id = (String)session.getAttribute("loginId");
+boolean member = grade != null && grade.equals("회원");
+%>
+<!-- 처리 -->
 <%
 	String boardSuperno = request.getParameter("boardSuperno");
 
@@ -25,9 +38,15 @@
         <%}%>
         <div>
           <select name="boardTypeNo">
+          <!-- 관리자면 전부선택  -->
+          <%if(admin){ %>
           	<%for(BoardTypeDto boardTypeDto : list) {%>
           	<option value="<%=boardTypeDto.getNo()%>"<%=boardTypeNo == boardTypeDto.getNo() ? "selected" : "" %>><%=boardTypeDto.getName()%></option>
           	<%}%>
+          <%}else{ %>
+          <!-- 회원이면 고객센터만 선택  -->
+          <option value="2">고객센터</option>
+          <%} %>
 		 </select>
         </div>
         <div class="row center">

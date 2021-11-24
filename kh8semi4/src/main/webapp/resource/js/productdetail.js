@@ -3,8 +3,6 @@ $(function () {
 	var productNo = $("#product-no").text();
     var productName = $("#product-name").text();
     var productPrice = $("#product-price").text();
-	console.log(productName);
-	console.log(productPrice);
     
     function calcTotal () { 
       var totalPrice = 0;

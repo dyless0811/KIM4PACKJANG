@@ -76,6 +76,28 @@ function findAddress(){
 			});
 		});
 	});
+	
+	//핸드폰번호 중복확인 Ajax
+    $(function(){
+    	$("input[name=phone]").on("blur", function(){
+    		var inputPhone = $("input[name=phone]").val();
+    		$.ajax({
+    			url : "<%=root%>/member/ajax_phone_check.kj",
+				type : "get",
+				data : {//전송 시 첨부할 파라미터 정보
+					phone : inputPhone
+				},
+				success : function(resp) {
+					if (resp == "YESICAN") {//사용가능
+					} else if (resp == "NONONO") {//사용불가능
+						$("input[name=phone]").next().text("사용하실수 없는 휴대폰 번호입니다");
+					}
+				},
+				error : function(err) {//통신이 실패했다.
+				}
+			});
+		});
+	});
 	//아이디 정규표현식
 	$(function() {
 		$("input[name=id]").on("input", function() {
