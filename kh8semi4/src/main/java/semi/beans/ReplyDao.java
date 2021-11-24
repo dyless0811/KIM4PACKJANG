@@ -160,10 +160,10 @@ public class ReplyDao {
 		Connection con = JdbcUtils.connect();
 		
 		String sql="select * from("
-				+ "select rownum rn ,TMP.*from( "
-				+ "select * from reply where product_no=? order by time desc "
-				+ ")TMP "
-				+ ")where rn between 1 and 3 ";
+				+ "select rownum rn ,TMP.*from("
+				+ "select * from reply r inner join buy b on b.no = r.buy_no where b.product_no = ? order by time desc"
+				+ ")TMP"
+				+ ")where rn between 1 and 3";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, productNo);
@@ -307,10 +307,10 @@ public class ReplyDao {
 		
 		Connection con = JdbcUtils.connect();
 		String sql = "select * from ("
-				+ "select rownum rn, TMP.* from ("
-				+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint from product p inner join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no group by p.no, p.small_type_no, p.name, p.price order by reply_count desc"
-				+ ")TMP "
-				+ ")where rn between 1 and 12";
+					+ "select rownum rn, TMP.* from ("
+					+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint, pi.product_file_savename from product p inner join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no inner join productimage pi on pi.product_no = p.no group by p.no, p.small_type_no, p.name, p.price, pi.product_file_savename order by reply_count desc"
+					+ ")TMP "
+					+ ")where rn between 1 and 12";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
@@ -325,7 +325,7 @@ public class ReplyDao {
 			replyListVo.setRecentReply(rs.getString("recent_reply"));
 			replyListVo.setReplyCount(rs.getInt("reply_count"));
 			replyListVo.setStarpoint(rs.getDouble("starpoint"));
-			replyListVo.setProductImageSavename((rs.getString("productimage_savename")));
+			replyListVo.setProductImageSavename((rs.getString("product_file_savename")));
 			
 			list.add(replyListVo);
 		}

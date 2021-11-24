@@ -1,3 +1,5 @@
+<%@page import="semi.beans.BuyDto"%>
+<%@page import="semi.beans.BuyDao"%>
 <%@page import="semi.beans.ReplyDto"%>
 <%@page import="semi.beans.ReplyListVo"%>
 <%@page import="semi.beans.ReplyDao"%>
@@ -52,11 +54,13 @@
 			    		List<ReplyDto> replyList = replyDao.list3(replyListVo.getProductNo());
 			    		%>
 			    		<%
-			    		for(ReplyDto replydto : replyList){
+			    		for(ReplyDto replyDto : replyList){
+			    			BuyDao buyDao = new BuyDao();
+			    			BuyDto buyDto = buyDao.get(replyDto.getBuyNo());
 			    		%>
 			    			<tr>
 			    			<td>
-			    			<a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=replydto.getNo()%>"><%=replydto.getMemberId()%><%=replydto.getContent()%></a>
+			    			<a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=replyDto.getNo()%>"><%=buyDto.getMemberId()%><%=replyDto.getContent()%></a>
 			    			</td>
 			    			</tr>
 			    		<%} %>
