@@ -24,124 +24,179 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 */
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
+<style>
+	.form-btn {
+  width: 20%;
+  font-size: 15px;
+  padding: 10px;
+}
+</style>
 <script>
-//장바구니에서 상품삭제 메세지
-$(function() {
-	$(".confirm-link").click(function(e) {
-		if (!confirm("정말 삭제하시겠습니까?")) {
-			e.preventDefault();
-		});
+//체크박스 전체선택
+        window.addEventListener("load",function(){
+           document.querySelector(".check-all").addEventListener("input",function(){
+                //this == .check-all
+                var checkboxList = document.querySelectorAll("input[type=checkbox]:not(.check-all)");
+                for(var i=0; i < checkboxList.length; i++){
+                    checkboxList[i].checked = this.checked;
+                }
+        });
+});	
+//상품 1개 삭제	
+        window.addEventListener("load", function(){
+         var confirmLinkList = document.querySelectorAll(".delete");
+            for(var i=0; i < confirmLinkList.length; i++){
+                confirmLinkList[i].addEventListener("click", function(e){
+                    //this == 클릭한 .confirm-link
+                    var choice = confirm("선택하신 상품을 삭제하시겠습니까?");
+                    if(!choice){
+                        e.preventDefault();
+                  	 }
+             });
+       }
 });
-//장바구니 전체 비우기
-$(function(){
-	$(".empty-btn").click(function(){
-		$.ajax({
-			url : "<%=root%>/member/ajax_basket_empty.kj",
-			type : "get",
-			data : {//전송 시 첨부할 파라미터 정보
-				id : id;
-				success : function(resp) {
-					if (resp == "YESICAN") {//사용가능
-					} else if (resp == "NONONO") {//사용불가능
-						}
-				},
-				error : function(err) {//통신이 실패했다.
-				}
-			};
-		});
-	});
+//장바구니 비우기
+        window.addEventListener("load", function(){
+            var confirmLinkList = document.querySelectorAll(".all-delete");
+               for(var i=0; i < confirmLinkList.length; i++){
+                   confirmLinkList[i].addEventListener("click", function(e){
+                       //this == 클릭한 .confirm-link
+                       var choice = confirm("장바구니를 비우시겠습니까?");
+                       if(!choice){
+                           e.preventDefault();
+                     	 }
+                });
+          }
+   });
+       $(function(){
+   	 		$(".total-btn").on("input",function(){
+   	 		var total = 0;
+   	 	$(".number-input").each(function(index, element){
+   	 		 total += Number($(this).val()); 
+   	 	});
+   	 	
+   	 	$(".result > span").text(total);
+   	 });
 });
+       function calcTotal () { 
+    	      var totalPrice = 0;
+    	      $.each($("#selected-item .item-price"), function (index, item) { 
+    	        totalPrice += Number(item.value);
+    	      });
+    	      $("#totalPrice").text(totalPrice);
+    	    }       
+       
 </script>
-<script>
-$(function(){
-	$(".check-all").on("input",function(){
-		var isChecked = $(this.).prop("checked");
-		$("input[type=checkbox]").prop("checked",isChecked);
-	});
-});
-</script>
-	
-<form action="<%=request.getContextPath()%>/product/productbuy.jsp" method="get">
+<form action="<%=root%>/product/productbuy.jsp" method="get">
 <div class="container-1200 container-center">
 	<div class="row center">
 		<h2>장바구니</h2>
 	</div>
 	<div class="row">
 			<table class="table table-border">
-			<thead>		
+			<thead align="center">		
 					<tr>
-							<th>선택</th>  
-							<th>이미지</th>
-							<th>상품정보,깔라,싸이즈</th>
-							<th>판매가</th>
-							<th>적립금</th>
-							<th>배송구분</th>
-							<th>배송비</th>
-							<th>선택</th>
-							
-					</tr>
+							<th>
+								<label>
+       					 			<input type="checkbox" class="check-all"> 
+      							</label>
+   						 	</th>  
+								<th>이미지</th>
+								<th>상품정보</th>
+								<th>수량</th>
+								<th>판매가</th>
+								<th>적립금</th>
+								<th>배송구분</th>
+								<th>배송비</th>
+								<th>합계</th>
+								<th>선택</th>
+							</tr>
+						
 			</thead>
 			<tbody>
-				
-					<%for(BasketVo basketVo : list){ %>
+				<%for(BasketVo basketVo : list){ %>
 							<tr> 
-									
 									<td align="center">
-									<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>">
-									
+										<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>" class="total-btn number-input">
+									</td>
+									<%--이미지 시작--%>
+									<td align="center">
+										<%if(basketVo.getProductFileSavename() != null) {%>
+										<img src="<%=root%>/product/productImage.kj?no=<%=basketVo.getProductNo()%>" width="100px" height="100px">
+										<%} else {%>
+										<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
+										<%}%> 
+									</td>
+									<%--이미지 끝--%>
+									<td align="center">
+										<a href = "<%=root%>/product/productdetail.jsp?no=<%=basketVo.getProductNo()%>"><%=basketVo.getProductName()%></a>
+										<hr>
+										[옵션 : 
+										<%=basketVo.getColorName()%> /
+										<%=basketVo.getSizeName() %>]
 									</td>
 									<td align="center">
-									<%if(basketVo.getProductFileSavename() != null) {%>
-									<img src="<%=root%>/product/productImage.kj?no=<%=basketVo.getProductNo()%>" width="150px" height="150px">
-									<%} else {%>
-									<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
-									<%}%> 
+										<%=basketVo.getCount()%>개
 									</td>
 									<td align="center">
-									<a href = "<%=root%>/product/productdetail.jsp?no=<%=basketVo.getProductNo()%>"><%=basketVo.getProductName()%></a>
-									<%=basketVo.getColorName()%>
-									<%=basketVo.getSizeName() %>
+										<%=basketVo.getPrice()%>원
 									</td>
-									<td align="center"><%=basketVo.getPrice()%></td>
-									<td align="center"><%=basketVo.getPrice() *0.0001 %>p</td>
-									<td align="center">배송 전</td>
+									<td align="center"><%=basketVo.getReserves()%>P</td>
+									<td align="center">기본배송</td>
 									<td align="center">3000원</td>
-									<td align="center">
-									<a href="<%=root%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>">구매하기</a>
-									<a href="<%=root%>/myshop/order/deletebasket.kj?basketNo=<%=basketVo.getBasketNo()%>" class="confirm-link">삭제하기</a>
+									<td align="center" class="number-input">
+										<%=basketVo.getTotalPrice()%>원
 									</td>
-								</tr>
-					</tbody>
-					<%} %>
-							
-							<input type="submit" value="선택 구매하기" class="form-btn form- inline">
-							<label>
-       					 			<input type="checkbox" class="check-all"> 
-      							 <span>전체 선택</span>
-   						 </label>
-		
-	
-	
-	
-	</table>
-				
-	</div>
-		
+									<td align="center">
+										<a href="<%=root%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>">주문하기</a>
+										<br>
+										<a href="<%=root%>/myshop/order/deletebasket.kj?basketNo=<%=basketVo.getBasketNo()%>" class="delete">삭제하기</a>
+									</td>
+						</tr>
+				</tbody>
+				<%} %>
+			</table>
+			<table class="table table-border">
+				<thead align="center">	
+					<tr>
+						<th>총 상품금액</th>
+						<th>총 배송비</th>
+						<th>총 적립금</th>
+						<th>결제예정금액</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><div class="result">
+        				<span>0</span>원
+  						 </div></td>
+						<td>3000원</td>
+						<td>3000원</td>
+						<td>2222222원</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="row right">
+			<a href = "<%=root%>/myshop/order/Iddeletebasket.kj?id=<%=id%>" class="all-delete">장바구니 비우기</a>
+		</div>
+		<div class="row right">
+			<a href ="<%=root%>/index.jsp" >쇼핑 계속하기</a>
+		</div>
+		<div class="row right">
+				<input type="submit" value="선택상품주문" class="form-btn form- inline">
+		</div>
+</div>
+</form>
+<div class="container-1200 container-center">
+<form action="<%=root%>/product/productbuy.jsp" method="get">
+		<%for(BasketVo basketVo : list){ %>
+		<input type="hidden" name="basketNo" value="<%=basketVo.getBasketNo()%>">
+		<%} %>
+		<div class="row right">
+			<input type="submit" value="전체상품주문" class="form-btn form- inline">
+		</div>
+</form>
 </div>
 
-	</form>
-	
-	<form action="<%=request.getContextPath()%>/product/productbuy.jsp" method="get">
-		<%for(BasketVo basketVo : list){ %>
-			<input type="hidden" name="basketNo" value="<%=basketVo.getBasketNo()%>">
-			
-		<%} %>
-			<input type="submit" value="전체구매하기" class="form-btn form- inline">
-	</form>
-	
-	
-	
-	<a href = "<%=root%>/myshop/order/Iddeletebasket.kj?id=<%=id%>" class="confirm-link">장바구니 비우기</a>
-	
-	
 <jsp:include page="/template/footer.jsp"></jsp:include>

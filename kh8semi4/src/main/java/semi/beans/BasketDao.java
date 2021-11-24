@@ -143,4 +143,24 @@ public class BasketDao {
 		con.close();
 		return voList;
 	}
+
+	//페이징에서 마지막 블록을 구하기 위하여 게시글 개수를 구하는 기능 ( 목록/ 검색 )
+	  public int count()throws Exception {
+		  Connection con = JdbcUtils.connect();
+		  String sql="select count(*) from basket";
+		  PreparedStatement ps = con.prepareStatement(sql);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  
+		  int count=rs.getInt("count(*)");
+//		int count=rs.getInt(1);
+		  con.close();
+		  return count;
+	  }
+
+	public List<BasketVo> listByTreeSort(int begin, int end) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
