@@ -52,7 +52,7 @@
 									<td align="center">기본배송</td>
 									<td align="center">3000원</td>
 									<td align="center">
-									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?<%=wishlistVo.getWishlistNo()%>">삭제하기</a>
+									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?wishlistNo=<%=wishlistVo.getWishlistNo()%>">삭제하기</a>
 									</td>
 							</tr>
 			</tbody>

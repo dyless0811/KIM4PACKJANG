@@ -67,5 +67,29 @@ public class WishlistDao {
 				con.close();
 				return list;
 		}
-	
+		//좋아요 증가 기능
+		public boolean likeUp(int boardNo) throws Exception {
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "update board set board_read = board_read + 1 where board_no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, boardNo);
+			int result = ps.executeUpdate();
+			
+			con.close();
+			
+			return result > 0;
+		}
+
+		public boolean delete(int wishlistNo) throws Exception {
+			Connection con = JdbcUtils.connect();
+			String sql = "delete from wishlist where no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, wishlistNo);
+			int result = ps.executeUpdate();
+			
+			con.close();
+			
+			return result > 0;
+		}
 }

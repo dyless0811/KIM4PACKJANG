@@ -89,18 +89,21 @@ String id = (String)session.getAttribute("loginId");
 			</tbody>
 		</table>
 	</div>
-	<div class="row">
-					<a href="<%=root%>/myshop/order/list.jsp?">주문내역 조회</a>
-		</div>
-		<div class="row">
-					<a href="<%=root%>/member/modify.jsp">회원 정보</a>
-		</div>
-		<div class="row">
-					<a href="<%=root%>/myshop/wish_list.jsp">관심상품</a>
-		</div>
-		<div class="row">
-					<a href="<%=root%>/myshop/board/myboard.jsp?memberId=<%=id%>">게시물 관리</a>
-		</div>
+	<table class="table table-border">
+			<thead>
+				<tr>
+					<th><a href="<%=root%>/myshop/order/list.jsp?">주문내역 조회</a></th>
+					<th><a href="<%=root%>/member/modify.jsp">회원 정보</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><a href="<%=root%>/myshop/wish_list.jsp">관심상품</a></td>
+					<td><a href="<%=root%>/myshop/board/myboard.jsp?memberId=<%=id%>">게시물 관리</a></td>
+				</tr>
+			</tbody>
+	</table>				
+	
 </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
