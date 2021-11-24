@@ -385,5 +385,44 @@ public class MemberDao {
 	  	return memberList;
 	}
 
-	
+	public MyshopVo getMyShopVo(String memberId) throws Exception {
+		Connection con = JdbcUtils.connect();
+		MyshopVo myshopVo = new MyshopVo();
+
+		String sql = "select count(*) from basket where member_id = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, memberId);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			myshopVo.setBasketCount(rs.getInt(1));
+		}
+		
+		sql = "select count(*) from buy where member_id = ? and status = '배송 전'";
+		ps = con.prepareStatement(sql);
+		ps.setString(1, memberId);
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			myshopVo.setReadyCount(rs.getInt(1));
+		}
+		
+		sql = "select count(*) from buy where member_id = ? and status = '배송 중'";
+		ps = con.prepareStatement(sql);
+		ps.setString(1, memberId);
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			myshopVo.setShippingCount(rs.getInt(1));
+		}
+		
+		sql = "select count(*) from buy where member_id = ? and status = '배송 후'";
+		ps = con.prepareStatement(sql);
+		ps.setString(1, memberId);
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			myshopVo.setBoughtCount(rs.getInt(1));
+		}
+		
+		con.close();
+		
+		return myshopVo;
+	}
 }
