@@ -90,9 +90,10 @@ public class ReplyDao {
 		
 		public List<BuyDto> CanWriteReplyBuyList(String memberId) throws Exception {
 			Connection con = JdbcUtils.connect();
-			String sql = "select b.* from product p left outer join buy b on p.no = b.product_no where b.member_id = ?";
+			String sql = "select b.* from product p left outer join buy b on p.no = b.product_no where b.member_id = ? minus select b.* from product p left outer join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no where b.member_id = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, memberId);
+			ps.setString(2, memberId);
 			ResultSet rs = ps.executeQuery();
 			
 			List<BuyDto> list = new ArrayList<>();
