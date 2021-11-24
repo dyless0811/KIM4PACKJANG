@@ -16,7 +16,7 @@
 
 <%
 BasketDao basketDao = new BasketDao();
-List<BasketVo> list = basketDao.voListByMemberId(id); 
+List<BasketVo> list = basketDao.voListByMemberId(id);
 //시행착오
 /*List<ProductDto> list = basketDao.BasketProductMember(id);
 BuyDao buyDao = new BuyDao();
@@ -70,21 +70,15 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
    });
        $(function(){
    	 		$(".total-btn").on("input",function(){
-   	 		var total = 0;
-   	 	$(".number-input").each(function(index, element){
-   	 		 total += Number($(this).val()); 
+   	 			var total = 0;
+   	 			$.each($(".total-btn:checked"), function(index, element){
+   	 				var price = $(this).parent().parent().find(".number-input > span").text();
+   	 				total += Number(price);
+   	 			});
+   	 		$("#total").text(total);	
+   	 		$("#total-price").text(total);	
    	 	});
-   	 	
-   	 	$(".result > span").text(total);
-   	 });
-});
-       function calcTotal () { 
-    	      var totalPrice = 0;
-    	      $.each($("#selected-item .item-price"), function (index, item) { 
-    	        totalPrice += Number(item.value);
-    	      });
-    	      $("#totalPrice").text(totalPrice);
-    	    }       
+});    
        
 </script>
 <form action="<%=root%>/product/productbuy.jsp" method="get">
@@ -143,9 +137,9 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 									</td>
 									<td align="center"><%=basketVo.getReserves()%>P</td>
 									<td align="center">기본배송</td>
-									<td align="center">3000원</td>
+									<td align="center">0원</td>
 									<td align="center" class="number-input">
-										<%=basketVo.getTotalPrice()%>원
+										<span><%=basketVo.getTotalPrice()%></span>원
 									</td>
 									<td align="center">
 										<a href="<%=root%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>">주문하기</a>
@@ -167,12 +161,20 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 				</thead>
 				<tbody>
 					<tr>
-						<td><div class="result">
-        				<span>0</span>원
-  						 </div></td>
-						<td>3000원</td>
-						<td>3000원</td>
-						<td>2222222원</td>
+						<td>
+							<div>
+        						<span id="total">0</span>원
+  							</div>
+  						</td>
+						<td>
+							0원
+						</td>
+						<td>
+							3000원
+						</td>
+						<td>
+							<span id="total-price">0</span>원
+						</td>
 					</tr>
 				</tbody>
 			</table>
