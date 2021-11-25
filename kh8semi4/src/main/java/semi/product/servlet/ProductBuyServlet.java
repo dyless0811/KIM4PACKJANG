@@ -26,13 +26,13 @@ public class ProductBuyServlet extends HttpServlet {
 			BasketDao basketDao = new BasketDao();
 			BuyDao buyDao = new BuyDao();
 			
-			//값 전달 확인용
-			for (String basketNo : basketList) {
-				BasketDto basketDto = basketDao.get(Integer.parseInt(basketNo));
-				
-				BuyDto buyDto = new BuyDto();
-				System.out.println(memberId +"/"+ basketDto.getProductNo()+"/"+basketDto.getColorNo()+"/"+basketDto.getSizeNo()+"/"+basketDto.getCount()+"/"+type);
-			}
+//			//값 전달 확인용
+//			for (String basketNo : basketList) {
+//				BasketDto basketDto = basketDao.get(Integer.parseInt(basketNo));
+//				
+//				BuyDto buyDto = new BuyDto();
+//				System.out.println(memberId +"/"+ basketDto.getProductNo()+"/"+basketDto.getColorNo()+"/"+basketDto.getSizeNo()+"/"+basketDto.getCount()+"/"+type);
+//			}
 			
 			for (String basketN : basketList) {
 				int basketNo = Integer.parseInt(basketN);
@@ -48,6 +48,11 @@ public class ProductBuyServlet extends HttpServlet {
 				
 				buyDao.insert(buyDto);
 				basketDao.delete(basketNo);
+				
+				int price = basketDao.priceByBaksetNo(basketNo) * basketDto.getCount();
+				int reserves = (int)(price * 0.03);
+				
+				buyDao.updatePoint(reserves, memberId);
 			}
 			
 			response.sendRedirect(request.getContextPath()+"/myshop/order/list.jsp");
