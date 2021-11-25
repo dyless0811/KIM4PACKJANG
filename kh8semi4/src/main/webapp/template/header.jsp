@@ -48,6 +48,8 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/reset.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/commons.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/layout.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+
     <!-- <link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/test.css">  -->
     <style>
         .logo-wrapper {
