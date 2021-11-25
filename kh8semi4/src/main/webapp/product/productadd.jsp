@@ -99,14 +99,16 @@ List<ColorDto> colorList = colorDao.list();
 	    <%} %>
 	 <%} %>
 	 </select>
-
 	</div>
+	
 	<div class="row">
-	 상품명 <input type="text"  name="name" required class=form-input>
+	 <span>상품명:</span> 
+	 <input type="text"  name="name" required class=form-input>
 	</div>
 
 	<div  class="row">
-	 가격 <input type="number" name="price" class=form-input>
+	 <span>가격:</span> 
+	 <input type="number" name="price" class=form-input>
 	</div>
 	<div class="row">
 		<div class="flex-container">
@@ -121,17 +123,15 @@ List<ColorDto> colorList = colorDao.list();
 		</div>
 	</div>
 	<div  class="row">
-	상품설명
-	<textarea rows="40" cols="100" name="description" class=form-input></textarea>
+	<span>상품설명:</span> 
+	<textarea rows="10"  name="description" class=form-input></textarea>
 	</div>
 	
 	<div class="row">
-	상품이미지
+	<span>상품이미지:</span> 
 	<input type="file" name="attach" accept="image/*" class="form-input">
 	</div>
 		
-			
-
 	<div class="row">
 	<input type="submit" value="상품등록">
 	</div>
