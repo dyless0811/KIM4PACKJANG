@@ -51,6 +51,20 @@ public class BuyDao {
 		return list;
 	}
 	
+	//적립금 변경 기능
+	public boolean updatePoint(int point, String memberId) throws Exception { 
+		Connection con = JdbcUtils.connect();
+		String sql = "update member set point = point + ? where id = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, point);
+		ps.setString(2, memberId);
+		int result = ps.executeUpdate();
+		
+		con.close();
+		
+		return result > 0;
+	}
+	
 	public BuyDto get(int no) throws Exception {
 		Connection con = JdbcUtils.connect();
 		String sql = "select * from buy where no = ?";
