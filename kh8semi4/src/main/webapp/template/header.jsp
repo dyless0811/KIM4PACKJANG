@@ -189,8 +189,10 @@
                 </div>
 
                 <div class="flex-equal right">
+             		  <%if(login) {%>
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
+                	<%} %>
                 </div>
                 
                 
