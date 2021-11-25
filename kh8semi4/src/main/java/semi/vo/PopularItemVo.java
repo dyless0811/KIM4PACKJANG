@@ -1,6 +1,13 @@
 package semi.vo;
 
 public class PopularItemVo {
+	private int rank;
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	private String itemName;
 	private int count;
 	public String getItemName() {

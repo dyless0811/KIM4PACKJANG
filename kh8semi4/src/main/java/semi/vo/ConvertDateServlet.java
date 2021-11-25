@@ -35,7 +35,7 @@ public class ConvertDateServlet extends HttpServlet{
 			String realEnd = String.valueOf(endDate) + "235959";
 			//처리
 			StatisticsDao statisticsDao = new StatisticsDao();
-			int price = statisticsDao.termToTermSales(realStart, realEnd);
+			long price = statisticsDao.termToTermSales(realStart, realEnd);
 			
 			//출력 : statistics.jsp
 			resp.sendRedirect("statistics.jsp?price="+price);
