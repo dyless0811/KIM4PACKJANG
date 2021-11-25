@@ -1,3 +1,5 @@
+<%@page import="semi.beans.ReplyVo"%>
+<%@page import="semi.beans.ReplyDao"%>
 <%@page import="semi.beans.ProductImageDao"%>
 <%@page import="semi.beans.ProductImageDto"%>
 <%@page import="java.util.List"%>
@@ -26,6 +28,11 @@
   <%
   ProductDao productDao = new ProductDao();
   ProductDto productDto = productDao.get(no);
+  %>
+  
+  <%
+  ReplyDao replyDao = new ReplyDao();
+  List<ReplyVo> replyVoList = replyDao.replyListbyProductNo(no);
   %>
   
   <%
@@ -99,6 +106,13 @@ $(function() {
 			alert("상품을 선택해주세요");
 			return;
 		}
+	})
+});
+</script>
+<script>
+$(function() {
+	$(".reply-tr").on("click", function() {
+		$(this).next().children().children().toggle();
 	})
 });
 </script>
@@ -187,9 +201,67 @@ $(function() {
 	</div>
 	<hr>
 	<div class="row center">
-	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
-	  <h1>리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다리뷰자리입니다</h1>
+	  <table style="width:800px;margin:auto">
+	  	<colgroup>
+	  		<col width="10%">
+	  		<col width="50%">
+	  		<col width="20%">
+	  		<col width="20%">		
+	  	</colgroup>
+	  	<thead>
+	  		<tr>
+	  			<th>번호</th>
+	  			<th>리뷰</th>
+	  			<th>작성자</th>
+	  			<th>평점</th>
+	  		</tr>
+	  	</thead>
+	  	<tbody>
+	  		<%for(ReplyVo replyVo : replyVoList) {%>
+	  		<tr class="reply-tr">
+	  			<td>
+	  				<%=replyVo.getNo()%>
+	  			</td>
+	  			<td>
+	  				<pre><%=replyVo.getContent()%></pre>
+	  			</td>	  		
+	  			<td>
+	  				<%=replyVo.getMemberId()%>
+				</td>
+	  			<td>
+	  				<%int starpoint = replyVo.getStarpoint();
+	  				  for(int i=0; i<starpoint; i++) {%>
+	  				&#9733;
+	  				<%}%>
+	  			</td>
+	  		</tr>
+	  		<tr>
+	  			<td colspan="4">
+	  				<div class="row float-container" style="display:none">
+						<div class="float-item-left" style="width : 50%">
+							<%if(replyVo.getReplySavename() != null) {%> 
+      	 			 		<div class="row">
+	        					<img src="<%=request.getContextPath()%>/board/replyImage.kj?no=<%=replyVo.getNo()%>">     
+         			 		</div>
+							<%}%>
+						</div>
+				
+						<div class="float-item-right" style="width : 50%">
+						 	<div class="row left">
+						 		색상 : <%=replyVo.getColorName()%>
+						 	</div>
+						 	<div class="row left">
+						 		사이즈 : <%=replyVo.getSizeName()%>
+						 	</div>
+							<div class="row">
+								<pre><%=replyVo.getContent()%></pre>
+							</div>
+						</div>
+					</div>
+	  			</td>
+	  		</tr>
+	  		<%}%>
+	  	</tbody>
+	  </table>
 	</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

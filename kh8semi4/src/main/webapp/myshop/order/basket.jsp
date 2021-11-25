@@ -68,17 +68,17 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
                 });
           }
    });
-       $(function(){
-   	 		$(".total-btn").on("input",function(){
-   	 			var total = 0;
-   	 			$.each($(".total-btn:checked"), function(index, element){
-   	 				var price = $(this).parent().parent().find(".number-input > span").text();
-   	 				total += Number(price);
-   	 			});
+	$(function(){
+   	 	$(".total-btn").on("input",function(){
+   	 		var total = 0;
+   	 		$.each($(".total-btn:checked"), function(index, element){
+   	 			var price = $(this).parent().parent().find(".number-input > span").text();
+   	 			total += Number(price);
+   	 		});
    	 		$("#total").text(total);	
    	 		$("#total-price").text(total);	
    	 	});
-});    
+	});    
        
 </script>
 <form action="<%=root%>/product/productbuy.jsp" method="get">

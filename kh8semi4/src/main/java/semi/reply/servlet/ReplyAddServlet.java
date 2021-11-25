@@ -38,7 +38,7 @@ public class ReplyAddServlet extends HttpServlet {
 			ReplyDto replyDto = new ReplyDto();
 			replyDto.setNo(replyNo);
 			replyDto.setContent(mRequest.getParameter("content"));
-			replyDto.setBuyNo(Integer.parseInt(mRequest.getParameter("buyNo")));	
+			replyDto.setBuyNo(Integer.parseInt(mRequest.getParameter("buyNo")));
 			replyDto.setStarPoint(Integer.parseInt(mRequest.getParameter("starPoint")));
 			
 			replyDao.insert(replyDto);
