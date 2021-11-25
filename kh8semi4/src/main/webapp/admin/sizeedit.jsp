@@ -65,7 +65,7 @@ $(function() {
 <ol class="contents mylist">
 	<%for(SizeDto sizeDto : sizeList){ %>
         <li class="mylist">
-            <a href="#"><%=sizeDto.getSizeName()%></a> → <a href="./sizedelete.kj?no=<%=sizeDto.getNo()%>" class="delete">삭제</a>
+            <%=sizeDto.getSizeName()%> → <a href="./sizedelete.kj?no=<%=sizeDto.getNo()%>" class="delete">삭제</a>
         </li>
     <%} %>
     </ol>
