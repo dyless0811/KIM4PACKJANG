@@ -114,7 +114,32 @@ public class ReplyDao {
 			return list;
 		}
 		
+	public List<ReplyVo> replyListbyProductNo(int productNo) throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "select r.no, p.no product_no, p.name product_name, c.color color_name, s.sz size_name, r.content, b.member_id, r.starpoint, ri.reply_savename from reply r inner join buy b on b.no = r.buy_no inner join product p on p.no = b.product_no left outer join replyimage ri on ri.reply_no = r.no inner join color c on c.no = b.color_no inner join sz s on b.size_no = s.no where p.no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, productNo);
+		ResultSet rs = ps.executeQuery();
 		
+		List<ReplyVo> list = new ArrayList<>();
+		while(rs.next()) {
+			ReplyVo replyVo = new ReplyVo();
+			replyVo.setNo(rs.getInt(1));
+			replyVo.setProductNo(rs.getInt(2));
+			replyVo.setProductName(rs.getString(3));
+			replyVo.setColorName(rs.getString(4));
+			replyVo.setSizeName(rs.getString(5));
+			replyVo.setContent(rs.getString(6));
+			replyVo.setMemberId(rs.getString(7));
+			replyVo.setStarpoint(rs.getInt(8));
+			replyVo.setReplySavename(rs.getString(9));
+			list.add(replyVo);
+		}
+		
+		con.close();
+		
+		return list;
+	}
 	
 	public boolean insert(ReplyDto replyDto) throws Exception {
 		Connection con = JdbcUtils.connect();
