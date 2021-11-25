@@ -33,7 +33,7 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 </style>
 <script>
 //체크박스 전체선택
-        window.addEventListener("load",function(){
+/*         window.addEventListener("load",function(){
            document.querySelector(".check-all").addEventListener("input",function(){
                 //this == .check-all
                 var checkboxList = document.querySelectorAll("input[type=checkbox]:not(.check-all)");
@@ -41,7 +41,22 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
                     checkboxList[i].checked = this.checked;
                 }
         });
-});	
+});	 */
+        function checkToggle2(){
+            var checkbox = document.querySelector(".check-all");
+            var checkboxList = document.querySelectorAll("input[type=checkbox]:not(.check-all)");
+
+            for(var i=0; i < checkboxList.length; i++){
+                checkboxList[i].checked = checkbox.checked;
+            }
+        }
+function check2(){
+    var checkboxList = document.querySelectorAll("input[type=checkbox]:not(.check-all)");
+    var checkboxList2 = document.querySelectorAll("input[type=checkbox]:not(.check-all):checked");
+    
+    var checkbox = document.querySelector(".check-all");
+    checkbox.checked = (checkboxList.length == checkboxList2.length);
+}
 //상품 1개 삭제	
         window.addEventListener("load", function(){
          var confirmLinkList = document.querySelectorAll(".delete");
@@ -79,6 +94,47 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
    	 		$("#total-price").text(total);	
    	 	});
 	});    
+	$(function(){
+   	 	$(".total-btn").on("input",function(){
+   	 		var total = 0;
+   	 		$.each($(".total-btn:checked"), function(index, element){
+   	 			var price = $(this).parent().parent().find(".number-input2 > span").text();
+   	 			total += Number(price);
+   	 		});
+   	 		$("#Reserves").text(total);	
+   	 		
+   	 	});
+	});
+	$(function(){
+   	 	$(".check-all").on("input",function(){
+   	 		var total = 0;
+   	 		$.each($(".total-btn:checked"), function(index, element){
+   	 			var price = $(this).parent().parent().find(".number-input > span").text();
+   	 			total += Number(price);
+   	 		});
+   	 		$("#total").text(total);	
+	 		$("#total-price").text(total);	
+   	 	});
+	});
+	$(function(){
+   	 	$(".check-all").on("input",function(){
+   	 		var total = 0;
+   	 		$.each($(".total-btn:checked"), function(index, element){
+   	 			var price = $(this).parent().parent().find(".number-input2 > span").text();
+   	 			total += Number(price);
+   	 		});
+   	 		$("#Reserves").text(total);	
+   	 		
+   	 	});
+	});
+	$("#selected-buy").click(function(e) {
+		if($(".total-btn").is(":not")) {
+			e.preventDefault();
+			alert("상품을 선택해주세요");
+			return;
+		}
+	})
+});
        
 </script>
 <form action="<%=root%>/product/productbuy.jsp" method="get">
@@ -92,7 +148,7 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 					<tr>
 							<th>
 								<label>
-       					 			<input type="checkbox" class="check-all"> 
+       					 			<input type="checkbox" class="check-all" oninput="checkToggle2();"> 
       							</label>
    						 	</th>  
 								<th>이미지</th>
@@ -111,7 +167,7 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 				<%for(BasketVo basketVo : list){ %>
 							<tr> 
 									<td align="center">
-										<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>" class="total-btn number-input">
+										<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>" class="total-btn number-input" oninput="check2();">
 									</td>
 									<%--이미지 시작--%>
 									<td align="center">
@@ -135,9 +191,12 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 									<td align="center">
 										<%=basketVo.getPrice()%>원
 									</td>
-									<td align="center"><%=basketVo.getReserves()%>P</td>
+									<td align="center" class="number-input2">
+										<span><%=basketVo.getReserves()%></span>P
+									
+									</td>
 									<td align="center">기본배송</td>
-									<td align="center">0원</td>
+									<td align="center">무료배송</td>
 									<td align="center" class="number-input">
 										<span><%=basketVo.getTotalPrice()%></span>원
 									</td>
@@ -167,10 +226,10 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
   							</div>
   						</td>
 						<td>
-							0원
+							무료배송
 						</td>
 						<td>
-							3000원
+							<span id="Reserves">0</span>원
 						</td>
 						<td>
 							<span id="total-price">0</span>원
@@ -186,7 +245,8 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 			<a href ="<%=root%>/index.jsp" >쇼핑 계속하기</a>
 		</div>
 		<div class="row right">
-				<input type="submit" value="선택상품주문" class="form-btn form- inline">
+				
+				<input type="submit" value="선택상품주문" class="form-btn form- inline selected-buy">
 		</div>
 </div>
 </form>

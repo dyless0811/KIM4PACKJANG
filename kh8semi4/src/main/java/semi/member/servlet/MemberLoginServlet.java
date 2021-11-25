@@ -18,13 +18,11 @@ public class MemberLoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			
+				//기존 로그인 코드
 //			String id;
 //			String pw;
-			//String joinId = (String)req.getSession().getAttribute("joinId");
-			//String joinPw = (String)req.getSession().getAttribute("joinPw");
-			
-//			
+//			String joinId = (String)req.getSession().getAttribute("joinId");
+//			String joinPw = (String)req.getSession().getAttribute("joinPw");
 //			if(joinId != null && joinPw != null) {
 //				id = joinId;
 //				pw = joinPw;
@@ -58,7 +56,7 @@ public class MemberLoginServlet extends HttpServlet {
 			// 출력
 			if (isLogin) {
 				// 세션 = 서버에서 사용자 정보를 관리하기 위한 단골수첩과 같은 저장소
-				// = 여기서는 가장 중요한 회원정보인 회원아이디를 loginId라는 이름으로 저장
+				//세션에 아이디와 등급을 저장함
 				req.getSession().setAttribute("loginId", id);
 				req.getSession().setAttribute("grade", memberDto.getGrade());
 				resp.sendRedirect(req.getContextPath() + "/index.jsp");

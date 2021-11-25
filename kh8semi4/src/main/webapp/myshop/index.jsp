@@ -278,5 +278,4 @@ a, a:hover {
 				
 				
 	
-
 <jsp:include page="/template/footer.jsp"></jsp:include>
