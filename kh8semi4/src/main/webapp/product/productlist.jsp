@@ -1,3 +1,7 @@
+<%@page import="java.text.Format"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="semi.beans.ColorDto"%>
+<%@page import="semi.beans.ColorDao"%>
 <%@page import="semi.beans.productPagination"%>
 <%@page import="semi.beans.ProductImageDao"%>
 <%@page import="semi.beans.ProductImageDto"%>
@@ -30,15 +34,22 @@ boolean admin = grade != null && grade.equals("관리자");
 	int i = 0;
 	
 	ProductDto productDto = new ProductDto();
+	
 %>
+<%Format d = new DecimalFormat("#,##0"); %>
 
 <%--출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
 <style>
-
+.item {
+   display: flex;
+   flex-direction: column;
+   flex: 1 1 1 1 25%;
+   flex-basis :auto;
+}
 </style>
 <div class="container-1400 container-center">
-	<div class="row right ">
+	<div class="row right  ">
 	 <%if(admin){%>
 	 	<%if(isType != null){ 
 		 int bigTypeNo= Integer.parseInt(isType); %>
@@ -58,31 +69,31 @@ boolean admin = grade != null && grade.equals("관리자");
 		</div>
 		<div class="row flex-container">
 		<%}%>
-			<div class="row flex-gro">
-	    		<table class="table table-border table-hover">
+			<div class="row ">
+	    		<table class="table table-border table-hover item">
 		    		<tbody>
-		    			<tr height="400px">
+		    			<tr height="350px" >
 					   	 	<!-- 상품 이미지 -->
-							<td>
+							<td width="25%">
 							<%ProductImageDto productImageDto =productImageDao.get(product.getNo());%>
 							<%if(productImageDto != null) {%>
-								<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=product.getNo()%>" width="320px" height="320px">
-								<%} else {%>
-								<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
+							<a href="./productdetail.jsp?no=<%=product.getNo()%>"><img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=product.getNo()%>" width="330px" height="350px"></a>
+							<%} else {%>
+							<a href="./productdetail.jsp?no=<%=product.getNo()%>"><img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg"   width="330px" height="350px"></a>
 								<%}%>
 							</td>
 			    		</tr>
 			    		<tr>
-			    			<td>색상 / <%=product.getViews()%></td>
+			    			<td><%=i+1%>번상품 /조회수:<%=product.getViews()%></td>
 			    		</tr>
 			    		<tr>
-			    			<td><a href="./productdetail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a>(사이즈)</td>
+			    			<td><a href="./productdetail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a></td>
 			    		</tr>
 			    		<tr>
-			    			<td><%=product.getPrice()%></td>
+			    			<td><%=d.format(product.getPrice())%>원</td>
 			    		</tr>
 			    		<tr>
-			    			<td>------------<%=i%></td>
+			    			<td><hr></td>
 			    		</tr>
 			    		<tr>
 			    			<td><%=product.getDescription()%></td>
