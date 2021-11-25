@@ -20,7 +20,9 @@ $(function () {
       var colorNo = $("#select-color option:selected").val();
       var colorName = $("#select-color option:selected").text();
 
-      if (sizeNo == "" || colorNo == "") {
+      $(".RkRNd").show();
+      
+ 	if (sizeNo == "" || colorNo == "") {
         alert("색상과 사이즈를 선택해주세요!");
         return;
       }

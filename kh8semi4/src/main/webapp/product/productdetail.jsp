@@ -83,16 +83,19 @@ font-family:sans-serif;
 font-size: 18px;
 }
 
-/* 테스트용 레이아웃 */
-/* div{ */
-/* border: 1px dotted black; */
-/* } */
+
+ div{ 
+ border: 1px dotted black; 
+ } 
+
 
 
 
 </style>
 <script>
 $(function() {
+	$(".RkRNd").hide();
+	
 	$(".delete").click(function(e) {	
 		if (!confirm("정말 삭제하시겠습니까?")) {
 			e.preventDefault();
@@ -141,6 +144,8 @@ $(function() {
 
 
 
+$(".RkRNd").hide(); resource->productdetail.js안에 있는 select-btn.click 안에 var clolorName 아래에 $(".RkRNd").show();
+
 
 </script>
 <script src="<%=request.getContextPath()%>/resource/js/productdetail.js" ></script>
@@ -164,9 +169,8 @@ $(function() {
 			상품명:<span id="product-name"><%=productDto.getName()%></span>
 			상품번호:<span id="product-no"><%=productDto.getNo()%></span>
 		</h2>
-		<h5>
-			조회수:<%=productDto.getViews()%>
-			</h5>
+		
+		<h5>조회수:<%=productDto.getViews()%></h5>
 		<h4>상품가격:<span id="product-price"><%=productDto.getPrice()%></span></h4>	
 			
 			<select id="select-size" required>
@@ -184,7 +188,7 @@ $(function() {
 <%-- 		<%if(sizeList !=null && colorList !=null ){ %> --%>
 		<form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post">
     	<div class="row">
-    		<table style="width: 700px" class="table">
+    		<table style="width: 700px" class="table RkRNd">
     			<thead>
     				<tr>
     					<th>상품</th>

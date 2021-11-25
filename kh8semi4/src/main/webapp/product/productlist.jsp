@@ -47,6 +47,15 @@ boolean admin = grade != null && grade.equals("관리자");
    flex: 1 1 1 1 25%;
    flex-basis :auto;
 }
+
+a:link { 
+color: black; text-decoration: none;
+}
+
+a:visited { 
+color: black; text-decoration: none;
+}
+
 </style>
 <div class="container-1400 container-center">
 	<div class="row right  ">
@@ -70,11 +79,11 @@ boolean admin = grade != null && grade.equals("관리자");
 		<div class="row flex-container">
 		<%}%>
 			<div class="row">
-	    		<table class="table table-border table-hover item">
+	    		<table class="table  table-hover item">
 		    		<tbody>
 		    			<tr height="350px" >
 					   	 	<!-- 상품 이미지 -->
-							<td width="25%">
+							<td width="25%" colspan="2">
 							<%ProductImageDto productImageDto =productImageDao.get(product.getNo());%>
 							<%if(productImageDto != null) {%>
 							<a href="./productdetail.jsp?no=<%=product.getNo()%>"><img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=product.getNo()%>" width="330px" height="350px"></a>
@@ -84,19 +93,20 @@ boolean admin = grade != null && grade.equals("관리자");
 							</td>
 			    		</tr>
 			    		<tr>
-			    			<td><%=i+1%>번상품 /조회수:<%=product.getViews()%></td>
+			    			<td class="right">조회수:<%=product.getViews()%></td>
+			    			<td class="legt"><%=i+1%>번상품</td>
+			    		</tr>
+			    		<tr >
+			    			<td colspan="2"><a href="./productdetail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a></td>
 			    		</tr>
 			    		<tr>
-			    			<td><a href="./productdetail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a></td>
+			    			<td colspan="2"><%=d.format(product.getPrice())%>원</td>
 			    		</tr>
 			    		<tr>
-			    			<td><%=d.format(product.getPrice())%>원</td>
+			    			<td colspan="2"><hr></td>
 			    		</tr>
 			    		<tr>
-			    			<td><hr></td>
-			    		</tr>
-			    		<tr>
-			    			<td><%=product.getDescription()%></td>
+			    			<td colspan="2"><%=product.getDescription()%></td>
 			    		</tr>
 					</tbody>
 				</table>
