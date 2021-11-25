@@ -95,24 +95,29 @@ public class StatisticsDao {
 		return count;
 	}
 	
-	//인기 상품 리스트를 가져오는 메소드
+	//인기 상품 리스트를 가져오는 메소드(1 ~ 10위까지만)
 	public List<PopularItemVo> popularList() throws Exception{
 		Connection con = JdbcUtils.connect();
 		
-		String sql = "select P.name, count(P.no) from buy B "
-							+ "inner join product P "
-							+ "on B.product_no = P.no "
-							+ "where B.status='배송 전' "
-							+ "group by P.name "
-							+ "order by count(P.no) desc";
+		String sql = "select * from("
+							+ "select rownum rn, tmp.* from("
+								+ "select P.name, count(P.no) from buy B "
+								+ "inner join product P "
+								+ "on B.product_no = P.no "
+								+ "where B.status='배송 전' "
+								+ "group by P.name "
+								+ "order by count(P.no) desc"
+							+")tmp"
+						+")where rn between 1 and 10";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
 		List<PopularItemVo> itemList = new ArrayList<>();
 		while(rs.next()) {
 			PopularItemVo item = new PopularItemVo();
+			item.setRank(rs.getInt("rn"));
 			item.setItemName(rs.getString("name"));
-			item.setCount(rs.getInt(2));
+			item.setCount(rs.getInt(3));
 			
 			itemList.add(item);
 		}
@@ -120,6 +125,68 @@ public class StatisticsDao {
 		
 		return itemList;
 	}
+	
+	//인기 카테고리(BigType) 리스트를 가져오는 메소드(1 ~ 10위까지만)
+		public List<PopularItemVo> popularBigType() throws Exception{
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "select * from("
+								+ "select rownum rn, tmp.* from("
+									+ "select B.name, count(B.name) from product P "
+									+ "inner join smalltype S "
+									+ "on P.small_type_no = S.no "
+									+ "inner join bigtype B "
+									+ "on S.bigtype_no = B.no "
+									+ "group by B.name "
+									+ "order by count(B.name) desc "
+								+")tmp "
+							+")where rn between 1 and 10";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			List<PopularItemVo> itemList = new ArrayList<>();
+			while(rs.next()) {
+				PopularItemVo item = new PopularItemVo();
+				item.setRank(rs.getInt("rn"));
+				item.setItemName(rs.getString("name"));
+				item.setCount(rs.getInt(3));
+				
+				itemList.add(item);
+			}
+			con.close();
+			
+			return itemList;
+		}
+		
+		//인기 카테고리(SmallType) 리스트를 가져오는 메소드(1 ~ 10위까지만)
+				public List<PopularItemVo> popularSmallType() throws Exception{
+					Connection con = JdbcUtils.connect();
+					
+					String sql = "select * from("
+										+ "select rownum rn, tmp.* from("
+											+ "select S.name, count(S.name) from product P "
+											+ "inner join smalltype S "
+											+ "on P.small_type_no = S.no "
+											+ "group by S.name "
+											+ "order by count(S.name) desc "
+										+")tmp "
+									+")where rn between 1 and 10";
+					PreparedStatement ps = con.prepareStatement(sql);
+					ResultSet rs = ps.executeQuery();
+					
+					List<PopularItemVo> itemList = new ArrayList<>();
+					while(rs.next()) {
+						PopularItemVo item = new PopularItemVo();
+						item.setRank(rs.getInt("rn"));
+						item.setItemName(rs.getString("name"));
+						item.setCount(rs.getInt(3));
+						
+						itemList.add(item);
+					}
+					con.close();
+					
+					return itemList;
+				}
 	
 	//토탈 방문자수를 구하는 메소드
 	public int totalVisitantCount() throws Exception{

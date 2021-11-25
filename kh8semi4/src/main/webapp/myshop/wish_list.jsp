@@ -1,3 +1,4 @@
+<%@page import="semi.beans.WishlistVo"%>
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.WishlistDto"%>
@@ -16,6 +17,8 @@
 <%
 	WishlistDao wishlistDao = new WishlistDao();
 	List<ProductDto> list2 = wishlistDao.WishProductMember(id);
+	
+	List<WishlistVo> list = wishlistDao.WishProductMember2(id);
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1200 container-center">
@@ -29,23 +32,27 @@
 							<th>이미지</th>
 							<th>상품정보</th>
 							<th>판매가</th>
-							<th>적립금</th>
 							<th>배송구분</th>
-							<th>합계</th>
-							<th>선택</th>
+							<th>배송비<th>
+							
 					</tr>
 			</thead>
 			<tbody>
-					<%for(ProductDto productDto : list2){ %>
+					<%for(WishlistVo wishlistVo : list){ %>
 							<tr>
-									<td align="center">없음</td>
-									<td align="center"><%=productDto.getName()%></td>
-									<td align="center"><%=productDto.getPrice() %></td>
-									<td align="center"><%=productDto.getPrice() *0.1 %>p</td>
-									<td align="center">기본배송</td>
-									<td align="center"><%=productDto.getPrice() %></td>
 									<td align="center">
-									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?<%=productDto%>">삭제하기</a>
+										<%if(wishlistVo.getProductFileSavename() != null) {%>
+										<img src="<%=root%>/product/productImage.kj?no=<%=wishlistVo.getProductNo()%>" width="100px" height="100px">
+										<%} else {%>
+										<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
+										<%}%>
+									</td>
+									<td align="center"><%=wishlistVo.getProductName()%>원</td>
+									<td align="center"><%=wishlistVo.getPrice()%></td>
+									<td align="center">기본배송</td>
+									<td align="center">3000원</td>
+									<td align="center">
+									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?wishlistNo=<%=wishlistVo.getWishlistNo()%>">삭제하기</a>
 									</td>
 							</tr>
 			</tbody>

@@ -45,4 +45,51 @@ public class WishlistDao {
 			con.close();
 			return list;
 	}
+	//좋아요 목록
+		public List<WishlistVo> WishProductMember2(String memberId) throws Exception {
+			Connection con = JdbcUtils.connect();
+			String sql = "select i.product_file_savename, p.no product_no, p.name product_name,p.price, w.no wishlist_no from wishlist w inner join product p on w.product_no = p.no inner join productimage i on p.no = i.product_no where member_id = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, memberId);
+			ResultSet rs = ps.executeQuery();
+			
+			List<WishlistVo> list = new ArrayList<>();
+			while(rs.next()) {
+				WishlistVo wishlistVo = new WishlistVo();
+				wishlistVo.setProductFileSavename(rs.getString("product_file_savename"));
+				wishlistVo.setProductNo(rs.getInt("product_no"));
+				wishlistVo.setProductName(rs.getString("product_name"));
+				wishlistVo.setPrice(rs.getInt("price"));
+				wishlistVo.setWishlistNo(rs.getInt("wishlist_no"));
+				
+				list.add(wishlistVo);
+			}
+				con.close();
+				return list;
+		}
+		//좋아요 증가 기능
+		public boolean likeUp(int boardNo) throws Exception {
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "update board set board_read = board_read + 1 where board_no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, boardNo);
+			int result = ps.executeUpdate();
+			
+			con.close();
+			
+			return result > 0;
+		}
+
+		public boolean delete(int wishlistNo) throws Exception {
+			Connection con = JdbcUtils.connect();
+			String sql = "delete from wishlist where no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, wishlistNo);
+			int result = ps.executeUpdate();
+			
+			con.close();
+			
+			return result > 0;
+		}
 }
