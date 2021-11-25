@@ -69,7 +69,7 @@ boolean admin = grade != null && grade.equals("관리자");
 		</div>
 		<div class="row flex-container">
 		<%}%>
-			<div class="row ">
+			<div class="row">
 	    		<table class="table table-border table-hover item">
 		    		<tbody>
 		    			<tr height="350px" >

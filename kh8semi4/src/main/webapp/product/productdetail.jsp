@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.Format"%>
 <%@page import="semi.beans.ReplyVo"%>
 <%@page import="semi.beans.ReplyDao"%>
 <%@page import="semi.beans.ProductImageDao"%>
@@ -72,6 +74,21 @@ productDto = productDao.get(no);
 .float-container>.float-item-left:nth-child(2){
 	width:70%;
 }
+a{
+text-decoration: none;
+}
+
+.font-size{
+font-family:sans-serif;
+font-size: 18px;
+}
+
+/* 테스트용 레이아웃 */
+/* div{ */
+/* border: 1px dotted black; */
+/* } */
+
+
 
 </style>
 <script>
@@ -115,19 +132,30 @@ $(function() {
 		$(this).next().children().children().toggle();
 	})
 });
+
+$(function() {
+	$("#wishlist").click(function(){
+		location.href='<%=request.getContextPath()%>/product/wishlistadd.kj?productNo=<%=productDto.getNo()%>';
+		});
+});
+
+
+
+
 </script>
 <script src="<%=request.getContextPath()%>/resource/js/productdetail.js" ></script>
-    
-<div class="flex-container ">
-	<div class="flex-15 right">
-        <!-- 이미지 출력 -->
+
+		<div class="flex-container">
+		 <div class="flex-1 right">
+     		<!-- 이미지 출력 -->
 		<%if(productImageDto != null) {%>
 		<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>" width="320px" height="320px">
 		<%} else {%>
 		<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
 		<%}%>
-	</div>
-   	<div class="flex-2 ">
+		 </div>
+		<!-- 관리자만 수정 삭제가능 -->
+		<div class="flex-2">
 		<%if(admin){ %>
 		<a href="<%=request.getContextPath()%>/product/delete.kj?no=<%=no%>" class="delete">삭제</a>
 		<a href="<%=request.getContextPath()%>/product/productedit.jsp?productno=<%=no%>&smalltypeno=<%=productDto.getSmallTypeNo()%>" class="edit">수정</a>
@@ -139,32 +167,24 @@ $(function() {
 		<h5>
 			조회수:<%=productDto.getViews()%>
 			</h5>
-		<h4>상품가격:<span id="product-price"><%=productDto.getPrice()%></span></h4>
-
-    	<div class="row">
-    	    <select id="select-size" required>
-    	    	<option value="" selected>---</option>
-        		<%for(SizeDto sizeDto : sizeList) {%>
-           		<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
-        		<%}%>
-        	</select>
-        
-			<select id="select-color" required>
+		<h4>상품가격:<span id="product-price"><%=productDto.getPrice()%></span></h4>	
+			
+			<select id="select-size" required>
 				<option value="" selected>---</option>
-        		<%for(ColorDto colorDto : colorList) {%>
-           		<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
-        		<%}%>
-        	</select>
+				<%for(SizeDto sizeDto : sizeList) {%>
+				<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
+				<%}%>
+			</select> <select id="select-color" required>
+				<option value="" selected>---</option>
+				<%for(ColorDto colorDto : colorList) {%>
+				<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
+				<%}%>
+			</select>
 			<button id="select-btn">선택</button>
-        </div>
-
-       	<div class="row">
-	    	<h4> 가격:<span id="price"><%=productDto.getPrice()%></span>원</h4>
-    	</div>
-
+<%-- 		<%if(sizeList !=null && colorList !=null ){ %> --%>
 		<form action="<%=request.getContextPath()%>/myshop/order/addbasket.kj" method="post">
     	<div class="row">
-    		<table style="width: 500px" class="table">
+    		<table style="width: 700px" class="table">
     			<thead>
     				<tr>
     					<th>상품</th>
@@ -178,19 +198,25 @@ $(function() {
             	<tbody id="selected-item"></tbody>
         	</table>
     	</div>
+<%--     	<%} %> --%>
+    
     	<div class="row">
         	<input id="buy" type="submit" name="addType" value="Buy" class="form-btn form-inline">
         	<input id="add-cart" type="submit" name="addType" value="Add-Cart" class="form-btn form-inline" />
-   			<a href="<%=request.getContextPath()%>/product/wishlistadd.kj?productNo=<%=productDto.getNo()%>">내찜콩</a>
+			<button id="wishlist" type="button" class="form-btn form-inline" onclick="<%=request.getContextPath()%>/product/wishlistadd.kj?productNo=<%=productDto.getNo()%>">WishList</button >
 		</div>
+		
     	</form>
     	<div class="row">
-    		총 상품 금액 : <span id="totalPrice">0</span>원
+    		<h2>총 상품 금액 : <span id="totalPrice">0</span>원</h2>
     	</div>
 	</div>
-</div>
+		
+		</div>	 
+      
+	<hr>
 
-	<div class="row center clear">
+	<div class="row center">
 	<h2>설명:<%=productDto.getDescription()%></h2>
 	<%if(productImageDto != null) {%>
 	<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>">
@@ -199,9 +225,11 @@ $(function() {
 	<%}%>
 
 	</div>
+    <!-- 리뷰자리  -->
 	<hr>
 	<div class="row center">
-	  <table style="width:800px;margin:auto">
+<!-- 	  <table style="width:1400px;margin:auto"> -->
+	   <table class="container-1400 table table-border table-hover"  border="1">
 	  	<colgroup>
 	  		<col width="10%">
 	  		<col width="50%">
@@ -235,33 +263,47 @@ $(function() {
 	  				<%}%>
 	  			</td>
 	  		</tr>
-	  		<tr>
-	  			<td colspan="4">
-	  				<div class="row float-container" style="display:none">
-						<div class="float-item-left" style="width : 50%">
-							<%if(replyVo.getReplySavename() != null) {%> 
-      	 			 		<div class="row">
-	        					<img src="<%=request.getContextPath()%>/board/replyImage.kj?no=<%=replyVo.getNo()%>">     
-         			 		</div>
-							<%}%>
-						</div>
-				
-						<div class="float-item-right" style="width : 50%">
-						 	<div class="row left">
-						 		색상 : <%=replyVo.getColorName()%>
-						 	</div>
-						 	<div class="row left">
-						 		사이즈 : <%=replyVo.getSizeName()%>
-						 	</div>
+			<tr>
+				<td colspan="4">
+					<div class="row float-container" style="display: none">
+						<div class="float-item-left" style="width: 50%">
+							<%if (replyVo.getReplySavename() != null) {%>
 							<div class="row">
+								<img src="<%=request.getContextPath()%>/board/replyImage.kj?no=<%=replyVo.getNo()%>">
+							</div>
+							<% } else {%>
+							<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg"
+								style="width: 30%">
+							<%}	%>
+						</div>
+
+						<div class="float-item-right" style="width: 50%">
+							<div class="row left">
+								<span>색상:</span>
+								<%=replyVo.getColorName()%>
+							</div>
+							<div class="row left">
+								<span>사이즈:</span>
+								<%=replyVo.getSizeName()%>
+							</div>
+							<div class="row left">
 								<pre><%=replyVo.getContent()%></pre>
 							</div>
 						</div>
 					</div>
-	  			</td>
-	  		</tr>
-	  		<%}%>
+				</td>
+			</tr>
+			<%}%>
 	  	</tbody>
 	  </table>
 	</div>
+	
+
+
+
+<hr>
+
+
+
+
 <jsp:include page="/template/footer.jsp"></jsp:include>
