@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%
 	String root = request.getContextPath();
 %>
@@ -52,7 +51,6 @@ function findAddress(){
     }).open();
 };
 });
-
 </script>
 <script>
 	//아이디 중복확인 Ajax
@@ -76,7 +74,6 @@ function findAddress(){
 			});
 		});
 	});
-	
 	//핸드폰번호 중복확인 Ajax
     $(function(){
     	$("input[name=phone]").on("blur", function(){
@@ -90,7 +87,7 @@ function findAddress(){
 				success : function(resp) {
 					if (resp == "YESICAN") {//사용가능
 					} else if (resp == "NONONO") {//사용불가능
-						$("input[name=phone]").next().text("사용하실수 없는 휴대폰 번호입니다");
+						$("input[name=phone]").next().text("사용중인 휴대폰번호입니다.");
 					}
 				},
 				error : function(err) {//통신이 실패했다.
