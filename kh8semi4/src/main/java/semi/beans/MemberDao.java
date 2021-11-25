@@ -425,4 +425,28 @@ public class MemberDao {
 		
 		return myshopVo;
 	}
+	// 회원 1명 총 구매금액
+		public MemberTotalPriceVo MemberTotalPrice(String id) throws Exception {
+			Connection con = JdbcUtils.connect();
+
+			String sql = "select sum(price) totalprice from buy inner join member on buy.member_id = member.id inner join product on buy.product_no = product.no where member_id = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			MemberTotalPriceVo memberTotalPriceVo;
+
+			if (rs.next()) {
+				memberTotalPriceVo = new MemberTotalPriceVo();
+
+				memberTotalPriceVo.setMemberTotal(rs.getInt("totalprice"));
+				
+			} else {
+				memberTotalPriceVo = null;
+			}
+			con.close();
+			
+			return memberTotalPriceVo;
+	}
+	
 }
