@@ -48,6 +48,9 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/reset.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/commons.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/layout.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resource/css/burgerking.css">
+
     <!-- <link rel="stylesheet" type="text/css" href="<%=root%>/resource/css/test.css">  -->
     <style>
         .logo-wrapper {
@@ -72,23 +75,34 @@
         .two{
         	z-index:2;
         }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/notice.css">
     <script>
     $(function(){
-	    $(".contents").find("li").click(function(e){
+		$(".contents").find("li").click(function(e){
 	        $(this).children("ol").slideToggle();
 	        $(this).children("ol").css("display", "block");
-	   });
+		});
+		$("#hamburger-btn").click(function(){
+			var template = $("#shroud-template").html();
+			$("body").append(template);
+			$("#shroud").click(function(){
+				$("#burgerking").attr("style","z-index: 9999; opacity: 0; display: none;");
+				$(this).remove();
+			});
+			
+			$("#burgerking").attr("style","z-index: 9999; opacity: 1; display: block;");
+		});
     });
     </script>
 </head>
 
 <body>
     <!-- 가림막 템플릿 시작 -->
-    <template>
-        <div
+    <template id="shroud-template">
+        <div id="shroud"
             style="background-color: rgb(34, 34, 34); position: fixed; inset: 0px; opacity: 1; z-index: 9998; cursor: pointer;">
         </div>
     </template>
@@ -96,67 +110,61 @@
 
 
     <!-- 햄버거 메뉴 시작 -->
-    <div style="left: 60px; position: absolute; top: 129px; z-index: 9999; opacity: 0; display: none;">
-        <div><span>Close</span></div>
-        <div>
-            <div>
-                <div>ALL CATEGORY</div>
-                <div>
-                    <ul>
-                        <li><a href="#JOIN">JOIN</a></li>
+    <div id="burgerking" class="middle" style="z-index: 9999; opacity: 0; display: none;">
+        <div class="container-1200">
+            <div style="display:flex; justify-content: space-between;">
+                <div class="left">
+                	<ul style="display:flex">
+                		<li>
+                			&#9776;
+                		</li>
+                		<li>
+                			ALL CATEGORY
+ 	               		</li>
+                	</ul>
+                </div>
+                <div class="right">
+                    <ul style="display:flex">
+                        <li><a href="<%=request.getContextPath()%>/member/join.jsp">JOIN</a></li>
                         <li>I</li>
-                        <li><a href="#LOGIN">LOGIN</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/login.jsp">LOGIN</a></li>
                         <li>I</li>
-                        <li><a href="#ORDER">ORDER</a></li>
+                        <li><a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">ORDER</a></li>
                     </ul>
                 </div>
             </div>
 
             <div>
                 <div>
-                    <div>
-                         <ul class="slide-menu">
-                            <%for(BigTypeDto bigType : bigTypeList){ %>
-                            <li><a href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
-                            <ul>
-                               
-                                <%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
-                                <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
-                                <%for(SmallTypeDto smalltype: smallTypeList){ %>
-                                
-                              <li>
-                                 	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
-                                <li>
-                                <%} %>
-                            </ul>
+                    <div style="display:flex;">
+                    <%for(BigTypeDto bigType : bigTypeList){ %>
+                        <ul>
+                    		<li>
+                    			<a style="" href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
+                        	</li>
+                        	<%SmallTypeDao smallTypeDao = new SmallTypeDao();  %>
+                            <%List<SmallTypeDto> smallTypeList = smallTypeDao.searchSmallType(bigType.getNo());%>
+                            <%for(SmallTypeDto smalltype: smallTypeList){ %>    
+                            <li>
+                            	<a href="<%=request.getContextPath()%>/product/productlist.jsp?no=<%=smalltype.getNo()%>"><%=smalltype.getName()%></a>
                             </li>
                             <%} %>
-                            <li><a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
-                				<ul>
-                					<li>
-                						<a href="<%=request.getContextPath()%>/board/review_list.jsp">
-                							review
-                						</a>
-                					</li>
-                					<%for(BoardTypeDto boardTypeDto : boardTypeList) {%>
-                					<li>
-                						<a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></a>
-                					</li>
-                					<%}%>
-                				</ul>
-                			</li>
                         </ul>
+                    <%} %>
+                		<ul>
+   	                        <li>
+   	                        	<a href="<%=request.getContextPath()%>/board/list.jsp?no=1">COMMUNITY</a>
+                			</li>
+                			<li>
+                				<a href="<%=request.getContextPath()%>/board/review_list.jsp">review</a>
+                			</li>
+                			<%for(BoardTypeDto boardTypeDto : boardTypeList) {%>
+                			<li>
+                				<a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeDto.getName()%></a>
+                			</li>
+                			<%}%>
+                		</ul>
                     </div>
-                </div>
-            </div>
-
-            <div>
-                <div>
-                    <ul>
-                        <li><a href="#인스타그램">인스타그램</a></li>
-                        <li><a href="#페이스북">페이스북</a></li>
-                        <li><a href="#카카오톡">카카오톡</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -182,7 +190,7 @@
         <header>
             <div class="flex-container">
                 <div class="flex-equal">
-                    <span>&#9776;</span>
+                    <span id="hamburger-btn">&#9776;</span>
                 </div>
 
                 <div class="flex-equal center">

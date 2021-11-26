@@ -158,6 +158,20 @@ public class BasketDao {
 		  return count;
 	  }
 
+	public int priceByBaksetNo(int basketNo) throws Exception {
+		Connection con = JdbcUtils.connect();
+		String sql = "select p.price from product p inner join basket b on b.product_no = p.no where b.no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, basketNo);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		int price = rs.getInt(1);
+		con.close();
+		
+		return price;
+	}
+	
 	public List<BasketVo> listByTreeSort(int begin, int end) {
 		// TODO Auto-generated method stub
 		return null;

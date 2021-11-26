@@ -10,9 +10,9 @@
 <form action="<%=root%>/member/login.kj" method="post">
 	
 <div class="container-400 container-center">
-	<div class="row center">
-				<h1>회원 로그인</h1>
-	</div>
+	<div class="titleArea">
+        <h2>로그인</h2>
+    </div>
 	<div class="row">
 				<label>아이디</label>
 				<input type="text" name="id" required class="form-input" autocapitalize="off">
