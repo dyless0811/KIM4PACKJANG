@@ -208,23 +208,25 @@ a, a:hover {
      
 	<!-- 마이페이지 자리 -->		
 	<div class="xans-element- xans-myshop xans-myshop-asyncbankbook"><div>
-		<h2>MY <span>PAGE</span>
+		<div style = "padding: 15px 10px 10px 30px;"><h2>MY <span>PAGE</span>
 </h2>
-<p>마이페이지</p>
+</div>
+</style>
+<div style = "padding: 5px 10px 10px 30px;"><p>마이페이지</p>
 		
 	</div>
 <ul>
-<li>
-            <strong class="title">가용적립금</strong>
+<li class = "right">
+            <strong class="title">가용적립금 </strong>
             <strong class="data use">&nbsp;<span id="xans_myshop_bankbook_avail_mileage"><%=d.format(memberDto.getPoint())%>P</span></strong>
        </li>
-       <li>
+       <li class = "right">
             <strong class="title">총 주문 : </strong>
             <strong class="data"><span id="xans_myshop_bankbook_order_price"><%=d.format(memberTotalPriceVo.getMemberTotal())%>원</span></strong>
         </li>
          </ul>
+</div>
 </div>		
-</div>			
 <!-- 주문현황 자리 -->	
 <div class="xans-element- xans-myshop xans-myshop-orderstate "><div class="title">
         <h3>나의 주문처리 현황 <span class="desc">(최근 <em>3개월</em> 기준)</span>
