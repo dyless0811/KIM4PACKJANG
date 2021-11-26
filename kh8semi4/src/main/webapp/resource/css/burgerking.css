@@ -1,0 +1,21 @@
+#burgerking {
+  /* 이하 필수 설정 */
+  position: absolute; left: 50%; top: 50%; 
+  transform: translate(-50%, -50%); text-align: center;
+  color:white;
+}
+ #burgerking a:link { color: white; text-decoration: none;}
+ #burgerking a:visited { color: white; text-decoration: none;}
+ #burgerking a:hover { color: white; text-decoration: none;}
+
+#burgerking ul{
+	width:130px;
+}
+
+#burgerking ul > li:first-child {
+	font-weight: 900;
+}
+
+#burgerking ul li {
+	margin:30px 10px;
+}
