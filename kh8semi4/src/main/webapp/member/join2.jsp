@@ -259,15 +259,15 @@ function findAddress(){
 		
 		<div class="snapsync-form-wrapper">
         
-        <input id="member_id" name="member_id" fw-filter="isFill" fw-label="아이디" fw-msg="" class="inputTypeText" placeholder="아이디" value="" type="text">
-        <input id="member_passwd" name="member_passwd" fw-filter="isFill&amp;isMin[4]&amp;isMax[16]" fw-label="패스워드" fw-msg="" autocomplete="off" value="" type="password" placeholder="비밀번호">
-        <input id="check_save_id0" class="snapsync-type-btn-saveid" name="check_save_id" fw-filter="" fw-label="아이디저장" fw-msg="" value="T" type="checkbox">
+        <input type="text" name="id" placeholder="아이디">
+        <input id="member_passwd" name="member_passwd" autocomplete="off" value="" type="password" placeholder="비밀번호">
+        <input id="check_save_id0" class="snapsync-type-btn-saveid" name="check_save_id" type="checkbox">
         <label for="check_save_id0">아이디 저장</label><button class="snap-sync-btn-submit" onclick="MemberAction.login('member_form_3907916616'); return false;">로그인</button>
         <div class="flex">
         <ul class="snapsync-member-nav center">
-        	<li><a href="/member/id/find_id.html">아이디 찾기</a></li>
-            <li><a href="/member/passwd/find_passwd_info.html">비밀번호 찾기</a></li>
-            <li><a href="/member/join.html">회원가입</a></li>
+        	<li><a href="<%=root%>/member/id/find_id.jsp">아이디 찾기</a></li>
+            <li><a href="<%=root%>/member/pw/find_pw.jsp">비밀번호 찾기</a></li>
+            <li><a href="<%=root%>/member/join.jsp">회원가입</a></li>
             </ul>
             </div>
         </div>
