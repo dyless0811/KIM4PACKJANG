@@ -74,6 +74,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/notice.css">
     <script>
     $(function(){
 	    $(".contents").find("li").click(function(e){
