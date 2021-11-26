@@ -249,7 +249,7 @@ function findAddress(){
 	});
 });				
 </script>
-
+  
 <form action="<%=root%>/member/join.kj" method="post">
 	
 	<div class="container-400 container-center">
