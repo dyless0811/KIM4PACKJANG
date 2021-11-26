@@ -45,10 +45,10 @@
 		</div>
 
 		<div class="row">
-		 <div style='line-height:350%'>받으시는분*<input type="text" name="memberId" value="<%=memberDto.getId()%>" ></div>
-		 <div style='line-height:350%'>주소*<input type="text" value="<%=memberDto.getAddress()%>" ></div>
-		 <div style='line-height:350%'>전화번호*<input type="tel" value="<%=memberDto.getPhone()%>"></div>
-		 <div style='line-height:350%'>이메일*<input type="email" value="<%=memberDto.getEmail()%>"></div>
+		 <div style='line-height:350%'>받으시는분*<input type="text" name="memberId" value="<%=memberDto.getId()%>" class="form-input"></div>
+		 <div style='line-height:350%'>주소*<input type="text" value="<%=memberDto.getAddress()%>" class="form-input" ></div>
+		 <div style='line-height:350%'>전화번호*<input type="tel" value="<%=memberDto.getPhone()%>" class="form-input"></div>
+		 <div style='line-height:350%'>이메일*<input type="email" value="<%=memberDto.getEmail()%>" class="form-input"></div>
 		</div>
 
 
