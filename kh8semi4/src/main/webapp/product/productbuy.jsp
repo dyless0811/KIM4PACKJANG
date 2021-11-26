@@ -40,15 +40,15 @@
 		</div>
 
 		<hr>
-		<div class="row">
-		주문정보
+		<div class="row"; style= 'font-size:150%; line-height:250%;'>
+		<strong>주문정보</strong>
 		</div>
 
 		<div class="row">
-		 <div>받으시는분*<input type="text" name="memberId" value="<%=memberDto.getId()%>"></div>
-		 <div>주소*<input type="text" value="<%=memberDto.getAddress()%>" ></div>
-		 <div>전화번호*<input type="tel" value="<%=memberDto.getPhone()%>"></div>
-		 <div>이메일*<input type="email" value="<%=memberDto.getEmail()%>"></div>
+		 <div style='line-height:350%'>받으시는분*<input type="text" name="memberId" value="<%=memberDto.getId()%>" ></div>
+		 <div style='line-height:350%'>주소*<input type="text" value="<%=memberDto.getAddress()%>" ></div>
+		 <div style='line-height:350%'>전화번호*<input type="tel" value="<%=memberDto.getPhone()%>"></div>
+		 <div style='line-height:350%'>이메일*<input type="email" value="<%=memberDto.getEmail()%>"></div>
 		</div>
 
 
@@ -64,9 +64,9 @@
 
 		<hr>
 
-		<div class="row">
+		<div class="row" style='font-size:150%; line-height:300%;'>
 		
-		결제하는곳
+		<strong>결제하는곳</strong>
 		</div>
 	</div>
 	 <button>구매하기</button>
