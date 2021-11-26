@@ -12,7 +12,7 @@
 	String root = request.getContextPath();
 	//타입 리스트 출력을 위한 dao, dto
 	BigTypeDao bigTypeDao = new BigTypeDao();
-	
+	 
 	List<BigTypeDto> bigTypeList = bigTypeDao.list();
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
 	List<BoardTypeDto> boardTypeList = boardTypeDao.list();
