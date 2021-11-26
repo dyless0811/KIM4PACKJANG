@@ -145,65 +145,40 @@ $(function(){
 			<table class="table table-noborder">
 				<tbody>
 					<tr>
-						<td style="text-align:right">영유아(1~9세)</td>
-						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(1, 10); i++) {%><img src="http://localhost:8205/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:right; width:17%">영유아(1~9세)</td>
+						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(1, 9); i++) {%><img src="http://localhost:8080/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:center; width:8%"><%=d.format(statisticsDao.memberAgeGroup(1, 9))%>명</td>
 					</tr>
 					<tr>
-						<td style="text-align:right">10대(10~19세)</td>
-						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(10, 19); i++) {%><img src="http://localhost:8205/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:right; width:17%">10대(10~19세)</td>
+						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(10, 19); i++) {%><img src="http://localhost:8080/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:center; width:8%"><%=d.format(statisticsDao.memberAgeGroup(10, 19))%>명</td>
 					</tr>
 					<tr>
-						<td style="text-align:right">20대(20~29세)</td>
-						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(20, 29); i++) {%><img src="http://localhost:8205/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:right; width:17%">20대(20~29세)</td>
+						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(20, 29); i++) {%><img src="http://localhost:8080/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:center; width:8%"><%=d.format(statisticsDao.memberAgeGroup(20, 29))%>명</td>
 					</tr>
 					<tr>
-						<td style="text-align:right">30대(30~39세)</td>
-						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(30, 39); i++) {%><img src="http://localhost:8205/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:right; width:17%">30대(30~39세)</td>
+						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(30, 39); i++) {%><img src="http://localhost:8080/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:center; width:8%"><%=d.format(statisticsDao.memberAgeGroup(30, 39))%>명</td>
 					</tr>
 					<tr>
-						<td style="text-align:right">40대(40~49세)</td>
-						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(40, 49); i++) {%><img src="http://localhost:8205/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:right; width:17%">40대(40~49세)</td>
+						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(40, 49); i++) {%><img src="http://localhost:8080/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:center; width:8%"><%=d.format(statisticsDao.memberAgeGroup(40, 49))%>명</td>
 					</tr>
 					<tr>
-						<td style="text-align:right">50대(50~59세)</td>
-						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(50, 59); i++) {%><img src="http://localhost:8205/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:right; width:17%">50대(50~59세)</td>
+						<td style="text-align:left"><%for(int i = 0; i < statisticsDao.memberAgeGroup(50, 59); i++) {%><img src="http://localhost:8080/kh8semi4/resource/image/5.JPG" width="12px" height="12px"><%}%></td>
+						<td style="text-align:center; width:8%"><%=d.format(statisticsDao.memberAgeGroup(50, 59))%>명</td>
 					</tr>
 				</tbody>
 			</table>
 			</div>
 			<div class="row center flex-gro">
 				
-				<table class="table table-noboder">
-					<tbody>
-						<tr>
-							<td colspan=2><h2 style="text-align:center">회원 연령대 범위</h2></td>
-						</tr>
-						<tr>
-							<td style="text-align:right">영유아(1~9세) :</td>
-							<td style="text-align:left"><%=d.format(statisticsDao.memberAgeGroup(1, 9))%>명</td>
-						</tr>
-						<tr>
-							<td style="text-align:right">10대(10~19세) :</td>
-							<td style="text-align:left"><%=d.format(statisticsDao.memberAgeGroup(10, 19))%>명</td>
-						</tr>
-						<tr>
-							<td style="text-align:right">20대(20~29세) :</td>
-							<td style="text-align:left"><%=d.format(statisticsDao.memberAgeGroup(20, 29))%>명</td>
-						</tr>
-						<tr>
-							<td style="text-align:right">30대(30~39세) :</td>
-							<td style="text-align:left"><%=d.format(statisticsDao.memberAgeGroup(30, 39))%>명</td>
-						</tr>
-						<tr>
-							<td style="text-align:right">40대(40~49세) :</td>
-							<td style="text-align:left"><%=d.format(statisticsDao.memberAgeGroup(40, 49))%>명</td>
-						</tr>
-						<tr>
-							<td style="text-align:right">50대(50~59세) :</td>
-							<td style="text-align:left"><%=d.format(statisticsDao.memberAgeGroup(50, 59))%>명</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 	</div>
 </div>

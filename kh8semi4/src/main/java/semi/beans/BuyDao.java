@@ -106,4 +106,20 @@ public class BuyDao {
 		
 		return buyList;
 	}
+	
+	//상태 변경 메소드
+	public boolean changeStatus(int no, String status) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "update buy set status = ? where no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, status);
+		ps.setInt(2, no);
+		
+		int result = ps.executeUpdate();
+		
+		con.close();
+		
+		return result > 0;
+	}
 }
