@@ -13,13 +13,13 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 <form action="<%=request.getContextPath()%>/product/buy.kj" method="post">
 
-	<div class="row center">
+	<div class="row center" style= 'line-height:350%;'>
 		<h2>주문서작성</h2>
 		<div class="row">
 			<h4>상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다</h4>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" style= 'line-height:200%;'>
 	국내상품 주문내역
 	</div>
 
