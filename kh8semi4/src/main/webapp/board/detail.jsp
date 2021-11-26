@@ -75,7 +75,9 @@
         <a href="<%=request.getContextPath()%>/board/delete.kj?no=<%=boardDto.getNo()%>">삭제</a>
         <a href="<%=request.getContextPath()%>/board/edit.jsp?no=<%=boardDto.getNo()%>">수정</a>
         <%} %>
+        <%if(admin) {%>
         <a href="<%=request.getContextPath()%>/board/write.jsp?no=<%=boardDto.getBoardTypeNo() %>&boardSuperno=<%=boardDto.getNo()%>" class="link-btn">답글</a>
+      	<%}%>
       </div>
     </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
