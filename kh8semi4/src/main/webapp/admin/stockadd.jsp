@@ -66,6 +66,7 @@
 				},
 				success : function(resp) {
 					$("#stock").text(resp);
+					console.log(resp);
 				},
 				error : function(err) {//통신이 실패했다.
 				}

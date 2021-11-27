@@ -1,10 +1,11 @@
 package semi.vo;
 
 public class BuyProductVo {
+	private String productName;
 	private int productNo;
 	private int basketNo;
 	private String sizeName;
-	private String cololrName;
+	private String colorName;
 	private String productFileSavename;
 	private String productDescription;
 	private int price;
@@ -17,6 +18,13 @@ public class BuyProductVo {
 		// TODO 자동 생성된 생성자 스텁
 	}
 	
+	public String getProductName() {
+		return productName;
+	}
+	
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 	public int getProductNo() {
 		return productNo;
 	}
@@ -37,11 +45,11 @@ public class BuyProductVo {
 	public void setSizeName(String sizeName) {
 		this.sizeName = sizeName;
 	}
-	public String getCololrName() {
-		return cololrName;
+	public String getColorName() {
+		return colorName;
 	}
-	public void setCololrName(String cololrName) {
-		this.cololrName = cololrName;
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
 	}
 	public String getProductFileSavename() {
 		return productFileSavename;

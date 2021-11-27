@@ -11,6 +11,8 @@ import semi.beans.BasketDao;
 import semi.beans.BasketDto;
 import semi.beans.BuyDao;
 import semi.beans.BuyDto;
+import semi.beans.StockDao;
+import semi.beans.StockDto;
 
 @WebServlet("/product/buy.kj")
 public class ProductBuyServlet extends HttpServlet {
@@ -25,6 +27,7 @@ public class ProductBuyServlet extends HttpServlet {
 			
 			BasketDao basketDao = new BasketDao();
 			BuyDao buyDao = new BuyDao();
+			StockDao stockDao = new StockDao();
 			
 //			//값 전달 확인용
 //			for (String basketNo : basketList) {
@@ -37,7 +40,7 @@ public class ProductBuyServlet extends HttpServlet {
 			for (String basketN : basketList) {
 				int basketNo = Integer.parseInt(basketN);
 				BasketDto basketDto = basketDao.get(basketNo);
-				
+				//구매 등록
 				BuyDto buyDto = new BuyDto();
 				buyDto.setMemberId(memberId);
 				buyDto.setProductNo(basketDto.getProductNo());
@@ -48,10 +51,22 @@ public class ProductBuyServlet extends HttpServlet {
 				
 				buyDao.insert(buyDto);
 				
+				//적립금 증가
 				int price = basketDao.priceByBaksetNo(basketNo) * basketDto.getCount();
 				int reserves = (int)(price * 0.03);
 				
 				buyDao.updatePoint(reserves, memberId);
+				
+				//재고 감소
+				StockDto stockDto = new StockDto();
+				stockDto.setProductNo(basketDto.getProductNo());
+				stockDto.setColorNo(basketDto.getColorNo());
+				stockDto.setSizeNo(basketDto.getSizeNo());
+				stockDto.setStockChange(-basketDto.getCount());
+				
+				stockDao.insert(stockDto);
+				
+				//장바구니 삭제
 				basketDao.delete(basketNo);
 			}
 			
