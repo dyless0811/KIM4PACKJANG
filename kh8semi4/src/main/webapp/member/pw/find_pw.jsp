@@ -30,11 +30,17 @@
 	</div>
 
 </form>
-
+<div class="container-900 container-center">
 <%if(request.getParameter("error") != null){ %>
 	<div class="row center">
 		<h4 class="error">존재하지 않는 회원입니다.</h4>
 	</div>
-<%}%>	
+<%}else if(request.getParameter("tmpPw") != null){%>
+		<div class="row center msg">
+			회원님의 임시비밀번호는 <strong><%=request.getParameter("tmpPw")%></strong>입니다. 비밀번호를 변경해주세요.
+   		</div>
+   		<div class="row center msg"><a href="login.jsp">로그인하러 가기</a></div>
+   		<%}%>
+	</div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
