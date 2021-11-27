@@ -212,25 +212,28 @@ public class ReplyDao {
 		
 		return replyList;
 	}
-	
-	public List<ReplyDto> ProductReplyMember2(String memberId) throws Exception{
+	//내가 작성한 리뷰 보기
+	public List<WrittenReplyVo> ProductReplyMember2(String memberId) throws Exception{
 		Connection con = JdbcUtils.connect();
-		String sql = "select r.* from reply r inner join buy b on b.no = r.buy_no where b.member_id = ?";
+		String sql = "select r.*,p.* from reply r inner join buy b on b.no = r.buy_no inner join product p on p.no = b.product_no  where b.member_id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, memberId);
 		ResultSet rs = ps.executeQuery();
 		
-		List<ReplyDto>list = new ArrayList<>();
+		List<WrittenReplyVo>list = new ArrayList<>();
 		while(rs.next()) {
-			ReplyDto replyDto = new ReplyDto();
+			WrittenReplyVo writtenReplyVo = new WrittenReplyVo();
 			
-			replyDto.setNo(rs.getInt("no"));
-			replyDto.setBuyNo(rs.getInt("buy_no"));
-			replyDto.setStarPoint(rs.getInt("starpoint"));
-			replyDto.setContent(rs.getString("content"));
-			replyDto.setTime(rs.getDate("time"));
+			writtenReplyVo.setNo(rs.getInt("no"));
+			writtenReplyVo.setButNo(rs.getInt("buy_no"));
+			writtenReplyVo.setContent(rs.getString("content"));
+			writtenReplyVo.setTime(rs.getDate("time"));
+			writtenReplyVo.setProductNo(rs.getInt(6));
+			writtenReplyVo.setName(rs.getString("name"));
+			writtenReplyVo.setDescription(rs.getString("description"));
+			writtenReplyVo.setViews(rs.getInt("views"));
 			
-			list.add(replyDto);
+			list.add(writtenReplyVo);
 		}
 		con.close();
 		return list;
