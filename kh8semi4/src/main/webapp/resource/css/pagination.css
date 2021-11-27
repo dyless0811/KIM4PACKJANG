@@ -1,0 +1,21 @@
+.pagination {
+            text-align: center;
+        }
+
+        .pagination>a,
+        .pagination>a:link,
+        .pagination>a:visited {
+            color: black;
+            text-decoration: none;
+            border: 1px solid gray;
+            min-width: 2rem;
+            display: inline-block;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .pagination>a:hover,
+        .pagination>a.active {
+            color: pink;
+            border: 1px solid pink;
+        }

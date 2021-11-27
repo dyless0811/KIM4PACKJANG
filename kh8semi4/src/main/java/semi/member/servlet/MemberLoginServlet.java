@@ -37,7 +37,10 @@ public class MemberLoginServlet extends HttpServlet {
 			
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");
+			MemberDao memberDao = new MemberDao();
+			MemberDto memberDto = memberDao.get(id);
 			
+			if(memberDto != null) {
 			//11/24 새롭게 추가된 코드 (Log테이블에 데이터 저장)
 			MemberLogDao memberLogDao = new MemberLogDao();
 			MemberLogDto memberLogDto = memberLogDao.search(id);
@@ -45,10 +48,9 @@ public class MemberLoginServlet extends HttpServlet {
 			if(memberLogDto == null) {//만약 로그가 기록되어있지 않으면 로그를 저장
 				memberLogDao.insert(id);
 			}//없으면 그냥 넘어가잇
-			
+		}
 			// 처리
-			MemberDao memberDao = new MemberDao();
-			MemberDto memberDto = memberDao.get(id);
+			
 
 			// 회원이 있는데 비밀번호까지 같다면 로그인이 성공한것으로 간주하고 싶다
 			boolean isLogin = memberDto != null && pw.equals(memberDto.getPw());
@@ -60,6 +62,7 @@ public class MemberLoginServlet extends HttpServlet {
 				req.getSession().setAttribute("loginId", id);
 				req.getSession().setAttribute("grade", memberDto.getGrade());
 				resp.sendRedirect(req.getContextPath() + "/index.jsp");
+				
 
 			} else {
 				// login.jsp 로 이동하면서 ?error 파라미터를 붙여서 오류임을 표시

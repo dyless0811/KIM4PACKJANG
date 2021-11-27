@@ -87,7 +87,7 @@ public class ReplyDao {
 				con.close();
 				return list;
 			}
-		
+		//작성가능한 리뷰 메소드
 		public List<BuyDto> CanWriteReplyBuyList(String memberId) throws Exception {
 			Connection con = JdbcUtils.connect();
 			String sql = "select b.* from product p left outer join buy b on p.no = b.product_no where b.member_id = ? minus select b.* from product p left outer join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no where b.member_id = ?";
