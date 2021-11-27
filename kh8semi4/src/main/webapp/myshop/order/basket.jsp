@@ -1,3 +1,5 @@
+<%@page import="java.text.Format"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="semi.beans.BasketVo"%>
 <%@page import="semi.beans.BuyDto"%>
 <%@page import="semi.beans.BuyDao"%>
@@ -15,6 +17,8 @@
 %>    
 
 <%
+Format d = new DecimalFormat("#,##0");
+
 BasketDao basketDao = new BasketDao();
 List<BasketVo> list = basketDao.voListByMemberId(id);
 //시행착오
@@ -193,16 +197,16 @@ function check2(){
 										<%=basketVo.getCount()%>개
 									</td>
 									<td align="center">
-										<%=basketVo.getPrice()%>원
+										<%=d.format(basketVo.getPrice())%>원
 									</td>
 									<td align="center" class="number-input2">
-										<span><%=basketVo.getReserves()%></span>P
+										<span><%=d.format(basketVo.getReserves())%></span>P
 									
 									</td>
 									<td align="center">기본배송</td>
 									<td align="center">무료배송</td>
 									<td align="center" class="number-input">
-										<span><%=basketVo.getTotalPrice()%></span>원
+										<span><%=d.format(basketVo.getTotalPrice())%></span>원
 									</td>
 									<td align="center">
 										<a href="<%=root%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>">주문하기</a>
