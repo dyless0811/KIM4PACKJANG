@@ -68,7 +68,8 @@
 
 
 ### 데이터베이스 다이어그램(ERD)
-
+<img src="https://i.esdrop.com/d/0w9ssozl3pla/KPuqJFQelQ.png%22%3E>
+<img src="https://i.esdrop.com/d/0w9ssozl3pla/QFDEksLgYg.png%22%3E>
 
 
 #### 참고사이트 : [ERD Cloud](https://www.erdcloud.com/)
