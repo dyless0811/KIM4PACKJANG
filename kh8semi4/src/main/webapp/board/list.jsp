@@ -116,6 +116,19 @@ BoardTypeDto boardTypeDto = boardTypeDao.get(boardTypeNo);
                 <%} %>
                 </tbody>
             </table>
+            
+            
+            <%if(admin){ %>
+  			 <div class="row right">
+        	<a href="<%=request.getContextPath()%>/board/write.jsp?no=<%=boardTypeNo %>" class="link-btn">글쓰기</a>
+    		</div>
+    		<%}else if(member&&Integer.parseInt((request.getParameter("no")))==2){%>
+   		 <!-- 관리자가 아니라면 고객센터에만 글쓰기 가능 -->
+    		<div class="row right">
+        	<a href="<%=request.getContextPath()%>/board/write.jsp?no=2" class="link-btn">글쓰기</a>
+    </div>
+    <%}%>
+            
             <!-- 페이지네이션 -->
 <div class="row center">
 <%if(boardPagenation.getStartBlock() > 1){ %>

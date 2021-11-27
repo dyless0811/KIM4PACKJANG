@@ -17,8 +17,43 @@
 	ProductDto productDto = productDao.get(buyDto.getProductNo());
 %>
 
+
 <!-- 출력 -->
 <jsp:include page="/template/header.jsp"></jsp:include>
+
+<style>
+        /* component */
+
+.star-rating {
+/*   border:solid 1px #ccc; */
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:2.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
+
+    </style>
 
 	<div class="container-1000 container-center" >
 		<div class="row center">
@@ -27,16 +62,22 @@
 		
 		<form action="<%=request.getContextPath()%>/reply/add.kj" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="buyNo" value="<%=buyNo%>">
-		<div class="row right">
-			<select name="starPoint">
-				<option value= "5">★★★★★</option>
-				<option value= "4">★★★★☆</option>
-				<option value= "3">★★★☆☆</option>
-				<option value= "2">★★☆☆☆</option>
-				<option value= "1">★☆☆☆☆</option>
-			</select>
-		</div>
-		
+			
+		<div style="display: inline-block; float:right">
+			<div class="star-rating">
+    			<input type="radio" id="5-stars" name="starpoint" value="5" />
+    			<label for="5-stars" class="star">&#9733;</label>
+    			<input type="radio" id="4-stars" name="starpoint" value="4" />
+    			<label for="4-stars" class="star">&#9733;</label>
+    			<input type="radio" id="3-stars" name="starpoint" value="3" />
+    			<label for="3-stars" class="star">&#9733;</label>
+    			<input type="radio" id="2-stars" name="starpoint" value="2" />
+    			<label for="2-stars" class="star">&#9733;</label>
+    			<input type="radio" id="1-star" name="starpoint" value="1" />
+    		<label for="1-star" class="star">&#9733;</label>
+  			</div>
+ 	</div>
+
 		<div class="row center">
 			<textarea
 				style="width : 1000px; height : 400px"
@@ -45,11 +86,11 @@
 			</textarea>
 		</div>
 		<div class="row">
-		<input type="file" name="attach">
-		</div>
-		<div class="row right">
-		<input type="submit" value="등록">
-		</div>
+			<input type="file" name="attach" style = "font-size:20px;">
+			</div>
+			<div class="row right">
+			<input type="submit" value="등록" style = "font-size:20px;">
+			</div>
 		
 		</form>
 	</div>
