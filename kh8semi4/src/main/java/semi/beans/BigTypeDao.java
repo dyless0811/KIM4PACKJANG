@@ -71,7 +71,7 @@ public class BigTypeDao {
 
 	
 	//조회
-	public boolean list10() throws Exception{
+	public boolean list9() throws Exception{
 		Connection con = JdbcUtils.connect();
 		String sql="select count(*) from bigtype";
 		
@@ -84,7 +84,7 @@ public class BigTypeDao {
 	
 		con.close();
 		
-		return count<10;
+		return count<9;
 	}
 	
 	//단일조회
