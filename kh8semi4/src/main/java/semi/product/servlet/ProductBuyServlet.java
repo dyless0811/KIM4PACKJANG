@@ -47,12 +47,12 @@ public class ProductBuyServlet extends HttpServlet {
 				buyDto.setType(type);
 				
 				buyDao.insert(buyDto);
-				basketDao.delete(basketNo);
 				
 				int price = basketDao.priceByBaksetNo(basketNo) * basketDto.getCount();
 				int reserves = (int)(price * 0.03);
 				
 				buyDao.updatePoint(reserves, memberId);
+				basketDao.delete(basketNo);
 			}
 			
 			response.sendRedirect(request.getContextPath()+"/myshop/order/list.jsp");

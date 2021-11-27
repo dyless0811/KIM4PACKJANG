@@ -206,6 +206,22 @@ public class MemberDao {
 
 		return result > 0;
 	}
+	// 비밀번호 변경 메소드 
+	public boolean editPassword(String temPw, String id, String email, String phone) throws Exception {
+		Connection con = JdbcUtils.connect();
+
+		String sql = "update member set pw = ? where id = ? and email = ? and phone = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, temPw);// 바꿀비밀번호
+		ps.setString(2, id);// 현재아이디
+		ps.setString(3, email);// 현재비밀번호
+		ps.setString(4, phone);
+		int result = ps.executeUpdate();
+
+		con.close();
+
+		return result > 0;
+	}
 	
 	// 회원 목록 검색
 	public List<MemberDto> search(String column, String keyword) throws Exception {

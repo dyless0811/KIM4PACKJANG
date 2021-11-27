@@ -1,3 +1,4 @@
+
 <%@page import="semi.beans.BoardDto"%>
 <%@page import="semi.beans.BoardPagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
