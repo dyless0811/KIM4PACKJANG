@@ -1,3 +1,4 @@
+
 <%@page import="semi.beans.BoardDto"%>
 <%@page import="semi.beans.BoardPagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -24,75 +25,84 @@ BoardDto boardDto = new BoardDto();
 int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 %>
 
-<%-- 출력 --%>
+
 <jsp:include page="/template/header.jsp"></jsp:include>
 
+    <div class="notice">
+  <div class="page-title">
+        <div class=" container-1200 container-center">
+        <div class="row center">
+            <h3>NOTICE</h3>
+            <br>
+            <h4>OPEN : 10:00 - 17:00 / LUNCH : 12:30 - 13:30</h4>
+            </div>
+        </div>
+    </div>
+    
+<!-- 검색창  -->
+<div id="board-search">
 <div class="container-1200 container-center">
-		<div class="row center">
-			<h1>KIM4PARKJANG 그냥 고객센터</h1>
-			<hr>
-			<h3>이렇게 귀한곳에 누추한 고객님께서 편안하게 쇼핑하실 수 있도록 최선을 다하겠습니다.</h3>
-			<br>
-			<br>
-			<br>
-			<h1>1 2 3 4 . 1 2 3 4</h1>
-			<br>
-			<h3>OPEN : 10:00 - 17:00 / LUNCH : 12:30 - 13:30</h3>
-		
-
-			
+	<div class="search-window">
+		<form action="list.jsp" method="get">
+			<div class="search-wrap">
+				<input type="hidden" name="no" value="<%=boardTypeNo%>">
+				<select style="font-size : 18px;" name="column" class="form-input form-inline">
+					<%if(boardPagenation.columnIs("board_title")){ %>
+					<option value="board_title" selected>제목</option>
+					<%}else{ %>
+					<option value="board_title">제목</option>
+					<%} %>
+				
+					<%if(boardPagenation.columnIs("board_content")){ %>
+					<option value="board_content" selected>내용</option>
+					<%}else{ %>
+					<option value="board_content">내용</option>
+					<%} %>
+				
+					<%if(boardPagenation.columnIs("member_id")){ %>
+					<option value="member_id" selected>작성자</option>
+					<%}else{ %>
+					<option value="member_id">작성자</option>
+					<%} %>
+					</select>
+				
+				<input type="search" name="keyword" placeholder="검색어 입력" required class="form-input form-inline" value="">
+				<input type="submit" value="검색" class="btn btn-dark">
+				</form>
 		</div>
 	</div>
-	
-	<div>
-	<div class="row center">
-		<h2>상품 문의</h2>
-	</div>
-	
-	<%if(admin){ %>
-	<div class="row right">
-		<a href="<%=request.getContextPath()%>/board/write.jsp?no=<%=boardTypeNo %>" class="link-btn">글쓰기</a>
-	</div>
-	<%}else if(member&&Integer.parseInt((request.getParameter("no")))==2){%>
-	<!-- 관리자가 아니라면 고객센터에만 글쓰기 가능 -->
-	<div class="row right">
-		<a href="<%=request.getContextPath()%>/board/write.jsp?no=2" class="link-btn">글쓰기</a>
-	</div>
-	<%}%>
-
-	
-	<div class="row center">
-	<%if(boardPagenation.getList().isEmpty()) {%>
-		<h3>데이터가 존재하지 않습니다</h3>
-	<%}else {%>
-	<table class="table table-border table-hover">
-		<thead>
-		 	<tr>
-		 		<th width="8%">글번호</th>
-		 		<th>제목</th>
-		 		<th  width="15%">작성자</th>
-		 		<th  width="15%">작성일</th>
-		 		<th  width="7%">조회수</th>
-		 	</tr>
-		</thead>
-		
-		<tbody>
-			<%for(BoardDto boardDtolist : boardPagenation.getList()) {%>
-		 	<tr>
-		  		<td><%=boardDtolist.getNo()%></td>
-		  		<td style="text-align:left;<%="padding-left:"+(10+40*boardDtolist.getBoardDepth())+"px"%>">
-		  		<a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDtolist.getNo()%>"><%=boardDtolist.getBoardTitle()%></a>
-		  		</td>
-		  		<td><%=boardDtolist.getMemberId()%></td>
-		  		<td><%=boardDtolist.getBoardDate()%></td>
-		  		<td><%=boardDtolist.getBoardHit()%></td>
-		  	</tr>
-		  	<%} %>
-		</tbody>
-	</table>
-	<%}%>
-	</div>
-<!-- 페이지네이션 -->
+</div>
+  
+  <!-- board list area -->
+    <div id="board-list">
+        <div class="container-1200 container-center">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="th-num">번호</th>
+                    <th scope="col" class="th-title">제목</th>
+                    <th scope="col" class="th-title">작성자</th>
+                    <th scope="col" class="th-date">등록일</th>
+                    <th scope="col" class="th-date">조회수</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                <%for(BoardDto boardDtolist : boardPagenation.getList()) {%>
+                <tr>
+                    <td><%=boardDtolist.getNo()%></td>
+                    <th style="text-align:left;<%="padding-left:"+(10+40*boardDtolist.getBoardDepth())+"px"%>">
+                      <a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDtolist.getNo()%>"><%=boardDtolist.getBoardTitle()%></a>
+                      <p>테스트</p>
+                    </th>
+                    <td><%=boardDtolist.getMemberId()%></td>
+		  			<td><%=boardDtolist.getBoardDate()%></td>
+		  			<td><%=boardDtolist.getBoardHit()%></td>
+                </tr>
+                <%} %>
+                </tbody>
+            </table>
+            <!-- 페이지네이션 -->
 <div class="row center">
 <%if(boardPagenation.getStartBlock() > 1){ %>
 	<%if(boardPagenation.isSearch()){ %>
@@ -128,36 +138,8 @@ int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 	<a>&gt;</a>
 <%} %>
 </div>
-
-<!-- 검색창  -->
-
-	<div class="row right">
-		<form action="list.jsp" method="get">
-			<input type="hidden" name="no" value="<%=boardTypeNo%>">
-			<select name="column" class="form-input form-inline">
-				<%if(boardPagenation.columnIs("board_title")){ %>
-				<option value="board_title" selected>제목</option>
-				<%}else{ %>
-				<option value="board_title">제목</option>
-				<%} %>
-				
-				<%if(boardPagenation.columnIs("board_content")){ %>
-				<option value="board_content" selected>내용</option>
-				<%}else{ %>
-				<option value="board_content">내용</option>
-				<%} %>
-				
-				<%if(boardPagenation.columnIs("member_id")){ %>
-				<option value="member_id" selected>작성자</option>
-				<%}else{ %>
-				<option value="member_id">작성자</option>
-				<%} %>
-				</select>
-				
-			<input type="search" name="keyword" placeholder="검색어 입력" required class="form-input form-inline">
-			<input type="submit" value="검색" class="form-btn form-inline">
-			</form>
-	</div>
+        </div>
+    </div>
 
 </div>
 
