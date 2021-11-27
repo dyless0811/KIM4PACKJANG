@@ -675,4 +675,19 @@ a, a:hover {
 .reply-button button:hover:before,button:hover:after{
   width:100%;
   transition:800ms ease all;
+}
   /*게시물관리 버튼디자인 끝*/ 
+  
+  /* 링크를 버튼으로 만드는 스타일 */
+.link-btn:hover{
+    border-color:black;
+    color:black;
+}
+.link-btn {
+    display:inline-block;
+    padding:0.5rem;
+    border:2px solid gray;
+    text-decoration:none;
+    color:gray;
+
+}

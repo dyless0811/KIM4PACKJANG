@@ -32,42 +32,52 @@ boolean member = grade != null && grade.equals("회원");
       <div class="row center">
         <h2><%=title %></h2>
       </div>
+      
+      <div class="container-1000 container-center">
       <form action="write.kj" method="post" enctype="multipart/form-data">
         <%if(isAnswer) {%>
         <input type="hidden" name="boardSuperno" value="<%=boardSuperno%>" />
         <%}%>
-        <div>
-          <select name="boardTypeNo">
+        <div class="row left" >
+          <select name="boardTypeNo" style="font-size: 17px;">
+          
+          
           <!-- 관리자면 전부선택  -->
           <%if(admin){ %>
           	<%for(BoardTypeDto boardTypeDto : list) {%>
           	<option value="<%=boardTypeDto.getNo()%>"<%=boardTypeNo == boardTypeDto.getNo() ? "selected" : "" %>><%=boardTypeDto.getName()%></option>
           	<%}%>
           <%}else{ %>
+          
+          
           <!-- 회원이면 고객센터만 선택  -->
           <option value="2">고객센터</option>
           <%} %>
 		 </select>
+		 
+		  <div class="row center">
+          <input type="text" name="boardTitle" placeholder="제목을 입력해주세요." style="width:1000px;" required >
         </div>
-        <div class="row center">
-          제목<br />
-          <input type="text" name="boardTitle" required />
+        
         </div>
+       
         <div class="row center">
-          내용<br />
+          
           <textarea
             style="width: 1000px; height: 400px"
             name="boardContent"
+            placeholder="내용을 입력해주세요."
             required
           ></textarea>
         </div>
-        <div class="row">
+        <div style="display: flex; justify-content:space-between">
           <input type="file" name="attach" />
-        </div>
-        <div class="row">
           <input type="submit" value="등록" />
         </div>
+        
+        
       </form>
-    </div>
+      </div>
+      </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
