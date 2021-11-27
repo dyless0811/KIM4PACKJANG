@@ -474,7 +474,7 @@ public int count(String noType, String no, String column,String keyword) throws 
 		public BuyProductVo productInfo(String memberId, int basketNo) throws Exception{
 			Connection con = JdbcUtils.connect();
 			
-			String sql = "select B.product_no, B.no, SZ.sz, C.color, i.product_file_savename 이미지, p.description 상품정보, P.price 판매가, B.count 수량, P.price*B.count*0.03 적립금, P.price * B.count 합계 from basket B "
+			String sql = "select P.name, B.product_no, B.no, SZ.sz, C.color, i.product_file_savename 이미지, p.description 상품정보, P.price 판매가, B.count 수량, P.price*B.count*0.03 적립금, P.price * B.count 합계 from basket B "
 							+ "inner join product P "
 							+ "on B.product_no = P.no "
 							+ "inner join sz SZ "
@@ -492,10 +492,11 @@ public int count(String noType, String no, String column,String keyword) throws 
 			BuyProductVo buyProduct;
 			if(rs.next()) {
 				buyProduct = new BuyProductVo();
+				buyProduct.setProductName(rs.getString("name"));
 				buyProduct.setProductNo(rs.getInt("product_no"));
 				buyProduct.setBasketNo(rs.getInt("no"));
 				buyProduct.setSizeName(rs.getString("sz"));
-				buyProduct.setCololrName(rs.getString("color"));
+				buyProduct.setColorName(rs.getString("color"));
 				buyProduct.setProductFileSavename(rs.getString("이미지"));
 				buyProduct.setProductDescription(rs.getString("상품정보"));
 				buyProduct.setPrice(rs.getInt("판매가"));
