@@ -34,6 +34,28 @@ public class StockDao {
 		return stock;
 	}
 	
+	//상품번호 색상번호 사이즈번호로 재고 수량을 계산해서 반환하는 메소드
+	public int getStockCount(int productNo, int colorNo, int sizeNo) throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql = "select sum(stock_change) from stock where product_no = ? and color_no = ? and size_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, productNo);
+		ps.setInt(2, colorNo);
+		ps.setInt(3, sizeNo);
+		ResultSet rs = ps.executeQuery();
+		
+		int count;
+		if(rs.next()) {
+			count = rs.getInt(1);
+		} else {
+			count = 0;
+		}
+		con.close();
+		
+		return count;
+	}
+	
 	//2. 재고 정보 등록 메소드
 	public void insert(StockDto stockDto) throws Exception{
 		Connection con = JdbcUtils.connect();

@@ -45,9 +45,6 @@
 					<th>카테고리[대]</th>
 					<th>카테고리[소]</th>
 					<th>상품가격</th>
-					<th>상품사이즈</th>
-					<th>상품색상</th>
-					<th>수량</th>
 					<th>상태</th>
 				</tr>
 			</thead>
@@ -57,32 +54,7 @@
 						SmallTypeDto smallTypeDto = smallTypeDao.get(product.getSmallTypeNo());
 						//SmallType객체에 담긴 bigtypeNo를 이용해서 검색한 뒤 이름을 가져온다
 						BigTypeDto bigTypeDto = bigTypeDao.get(smallTypeDto.getBigTypeNo());
-								
-						//해당 상품번호를 이용해서 사이즈이름을 가져오는 코드
-						ProductSizeDao pSDao = new ProductSizeDao();
-						ProductSizeDto pSDto = pSDao.getProductSizeData(product.getNo());
-						String sizeName;
-						if(pSDto != null){
-							SizeDao SizeDao = new SizeDao();
-							SizeDto sizeDto = SizeDao.get(pSDto.getSizeNo());
-							sizeName = sizeDto.getSizeName();
-						} else {
-							sizeName = "없음";
-						}
-								
-								
-						//해당 상품번호를 이용해서 색상이름을 가져오는 코드
-						ProductColorDao pCDao = new ProductColorDao();
-						ProductColorDto productColorDto = pCDao.getProductColorData(product.getNo());
-						String colorName;
-						if(productColorDto != null){
-							ColorDao colorDao = new ColorDao();
-							ColorDto colorDto = colorDao.get(productColorDto.getColorNo());
-							colorName = colorDto.getColorName();
-						}else{
-							colorName = "없음";
-						}
-							
+						
 						//해당 상품번호를 이용해서 재고의 개수를 계산하는 메소드를 불러온다
 						StockDao stockDao = new StockDao();
 						int stockCount = stockDao.stockCount(product.getNo());		
@@ -93,9 +65,6 @@
 					<td>[<%=bigTypeDto.getName()%>]</td>
 					<td>[<%=smallTypeDto.getName()%>]</td>
 					<td><%=product.getPrice()%></td>
-					<td>[<%=sizeName%>]</td>
-					<td>[<%=colorName%>]</td>
-					<td>[<%=stockCount%> 개]</td>
 					<td><a href="stockadd.jsp?productno=<%=product.getNo()%>">입고</a></td>
 				</tr>
 				<%} %>

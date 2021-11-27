@@ -20,26 +20,17 @@ public class StockInsertServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
+						
 			//입력 : StockDto(product_no, stock_change)
 			//[1]Stock객체를 일단 만든다.
+			int productNo = Integer.parseInt(req.getParameter("productNo"));
+			int colorNo = Integer.parseInt(req.getParameter("colorNo"));
+			int sizeNo = Integer.parseInt(req.getParameter("sizeNo"));
+			
 			StockDto stockDto = new StockDto();
-			
-			//[2]. productNo를 이용해서 사이즈번호를 구한다.
-			ProductSizeDao productSizeDao = new ProductSizeDao();
-			ProductSizeDto productSizeDto = 
-					productSizeDao.getProductSizeData(Integer.parseInt(req.getParameter("productNo")));
-			stockDto.setSizeNo(productSizeDto.getSizeNo());
-			
-			//[3]. productNo를 이용해 색상번호를 구한다.
-			ProductColorDao productColorDao = new ProductColorDao();
-			ProductColorDto productColorDto = 
-					productColorDao.getProductColorData(Integer.parseInt(req.getParameter("productNo")));
-			stockDto.setColorNo(productColorDto.getColorNo());
-			
-			//[4]. productNo를 저장한다.
-			stockDto.setProductNo(Integer.parseInt(req.getParameter("productNo")));
-			
-			//[5]. stockChange값을 저장한다.
+			stockDto.setProductNo(productNo);
+			stockDto.setColorNo(colorNo);
+			stockDto.setSizeNo(sizeNo);
 			stockDto.setStockChange(Integer.parseInt(req.getParameter("stockChange")));
 			
 			//[6]. StockDao를 이용해서 저장한 값을 처리한다.

@@ -47,9 +47,6 @@ Format d = new DecimalFormat("#,##0");
    flex: 1 1 1 1 25%;
    flex-basis :auto;
 }
-div{
-border: 1px solid black;
-}
 table{
 margin-left: auto; 
 margin-right: auto;
