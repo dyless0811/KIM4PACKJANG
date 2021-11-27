@@ -7,7 +7,8 @@
 <%@page import="semi.beans.StatisticsDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%-- 입력 --%>
+<%-- 처리 --%>
 <%
 	StatisticsDao statisticsDao = new StatisticsDao();
 	Format d = new DecimalFormat("#,##0");
@@ -36,9 +37,7 @@
 		termToTermPrice = Integer.parseInt(price);
 	}
 %> 
- 
 <jsp:include page="/template/header.jsp"></jsp:include>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 $(function(){
 	document.querySelector("input[name=start]").value = new Date().toISOString().slice(0, 10);
@@ -67,7 +66,7 @@ $(function(){
 			
 			<form action="convert.kj" method="post">
 				시작일<input type="date" name="start">~ 종료일<input type="date" name="end">
-						<input type="submit" value="검색">
+				<input type="submit" value="검색">
 			</form>
 			
 			<h2>구간별 매출 : <%=d.format(termToTermPrice)%>원</h2>
@@ -176,10 +175,10 @@ $(function(){
 					</tr>
 				</tbody>
 			</table>
-			</div>
-			<div class="row center flex-gro">
+		</div>
+		<div class="row center flex-gro">
 				
-			</div>
+		</div>
 	</div>
 </div>
 

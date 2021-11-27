@@ -77,17 +77,17 @@ int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 		</thead>
 		
 		<tbody>
-		 <%for(BoardDto boardDtolist : boardPagenation.getList()) {%>
-		  <tr>
-		  	<td><%=boardDtolist.getNo()%></td>
-		  	<td style="text-align:left;<%="padding-left:"+(10+40*boardDtolist.getBoardDepth())+"px"%>">
+			<%for(BoardDto boardDtolist : boardPagenation.getList()) {%>
+		 	<tr>
+		  		<td><%=boardDtolist.getNo()%></td>
+		  		<td style="text-align:left;<%="padding-left:"+(10+40*boardDtolist.getBoardDepth())+"px"%>">
 		  		<a href="<%=request.getContextPath()%>/board/detail.jsp?no=<%=boardDtolist.getNo()%>"><%=boardDtolist.getBoardTitle()%></a>
-		  	</td>
-		  	<td><%=boardDtolist.getMemberId()%></td>
-		  	<td><%=boardDtolist.getBoardDate()%></td>
-		  	<td><%=boardDtolist.getBoardHit()%></td>
-		  </tr>
-		  <%} %>
+		  		</td>
+		  		<td><%=boardDtolist.getMemberId()%></td>
+		  		<td><%=boardDtolist.getBoardDate()%></td>
+		  		<td><%=boardDtolist.getBoardHit()%></td>
+		  	</tr>
+		  	<%} %>
 		</tbody>
 	</table>
 	<%}%>
