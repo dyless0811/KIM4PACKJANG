@@ -18,7 +18,8 @@
 <%@page import="semi.beans.ProductDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%-- 입력 --%>
+<%-- 처리 --%>
 <%
 	//상품을 일단 출력한다.->페이지네이션으로 변경
 	AdminProductPagination aPP = new AdminProductPagination(request);
@@ -32,7 +33,8 @@
 	SmallTypeDao smallTypeDao = new SmallTypeDao();
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
-	<h1>재고 관리 페이지</h1>
+	
+<h1>재고 관리 페이지</h1>
 <div class="container-1000 container-center">
 	<div class="row">
 		<table class="table table-hover table-border">
@@ -49,69 +51,68 @@
 					<th>상태</th>
 				</tr>
 			</thead>
-				<%for(ProductDto product : aPP.getList()){ %>
-					<tr>
-						<td><%=product.getNo()%></td>
-						<td><%=product.getName()%></td>
-							<%//해당 상품의 smalltypeno를 이용해서 bigtype가져오기
-								SmallTypeDto smallTypeDto = smallTypeDao.get(product.getSmallTypeNo());
-								//SmallType객체에 담긴 bigtypeNo를 이용해서 검색한 뒤 이름을 가져온다
-								BigTypeDto bigTypeDto = bigTypeDao.get(smallTypeDto.getBigTypeNo());
-								
-								//해당 상품번호를 이용해서 사이즈이름을 가져오는 코드
-								ProductSizeDao pSDao = new ProductSizeDao();
-								ProductSizeDto pSDto = pSDao.getProductSizeData(product.getNo());
-								String sizeName;
-								if(pSDto != null){
-									SizeDao SizeDao = new SizeDao();
-									SizeDto sizeDto = SizeDao.get(pSDto.getSizeNo());
-									sizeName = sizeDto.getSizeName();
-								} else {
-									sizeName = "없음";
-								}
-								
-								
-								//해당 상품번호를 이용해서 색상이름을 가져오는 코드
-								ProductColorDao pCDao = new ProductColorDao();
-								ProductColorDto productColorDto = pCDao.getProductColorData(product.getNo());
-								String colorName;
-								if(productColorDto != null){
-									ColorDao colorDao = new ColorDao();
-									ColorDto colorDto = colorDao.get(productColorDto.getColorNo());
-									colorName = colorDto.getColorName();
-								}else{
-									colorName = "없음";
-								}
-								
-								//해당 상품번호를 이용해서 재고의 개수를 계산하는 메소드를 불러온다
-								StockDao stockDao = new StockDao();
-								int stockCount = stockDao.stockCount(product.getNo());
-								
-							%>
-						<td>[<%=bigTypeDto.getName()%>]</td>
-						<td>[<%=smallTypeDto.getName()%>]</td>
-						<td><%=product.getPrice()%></td>
-						<td>[<%=sizeName%>]</td>
-						<td>[<%=colorName%>]</td>
-						<td>[<%=stockCount%> 개]</td>
-						<td><a href="stockadd.jsp?productno=<%=product.getNo()%>">입고</a></td>
-					</tr>
-				<%} %>
 			<tbody>
+				<%for(ProductDto product : aPP.getList()){ %>
+					<%  //해당 상품의 smalltypeno를 이용해서 bigtype가져오기
+						SmallTypeDto smallTypeDto = smallTypeDao.get(product.getSmallTypeNo());
+						//SmallType객체에 담긴 bigtypeNo를 이용해서 검색한 뒤 이름을 가져온다
+						BigTypeDto bigTypeDto = bigTypeDao.get(smallTypeDto.getBigTypeNo());
+								
+						//해당 상품번호를 이용해서 사이즈이름을 가져오는 코드
+						ProductSizeDao pSDao = new ProductSizeDao();
+						ProductSizeDto pSDto = pSDao.getProductSizeData(product.getNo());
+						String sizeName;
+						if(pSDto != null){
+							SizeDao SizeDao = new SizeDao();
+							SizeDto sizeDto = SizeDao.get(pSDto.getSizeNo());
+							sizeName = sizeDto.getSizeName();
+						} else {
+							sizeName = "없음";
+						}
+								
+								
+						//해당 상품번호를 이용해서 색상이름을 가져오는 코드
+						ProductColorDao pCDao = new ProductColorDao();
+						ProductColorDto productColorDto = pCDao.getProductColorData(product.getNo());
+						String colorName;
+						if(productColorDto != null){
+							ColorDao colorDao = new ColorDao();
+							ColorDto colorDto = colorDao.get(productColorDto.getColorNo());
+							colorName = colorDto.getColorName();
+						}else{
+							colorName = "없음";
+						}
+							
+						//해당 상품번호를 이용해서 재고의 개수를 계산하는 메소드를 불러온다
+						StockDao stockDao = new StockDao();
+						int stockCount = stockDao.stockCount(product.getNo());		
+					%>
+				<tr>
+					<td><%=product.getNo()%></td>
+					<td><%=product.getName()%></td>
+					<td>[<%=bigTypeDto.getName()%>]</td>
+					<td>[<%=smallTypeDto.getName()%>]</td>
+					<td><%=product.getPrice()%></td>
+					<td>[<%=sizeName%>]</td>
+					<td>[<%=colorName%>]</td>
+					<td>[<%=stockCount%> 개]</td>
+					<td><a href="stockadd.jsp?productno=<%=product.getNo()%>">입고</a></td>
+				</tr>
+				<%} %>
 			</tbody>
 		</table>
 	</div>
 	<div class="row center">
 		<%if(aPP.getStartBlock() > 1){ %>
 			<%if(aPP.isSearch()){ %>
-				<!-- 검색용 링크 -->
-				<a href="stock.jsp?column=<%=aPP.getColumn()%>&keyword=<%=aPP.getKeyword()%>&p=<%=aPP.getStartBlock()-1%>">&lt;</a>
+			<!-- 검색용 링크 -->
+			<a href="stock.jsp?column=<%=aPP.getColumn()%>&keyword=<%=aPP.getKeyword()%>&p=<%=aPP.getStartBlock()-1%>">&lt;</a>
 			<%} else { %>
-				<!-- 목록용 링크 -->
-				<a href="stock.jsp?p=<%=aPP.getStartBlock()-1%>">&lt;</a>
+			<!-- 목록용 링크 -->
+			<a href="stock.jsp?p=<%=aPP.getStartBlock()-1%>">&lt;</a>
 			<%} %>
 		<%} else { %>
-			 <a>&lt;</a>
+		<a>&lt;</a>
 		<%} %> 
 		
 		<%for(int i = aPP.getStartBlock(); i <= Math.min(aPP.getFinishBlock(),aPP.getLastBlock()); i++){ %>
@@ -126,14 +127,14 @@
 		
 		<%if(aPP.getFinishBlock() < aPP.getLastBlock()){ %>
 			<%if(aPP.isSearch()){ %>
-				<!-- 검색용 링크 -->
-				<a href="stock.jsp?column=<%=aPP.getColumn()%>&keyword=<%=aPP.getKeyword()%>&p=<%=aPP.getFinishBlock()+1%>">&gt;</a>
+			<!-- 검색용 링크 -->
+			<a href="stock.jsp?column=<%=aPP.getColumn()%>&keyword=<%=aPP.getKeyword()%>&p=<%=aPP.getFinishBlock()+1%>">&gt;</a>
 			<%} else { %>
-				<!-- 목록용 링크 -->
-				<a href="stock.jsp?p=<%=aPP.getFinishBlock()+1%>">&gt;</a>
+			<!-- 목록용 링크 -->
+			<a href="stock.jsp?p=<%=aPP.getFinishBlock()+1%>">&gt;</a>
 			<%} %> 
 		<%} else {%>
-			<a>&gt;</a>
+		<a>&gt;</a>
 		<%} %>
 	</div>
 	

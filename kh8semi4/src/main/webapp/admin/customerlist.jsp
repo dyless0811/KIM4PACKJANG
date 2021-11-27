@@ -4,14 +4,14 @@
 <%@page import="semi.beans.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/template/header.jsp"></jsp:include>
-
+<%-- 입력 --%>
+<%-- 출력 --%>
 <%
 	//회원 목록을 출력하는 코드(페이지네이션 적용)
 	MPagination mP = new MPagination(request);
 	mP.calculate();
-
 %>
+<jsp:include page="/template/header.jsp"></jsp:include>
 
 <div class="container-1200 container-center">
 	<div class="row">
@@ -29,7 +29,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%for(MemberDto member : mP.getList()){ %>
+				<%for(MemberDto member : mP.getList()){ %>
 				<tr>
 					<td><%=member.getId()%></td>
 					<td><%=member.getName()%></td>
@@ -43,46 +43,46 @@
 					</td>
 					<td><a href="./ordermanagement.jsp?memberId=<%=member.getId()%>">주문서확인</a></td>
 				</tr>
-			<%} %>
+				<%} %>
 			</tbody>
 		</table>
 	</div>
 	
 	<!-- 페이지네이션 -->
 	<div class="row center">
-	<%if(mP.getStartBlock() > 1){ %>
-		<%if(mP.isSearch()){ %>
+		<%if(mP.getStartBlock() > 1){ %>
+			<%if(mP.isSearch()){ %>
 			<!-- 검색용 링크 -->
 			<a href="customerlist.jsp?column=<%=mP.getColumn()%>&keyword=<%=mP.getKeyword()%>&p=<%=mP.getStartBlock()-1%>">&lt;</a>
-		<%} else { %>
+			<%} else { %>
 			<!-- 목록용 링크 -->
 			<a href="customerlist.jsp?p=<%=mP.getStartBlock()-1%>">&lt;</a>
-		<%} %>
-	<%} else { %>
-		 <a>&lt;</a>
-	<%} %> 
+			<%} %>
+		<%} else { %>
+		<a>&lt;</a>
+		<%} %> 
 	
-	<%for(int i = mP.getStartBlock(); i <= Math.min(mP.getFinishBlock(),mP.getLastBlock()); i++){ %>
-		<%if(mP.isSearch()){ %>
-		<!-- 검색용 링크 -->
-		<a href="customerlist.jsp?column=<%=mP.getColumn()%>&keyword=<%=mP.getKeyword()%>&p=<%=i%>"><%=i%></a>
-		<%}else{ %>
-		<!-- 목록용 링크 -->
-		<a href="customerlist.jsp?p=<%=i%>"><%=i%></a>
+		<%for(int i = mP.getStartBlock(); i <= Math.min(mP.getFinishBlock(),mP.getLastBlock()); i++){ %>
+			<%if(mP.isSearch()){ %>
+			<!-- 검색용 링크 -->
+			<a href="customerlist.jsp?column=<%=mP.getColumn()%>&keyword=<%=mP.getKeyword()%>&p=<%=i%>"><%=i%></a>
+			<%}else{ %>
+			<!-- 목록용 링크 -->
+			<a href="customerlist.jsp?p=<%=i%>"><%=i%></a>
+			<%} %>
 		<%} %>
-	<%} %>
 	
-	<%if(mP.getFinishBlock() < mP.getLastBlock()){ %>
-		<%if(mP.isSearch()){ %>
+		<%if(mP.getFinishBlock() < mP.getLastBlock()){ %>
+			<%if(mP.isSearch()){ %>
 			<!-- 검색용 링크 -->
 			<a href="customerlist.jsp?column=<%=mP.getColumn()%>&keyword=<%=mP.getKeyword()%>&p=<%=mP.getFinishBlock()+1%>">&gt;</a>
-		<%} else { %>
+			<%} else { %>
 			<!-- 목록용 링크 -->
 			<a href="customerlist.jsp?p=<%=mP.getFinishBlock()+1%>">&gt;</a>
-		<%} %> 
-	<%} else {%>
+			<%} %> 
+		<%} else {%>
 		<a>&gt;</a>
-	<%} %>
+		<%} %>
 	</div>
 	
 	<div class="row center">
@@ -106,11 +106,11 @@
 				<%}else{ %>
 				<option value="address">주소</option>
 				<%} %>
-				</select>
+			</select>
 				
 			<input type="search" name="keyword" placeholder="검색어 입력" required class="form-input form-inline">
 			<input type="submit" value="검색" class="form-btn form-inline">
-			</form>
+		</form>
 	</div>
 </div>
 

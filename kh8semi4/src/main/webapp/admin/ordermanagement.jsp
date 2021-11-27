@@ -3,8 +3,12 @@
 <%@page import="semi.beans.BuyDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- 입력 --%>
 <%
-	String memberId = request.getParameter("memberId");
+	String memberId = request.getParameter("memberId");	
+%>
+<%-- 처리 --%>
+<%
 	//주문서 목록을 가져오는 코드
 	BuyDao buyDao = new BuyDao();
 	List<BuyDto> buyList;
@@ -16,7 +20,6 @@
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
 
-</script>
 <h1>주문서 관리 페이지</h1>
 <h2>주문서 내역</h2>
 <%if(!buyList.isEmpty()){ %>
@@ -36,7 +39,7 @@
 		</tr>
 	</thead>
 	<tbody>
-	<%for(BuyDto buy : buyList){ %>
+		<%for(BuyDto buy : buyList){ %>
 		<tr>
 			<td class="buyno"><%=buy.getNo()%></td>
 			<td><%=buy.getMemberId()%></td>
@@ -54,7 +57,7 @@
 				</form>
 			</td>
 		</tr>
-	<%} %>
+		<%} %>
 	</tbody>
 </table>
 <%} else { %>
