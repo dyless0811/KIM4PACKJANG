@@ -1,3 +1,6 @@
+<%@page import="semi.beans.ProductDao"%>
+<%@page import="semi.vo.BuyProductVo"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="semi.beans.MemberDto"%>
 <%@page import="semi.beans.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,6 +12,10 @@
 	MemberDto memberDto = memberDao.get(memberId);
 	
 	String[] basketList = request.getParameterValues("basketNo");
+	
+	//장바구니 페이지에서 넘어온 basketNo를 이용해 상품 정보 조회하는 코드
+	ProductDao productDao = new ProductDao();
+	
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
 <form action="<%=request.getContextPath()%>/product/buy.kj" method="post">
@@ -38,7 +45,25 @@
 				<input type="hidden" name="basketNo" value="<%=basketNo%>">
 			<%}%>
 		</div>
-
+		<div>
+			<table>
+				<tbody>
+			<%for(int i = 0; i < basketList.length; i++){ %>
+				<tr>
+					<td><input type="hidden" name="basketNo" value=<%=basketList[i]%>></td>
+					<%BuyProductVo buyProduct = productDao.productInfo(memberId, Integer.parseInt(basketList[i])); %>
+					<td><img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=buyProduct.getProductNo()%>" width="100px" height="100px"></td>
+					<td><%=buyProduct.getPrice()%></td>
+					<td><%=buyProduct.getCount()%></td>
+					<td><%=buyProduct.getSaveMoney()%></td>
+					<td>기본배송</td>
+					<td>무료배송</td>
+					<td><%=buyProduct.getTotalPrice()%></td>
+				</tr>
+			<%} %>
+				</tbody>
+			</table>
+		</div>
 		<hr>
 		<div class="row">
 		주문정보
