@@ -360,7 +360,38 @@ public class ReplyDao {
 		
 		return list;
 	}
-	
+	//리뷰순으로 정렬한 TOP20
+public List<ReplyListVo> ReplyTop20() throws Exception {
+		
+		Connection con = JdbcUtils.connect();
+		String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+					+ "select p.no product_no, p.small_type_no, p.name, p.price, max(r.time) recent_reply, count(r.no) reply_count, avg(r.starpoint) starpoint, pi.product_file_savename from product p inner join buy b on p.no = b.product_no inner join reply r on r.buy_no = b.no inner join productimage pi on pi.product_no = p.no group by p.no, p.small_type_no, p.name, p.price, pi.product_file_savename order by reply_count desc"
+					+ ")TMP "
+					+ ")where rn between 1 and 20";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReplyListVo> list = new ArrayList<>();
+		
+		while(rs.next()) {
+			ReplyListVo replyListVo = new ReplyListVo();
+			replyListVo.setProductNo(rs.getInt("product_no"));
+			replyListVo.setSmallTypeNo(rs.getInt("small_type_no"));
+			replyListVo.setName(rs.getString("name"));
+			replyListVo.setPrice(rs.getInt("price"));
+			replyListVo.setRecentReply(rs.getString("recent_reply"));
+			replyListVo.setReplyCount(rs.getInt("reply_count"));
+			replyListVo.setStarpoint(rs.getDouble("starpoint"));
+			replyListVo.setProductImageSavename((rs.getString("product_file_savename")));
+			
+			list.add(replyListVo);
+		}
+		
+		con.close();
+		
+		return list;
+	}
 
 	public boolean delete(int replyNo) throws Exception{
 		Connection con = JdbcUtils.connect();
