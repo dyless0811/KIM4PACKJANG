@@ -48,7 +48,7 @@ BoardTypeDto boardTypeDto = boardTypeDao.get(boardTypeNo);
             </div>
             <br>
             <div class="row center">
-            	<%=boardTypeDto.getName()%>
+            	<h2><%=boardTypeDto.getName()%></h2>
             </div>
         </div>
     </div>
