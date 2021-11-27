@@ -42,13 +42,14 @@ color: black; text-decoration: none;
 
 
 
-<div style="padding-top : 80px">
+<div class="notice" style="padding-bottom : 0px">
   <div class="page-title">
         <div class=" container-1200 container-center">
         <div class="row center">
             <h3>Community</h3>
             <br>
             <h4>OPEN : 10:00 - 17:00 / LUNCH : 12:30 - 13:30</h4>
+            <br>
             </div>
             <div class="row center">
             	<h2>상품 후기</h2>
