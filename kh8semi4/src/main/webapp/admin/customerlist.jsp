@@ -25,6 +25,7 @@
 					<th>전화번호</th>
 					<th>가입일</th>
 					<th>상태</th>
+					<th>주문서관리</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,6 +41,7 @@
 						<a href="./customerdetail.jsp?memberId=<%=member.getId()%>">수정</a>
 						<a href="#">탈퇴</a>
 					</td>
+					<td><a href="./ordermanagement.jsp?memberId=<%=member.getId()%>">주문서확인</a></td>
 				</tr>
 			<%} %>
 			</tbody>

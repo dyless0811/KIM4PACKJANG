@@ -12,7 +12,7 @@
 	String root = request.getContextPath();
 	//타입 리스트 출력을 위한 dao, dto
 	BigTypeDao bigTypeDao = new BigTypeDao();
-	
+	 
 	List<BigTypeDto> bigTypeList = bigTypeDao.list();
 	BoardTypeDao boardTypeDao = new BoardTypeDao();
 	List<BoardTypeDto> boardTypeList = boardTypeDao.list();
@@ -78,6 +78,7 @@
 
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/notice.css">
     <script>
     $(function(){
 		$(".contents").find("li").click(function(e){

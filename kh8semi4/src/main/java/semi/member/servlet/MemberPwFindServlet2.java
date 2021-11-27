@@ -10,16 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.MemberDao;
 import semi.beans.RandomPassword;
-import semi.beans.sha256;
 
-@WebServlet(urlPatterns = "/member/pw/find_pw.kj")
-public class MemberPwFindServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/member/pw/find_pw2.kj")
+public class MemberPwFindServlet2 extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			
 			String tmpPw = RandomPassword.getTempPassword(5);
-			String encrypPw = sha256.encodeSha256(tmpPw);
+			
 			// 입력 : 아이디, 이메일, 전화번호
 			String id = req.getParameter("id");
 			String email = req.getParameter("email");

@@ -18,14 +18,31 @@
 %>
 <%-- 출력 --%>
 <jsp:include page="/template/header.jsp"></jsp:include>
+<style>
+.item {
+   display: flex;
+   flex-direction: column;
+   flex: 1 1 1 1 25%;
+   flex-basis :auto;
+}
 
-<div class="container-1400 container center">
+a:link { 
+color: black; text-decoration: none;
+}
+
+a:visited { 
+color: black; text-decoration: none;
+}
+
+</style>
+
+<div class="container-1400 container-center">
 	<div class="row center">
 		<h1>★BEST REVIEW★</h1>
 		</div>
 		
 		<!-- for문에서, container가 큰 한개. flex-gro을 4개가 되면 큰 container를 추가한다. -->
-		<div class="row flex-container" style="margin: 50px">
+		<div class="row flex-container">
 		<%
 		int i =0;
 		for(ReplyListVo replyListVo : volist){%>
@@ -33,13 +50,13 @@
 			</div>
 				<div class="row flex-container" style="margin: 50px">
 			<%} %>
-			<div class="row flex-gro">
+			<div class="row">
 	    		<table class="table table-border table-hover">
 		    		<tbody>
 					   	 	<!-- 상품 이미지 자리-->
-					   	 <tr>
-							<td>
-							<img src="C:/upload/kh84/product/ <%=replyListVo.getProductImageSavename()%>" width="100%" class="image  image-border">
+					   	 <tr height="350px">
+							<td width="25%">
+							<img src="C:/upload/kh84/product/ <%=replyListVo.getProductImageSavename()%>"  width="330px" height="350px" >
 							</td>
 						</tr>
 			    		<tr>
