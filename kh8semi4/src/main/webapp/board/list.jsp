@@ -1,4 +1,6 @@
 
+<%@page import="semi.beans.BoardTypeDao"%>
+<%@page import="semi.beans.BoardTypeDto"%>
 <%@page import="semi.beans.BoardDto"%>
 <%@page import="semi.beans.BoardPagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -23,18 +25,30 @@ BoardPagenation boardPagenation = new BoardPagenation(request);
 boardPagenation.calculate();
 BoardDto boardDto = new BoardDto();
 int boardTypeNo = Integer.parseInt(request.getParameter("no"));
+
+//boardTypeDto에 name을 가져와야함. boardTypeDto를 가져오려면 boardTypeDao가 있어야함. 
+//boardTypeDao에 get을 쓰면 Dto가 나오니까, 그 boardTypeDto.getname 하면 가져와져
+		
+BoardTypeDao boardTypeDao = new BoardTypeDao();
+BoardTypeDto boardTypeDto = boardTypeDao.get(boardTypeNo);
+
 %>
 
 
 <jsp:include page="/template/header.jsp"></jsp:include>
 
-    <div class="notice">
+
+<div class="notice">
   <div class="page-title">
         <div class=" container-1200 container-center">
         <div class="row center">
-            <h3>NOTICE</h3>
+            <h3>Community</h3>
             <br>
             <h4>OPEN : 10:00 - 17:00 / LUNCH : 12:30 - 13:30</h4>
+            </div>
+            <br>
+            <div class="row center">
+            	<h2><%=boardTypeDto.getName()%></h2>
             </div>
         </div>
     </div>
