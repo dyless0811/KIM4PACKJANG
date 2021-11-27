@@ -124,18 +124,22 @@ function check2(){
    	 			total += Number(price);
    	 		});
    	 		$("#Reserves").text(total);	
-   	 		
    	 	});
 	});
-	$("#selected-buy").click(function(e) {
-		if($(".total-btn").is(":not")) {
-			e.preventDefault();
+   
+	$(function(){
+	$(".selected-buy").click(function(e) {
+		var pChecked = false;
+		$.each($(".total-btn:checked"), function(index, element){
+			pChecked = true;
+		}); 
+		if(!pChecked) {
 			alert("상품을 선택해주세요");
-			return;
+			e.preventDefault();
 		}
-	})
+	});
 });
-       
+	
 </script>
 <form action="<%=root%>/product/productbuy.jsp" method="get">
 <div class="container-1200 container-center">
