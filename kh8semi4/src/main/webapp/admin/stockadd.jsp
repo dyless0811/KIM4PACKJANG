@@ -89,7 +89,7 @@
 		<tr>
 			<td><input id="productNo" type="hidden" name="productNo" value="<%=productNo%>"><%=productDto.getName()%></td>
 			<td>
-				<select name="size" id="select-size" required>
+				<select name="sizeNo" id="select-size" required>
 					<option value="" selected>---</option>
 					<%for(SizeDto sizeDto : sizeList) {%>
 					<option value="<%=sizeDto.getNo()%>"><%=sizeDto.getSizeName()%></option>
@@ -97,7 +97,7 @@
 				</select>
 			</td>
 			<td>
-				<select name="color" id="select-color" required>
+				<select name="colorNo" id="select-color" required>
 					<option value="" selected>---</option>
 					<%for(ColorDto colorDto : colorList) {%>
 					<option value="<%=colorDto.getNo()%>"><%=colorDto.getColorName()%></option>
