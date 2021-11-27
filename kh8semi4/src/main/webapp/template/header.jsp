@@ -214,6 +214,7 @@
 		<nav>
 
 			<ul class="slide-menu">
+			<li><a href="<%=request.getContextPath()%>/product/productBset.jsp">Best</a>
 				<%for(BigTypeDto bigType : bigTypeList){ %>
 				<li><a
 					href="<%=request.getContextPath()%>/product/productlist.jsp?bigtypeno=<%=bigType.getNo()%>"><%=bigType.getName()%></a>
