@@ -40,13 +40,14 @@ $(function () {
 					stock = resp;
 				},
 		error : function(err) {//통신이 실패했다.
+					alert("오류");
 				}
 	  });
       var content = `<tr id="item-${itemIndex}">`;
       content += `<td><input type="hidden" name="productNo" value="${productNo}">${productName}</td>`;
       content += `<td><input type="hidden" name="color" value="${colorNo}" />${colorName}</td>`;
       content += `<td><input type="hidden" name="size" value="${sizeNo}" />${sizeName}</td>`;
-      content += `<td><input class="item-count" type="number" name="count" min="1" max="${stock}" value="1" /></td>`;
+      content += `<td><input class="item-count" type="number" name="count" min="0" max="${stock}" value="1" /></td>`;
       content += `<td><h4>${productPrice}</h4><input class="item-price" type="hidden" name="price" value="${productPrice}" readonly /></td>`;
       content += `<td><span class="item-stock">${stock}</span>개</td>`;
       content += `<td><button type="button">X</button></td>`;
