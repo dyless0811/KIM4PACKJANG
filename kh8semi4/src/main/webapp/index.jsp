@@ -15,9 +15,7 @@
 <%
 ProductImageDao productImageDao =new ProductImageDao();
 ProductDao productDao = new ProductDao();
-System.out.println("어디까지왓니");
 List<TopVo> list = productDao.BEST20();
-System.out.println("어디까지왓니1");
 Format d = new DecimalFormat("#,##0");
 %>
  
@@ -41,18 +39,19 @@ Format d = new DecimalFormat("#,##0");
       85% {margin-left:-300%;}
       100% {margin-left:0;}
     }
-    .item {
+.item {
    display: flex;
    flex-direction: column;
    flex: 1 1 1 1 25%;
    flex-basis :auto;
 }
-div{
-border: 1px solid black;
-}
+
 table{
-margin-left: auto; 
-margin-right: auto;
+padding:  0 0 21px 21px
+}
+
+
+
 </style>
 <div class="container-1500 container-center">
 
@@ -81,20 +80,19 @@ margin-right: auto;
      %> 
   			
 		</div>
-		<div class="row flex-container" style="margin-left: auto; 
-margin-right: auto;">
+		<div class="row flex-container ">
 		<%}%>
 			<div class="row">
-	    		<table class="table table-hover item" >
+	    		<table class="table table-hover item  admin-main" >
 		    		<tbody>
 		    			<tr height="350px" >
 					   	 	<!-- 상품 이미지 -->
-							<td width="25%" colspan="2">
+							<td colspan="2">
 							<%ProductImageDto productImageDto =productImageDao.get(topvolist.getNo());%>
 							<%if(productImageDto != null) {%>
-							<a href="./productdetail.jsp?no=<%=topvolist.getNo()%>"><img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=topvolist.getNo()%>" width="330px" height="350px"></a>
+							<a href="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=topvolist.getNo()%>"><img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=topvolist.getNo()%>" width="330px" height="350px"></a>
 							<%} else {%>
-							<a href="./productdetail.jsp?no=<%=topvolist.getNo()%>"><img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg"   width="330px" height="350px"></a>
+							<a href="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=topvolist.getNo()%>"><img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg"   width="330px" height="350px"></a>
 								<%}%>
 							</td>
 			    		</tr>
@@ -103,7 +101,7 @@ margin-right: auto;">
 			    			<td class="legt"><%=i+1%>번상품</td>
 			    		</tr>
 			    		<tr >
-			    			<td colspan="2"><a href="./productdetail.jsp?no=<%=topvolist.getNo()%>"><%=topvolist.getName()%></a></td>
+			    			<td colspan="2"><a href="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=topvolist.getNo()%>"><%=topvolist.getName()%></a></td>
 			    		</tr>
 			    		<tr>
 			    			<td colspan="2"><%=d.format(topvolist.getPrice())%>원</td>
