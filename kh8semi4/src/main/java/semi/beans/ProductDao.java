@@ -90,6 +90,44 @@ public class ProductDao {
 		return list;
 		
 	}
+	
+	
+	//구매숫자 체크하여 많은 숫자 베스트 20
+	public List<TopVo> BEST20() throws Exception{
+		Connection con = JdbcUtils.connect();
+		
+		String sql="select * from ("
+				+ "    select rownum rn, tmp.* from( "
+				+ "        select p.*, count(p.name) rank from product p "
+				+ "        inner join buy b on p.no = b.product_no "
+				+ "        group by p.name, p.no ,p.small_type_no,p.price,p.description,p.views "
+				+ "        order by count(p.name) desc "
+				+ "    )tmp "
+				+ ")where rn between 1 and 20 ";
+				
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<TopVo> list = new ArrayList<>();
+		while(rs.next()) {
+			TopVo topVo = new TopVo();
+			topVo.setRn(rs.getInt("rn"));
+			topVo.setNo(rs.getInt("no"));
+			topVo.setSmallTypeNo(rs.getInt("small_type_no"));
+			topVo.setName(rs.getString("name"));
+			topVo.setPrice(rs.getInt("price"));
+			topVo.setDescription(rs.getString("description"));
+			topVo.setViews(rs.getInt("views"));
+			topVo.setRank(rs.getInt("rank"));
+			
+			list.add(topVo);
+		}
+		con.close();
+		
+		return list;
+		
+	}
 	//상품 조회(단일조회)
 	public ProductDto get(int no)throws Exception{
 		Connection con = JdbcUtils.connect();
