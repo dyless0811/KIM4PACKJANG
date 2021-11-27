@@ -19,7 +19,9 @@ public class MemberPwFindServlet extends HttpServlet {
 		try {
 			
 			String tmpPw = RandomPassword.getTempPassword(5);
-			String encrypPw = sha256.encodeSha256(tmpPw);
+			System.out.println("임시 = " + tmpPw);
+			String enPw = sha256.encodeSha256(tmpPw);
+			System.out.println("암호화 = " + enPw);
 			// 입력 : 아이디, 이메일, 전화번호
 			String id = req.getParameter("id");
 			String email = req.getParameter("email");
@@ -27,9 +29,9 @@ public class MemberPwFindServlet extends HttpServlet {
 
 			// 처리
 			MemberDao memberDao = new MemberDao();
-			boolean success = memberDao.editPassword(tmpPw, id, email, phone);
-			//기존 비밀번호 찾기 
-			//String pw = memberDao.findpw(id, email, phone);
+			boolean success = memberDao.editPassword(enPw, id, email, phone);
+//			기존 비밀번호 찾기 
+//			String pw = memberDao.findpw(id, email, phone);
 //			if (pw != null) {
 //				resp.sendRedirect(req.getContextPath() + "/member/pw/find_pw_success.jsp?pw=" + pw);
 //			} else {

@@ -42,7 +42,7 @@ public class MpgPagination {
 		}
 		
 		//계산 메소드
-		private int pageSize = 2;
+		private int pageSize = 5;
 		private int blockSize = 10;
 		private int begin, end;
 		private int startBlock, finishBlock, lastBlock;
