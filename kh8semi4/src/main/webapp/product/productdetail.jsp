@@ -144,14 +144,14 @@ $(function() {
 
 
 
-$(".RkRNd").hide(); resource->productdetail.js안에 있는 select-btn.click 안에 var clolorName 아래에 $(".RkRNd").show();
+$(".RkRNd").hide(); //resource->productdetail.js안에 있는 select-btn.click 안에 var clolorName 아래에 $(".RkRNd").show();
 
 
 </script>
 <script src="<%=request.getContextPath()%>/resource/js/productdetail.js" ></script>
 
 		<div class="flex-container">
-		 <div class="flex-1 right">
+		<div class="flex-1 right">
      		<!-- 이미지 출력 -->
 		<%if(productImageDto != null) {%>
 		<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=productDto.getNo()%>" width="320px" height="320px">
@@ -196,6 +196,7 @@ $(".RkRNd").hide(); resource->productdetail.js안에 있는 select-btn.click 안
     					<th>사이즈</th>
     					<th>개수</th>
     					<th>가격</th>
+    					<th>재고</th>
     					<th>제거</th>
     				</tr>
             	</thead>
