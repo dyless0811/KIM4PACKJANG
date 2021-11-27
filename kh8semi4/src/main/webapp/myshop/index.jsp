@@ -234,7 +234,7 @@ a, a:hover {
         <ul class="order">
 <li>
                 <strong>장바구니</strong>
-               <span id="xans_myshop_orderstate_shppied_before_count"><%=myShopVo.getBasketCount() %></span>
+               <span id="xans_myshop_orderstate_shppied_before_count"><a href="<%=request.getContextPath()%>/myshop/order/basket.jsp"><%=myShopVo.getBasketCount() %></a></span>
             </li>
             <li>
                 <strong>배송전</strong>
