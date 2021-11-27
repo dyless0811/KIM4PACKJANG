@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import semi.vo.BuyProductVo;
+
 
 
 
@@ -468,5 +470,44 @@ public int count(String noType, String no, String column,String keyword) throws 
 		
 	
 	
-	
+	//구매 페이지에서 BasketNo로 상품 정보를 가져오는 단일조회 메소드
+		public BuyProductVo productInfo(String memberId, int basketNo) throws Exception{
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "select B.product_no, B.no, SZ.sz, C.color, i.product_file_savename 이미지, p.description 상품정보, P.price 판매가, B.count 수량, P.price*B.count*0.03 적립금, P.price * B.count 합계 from basket B "
+							+ "inner join product P "
+							+ "on B.product_no = P.no "
+							+ "inner join sz SZ "
+							+ "on B.size_no = Sz.no "
+							+ "inner join color C "
+							+ "on B.color_no = C.no "
+							+ "inner join productimage I "
+							+ "on B.product_no = i.product_no "
+							+ "where B.member_id = ? and B.no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, memberId);
+			ps.setInt(2, basketNo);
+			ResultSet rs = ps.executeQuery();
+			
+			BuyProductVo buyProduct;
+			if(rs.next()) {
+				buyProduct = new BuyProductVo();
+				buyProduct.setProductNo(rs.getInt("product_no"));
+				buyProduct.setBasketNo(rs.getInt("no"));
+				buyProduct.setSizeName(rs.getString("sz"));
+				buyProduct.setCololrName(rs.getString("color"));
+				buyProduct.setProductFileSavename(rs.getString("이미지"));
+				buyProduct.setProductDescription(rs.getString("상품정보"));
+				buyProduct.setPrice(rs.getInt("판매가"));
+				buyProduct.setCount(rs.getInt("수량"));
+				buyProduct.setSaveMoney(rs.getInt("적립금"));
+				buyProduct.setTotalPrice(rs.getInt("합계"));
+			} else {
+				buyProduct = null;
+			}
+			
+			con.close();
+			
+			return buyProduct;
+		}
 }
