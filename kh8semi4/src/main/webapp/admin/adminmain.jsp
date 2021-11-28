@@ -44,6 +44,11 @@
 			<tr>
 				<td><a href="./statistics.jsp" class="here">● 홈페이지 통계 보기</a></td>
 			</tr>
+			
+			<tr>
+				<td><a href="todaybuylist.jsp" class="here">● 금일배송처리</a></td>
+			</tr>
+		
 		</tbody>
 	</table>
 </div>

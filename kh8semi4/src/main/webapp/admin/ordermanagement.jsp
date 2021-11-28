@@ -19,11 +19,13 @@
 	}
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
-
-<h1>주문서 관리 페이지</h1>
+<div class="center">
+	<h1>주문서 관리 페이지</h1>
+</div>
+<div>
 <h2>주문서 내역</h2>
 <%if(!buyList.isEmpty()){ %>
-<table>
+<table class="table-border table">
 	<thead>
 		<tr>
 			<th>구매번호</th>
@@ -63,4 +65,5 @@
 <%} else { %>
 <h2>주문 내역이 없습니다.</h2>
 <%} %>
+</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
