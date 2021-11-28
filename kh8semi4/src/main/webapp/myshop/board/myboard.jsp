@@ -38,57 +38,6 @@
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
-<style>
-
-.reply-button button{
-  background:#1AAB8A;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:60px;
-  font-size:1.6em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-}
-.reply-button button{
-  background:pink;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:60px;
-  font-size:1.6em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-}
-.reply-button button:hover{
-  background:#fff;
-  color:pink;
-}
-.reply-button button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background:pink;
-  transition:400ms ease all;
-}
-.reply-button button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-.reply-button button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
-}
-</style>
 <script>
 	//작성가능한 리뷰와 작성한 리뷰 닫고 보여주기
 	$(function(){
@@ -249,7 +198,6 @@
         <table class="table table-noborder table-hover reply-hide">
 				<thead>
 					<tr>
-						
 						<td><span>상품명</span></td>
 						<td><span>리뷰내용</span></td>
 						<td><span>작성일</span></td>

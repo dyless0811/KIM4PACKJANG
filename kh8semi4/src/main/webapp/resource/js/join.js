@@ -1,72 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%
-	String root = request.getContextPath();
-%>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<jsp:include page="/template/header.jsp"></jsp:include>
-<style>
-.notice {
-	color: red;
-}
-
-.snapsync-form-wrapper input:not([type]), .snapsync-form-wrapper input[type="text"], .snapsync-form-wrapper input[type="password"] {
-    width: 100%;
-    border: #EBEBEB 1px solid;
-    border-radius: 10px;
-    padding: 0px 10px;
-    font-size: 15px;
-    height: 39px;
-    line-height: 39px;
-}
-.snap-sync-btn-submit {
-    cursor: pointer;
-    background: #191919;
-    width: 100%;
-    border-radius: 10px;
-    color: #FFFFFF;
-    margin: 10px 0;
-    padding: 15px;
-    font-size: 15px;
-    font-weight: 600;
-    outline: none;
-    border: 0;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-}
-.snapsync-member-nav li ~ li {
-    border-left: #CFCFCF 1px solid;
-}
-
-.snapsync-member-nav li {
-    width: 30.0%;
-    text-align: center;
-    color: #A5A5A5;
-    list-style: none;
-    display: inline-block;
-}
-
-.snapsync-member-nav {
-    padding: 5px 0;
-}
-
-
-a:link { 
-color: black; text-decoration: none;
-}
-
-a:visited { 
-color: black; text-decoration: none;
-}}
-</style>
-<script>
 //주소 찾기   	
 $(function(){
 $(".find-address-btn").click(function(){
     findAddress();
 	});
-
+ 
 function findAddress(){
     new daum.Postcode({
         oncomplete: function(data) {
@@ -95,14 +32,14 @@ function findAddress(){
             document.querySelector("input[name=address]").value = addr;
             //$("input[name=address]").val(addr);
             // 커서를 상세주소 필드로 이동한다.
+              
             
             //$("input[name=detailAddress]").focus();
         }
     }).open();
 };
 });
-</script>
-<script>
+
 	//아이디 중복확인 Ajax
     $(function(){
     	$("input[name=id]").on("blur", function(){
@@ -116,7 +53,7 @@ function findAddress(){
 				success : function(resp) {
 					if (resp == "YESICAN") {//사용가능
 					} else if (resp == "NONONO") {//사용불가능
-						$("input[name=id]").next().text("아이디가 이미 사용중입니다");
+						$("input[name=id]").next().text("아이디가 이미 사용중입니다.");
 					}
 				},
 				error : function(err) {//통신이 실패했다.
@@ -150,11 +87,11 @@ function findAddress(){
 		$("input[name=id]").on("input", function() {
 			var regex = /^[a-z][a-z0-9-_]{5,19}$/;
 			var id = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(id)) {
-				span.text("");
+				$("input[name=id]").addClass("success");
 			} else {
-				span.text("아이디는 6~20자 영문+숫자로 작성하세요");
+				$("input[name=id]").addClass("fail");
 			}
 		});
 	});
@@ -163,11 +100,11 @@ function findAddress(){
 		$("input[name=pw]").on("input", function() {
 			var regex = /^[A-Za-z0-9!@#$\s_-]{8,16}$/;
 			var pw = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(pw)) {
-				span.text("");
+				$("input[name=pw]").addClass("success");
 			} else {
-				span.text("비밀번호는 8~16자 이내의 영문,숫자,특수문자로 작성하세요");
+				$("input[name=pw]").addClass("fail");
 			}
 		});
 	});
@@ -176,11 +113,11 @@ function findAddress(){
 		$("input[name=pw2]").on("blur",function(){
 			var pwInput = $("input[name=pw]").val();
 			var pw2Input = $("input[name=pw2]").val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (pwInput.length > 0 && pwInput == pw2Input) {
-				span.text("");
+				$("input[name=pw2]").addClass("success");
 			} else {
-				span.text("비밀번호가 일치하지 않습니다");
+				$("input[name=pw2]").addClass("fail");
 			}
 		});
 	});
@@ -189,24 +126,11 @@ function findAddress(){
 		$("input[name=name]").on("input", function() {
 			var regex = /^[가-힣]{2,17}$/;
 			var name = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(name)) {
-				span.text("");
+				$("input[name=name]").addClass("success");
 			} else {
-				span.text("이름은 한글2~17자 이내로 작성하세요");
-			}
-		});
-	});
-	//주소 정규표현식
-	$(function() {
-		$("input[name=address]").on("input", function() {
-			var regex = /^[가-힣\s]+$/;
-			var address = $(this).val();
-			var span = $(this).next();
-			if (regex.test(address)) {
-				span.text("");
-			} else {
-				span.text("다시입력바람");
+				$("input[name=name]").addClass("fail");
 			}
 		});
 	});
@@ -215,11 +139,11 @@ function findAddress(){
 		$("input[name=phone]").on("input", function() {
 			var regex = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
 			var phone = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(phone)) {
-				span.text("");
+				$("input[name=phone]").addClass("success");
 			} else {
-				span.text("(-)포함  11자리로 작성하세요");
+				$("input[name=phone]").addClass("fail");
 			}
 		});
 	});
@@ -228,11 +152,11 @@ function findAddress(){
 		$("input[name=email]").on("input",function() {
 			var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 			var email = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(email)) {
-				span.text("");
+				$("input[name=email]").addClass("success");
 			} else {
-				span.text("이메일 형식이 올바르지 않습니다");
+				$("input[name=email]").addClass("fail");
 			}
 		});
 	});
@@ -240,40 +164,11 @@ function findAddress(){
 	$(function() {$("input[name=birth]").on("input",function() {
 		var regex = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 		var birth = $(this).val();
-		var span = $(this).next();
+		$(this).removeClass("success").removeClass("fail");
 		if (regex.test(birth)) {
-			span.text("");
+			$("input[name=birth]").addClass("success");
 		} else {
-			span.text("생년월일을 선택하세요");
+			$("input[name=birth]").addClass("fail");
 		}
 	});
-});				
-</script>
-  
-<form action="<%=root%>/member/join.kj" method="post">
-	
-	<div class="container-400 container-center">
-		<div class="row center">
-			<h2>로그인</h2>
-		</div>
-		
-		<div class="snapsync-form-wrapper">
-        
-        <input type="text" name="id" placeholder="아이디">
-        <input id="member_passwd" name="member_passwd" autocomplete="off" value="" type="password" placeholder="비밀번호">
-        <input id="check_save_id0" class="snapsync-type-btn-saveid" name="check_save_id" type="checkbox">
-        <label for="check_save_id0">아이디 저장</label><button class="snap-sync-btn-submit" onclick="MemberAction.login('member_form_3907916616'); return false;">로그인</button>
-        <div class="flex">
-        <ul class="snapsync-member-nav center">
-        	<li><a href="<%=root%>/member/id/find_id.jsp">아이디 찾기</a></li>
-            <li><a href="<%=root%>/member/pw/find_pw.jsp">비밀번호 찾기</a></li>
-            <li><a href="<%=root%>/member/join.jsp">회원가입</a></li>
-            </ul>
-            </div>
-        </div>
-		
-	</div>
-
-</form>
-
-<jsp:include page="/template/footer.jsp"></jsp:include>
+});

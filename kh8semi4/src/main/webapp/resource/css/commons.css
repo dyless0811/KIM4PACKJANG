@@ -468,8 +468,6 @@ div {
 	border: none;
 }
 
-
-
 /* 회원 마이페이지 */
 /* ================== new 회원메인페이지 ==================== */
 .titleArea {
@@ -624,8 +622,7 @@ a, a:hover {
     
 }
 /*여기까지가 배송상태 스타일*/
-/* 회원 마이페이지 */
-/* ================== new 회원메인페이지 끝==================== */
+/* ================== 회원메인페이지 끝==================== */
 
 /*게시물관리 버튼디자인*/
 .reply-button button{
@@ -676,7 +673,49 @@ a, a:hover {
   width:100%;
   transition:800ms ease all;
 }
-  /*게시물관리 버튼디자인 끝*/ 
+/*게시물관리 버튼디자인 끝*/ 
+
+/*로그인 페이지 디자인*/
+.notice {
+	color: red;
+}
+ .snapsync-form-wrapper input:not([type]), .snapsync-form-wrapper input[type="text"], .snapsync-form-wrapper input[type="password"] {
+            width: 100%;
+            border: #EBEBEB 1px solid;
+            border-radius: 10px;
+            padding: 0px 10px;
+            font-size: 15px;
+            height: 39px;
+            line-height: 39px;
+        }
+.snap-sync-btn-submit {
+            cursor: pointer;
+            background: #191919;
+            width: 100%;
+            border-radius: 10px;
+            color: #FFFFFF;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 15px;
+            font-weight: 600;
+            outline: none;
+            border: 0;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+.snapsync-member-nav li ~ li {
+            border-left: #CFCFCF 1px solid;
+        }
+        
+.snapsync-member-nav li {
+            width: 30.0%;
+            text-align: center;
+            color: #A5A5A5;
+            list-style: none;
+            display: inline-block;
+        }
+/*로그인 페이지 디자인*/
   
   /* 링크를 버튼으로 만드는 스타일 */
 .link-btn:hover{
@@ -689,5 +728,5 @@ a, a:hover {
     border:2px solid gray;
     text-decoration:none;
     color:gray;
-
 }
+
