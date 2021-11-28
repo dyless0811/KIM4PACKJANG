@@ -63,4 +63,6 @@
 <%} else { %>
 <h2>주문 내역이 없습니다.</h2>
 <%} %>
+
+<h3><a href="customerlist.jsp">목록으로</a></h3>
 <jsp:include page="/template/footer.jsp"></jsp:include>
