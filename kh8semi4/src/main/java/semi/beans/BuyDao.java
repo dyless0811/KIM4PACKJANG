@@ -40,6 +40,8 @@ public class BuyDao {
 			buyDto.setNo(rs.getInt("no"));
 			buyDto.setMemberId(rs.getString("member_id"));
 			buyDto.setProductNo(rs.getInt("product_no"));
+			buyDto.setSizeNo(rs.getInt("size_no"));
+			buyDto.setColorNo(rs.getInt("color_no"));
 			buyDto.setType(rs.getString("type"));
 			buyDto.setBuyDate(rs.getDate("buy_date"));
 			buyDto.setStatus(rs.getString("status"));
