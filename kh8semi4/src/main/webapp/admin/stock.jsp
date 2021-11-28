@@ -31,11 +31,15 @@
 	
 	//smalltypeDao
 	SmallTypeDao smallTypeDao = new SmallTypeDao();
+	
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
 	
-<h1>재고 관리 페이지</h1>
 <div class="container-1000 container-center">
+	<div class="row center">
+	 	<h1>재고 관리 페이지</h1>
+	</div>
+	
 	<div class="row">
 		<table class="table table-hover table-border">
 			<thead>
@@ -45,7 +49,8 @@
 					<th>카테고리[대]</th>
 					<th>카테고리[소]</th>
 					<th>상품가격</th>
-					<th>상태</th>
+					<th>총재고수량</th>
+					<th>상태</th>			
 				</tr>
 			</thead>
 			<tbody>
@@ -65,6 +70,7 @@
 					<td>[<%=bigTypeDto.getName()%>]</td>
 					<td>[<%=smallTypeDto.getName()%>]</td>
 					<td><%=product.getPrice()%></td>
+					<td><%=stockCount%></td>
 					<td><a href="stockadd.jsp?productno=<%=product.getNo()%>">입고</a></td>
 				</tr>
 				<%} %>

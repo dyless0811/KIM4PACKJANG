@@ -79,14 +79,9 @@ text-decoration: none;
 }
 
 .font-size{
-font-family:sans-serif;
 font-size: 18px;
 }
 
-
- div{ 
- border: 1px dotted black; 
- } 
 
 
 

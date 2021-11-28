@@ -31,7 +31,6 @@ int boardTypeNo = Integer.parseInt(request.getParameter("no"));
 		
 BoardTypeDao boardTypeDao = new BoardTypeDao();
 BoardTypeDto boardTypeDto = boardTypeDao.get(boardTypeNo);
-
 %>
 
 
