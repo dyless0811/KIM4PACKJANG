@@ -8,39 +8,30 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <form action="<%=root%>/member/pw/find_pw.kj" method = "post">
-	<div class="container-800 container-center">
-	<div class = "row center">
-			<h3>비밀번호 찾기</h3>
+	<div class="container-400 container-center">
+	<div class="titleArea">
+        	<h2>비밀번호 찾기</h2>
 	</div>
 	<div class="row">
-		<label>아이디</label>
-		<input type="text" name="id" class="form-input">
+		<input type="text" name="id" class="form-input" placeholder="아이디" autocomplete="off" required>
 	</div>
 	<div class="row">
-		<label>이메일</label>
-		<input type="text" name="email" class="form-input">
+		<input type="text" name="email" class="form-input" placeholder="이메일" autocomplete="off" required>
 	</div>
 	<div class="row">
-		<label>번호</label>	
-		<input type="text" name="phone" class="form-input">
+			<input type="tel" name="phone" class="form-input" placeholder="휴대전화 입력(-포함)" autocomplete="off" required>
 	</div>
 	<div class="row">
-		<input type="submit" value="찾기" class="form-btn">
+		<button class="snap-sync-btn-submit">비밀번호 찾기</button>
 	</div>	
 	</div>
 
 </form>
-<div class="container-900 container-center">
+
 <%if(request.getParameter("error") != null){ %>
 	<div class="row center">
 		<h4 class="error">존재하지 않는 회원입니다.</h4>
 	</div>
-<%}else if(request.getParameter("tmpPw") != null){%>
-		<div class="row center msg">
-			회원님의 임시비밀번호는 <strong><%=request.getParameter("tmpPw")%></strong>입니다. 비밀번호를 변경해주세요.
-   		</div>
-   		<div class="row center msg"><a href="login.jsp">로그인하러 가기</a></div>
-   		<%}%>
-	</div>
+<%}%>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

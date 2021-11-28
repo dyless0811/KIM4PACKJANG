@@ -33,7 +33,7 @@ public class MemberAutoLoginServlet extends HttpServlet {
 				// = 여기서는 가장 중요한 회원정보인 회원아이디를 loginId라는 이름으로 저장
 				req.getSession().setAttribute("loginId", id);
 				req.getSession().setAttribute("grade", memberDto.getGrade());
-				resp.sendRedirect(req.getContextPath() + "/index.jsp");
+				resp.sendRedirect(req.getContextPath() + "/member/join_success.jsp");
 
 			} else {
 				// login.jsp 로 이동하면서 ?error 파라미터를 붙여서 오류임을 표시
