@@ -3,15 +3,26 @@
     pageEncoding="UTF-8"%>
 
 <%		
-	String pw = request.getParameter("pw");
+	String pw = request.getParameter("enPw");
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
-	<h1>비밀번호찾기 결과</h1>
-		<div class = "row">
-	      	<h4>  회원님의 비밀번호는 </h4>  
-	      	<div class ="row">
-	      		<%=pw.substring(0,4)%>
-	      </div>
-	      <h4>입니다</h4>
-	     </div>
+	<div class="container-400 container-center">
+	<div class="titleArea">
+        	<h2>비밀번호 찾기 결과</h2>
+	</div>
+	 <div class="row">
+				회원님의 임시 비밀번호는 
+	</div>		
+	<br>
+	<div class ="row">
+	      	<strong>[<%=pw%>] 입니다.
+	      	<br>
+	      	비밀번호를 변경해주세요.
+	      	</strong>
+	  </div>
+		
+		<a href="<%=request.getContextPath()%>/member/login.jsp">
+			<button class="snap-sync-btn-submit">로그인</button>
+		</a>
+</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

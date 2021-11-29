@@ -1,3 +1,6 @@
+<%@page import="semi.beans.WrittenReplyVo"%>
+<%@page import="java.text.Format"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="semi.beans.ProductDao"%>
 <%@page import="semi.beans.BuyDto"%>
 <%@page import="semi.beans.MpgPagination"%>
@@ -25,67 +28,16 @@
 <%
 	ReplyDao replyDao = new ReplyDao();
 	ProductDao productDao = new ProductDao();
-	List<ReplyDto>list = 	replyDao.ProductReplyMember2(id);
+	List<WrittenReplyVo>list = replyDao.ProductReplyMember2(id);
 	List<BuyDto> buyDtoList = replyDao.CanWriteReplyBuyList(id);
 	%>
 
 <%
+	Format d = new DecimalFormat("#,##0");
 	BoardDao boardDao = new BoardDao();
-	List<BoardDto> list4  = boardDao.list();
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
-<style>
-
-.reply-button button{
-  background:#1AAB8A;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:60px;
-  font-size:1.6em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-}
-.reply-button button{
-  background:pink;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:60px;
-  font-size:1.6em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-}
-.reply-button button:hover{
-  background:#fff;
-  color:pink;
-}
-.reply-button button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background:pink;
-  transition:400ms ease all;
-}
-.reply-button button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-.reply-button button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
-}
-</style>
 <script>
 	//작성가능한 리뷰와 작성한 리뷰 닫고 보여주기
 	$(function(){
@@ -122,8 +74,7 @@
                   </tr>
                 </thead>
                <tbody>
-            <%if(list4 !=null) {%>
-             <%for(BoardDto boardDto : mpg.getList()) {%>
+            	 <%for(BoardDto boardDto : mpg.getList()) {%>
                 <tr>
                     <td><%=boardDto.getNo()%></td>
                     <td><%=boardDto.getBoardTypeNo()%></td>
@@ -134,11 +85,9 @@
                  </tr>
             	</tbody>
 			   <%}%>    
-			   <%}%>
-	</table>
-  </div>
+		</table>
+</div>
 
-     	
 <!-- 페이지네이션 -->		
 <div class="row center">
 	<div class="pagination">
@@ -196,7 +145,6 @@
 	</div>
 </div>
 	
-
 <!-- 리뷰 선택칸 -->
 <div class="row reply-button">
         <ul class="slide-menu">
@@ -207,7 +155,7 @@
           		<button class="not-write" style ="width:100%">작성한 리뷰</button>
          </li>
         </ul>
-      </div>
+</div>
  	
 <!-- 작성가능한 리뷰-->
 <div class="row target2">
@@ -230,8 +178,8 @@
           				ProductDto productDto = productDao.get(buyDto.getProductNo());
           			%>
 					<tr>
-						<td><%=productDto.getName() %></td>
-          			  	<td><%=productDto.getPrice()%>원</td>
+						<td><a href="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=productDto.getNo()%>"><%=productDto.getName() %></a></td>
+          			  	<td><%=d.format(productDto.getPrice())%>원</td>
          				 <td><%=productDto.getDescription() %></td>
          				 <td><a href="<%=request.getContextPath()%>/reply/write.jsp?no=<%= buyDto.getNo()%>">리뷰작성 이동</a></td>
 					</tr>
@@ -250,9 +198,10 @@
         <table class="table table-noborder table-hover reply-hide">
 				<thead>
 					<tr>
-						<td><span>번호</span></td>
-						<td><span>내용</span></td>
+						<td><span>상품명</span></td>
+						<td><span>리뷰내용</span></td>
 						<td><span>작성일</span></td>
+						<td><span>조회수</span></td>
 					</tr>
 					<tr>
 						<td colspan="8">
@@ -261,11 +210,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					 <%for(ReplyDto replyDto : list) {%>
+					 <%for(WrittenReplyVo writtenReplyVo : list) {%>
 					<tr>
-						<td><%=replyDto.getNo()%></td>
-						<td><a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=replyDto.getNo()%>"><%=replyDto.getContent()%></a></td>
-            			<td><%=replyDto.getTime()%></td>
+						<td><%=writtenReplyVo.getName()%></td>
+						<td><%=writtenReplyVo.getContent()%></td>
+            			<td><%=writtenReplyVo.getTime() %></td>
+            			<td><%=writtenReplyVo.getViews() %></td>
+            			<td><a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=writtenReplyVo.getNo()%>">작성한 리뷰</a></td>
 					</tr>
 					<tr height="20px">
 						<td colspan="8">

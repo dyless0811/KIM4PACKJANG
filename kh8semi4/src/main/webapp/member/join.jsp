@@ -4,11 +4,26 @@
 	String root = request.getContextPath();
 %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="<%=root%>/resource/js/join.js" ></script>
 <jsp:include page="/template/header.jsp"></jsp:include>
 <style>
-.notice {
-	color: red;
-}
+       .form-input.fail {
+            border-color: red;
+         }
+        span.success {
+            color:red;
+            display: none;
+        }
+        span.fail {
+            color:red;
+            display: none;
+        }
+        .form-input.success ~ span.success { 
+            display:block;
+        }
+        .form-input.fail ~ span.fail {
+            display: block;
+        }
 </style>
 <script>
 //주소 찾기   	
@@ -16,7 +31,7 @@ $(function(){
 $(".find-address-btn").click(function(){
     findAddress();
 	});
-
+ 
 function findAddress(){
     new daum.Postcode({
         oncomplete: function(data) {
@@ -45,14 +60,14 @@ function findAddress(){
             document.querySelector("input[name=address]").value = addr;
             //$("input[name=address]").val(addr);
             // 커서를 상세주소 필드로 이동한다.
+              
             
             //$("input[name=detailAddress]").focus();
         }
     }).open();
 };
 });
-</script>
-<script>
+
 	//아이디 중복확인 Ajax
     $(function(){
     	$("input[name=id]").on("blur", function(){
@@ -66,7 +81,7 @@ function findAddress(){
 				success : function(resp) {
 					if (resp == "YESICAN") {//사용가능
 					} else if (resp == "NONONO") {//사용불가능
-						$("input[name=id]").next().text("아이디가 이미 사용중입니다");
+						$("input[name=id]").next().text("아이디가 이미 사용중입니다.");
 					}
 				},
 				error : function(err) {//통신이 실패했다.
@@ -100,11 +115,11 @@ function findAddress(){
 		$("input[name=id]").on("input", function() {
 			var regex = /^[a-z][a-z0-9-_]{5,19}$/;
 			var id = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(id)) {
-				span.text("");
+				$("input[name=id]").addClass("success");
 			} else {
-				span.text("아이디는 6~20자 영문+숫자로 작성하세요");
+				$("input[name=id]").addClass("fail");
 			}
 		});
 	});
@@ -113,11 +128,11 @@ function findAddress(){
 		$("input[name=pw]").on("input", function() {
 			var regex = /^[A-Za-z0-9!@#$\s_-]{8,16}$/;
 			var pw = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(pw)) {
-				span.text("");
+				$("input[name=pw]").addClass("success");
 			} else {
-				span.text("비밀번호는 8~16자 이내의 영문,숫자,특수문자로 작성하세요");
+				$("input[name=pw]").addClass("fail");
 			}
 		});
 	});
@@ -126,11 +141,11 @@ function findAddress(){
 		$("input[name=pw2]").on("blur",function(){
 			var pwInput = $("input[name=pw]").val();
 			var pw2Input = $("input[name=pw2]").val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (pwInput.length > 0 && pwInput == pw2Input) {
-				span.text("");
+				$("input[name=pw2]").addClass("success");
 			} else {
-				span.text("비밀번호가 일치하지 않습니다");
+				$("input[name=pw2]").addClass("fail");
 			}
 		});
 	});
@@ -139,24 +154,11 @@ function findAddress(){
 		$("input[name=name]").on("input", function() {
 			var regex = /^[가-힣]{2,17}$/;
 			var name = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(name)) {
-				span.text("");
+				$("input[name=name]").addClass("success");
 			} else {
-				span.text("이름은 한글2~17자 이내로 작성하세요");
-			}
-		});
-	});
-	//주소 정규표현식
-	$(function() {
-		$("input[name=address]").on("input", function() {
-			var regex = /^[가-힣\s]+$/;
-			var address = $(this).val();
-			var span = $(this).next();
-			if (regex.test(address)) {
-				span.text("");
-			} else {
-				span.text("다시입력바람");
+				$("input[name=name]").addClass("fail");
 			}
 		});
 	});
@@ -165,11 +167,11 @@ function findAddress(){
 		$("input[name=phone]").on("input", function() {
 			var regex = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
 			var phone = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(phone)) {
-				span.text("");
+				$("input[name=phone]").addClass("success");
 			} else {
-				span.text("(-)포함  11자리로 작성하세요");
+				$("input[name=phone]").addClass("fail");
 			}
 		});
 	});
@@ -178,11 +180,11 @@ function findAddress(){
 		$("input[name=email]").on("input",function() {
 			var regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 			var email = $(this).val();
-			var span = $(this).next();
+			$(this).removeClass("success").removeClass("fail");
 			if (regex.test(email)) {
-				span.text("");
+				$("input[name=email]").addClass("success");
 			} else {
-				span.text("이메일 형식이 올바르지 않습니다");
+				$("input[name=email]").addClass("fail");
 			}
 		});
 	});
@@ -190,79 +192,82 @@ function findAddress(){
 	$(function() {$("input[name=birth]").on("input",function() {
 		var regex = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 		var birth = $(this).val();
-		var span = $(this).next();
+		$(this).removeClass("success").removeClass("fail");
 		if (regex.test(birth)) {
-			span.text("");
+			$("input[name=birth]").addClass("success");
 		} else {
-			span.text("생년월일을 선택하세요");
+			$("input[name=birth]").addClass("fail");
 		}
 	});
-});				
+});
 </script>
-
 <form action="<%=root%>/member/join.kj" method="post">
 
-	<div class="container-400 container-center">
-		<div class="row center">
-			<h2>회원 가입</h2>
-		</div>
-		<hr>
-		<div class="row left">
-			<h4>기본 정보</h4>
+<div class="container-400 container-center">
+	<div class="titleArea">
+        <h2>회원 가입</h2>
+    </div>
+	<hr>
+		<div class="row">
+			<label for="id">아이디</label> 
+			<input type="text" name="id" required class="form-input" autocomplete="off" id="id"> 
+			<span class="success"></span>
+            <span class="fail">6~20자 이내 영문 소문자 + 숫자로 작성하세요!</span>
 		</div>
 		<div class="row">
-			<label>아이디</label> 
-			<input type="text" name="id" required class="form-input" autocapitalize="off"> 
-			<span class="notice"></span>
+			<label for="pw">비밀번호</label>
+			<input type="password" name="pw" required class="form-input" id="pw">
+			<span class="success"></span>
+            <span class="fail">8~16자 이내 영문,숫자,특수문자로 작성하세요!</span>
 		</div>
 		<div class="row">
-			<label>비밀번호</label>
-			<input type="password" name="pw" required class="form-input">
-			<span class="notice"></span>
+			<label for="pw2">비밀번호 확인</label>
+			<input type="password" name="pw2" required class="form-input" id="pw2">
+			<span class="success"></span>
+            <span class="fail">비밀번호가 일치하지 않습니다.</span>
 		</div>
 		<div class="row">
-			<label>비밀번호 확인</label>
-			<input type="password" name="pw2" required class="form-input">
-			<span class="notice"></span>
+			<label for="name">이름</label>
+			<input type="text" name="name" required class="form-input" autocomplete="off" id="name">
+			<span class="success"></span>
+            <span class="fail">2~17자 이내 한글로 작성하세요!</span>
 		</div>
 		<div class="row">
-			<label>이름</label>
-			<input type="text" name="name" required class="form-input">
-			<span class="notice"></span>
+			<label for="address">주소</label>
+			<input type="text" name="address" required class="form-input " readonly autocomplete="off">
+			<button type="button" class="find-address-btn snap-sync-btn-submit" style="width:30%" id="address">주소찾기</button>
 		</div>
 		<div class="row">
-			<label>주소</label>
-			<input type="text" name="address" required class="form-input ">
-			<button type="button" class="find-address-btn form-btn form-inline">주소찾기</button>
-			<span></span>
+			<label for="phone">휴대전화</label>
+			<input type="tel" name="phone" required class="form-input" id="phone" autocomplete="off">
+			<span class="success"></span>
+            <span class="fail">(-)포함  11자리로 작성하세요!</span>
 		</div>
 		<div class="row">
-			<label>휴대전화</label>
-			<input type="tel" name="phone" required class="form-input">
-			<span class="notice"></span>
+			<label for="email">이메일</label> 
+			<input type="text" name="email" required class="form-input" id="email" autocomplete="off">
+			<span class="success"></span>
+            <span class="fail">이메일 형식이 올바르지 않습니다.</span>
 		</div>
 		<div class="row">
-			<label>이메일</label> 
-			<input type="text" name="email" required class="form-input">
-			<span class="notice"></span>
+			<label for="birth">생년월일</label>
+			<input type="date" name="birth" required class="form-input" id="birth" autocomplete="off">
+			<span class="success"></span>
+            <span class="fail">생년월일 형식이 올바르지 않습니다.</span>
 		</div>
-		<div class="row">
-			<label>생년월일</label> <input type="date" name="birth" required class="form-input">
-			<span class="notice"></span>
-		</div>
-		<div class="row">
+		<div class="row" >
 			<label>성별</label>
-			<select name="gender">
-				<option value="남" selected>남자</option>
-				<option value="여">여자</option>
+			<br>
+			<select name="gender" style="width:22%">
+				<option value="남" selected align="center">남자</option>
+				<option value="여" align="center">여자</option>
 			</select>
 		</div>
 		<div class="row">
-			<input type="submit" value="가입" class="form-btn">
+			<button class="snap-sync-btn-submit">가입하기</button>
 		</div>
 
-	</div>
+</div>
 
 </form>
-
 <jsp:include page="/template/footer.jsp"></jsp:include>

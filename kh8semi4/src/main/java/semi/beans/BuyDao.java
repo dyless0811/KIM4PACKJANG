@@ -40,6 +40,9 @@ public class BuyDao {
 			buyDto.setNo(rs.getInt("no"));
 			buyDto.setMemberId(rs.getString("member_id"));
 			buyDto.setProductNo(rs.getInt("product_no"));
+			buyDto.setSizeNo(rs.getInt("size_no"));
+			buyDto.setColorNo(rs.getInt("color_no"));
+			buyDto.setCount(rs.getInt("count"));
 			buyDto.setType(rs.getString("type"));
 			buyDto.setBuyDate(rs.getDate("buy_date"));
 			buyDto.setStatus(rs.getString("status"));
@@ -120,6 +123,35 @@ public class BuyDao {
 		
 		return buyList;
 	}
+	
+	//오늘날짜에 구매한 목록 
+		public List<BuyDto> todayBuyList() throws Exception{
+			Connection con = JdbcUtils.connect();
+			
+			String sql = "select* from buy where to_char(buy_date, 'yyyymmdd') = to_char( sysdate-1, 'yyyymmdd') order by buy_date desc";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			List<BuyDto> buyList = new ArrayList<>();
+			while(rs.next()) {
+				BuyDto buy = new BuyDto();
+				buy.setNo(rs.getInt("no"));
+				buy.setMemberId(rs.getString("member_id"));
+				buy.setProductNo(rs.getInt("product_no"));
+				buy.setColorNo(rs.getInt("color_no"));
+				buy.setSizeNo(rs.getInt("size_no"));
+				buy.setCount(rs.getInt("count"));
+				buy.setType(rs.getString("type"));
+				buy.setBuyDate(rs.getDate("buy_Date"));
+				buy.setStatus(rs.getString("status"));
+				
+				buyList.add(buy);
+			}
+			
+			con.close();
+			
+			return buyList;
+		}
 	
 	//상태 변경 메소드
 	public boolean changeStatus(int no, String status) throws Exception{
