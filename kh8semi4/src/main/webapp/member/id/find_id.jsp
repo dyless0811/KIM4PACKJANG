@@ -4,27 +4,22 @@
 <%
 	String root = request.getContextPath();
 %>
-
 <jsp:include page="/template/header.jsp"></jsp:include>
-
 <form action="<%=request.getContextPath()%>/member/id/find_id.kj" method = "post">
-	<div class="container-800 container-center">
-	<div class = "row center">
-			<h3>휴대폰 본인확인</h3>
+	<div class="container-400 container-center">
+	<div class="titleArea">
+        	<h2>아이디 찾기</h2>
 	</div>
 	<div class="row">
-		<label>이름</label>
-		<input type="text" name="name" class="form-input">
+		<input type="text" name="name" class="form-input"  placeholder="이름" required autocomplete="off">
 	</div>
 	<div class="row">
-		<label>번호</label>	
-		<input type="text" name="phone" class="form-input">
+		<input type="tel" name="phone" class="form-input" placeholder="휴대전화 입력(-포함)" required autocomplete="off">
 	</div>
 	<div class ="row">
-		<input type="submit" value="찾기" class="form-btn">
+		<button class="snap-sync-btn-submit">아이디 찾기</button>
 	</div>
 </div>
-
 </form>
 
 <%if(request.getParameter("error") != null){ %>

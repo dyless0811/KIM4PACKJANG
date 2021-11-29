@@ -38,7 +38,7 @@ public class MemberPwFindServlet extends HttpServlet {
 //				resp.sendRedirect(req.getContextPath() + "/member/pw/find_pw.jsp?error");
 //			}
 			if(success) { 
-				resp.sendRedirect("find_pw.jsp?temPw="+tmpPw);
+				resp.sendRedirect("find_pw_success.jsp?enPw="+enPw);
 			}
 			else {
 				resp.sendRedirect(req.getContextPath() + "/member/pw/find_pw.jsp?error");
