@@ -1,6 +1,7 @@
 # KH SEMI PROJECT KIM4PACKJANG
 <img src="https://i.esdrop.com/d/0w9ssozl3pla/wrQybLWLJ5.png">
 
+아니왜 머지가안대잉!
 ## 주요 구성 항목
 
 ### 프로젝트 소개
