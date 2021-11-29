@@ -60,7 +60,7 @@
       </div>
       	<%if(boardImageDto!=null) {%>
       	  <div class="row">
-	        <img src="<%=request.getContextPath()%>/board/boardImage.kj?no=<%=boardDto.getNo()%>">
+	        <img src="<%=request.getContextPath()%>/board/boardImage.kj?no=<%=boardDto.getNo()%>" width="900px">
           </div>
 		<%}%>
       <div class="row">
