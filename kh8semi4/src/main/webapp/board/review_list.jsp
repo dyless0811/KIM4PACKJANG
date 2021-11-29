@@ -78,7 +78,7 @@ color: black; text-decoration: none;
 					   	 	<!-- 상품 이미지 자리-->
 					   	 <tr height="350px">
 							<td width="25%">
-							<img src="C:/upload/kh84/product/ <%=replyListVo.getProductImageSavename()%>"  width="330px" height="350px" >
+							<img src="<%=request.getContextPath()%>/product/productImage.kj?no=<%=replyListVo.getProductNo()%>"  width="330px" height="350px" >
 							</td>
 						</tr>
 			    		<tr>

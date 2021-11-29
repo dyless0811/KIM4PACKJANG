@@ -45,6 +45,9 @@ public class BasketDto {
 	}
 
 	public String getMemberId() {
+		if(memberId == null) {
+			return "탈퇴한사용자";
+		}
 		return memberId;
 	}
 
