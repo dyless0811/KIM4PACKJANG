@@ -677,8 +677,9 @@ a, a:hover {
 
 /*로그인 페이지 디자인*/
 .notice {
-	color: red;
+	color: black;
 }
+
  .snapsync-form-wrapper input:not([type]), .snapsync-form-wrapper input[type="text"], .snapsync-form-wrapper input[type="password"] {
             width: 100%;
             border: #EBEBEB 1px solid;
@@ -728,5 +729,44 @@ a, a:hover {
     border:2px solid gray;
     text-decoration:none;
     color:gray;
+}
+/*버튼 추가 디자인*/
+	[class^='btnSubmit'], a[class^='btnSubmit'] {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-family: "굴림",Gulim;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
+    background-color: #4a5164;
+}
+[class^='btnNormal'], a[class^='btnNormal'] {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    border: 1px solid #d1d1d1;
+    border-radius: 2px;
+    font-family: "굴림",Gulim;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #222;
+    background-color: #fff;
 }
 

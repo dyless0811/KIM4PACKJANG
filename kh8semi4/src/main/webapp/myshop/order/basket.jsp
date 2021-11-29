@@ -21,7 +21,7 @@ Format d = new DecimalFormat("#,##0");
 
 BasketDao basketDao = new BasketDao();
 List<BasketVo> list = basketDao.voListByMemberId(id);
-//시행착오
+//시행착오	
 /*List<ProductDto> list = basketDao.BasketProductMember(id);
 BuyDao buyDao = new BuyDao();
 List<BuyDto> list2 = buyDao.BuyProductMember(id);
@@ -29,11 +29,45 @@ List<BuyDto> list2 = buyDao.BuyProductMember(id);
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
 <style>
-	.form-btn {
-  width: 20%;
-  font-size: 15px;
-  padding: 10px;
+	[class^='btnSubmit'], a[class^='btnSubmit'] {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-family: "굴림",Gulim;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
+    background-color: #4a5164;
 }
+[class^='btnNormal'], a[class^='btnNormal'] {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    border: 1px solid #d1d1d1;
+    border-radius: 2px;
+    font-family: "굴림",Gulim;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #222;
+    background-color: #fff;
+}
+
 </style>
 <script>
 //체크박스 전체선택
@@ -92,7 +126,6 @@ function check2(){
    	 		var total = 0;
    	 		$.each($(".total-btn:checked"), function(index, element){
    	 			var price = $(this).parent().parent().find(".number-input > span").text();
-  				price = price.replace(/,/gi,"");
    	 			total += Number(price);
    	 		});
    	 		$("#total").text(total);	
@@ -115,7 +148,6 @@ function check2(){
    	 		var total = 0;
    	 		$.each($(".total-btn:checked"), function(index, element){
    	 			var price = $(this).parent().parent().find(".number-input > span").text();
-   	 			price = price.replace(/,/gi,"");
    	 			total += Number(price);
    	 		});
    	 		$("#total").text(total);	
@@ -149,35 +181,39 @@ function check2(){
 </script>
 <form action="<%=root%>/product/productbuy.jsp" method="get">
 <div class="container-1200 container-center">
-	<div class="row center">
-		<h2>장바구니</h2>
+	<div class="titleArea">
+        <h2>장바구니</h2>
 	</div>
+	<br>
 	<div class="row">
-			<table class="table table-border">
-			<thead align="center">		
+	<div class="row target2">
+        <table class="table table-noborder table-hover reply-hide">
+				<thead>
 					<tr>
-							<th>
-								<label>
-       					 			<input type="checkbox" class="check-all" oninput="checkToggle2();"> 
-      							</label>
-   						 	</th>  
-								<th>이미지</th>
-								<th>상품정보</th>
-								<th>수량</th>
-								<th>판매가</th>
-								<th>적립금</th>
-								<th>배송구분</th>
-								<th>배송비</th>
-								<th>합계</th>
-								<th>선택</th>
-							</tr>
-						
-			</thead>
-			<tbody>
+						<td>
+							<input type="checkbox" class="check-all" oninput="checkToggle2();"> 
+						</td>
+						<td><span>이미지</span></td>
+						<td><span>상품정보</span></td>
+						<td><span>수량</span></td>
+						<td><span>판매가</span></td>
+						<td><span>적립금</span></td>
+						<td><span>배송구분</span></td>
+						<td><span>배송비</span></td>
+						<td><span>합계</span></td>
+						<td><span>선택</span></td>
+					</tr>
+					<tr>
+						<td colspan="10">
+							<hr>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
 				<%for(BasketVo basketVo : list){ %>
 							<tr> 
 									<td align="center">
-										<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>" class="total-btn" oninput="check2();">
+										<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>" class="total-btn number-input" oninput="check2();">
 									</td>
 									<%--이미지 시작--%>
 									<td align="center">
@@ -203,7 +239,7 @@ function check2(){
 									</td>
 									<td align="center" class="number-input2">
 										<span><%=d.format(basketVo.getReserves())%></span>P
-									
+									d
 									</td>
 									<td align="center">기본배송</td>
 									<td align="center">무료배송</td>
@@ -211,15 +247,16 @@ function check2(){
 										<span><%=d.format(basketVo.getTotalPrice())%></span>원
 									</td>
 									<td align="center">
-										<a href="<%=root%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>">주문하기</a>
+										<a href="<%=root%>/product/productbuy.jsp?basketNo=<%=basketVo.getBasketNo()%>" class="btnSubmit">주문하기</a>
 										<br>
-										<a href="<%=root%>/myshop/order/deletebasket.kj?basketNo=<%=basketVo.getBasketNo()%>" class="delete">삭제하기</a>
+										<a href="<%=root%>/myshop/order/deletebasket.kj?basketNo=<%=basketVo.getBasketNo()%>" class="btnNormal delete">삭제하기</a>
 									</td>
 						</tr>
 				</tbody>
 				<%} %>
-			</table>
-			<table class="table table-border">
+		</table>
+		</div>		
+		<table class="table table-border">
 				<thead align="center">	
 					<tr>
 						<th>총 상품금액</th>
@@ -248,27 +285,28 @@ function check2(){
 				</tbody>
 			</table>
 		</div>
+		
 		<div class="row right">
-			<a href = "<%=root%>/myshop/order/Iddeletebasket.kj?id=<%=id%>" class="all-delete">장바구니 비우기</a>
+			<a href = "<%=root%>/myshop/order/Iddeletebasket.kj?id=<%=id%>" class="btnNormal all-delete ">장바구니 비우기</a>
 		</div>
 		<div class="row right">
-			<a href ="<%=root%>/index.jsp" >쇼핑 계속하기</a>
+			<a href ="<%=root%>/index.jsp"  class="btnNormal">쇼핑 계속하기</a>
 		</div>
-		<div class="row right">
-				
-				<input type="submit" value="선택상품주문" class="form-btn form- inline selected-buy">
+		
+		
+		<div class="row reply-button" style="width:50%">
+				<button class="snap-sync-btn-submit selected-buy">선택상품 주문</button>
 		</div>
-</div>
+</div>	
 </form>
-<div class="container-1200 container-center">
 <form action="<%=root%>/product/productbuy.jsp" method="get">
 		<%for(BasketVo basketVo : list){ %>
 		<input type="hidden" name="basketNo" value="<%=basketVo.getBasketNo()%>">
 		<%} %>
-		<div class="row right">
-			<input type="submit" value="전체상품주문" class="form-btn form- inline">
+		<div class="row reply-button" style="width:50%">
+			<button class="snap-sync-btn-submit">전체상품 주문</button>
 		</div>
+		
 </form>
-</div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
