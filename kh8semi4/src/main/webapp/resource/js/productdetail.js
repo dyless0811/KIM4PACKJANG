@@ -28,7 +28,7 @@ $(function () {
         return;
       }
 	  $.ajax({
-      url : "/kh8semi4/admin/stock-colorsize.kj",
+      url : "/kh8semi4/product/stock-colorsize.kj",
 		type : "post",
 		data : {//전송 시 첨부할 파라미터 정보
 				  productNo : productNo,

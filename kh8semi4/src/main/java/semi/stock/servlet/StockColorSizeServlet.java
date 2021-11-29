@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.StockDao;
 
-@WebServlet("/admin/stock-colorsize.kj")
+@WebServlet(urlPatterns = {"/admin/stock-colorsize.kj","/product/stock-colorsize.kj"})
 public class StockColorSizeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
