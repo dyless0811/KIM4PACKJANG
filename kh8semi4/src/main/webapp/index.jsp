@@ -70,7 +70,7 @@ padding:  0 0 21px 21px
    	<img src="/kh8semi4/image/BEST.png">
    </div>	
   </div>
- <hr style="color:navy;">
+ <hr>
  <div class="contianer-1500 container-center">
     <div class="row flex-container">
      <%
