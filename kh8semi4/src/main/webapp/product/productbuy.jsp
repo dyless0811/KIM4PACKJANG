@@ -63,7 +63,7 @@
 						<%BuyProductVo buyProduct = productDao.productInfo(memberId, Integer.parseInt(basketList[i]));%>
 						<%
 						totalSaveMoney += buyProduct.getSaveMoney();
-						totalPriceMoney += buyProduct.getPrice();
+						totalPriceMoney += buyProduct.getPrice() * buyProduct.getCount();
 						%>
 						<td align="center">
 							<input type="hidden" name="basketNo" value=<%=basketList[i]%>>
