@@ -33,9 +33,10 @@
 <!-- 출력 -->
 <jsp:include page="/template/header.jsp"></jsp:include>
 
-	<div class="container-1000 container-center">
+	<div class="container-1000 container-center" style = "border-style: double">
 		<div class="row center">
 			<h2><%=productDto.getName()%></h2>
+			<br>
 			<hr>
 		</div>
 		<div class= "row right">
