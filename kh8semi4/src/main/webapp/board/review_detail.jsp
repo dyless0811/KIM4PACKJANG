@@ -51,7 +51,7 @@
 					<img src="" style="width: 500px"  >
 					<%if(replyImageDto != null) {%>
       	 			 	<div class="row">
-	        				<img src="<%=request.getContextPath()%>/board/replyImage.kj?no=<%=replyDto.getNo()%>">
+	        				<img src="<%=request.getContextPath()%>/board/replyImage.kj?no=<%=replyDto.getNo()%>" style="width: 500px">
          			 	</div>
 					<%}%>
 				</div>
