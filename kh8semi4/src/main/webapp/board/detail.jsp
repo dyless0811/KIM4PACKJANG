@@ -41,7 +41,7 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
     
-    <div class="container-1400 container-center">
+    <div class="container-1000 container-center">
       <div class="row right">
         <span><a href="<%=request.getContextPath()%>">홈</a></span>
         <span><a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardTypeDto.getNo()%>"><%=boardTypeName%></a></span>
@@ -52,7 +52,7 @@
       <div class="row">
         <h3><%=boardDto.getBoardTitle()%></h3>
       </div>
-      <div class="row">
+      <div class="row right">
       	<span><%=boardDto.getMemberId()%></span><span><%=boardDto.getBoardHit()%></span>
       </div>
       <div class="row">
@@ -66,7 +66,7 @@
       <div class="row">
 	      <pre><%=boardDto.getBoardContent()%></pre>
       </div>
-      <div class="row left">
+      <div class="row right">
         <br /><br /><br />
         <hr />
         <a href="<%=request.getContextPath()%>/board/list.jsp?no=<%=boardDto.getBoardTypeNo()%>">목록</a>
