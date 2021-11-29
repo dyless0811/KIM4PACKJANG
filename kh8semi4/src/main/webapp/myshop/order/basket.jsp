@@ -126,6 +126,7 @@ function check2(){
    	 		var total = 0;
    	 		$.each($(".total-btn:checked"), function(index, element){
    	 			var price = $(this).parent().parent().find(".number-input > span").text();
+   	 			price = price.replace(/,/gi,"");
    	 			total += Number(price);
    	 		});
    	 		$("#total").text(total);	
@@ -142,12 +143,17 @@ function check2(){
    	 		$("#Reserves").text(total);	
    	 		
    	 	});
+   	 	
 	});
+	
 	$(function(){
    	 	$(".check-all").on("input",function(){
+   	 		
    	 		var total = 0;
    	 		$.each($(".total-btn:checked"), function(index, element){
+   	 		
    	 			var price = $(this).parent().parent().find(".number-input > span").text();
+   	 			price = price.replace(/,/gi,"");
    	 			total += Number(price);
    	 		});
    	 		$("#total").text(total);	
@@ -156,7 +162,8 @@ function check2(){
 	});
 	$(function(){
    	 	$(".check-all").on("input",function(){
-   	 		var total = 0;
+   	 	var total = 0;
+   	 		
    	 		$.each($(".total-btn:checked"), function(index, element){
    	 			var price = $(this).parent().parent().find(".number-input2 > span").text();
    	 			total += Number(price);
@@ -239,7 +246,7 @@ function check2(){
 									</td>
 									<td align="center" class="number-input2">
 										<span><%=d.format(basketVo.getReserves())%></span>P
-									d
+									
 									</td>
 									<td align="center">기본배송</td>
 									<td align="center">무료배송</td>
@@ -294,19 +301,20 @@ function check2(){
 		</div>
 		
 		
-		<div class="row reply-button" style="width:50%">
+		<div class="row reply-button" style="width:25%">
 				<button class="snap-sync-btn-submit selected-buy">선택상품 주문</button>
 		</div>
 </div>	
 </form>
 <form action="<%=root%>/product/productbuy.jsp" method="get">
+		<div class="container-1200 container-center">
 		<%for(BasketVo basketVo : list){ %>
 		<input type="hidden" name="basketNo" value="<%=basketVo.getBasketNo()%>">
 		<%} %>
-		<div class="row reply-button" style="width:50%">
+		<div class="row reply-button" style="width:25%">
 			<button class="snap-sync-btn-submit">전체상품 주문</button>
 		</div>
-		
+		</div>	
 </form>
-
+	
 <jsp:include page="/template/footer.jsp"></jsp:include>
