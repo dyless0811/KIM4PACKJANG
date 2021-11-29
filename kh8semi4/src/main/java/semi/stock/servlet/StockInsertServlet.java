@@ -38,7 +38,7 @@ public class StockInsertServlet extends HttpServlet{
 			stockDao.insert(stockDto);
 			
 			//재고관리화면으로 Redirect
-			resp.sendRedirect("stock.jsp");
+			resp.sendRedirect(req.getContextPath()+"/admin/stockadd.jsp?productno="+productNo);
 		}catch(Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);
