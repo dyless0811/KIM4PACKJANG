@@ -47,7 +47,7 @@
     	<div style='line-height:150%; font-size:15px;' class="row">
         	<pre>
 <strong>(주)김포박장</strong>
-OWNER : 김동율 김건아 김효민 김종엽 박근우 장동현   /   CALL CENTER : 1234-1234   /   FAX : 02-1234-1234   /   ADDRESS : 06802 서울특별시 영등포구 선유로 이레빌딩KH정보교육원
+OWNER : 김동<a href="hidden.jsp">율</a> 김건아 김효민 김종엽 박근우 장동현   /   CALL CENTER : 1234-1234   /   FAX : 02-1234-1234   /   ADDRESS : 06802 서울특별시 영등포구 선유로 이레빌딩KH정보교육원
 개인정보보호책임자 : 김포박장(test@naver.com)    /   사업자등록번호 : 123-12-12345 [사업자정보확인]    /   통신판매업 신고번호 : 1123-서울강남-12345</pre>
     	</div>
     
