@@ -12,7 +12,7 @@ import semi.vo.PopularItemVo;
 public class StatisticsDao {
 	
 	//금일 매출값을 가져오는 메소드
-	public int toDaySales() throws Exception{
+	public long toDaySales() throws Exception{
 		Connection con = JdbcUtils.connect();
 		
 		String sql = "select sum(price*B.count) from product P "
@@ -32,7 +32,7 @@ public class StatisticsDao {
 	}
 	
 	//월별 매출값을 가져오는 메소드
-	public int toMonthSales() throws Exception{
+	public long toMonthSales() throws Exception{
 		Connection con = JdbcUtils.connect();
 		
 		String sql = "select sum(price*B.count) from product P "
@@ -52,7 +52,7 @@ public class StatisticsDao {
 	}
 	
 	//연간 매출값을 가져오는 메소드
-	public int toYearSales() throws Exception{
+	public long toYearSales() throws Exception{
 		Connection con = JdbcUtils.connect();
 		
 		String sql = "select sum(price*B.count) from product P "
@@ -104,7 +104,6 @@ public class StatisticsDao {
 								+ "select P.name, count(P.no) from buy B "
 								+ "inner join product P "
 								+ "on B.product_no = P.no "
-								+ "where B.status='배송 전' "
 								+ "group by P.name "
 								+ "order by count(P.no) desc"
 							+")tmp"

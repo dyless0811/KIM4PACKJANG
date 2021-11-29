@@ -29,7 +29,7 @@
 	//구간별 매출 검색을 했는지 확인을 위해 price파라미터를 검사
 	String price = request.getParameter("price");
 	//만약 price가 null이면 검사를 실시하지 않은것
-	int termToTermPrice;
+	long termToTermPrice;
 	if(price == null){
 		//null이라면 그냥 금일 매출 메소드를 실행해서 찍어준다.
 		termToTermPrice = statisticsDao.toDaySales();
