@@ -55,7 +55,7 @@
 										<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
 										<%}%>
 									</td>
-									<td align="center"><%=wishlistVo.getProductName()%></td>
+									<td align="center"><a href="<%=request.getContextPath()%>/product/productdetail.jsp?no=<%=wishlistVo.getProductNo()%>"><%=wishlistVo.getProductName()%></a></td>
 									<td align="center"><%=d.format(wishlistVo.getPrice())%>원</td>
 									<td align="center">기본배송</td>
 									<td align="center">무료배송</td>
