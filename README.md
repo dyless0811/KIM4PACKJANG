@@ -49,7 +49,15 @@
  - VScode
  
 #### 사용한 라이브러리 및 버전
-#### 그 외 사용한 내용들
+ - commons-dbcp2 2.9
+ - cos 20.08
+ - ojdbc8 21.3
+
+#### api
+ - 다음 우편번호 서비스 
+ - https://postcode.map.daum.net/guide
+ - 라이브 채팅 서비스
+ - https://www.tawk.to/
 
 ### 개발 일정
 
