@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.Format"%>
 <%@page import="semi.beans.WishlistVo"%>
 <%@page import="semi.beans.ProductDto"%>
 <%@page import="semi.beans.ProductDao"%>
@@ -12,6 +14,7 @@
 <%-- 입력 --%>
 <%
 	String id = (String)session.getAttribute("loginId");
+	Format d = new DecimalFormat("#,##0");
 %>    
 <%-- 처리 --%>
 <%
@@ -22,19 +25,24 @@
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
 <div class="container-1200 container-center">
-	<div class="row center">
-		<h2>관심상품</h2>
+	<div class="titleArea">
+        <h2>관심상품</h2>
 	</div>
 	<div class="row">
-			<table class="table table-border">
+			<table class="table table-noborder table-hover reply-hide">
 			<thead>		
 					<tr>
-							<th>이미지</th>
-							<th>상품정보</th>
-							<th>판매가</th>
-							<th>배송구분</th>
-							<th>배송비<th>
-							
+							<td><span>이미지</span></td>
+							<td><span>상품정보</span></td>
+							<td><span>판매가</span></td>
+							<td><span>배송구분</span></td>
+							<td><span>배송비</span></td>
+							<td><span>선택</span></td>
+					</tr>
+					<tr>
+						<td colspan="10">
+							<hr>
+						</td>
 					</tr>
 			</thead>
 			<tbody>
@@ -47,12 +55,12 @@
 										<img src="http://www.bsang.co.kr/images/datasheet/SAM/2.jpg" width="320px" height="320px">
 										<%}%>
 									</td>
-									<td align="center"><%=wishlistVo.getProductName()%>원</td>
-									<td align="center"><%=wishlistVo.getPrice()%></td>
+									<td align="center"><%=wishlistVo.getProductName()%></td>
+									<td align="center"><%=d.format(wishlistVo.getPrice())%>원</td>
 									<td align="center">기본배송</td>
-									<td align="center">3000원</td>
+									<td align="center">무료배송</td>
 									<td align="center">
-									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?wishlistNo=<%=wishlistVo.getWishlistNo()%>">삭제하기</a>
+									<a href="<%=request.getContextPath()%>/product/wishlistdelete.kj?wishlistNo=<%=wishlistVo.getWishlistNo()%>" class="btnNormal">삭제하기</a>
 									</td>
 							</tr>
 			</tbody>
