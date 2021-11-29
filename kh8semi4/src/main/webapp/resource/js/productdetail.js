@@ -40,7 +40,7 @@ $(function () {
 					stock = resp;
 				},
 		error : function(err) {//통신이 실패했다.
-					alert("오류");
+					alert("로그인해주세요!");
 				}
 	  });
       var content = `<tr id="item-${itemIndex}">`;
