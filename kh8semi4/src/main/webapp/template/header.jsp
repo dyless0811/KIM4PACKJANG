@@ -141,9 +141,13 @@
                 </div>
                 <div class="right">
                     <ul style="display:flex">
+                    	<%if(login) {%>
+                        <li><a href="<%=request.getContextPath()%>/member/logout.kj">LOGOUT</a></li>
+                    	<%} else {%>
                         <li><a href="<%=request.getContextPath()%>/member/join.jsp">JOIN</a></li>
                         <li>I</li>
                         <li><a href="<%=request.getContextPath()%>/member/login.jsp">LOGIN</a></li>
+                    	<%}%>
                         <li>I</li>
                         <li><a href="<%=request.getContextPath()%>/myshop/order/basket.jsp">ORDER</a></li>
                     </ul>
