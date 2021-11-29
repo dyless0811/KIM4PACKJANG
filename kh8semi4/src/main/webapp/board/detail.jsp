@@ -53,7 +53,7 @@
         <h3><%=boardDto.getBoardTitle()%></h3>
       </div>
       <div class="row right">
-      	작성자:<span><%=boardDto.getMemberId()%></span>조회수:<span><%=boardDto.getBoardHit()%></span>
+      	작성자:<span><%=boardDto.getMemberId()%></span>/조회수:<span><%=boardDto.getBoardHit()%></span>
       </div>
       <div class="row">
         <hr />
