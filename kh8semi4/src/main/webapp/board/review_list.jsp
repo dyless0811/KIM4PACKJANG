@@ -101,7 +101,7 @@ color: black; text-decoration: none;
 			    		%>
 			    			<tr>
 			    			<td>
-			    			<a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=replyDto.getNo()%>"><%=buyDto.getMemberId()%><%=replyDto.getContent()%></a>
+			    			<a href="<%=request.getContextPath()%>/board/review_detail.jsp?no=<%=replyDto.getNo()%>"><%=buyDto.getMemberId()%>/<%=replyDto.getContent().length() < 13 ? replyDto.getContent() : replyDto.getContent().substring(0, 13)+"..." %></a>
 			    			</td>
 			    			</tr>
 			    		<%} %>

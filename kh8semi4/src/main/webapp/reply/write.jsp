@@ -82,8 +82,7 @@
 			<textarea
 				style="width : 1000px; height : 400px"
 				name= "content"
-				required>
-			</textarea>
+				required></textarea>
 		</div>
 		<div class="row">
 			<input type="file" name="attach" style = "font-size:20px;">
