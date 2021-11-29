@@ -83,12 +83,9 @@
 #### 참고사이트 : [ERD Cloud](https://www.erdcloud.com/)
 
 ### 유스케이스 다이어그램(Use-Case Diagram)
-
-프로젝트에 존재하는 사용자들이 어떠한 기능을 사용할 수 있는지를 나타내는 다이어그램
-
-핵심은 `계층별로 이용 가능한 기능`을 표시하는 것이기 때문에 복잡한 경우 계층별로 나누어 표현해야 함
-
+<img src="https://user-images.githubusercontent.com/88869260/143809412-606ee0f9-a099-42d1-9c7c-72047ed0c0dc.png">
 #### 참고사이트 : [DrawIO](https://www.draw.io/)
+
 
 ### 시퀀스 다이어그램(Sequence Diagram)
 
