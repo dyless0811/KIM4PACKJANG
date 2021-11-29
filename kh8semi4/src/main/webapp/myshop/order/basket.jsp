@@ -126,7 +126,6 @@ function check2(){
    	 		var total = 0;
    	 		$.each($(".total-btn:checked"), function(index, element){
    	 			var price = $(this).parent().parent().find(".number-input > span").text();
-  				price = price.replace(/,/gi,"");
    	 			total += Number(price);
    	 		});
    	 		$("#total").text(total);	
@@ -149,7 +148,6 @@ function check2(){
    	 		var total = 0;
    	 		$.each($(".total-btn:checked"), function(index, element){
    	 			var price = $(this).parent().parent().find(".number-input > span").text();
-   	 			price = price.replace(/,/gi,"");
    	 			total += Number(price);
    	 		});
    	 		$("#total").text(total);	
@@ -215,7 +213,7 @@ function check2(){
 				<%for(BasketVo basketVo : list){ %>
 							<tr> 
 									<td align="center">
-										<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>" class="total-btn" oninput="check2();">
+										<input type="checkbox" name="basketNo" value="<%=basketVo.getBasketNo()%>" class="total-btn number-input" oninput="check2();">
 									</td>
 									<%--이미지 시작--%>
 									<td align="center">
@@ -241,7 +239,7 @@ function check2(){
 									</td>
 									<td align="center" class="number-input2">
 										<span><%=d.format(basketVo.getReserves())%></span>P
-									
+									d
 									</td>
 									<td align="center">기본배송</td>
 									<td align="center">무료배송</td>
