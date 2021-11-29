@@ -40,7 +40,7 @@
 			<hr>
 		</div>
 		<div class= "row right">
-			<h3><%=buyDto.getMemberId()%></h3>
+			<h3><%=buyDto.getMemberId()%></h3><h3><%=replyDto.getStarPoint()%>점</h3>
 			<br>
 		</div>
 		
@@ -57,7 +57,7 @@
 				</div>
 				
 				<div class="float-item-right" style="width : 50%">
-					<%=replyDto.getContent()%>
+					<pre><%=replyDto.getContent()%></pre>
 				</div>
 				
 			</div>
