@@ -41,6 +41,20 @@ public class MemberDao {
 
 		return result > 0;
 	}
+	
+	// 관리자가 회원 탈퇴 기능
+	public boolean quit(String id) throws Exception {
+		Connection con = JdbcUtils.connect();
+
+		String sql = "delete member where id = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, id);
+		int result = ps.executeUpdate();
+
+		con.close();
+
+		return result > 0;
+	}
 
 	// 목록 조회 기능
 	public List<MemberDto> list() throws Exception {
