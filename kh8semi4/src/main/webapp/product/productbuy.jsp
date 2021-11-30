@@ -104,7 +104,7 @@
 			<tbody>
 				<tr>
 					<td style="width:15%"><span>주문인*</span></td>
-					<td style="text-align:left"><input type="text" value="<%=memberDto.getId()%>"></td>
+					<td style="text-align:left"><input type="text" value="<%=memberDto.getName()%>"></td>
 				</tr>
 				<tr>
 					<td style="width:15%"><span>받을주소*</span></td>
