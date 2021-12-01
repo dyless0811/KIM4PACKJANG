@@ -221,6 +221,8 @@
              		  <%if(login) {%>
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
+                	
+                	<span>[<%=session.getAttribute("findpw") %>]</span>
                 	<%} %>
                 </div>
                 

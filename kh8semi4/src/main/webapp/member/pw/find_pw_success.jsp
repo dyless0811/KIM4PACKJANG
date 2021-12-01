@@ -3,7 +3,8 @@
     pageEncoding="UTF-8"%>
 
 <%		
-	String pw = request.getParameter("enPw");
+	String pw = request.getParameter("tmpPw");
+	session.setAttribute("findpw", "check");
 %>
 <jsp:include page="/template/header.jsp"></jsp:include>
 	<div class="container-400 container-center">
