@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.MemberDao;
 import semi.beans.MemberDto;
+import semi.beans.sha256;
 
 
 @WebServlet(urlPatterns = "/member/join.kj")
@@ -22,7 +23,8 @@ public class MemberJoinServlet extends HttpServlet {
 			// 입력 : MemberDto
 			MemberDto memberDto = new MemberDto();
 			memberDto.setId(req.getParameter("id"));
-			memberDto.setPw(req.getParameter("pw"));
+			memberDto.setPw(sha256.encodeSha256(req.getParameter("pw")));
+			
 			memberDto.setName(req.getParameter("name"));
 			memberDto.setAddress(req.getParameter("address"));
 			memberDto.setPhone(req.getParameter("phone"));

@@ -3,6 +3,7 @@
 
 <%
 	String root = request.getContextPath();
+	
 %>
 
 <jsp:include page="/template/header.jsp"></jsp:include>

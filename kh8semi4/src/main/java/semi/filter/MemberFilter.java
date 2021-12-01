@@ -2,6 +2,7 @@ package semi.filter;
 
 import java.io.IOException;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 //회원인지 아닌지 확인해서 거르는 필터
 @WebFilter(urlPatterns = {"/myshop/*",
-										"/board/*"})
+										"/board/*",
+										"/member/pw/find_pw_success.jsp",
+										"/member/id/find_id_success.jsp"
+										})
 public class MemberFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

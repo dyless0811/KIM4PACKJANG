@@ -28,7 +28,7 @@ public class sha256 {
 			for(int i = 0; i < byteData.length; i++) {
 				sb.append(Integer.toString((byteData[i] & 0xFF) + 256, 16).substring(1));
 			}
-			result = sb.toString().substring(1,8);
+			result = sb.toString();
 			return result;
 	}
 }
