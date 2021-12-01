@@ -1,36 +1,13 @@
 # KH SEMI PROJECT KIM4PACKJANG
 <img src="https://i.esdrop.com/d/0w9ssozl3pla/wrQybLWLJ5.png">
 
-아니왜 머지가안대잉!
-## 주요 구성 항목
-
-### 프로젝트 소개
-  - 애플리케이션 개발 목적
-  - 인원 구성 및 역할 분담
-  - 개발 환경
-  - 개발 일정
-  - 시장 조사 내용
-### 다이어그램
-  - 데이터베이스 흐름도(ERD)
-  - 유스케이스 다이어그램
-  - 시퀀스 다이어그램
-  - 클래스 다이어그램
-  - 계층별 사이트맵(컨텐츠 분류 또는 플로우 그래프)
-
-### 핵심 장면 스크린샷
-### 한계점, 보완사항 및 계획, 느낀점
-### 이외 추가적인 내용들을 자율적으로 추가
 
 ## 프로젝트 소개
 
 ### 애플리케이션 개발 목적
-
-프로젝트 소개시에는 반드시 `이 프로그램을 만든 목적`이 포함되어야 함
-
-목적없이 만든 프로그램은 진지하지 않아 보일 수 있기 때문
+학습한 기술 중 다양한 항목을 접목하여, 테스트 및 구현을 해 보기 위해 쇼핑몰 사이트를 구현하기로 하였습니다.
 
 ### 개발 환경
-
 #### 운영체제(OS) 및 버전
  - window 7 , window 10
 #### Front End
@@ -67,14 +44,11 @@
 
 ### 시장 조사 내용
 
-개발한 애플리케이션과 유사한 애플리케이션을 조사한 내용이 포함되어야 함
-
-- 유사 애플리케이션의 분야, 점유율과 발전 가능성
-- 개발한 애플리케이션과 유사 애플리케이션간의 차별화 전략(없을 수 있음)
-
+참고사이트 남성의류 쇼핑몰 '바이모노'
+<img src="https://user-images.githubusercontent.com/88869260/144250524-7c1265cc-8bca-4f26-86fc-e457645d4901.png">
+https://bymono.com/
 
 ## 다이어그램
-
 
 ### 데이터베이스 다이어그램(ERD)
 <img src="https://i.esdrop.com/d/0w9ssozl3pla/KPuqJFQelQ.png">
@@ -90,16 +64,24 @@
 
 ### 시퀀스 다이어그램(Sequence Diagram)
 
-업무의 처리 순서를 알 수 있도록 만든 다이어그램
+### flow chart
+관리자 기능중 -1
+<img src="https://user-images.githubusercontent.com/88869260/144250759-413dc666-3d12-4f2d-905f-1cc933f90cc0.png">
 
-일반적으로 `기능별`로 작성한다
 
-#### 샘플 : 카카오페이 결제 Sequence Diagram(자유형식)
-<img src="https://www.cnspay.co.kr/images/sub/img-intro2-kakao-flow.gif" alt="카카오페이 흐름도" width="100%">
+게시판
+<img src="https://user-images.githubusercontent.com/88869260/144250958-83a49289-8cbd-45ce-9479-54c457dc738f.png">
 
-#### 샘플 : 네이버페이 정기결제 Sequence Diagram(일반적 형식)
-<img src="https://developer.pay.naver.com/static/img/recurrent-payments.png" width="100%" alt="네이버 정기결제 흐름도">
+회원
+<img src="https://user-images.githubusercontent.com/88869260/144251070-3cf33573-65b6-40b5-8593-e9115e9444f4.png">
 
-#### 참고사이트 : [WebSequenceDiagram](https://www.websequencediagrams.com/) , [DrawIO](https://www.draw.io/)
+상품
+<img src="https://user-images.githubusercontent.com/88869260/144251124-86a38bb8-b704-417a-8390-7f8cf72fea2b.png">
 
 ### 클래스 다이어그램(Class Diagram)
+통계
+<img src="https://user-images.githubusercontent.com/88869260/144251220-14bd8619-abd1-4adc-8410-22a65c91215b.png">
+
+
+상품
+<img src="https://user-images.githubusercontent.com/88869260/144251268-c316a8c1-5673-44d8-852b-22a43ad0a05a.png">
