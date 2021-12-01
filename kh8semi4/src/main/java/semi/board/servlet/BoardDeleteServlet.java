@@ -21,10 +21,8 @@ public class BoardDeleteServlet extends HttpServlet {
 			BoardDao boardDao = new BoardDao();
 			BoardDto boardDto = boardDao.get(boardNo);
 			
-			if(memberId.equals(boardDto.getMemberId())) {
-				boardDao.delete(boardNo);
-			}
-			
+			boardDao.delete(boardNo);
+		
 			response.sendRedirect("/kh8semi4/board/list.jsp?no="+boardDto.getBoardTypeNo());
 			
 		} catch (Exception e) {

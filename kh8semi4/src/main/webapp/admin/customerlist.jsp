@@ -39,7 +39,7 @@
 					<td><%=member.getJoin()%></td>
 					<td>
 						<a href="./customerdetail.jsp?memberId=<%=member.getId()%>">수정</a>
-						<a href="#">탈퇴</a>
+						<a href="<%=request.getContextPath()%>/admin/quit.kj?memberId=<%=member.getId()%>">탈퇴</a>
 					</td>
 					<td><a href="./ordermanagement.jsp?memberId=<%=member.getId()%>">주문서확인</a></td>
 				</tr>
