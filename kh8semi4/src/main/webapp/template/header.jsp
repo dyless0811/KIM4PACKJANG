@@ -210,7 +210,7 @@
         <header>
             <div class="flex-container">
                 <div class="flex-equal">
-                    <span id="hamburger-btn">&#9776;</span>
+                    <span id="hamburger-btn">&#9776; ALL CATEGORY</span>
                 </div>
 
                 <div class="flex-equal center">
