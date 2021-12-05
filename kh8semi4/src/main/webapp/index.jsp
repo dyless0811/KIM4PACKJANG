@@ -57,17 +57,17 @@ padding:  0 0 21px 21px
 
 	<div class="slide">
 	    <ul>
-	      <li><img src="/kh8semi4/image/freedeilvery.png" width="100%" height="100%"></li>
-	      <li><img src="/kh8semi4/image/banner1.jpg"  width="100%" height="100%"></li>
-	      <li><img src="/kh8semi4/image/center-1.jpg" width="100%" height="100%"></li>
-	      <li><img src="/kh8semi4/image/2.png" width="100%" height="100%"></li>
+	      <li><img src="<%=request.getContextPath()%>/image/freedeilvery.png" width="100%" height="100%"></li>
+	      <li><img src="<%=request.getContextPath()%>/image/banner1.jpg"  width="100%" height="100%"></li>
+	      <li><img src="<%=request.getContextPath()%>/image/center-1.jpg" width="100%" height="100%"></li>
+	      <li><img src="<%=request.getContextPath()%>/image/2.png" width="100%" height="100%"></li>
 	    </ul>
 	  </div>
 </div>
   
   <div class="container-1500 container-center">
    <div class="center">
-   	<img src="/kh8semi4/image/BEST.png">
+   	<img src="<%=request.getContextPath()%>/image/BEST.png">
    </div>	
   </div>
  <hr>

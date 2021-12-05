@@ -114,5 +114,6 @@
 	<input type="number"  name="stockChange" min="-100000000" max="100000000" placeholder="개수입력">
 	<input type="submit" value="추가하기">
 </form>
+<a href="<%=request.getContextPath()%>/admin/stock.jsp">돌아가기</a>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

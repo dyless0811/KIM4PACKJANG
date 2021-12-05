@@ -25,7 +25,7 @@ public class ReplyAddServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String savePath = "C:/upload/kh84/reply/";
+			String savePath = "D:/upload/kh84/reply/";
 			System.out.println(savePath);
 			
 			int maxSize = 30 * 1024 * 1024;

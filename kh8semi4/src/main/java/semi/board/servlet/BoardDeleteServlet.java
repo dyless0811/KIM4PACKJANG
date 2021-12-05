@@ -23,7 +23,7 @@ public class BoardDeleteServlet extends HttpServlet {
 			
 			boardDao.delete(boardNo);
 		
-			response.sendRedirect("/kh8semi4/board/list.jsp?no="+boardDto.getBoardTypeNo());
+			response.sendRedirect(request.getContextPath()+"/board/list.jsp?no="+boardDto.getBoardTypeNo());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

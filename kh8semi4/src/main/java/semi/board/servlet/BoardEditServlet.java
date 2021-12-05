@@ -25,7 +25,7 @@ public class BoardEditServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String savePath = "C:/upload/kh84/board/";
+			String savePath = "D:/upload/kh84/board/";
 			int maxSize = 10  * 1024 * 1024;
 			String encoding = "UTF-8";
 			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();
@@ -76,7 +76,7 @@ public class BoardEditServlet extends HttpServlet {
 				break;
 			}
 			
-			response.sendRedirect("/kh8semi4/board/detail.jsp?no="+boardNo);
+			response.sendRedirect(request.getContextPath()+"/board/detail.jsp?no="+boardNo);
 		} catch (Exception e) {
 			response.sendError(500);
 			e.printStackTrace();

@@ -3,6 +3,11 @@ $(function () {
 	var productNo = $("#product-no").text();
     var productName = $("#product-name").text();
     var productPrice = $("#product-price").text();
+
+	
+    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+    var conPath = location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+
     
     function calcTotal () { 
       var totalPrice = 0;
@@ -22,13 +27,13 @@ $(function () {
 	  var stock = 0;	  
 
       $(".RkRNd").show();
-      
+
  	  if (sizeNo == "" || colorNo == "") {
         alert("색상과 사이즈를 선택해주세요!");
         return;
       }
 	  $.ajax({
-      url : "/kh8semi4/product/stock-colorsize.kj",
+      url : `${conPath}/product/stock-colorsize.kj`,
 		type : "post",
 		data : {//전송 시 첨부할 파라미터 정보
 				  productNo : productNo,
