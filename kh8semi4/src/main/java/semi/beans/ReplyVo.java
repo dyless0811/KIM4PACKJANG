@@ -47,6 +47,9 @@ public class ReplyVo {
 		this.content = content;
 	}
 	public String getMemberId() {
+		if(memberId == null) {
+			return "탈퇴한사용자";
+		}
 		return memberId;
 	}
 	public void setMemberId(String memberId) {
