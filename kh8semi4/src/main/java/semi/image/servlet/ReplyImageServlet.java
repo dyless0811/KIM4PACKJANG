@@ -28,7 +28,7 @@ public class ReplyImageServlet extends HttpServlet {
 			ReplyImageDao replyIamgeDao= new ReplyImageDao();
 			ReplyImageDto replyImageDto = replyIamgeDao.getByReplyNo(replyNo);
 			
-			File dir=new File("C:/upload/kh84/reply");
+			File dir=new File("D:/upload/kh84/reply");
 			File target =new File(dir,replyImageDto.getReplySaveName());
 			InputStream in = new FileInputStream(target);
 			byte[] buffer = new byte[8192];

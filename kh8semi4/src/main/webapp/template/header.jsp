@@ -214,15 +214,14 @@
                 </div>
 
                 <div class="flex-equal center">
-                    <a href="/kh8semi4"><img src="/kh8semi4/image/logo.png"></a>
+                    <a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/image/logo.png"></a>
                 </div>
 
                 <div class="flex-equal right">
-             		  <%if(login) {%>
+             		<%if(login) {%>
                 	<span>[<%=session.getAttribute("loginId")%>]님</span>
                 	<span>[<%=session.getAttribute("grade") %>]등급</span>
                 	
-                	<span>[<%=session.getAttribute("findpw") %>]</span>
                 	<%} %>
                 </div>
                 

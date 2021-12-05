@@ -26,7 +26,7 @@ public class BoardImageServlet extends HttpServlet {
 			BoardImageDao boardIamgeDao= new BoardImageDao();
 			BoardImageDto boardImageDto = boardIamgeDao.getByBoardNo(boardNo);
 			
-			File dir=new File("C:/upload/kh84/board");
+			File dir=new File("D:/upload/kh84/board");
 			File target =new File(dir,boardImageDto.getBoardSaveName());
 			InputStream in = new FileInputStream(target);
 			byte[] buffer = new byte[8192];

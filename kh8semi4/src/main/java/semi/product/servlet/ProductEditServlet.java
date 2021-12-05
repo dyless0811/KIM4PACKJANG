@@ -21,7 +21,7 @@ public class ProductEditServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			String savePath="C:/upload/kh84/product";
+			String savePath="D:/upload/kh84/product";
 			int maxSize= 30 * 1024  * 1024;
 			String encoding ="UTF-8";
 			DefaultFileRenamePolicy policy = new DefaultFileRenamePolicy();

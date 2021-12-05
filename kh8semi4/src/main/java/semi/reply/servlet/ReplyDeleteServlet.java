@@ -26,7 +26,7 @@ public class ReplyDeleteServlet extends HttpServlet {
 				replyDao.delete(replyNo);
 			}
 			
-			response.sendRedirect("/kh8semi4/myshop/board/myboard");
+			response.sendRedirect(request.getContextPath()+"/myshop/board/myboard");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

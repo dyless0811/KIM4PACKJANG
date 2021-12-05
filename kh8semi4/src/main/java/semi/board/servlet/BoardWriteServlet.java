@@ -25,7 +25,7 @@ public class BoardWriteServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String savePath = "C:/upload/kh84/board/";
+			String savePath = "D:/upload/kh84/board/";
 			System.out.println(savePath);
 			
 			int maxSize = 30  * 1024 * 1024;
@@ -69,8 +69,7 @@ public class BoardWriteServlet extends HttpServlet {
 				BoardImageDao boardFileDao = new BoardImageDao();
 				boardFileDao.insert(boardImageDto);
 			}
-			
-			response.sendRedirect("/kh8semi4/board/detail.jsp?no="+boardNo);
+			response.sendRedirect(request.getContextPath()+"/board/detail.jsp?no="+boardNo);
 		} catch (Exception e) {
 			response.sendError(500);
 			e.printStackTrace();
