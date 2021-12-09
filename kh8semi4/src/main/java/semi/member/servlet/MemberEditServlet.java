@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semi.beans.MemberDao;
 import semi.beans.MemberDto;
+import semi.beans.sha256;
 
 @WebServlet(urlPatterns = "/member/edit.kj")
 public class MemberEditServlet extends HttpServlet {
@@ -20,7 +21,7 @@ public class MemberEditServlet extends HttpServlet {
 			// = 세션 : id (loginId)
 			MemberDto memberDto = new MemberDto();
 			memberDto.setId((String) req.getSession().getAttribute("loginId"));// 세션
-			memberDto.setPw(req.getParameter("pw"));// 파라미터
+			memberDto.setPw(sha256.encodeSha256(req.getParameter("pw")));// 파라미터
 			memberDto.setName(req.getParameter("name"));// 파라미터
 			memberDto.setAddress(req.getParameter("address"));// 파라미터
 			memberDto.setPhone(req.getParameter("phone"));// 파라미터
