@@ -1,4 +1,4 @@
-# KH SEMI PROJECT KIM4PACKJANG
+# KIM4PACKJANG(김포박장)
 <img src="https://i.esdrop.com/d/0w9ssozl3pla/wrQybLWLJ5.png">
 
 
@@ -78,10 +78,3 @@ https://bymono.com/
 상품
 <img src="https://user-images.githubusercontent.com/88869260/144251124-86a38bb8-b704-417a-8390-7f8cf72fea2b.png">
 
-### 클래스 다이어그램(Class Diagram)
-통계
-<img src="https://user-images.githubusercontent.com/88869260/144251220-14bd8619-abd1-4adc-8410-22a65c91215b.png">
-
-
-상품
-<img src="https://user-images.githubusercontent.com/88869260/144251268-c316a8c1-5673-44d8-852b-22a43ad0a05a.png">
